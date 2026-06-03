@@ -210,11 +210,11 @@ body {
   transform: scale(1.03);
   color: #c084f5;
   text-shadow:
-    0 0  8px rgba(192, 132, 245, 0.95),
-    0 0 16px rgba(168, 120, 208, 0.85),
-    0 0 32px rgba(168, 120, 208, 0.65),
-    0 0 64px rgba(142,  95, 182, 0.40),
-    0 0 96px rgba(142,  95, 182, 0.20);
+    0 0  8px rgba(192, 132, 245, 0.48),
+    0 0 16px rgba(168, 120, 208, 0.43),
+    0 0 32px rgba(168, 120, 208, 0.33),
+    0 0 64px rgba(142,  95, 182, 0.20),
+    0 0 96px rgba(142,  95, 182, 0.10);
   /* enter = 3× slower than --dur (840ms) */
   transition:
     transform   840ms var(--ease),
@@ -245,11 +245,13 @@ body {
   padding: 16px;
 }
 
-.hero-plate img {
+.hero-plate img,
+.hero-plate video {
   width: 100%;
   border-radius: calc(var(--r-card) - 16px);
   aspect-ratio: 1040 / 585;
   object-fit: cover;
+  display: block;
 }
 
 /* Hero copy */
@@ -459,6 +461,25 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* ---- slow chaotic pulse (different duration + delay per card) ---- */
+@keyframes photo-breathe {
+  0%, 100% { transform: scale(1);     opacity: 1;    }
+  50%       { transform: scale(1.03); opacity: 0.93; }
+}
+
+.collections-grid .collection-card:nth-child(1) .collection-card-inner img {
+  animation: photo-breathe 9s ease-in-out infinite;
+  animation-delay: -2.3s;
+}
+.collections-grid .collection-card:nth-child(2) .collection-card-inner img {
+  animation: photo-breathe 12s ease-in-out infinite;
+  animation-delay: -7.1s;
+}
+.collections-grid .collection-card:nth-child(3) .collection-card-inner img {
+  animation: photo-breathe 8s ease-in-out infinite;
+  animation-delay: -4.7s;
 }
 
 /* Frosted caption bar */

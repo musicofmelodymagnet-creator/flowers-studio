@@ -48,12 +48,9 @@
         </div>
 
         <div class="hero-plate">
-          <img
-            src="assets/hero-flower-wall.jpg"
-            alt="A stunning premium flower wall — lush roses and greenery, ivory and blush tones"
-            width="1040"
-            height="585"
-          />
+          <video autoplay loop muted playsinline aria-label="Premium flower wall backdrop">
+            <source src="Videos/Video for site.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <div class="hero-copy">
@@ -427,23 +424,22 @@
        JAVASCRIPT — Accordion · Nav · Form
        ============================================================ -->
   <script>
-    // ── Accordion ──────────────────────────────────────────────
-    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const row = trigger.closest('.accordion-row');
-        const isOpen = row.classList.contains('open');
+    // ── Accordion — simultaneous open/close ────────────────────
+    // All classList.toggle calls run in ONE synchronous pass so the
+    // browser starts both the closing and opening CSS transitions in
+    // the same render frame (truly simultaneous).
+    const accordionRows = Array.from(document.querySelectorAll('.accordion-row'));
 
-        // Close all rows
-        document.querySelectorAll('.accordion-row').forEach(r => {
-          r.classList.remove('open');
-          r.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+    accordionRows.forEach(row => {
+      row.querySelector('.accordion-trigger').addEventListener('click', () => {
+        const wasOpen = row.classList.contains('open');
+
+        // Single synchronous pass — close everything, open target (if it was closed)
+        accordionRows.forEach(r => {
+          const shouldOpen = (r === row) && !wasOpen;
+          r.classList.toggle('open', shouldOpen);
+          r.querySelector('.accordion-trigger').setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
         });
-
-        // Open clicked row if it was closed
-        if (!isOpen) {
-          row.classList.add('open');
-          trigger.setAttribute('aria-expanded', 'true');
-        }
       });
     });
 
