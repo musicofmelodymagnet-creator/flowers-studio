@@ -210,11 +210,11 @@ body {
   transform: scale(1.03);
   color: #c084f5;
   text-shadow:
-    0 0  8px rgba(192, 132, 245, 0.48),
-    0 0 16px rgba(168, 120, 208, 0.43),
-    0 0 32px rgba(168, 120, 208, 0.33),
-    0 0 64px rgba(142,  95, 182, 0.20),
-    0 0 96px rgba(142,  95, 182, 0.10);
+    0 0  8px rgba(192, 132, 245, 0.34),
+    0 0 16px rgba(168, 120, 208, 0.30),
+    0 0 32px rgba(168, 120, 208, 0.23),
+    0 0 64px rgba(142,  95, 182, 0.14),
+    0 0 96px rgba(142,  95, 182, 0.07);
   /* enter = 3× slower than --dur (840ms) */
   transition:
     transform   840ms var(--ease),
@@ -397,8 +397,7 @@ body {
 
 .feature-card:hover {
   transform: translateY(-6px);
-  /* enter = 50% slower (420ms) */
-  transition: transform 420ms var(--ease);
+  transition: transform 550ms ease-in-out;
 }
 
 .feature-card h3 {
@@ -446,8 +445,7 @@ body {
 
 .collection-card:hover {
   transform: translateY(-6px);
-  /* enter = 50% slower (420ms) */
-  transition: transform 420ms var(--ease);
+  transition: transform 550ms ease-in-out;
 }
 
 .collection-card-inner {
@@ -549,10 +547,9 @@ body {
   background: #f8f4f1;
   box-shadow: var(--elev-sm);
   overflow: hidden;
-  transition: box-shadow 700ms ease-in-out, transform var(--dur) var(--ease);
+  transition: box-shadow 700ms ease-in-out;
 }
 
-.accordion-row:hover:not(.open) { transform: translateY(-2px); }
 .accordion-row.open { box-shadow: var(--elev-hover); }
 
 .accordion-trigger {
@@ -562,7 +559,7 @@ body {
   display: flex;
   align-items: center;
   gap: 22px;
-  padding: 24px 28px;
+  padding: 19px 28px;
   text-align: left;
 }
 
@@ -609,21 +606,25 @@ body {
 
 .accordion-chevron svg { width: 20px; height: 20px; stroke-width: 2; }
 
+/* CSS grid trick — animates the real content height (not a fixed max-height cap)
+   so opening and closing are mirror images that start simultaneously */
 .accordion-body {
-  max-height: 0;
-  overflow: hidden;
+  display: grid;
+  grid-template-rows: 0fr;
   opacity: 0;
   transition:
-    max-height 700ms ease-in-out,
-    opacity    700ms ease-in-out;
+    grid-template-rows 700ms ease-in-out,
+    opacity            700ms ease-in-out;
 }
 
 .accordion-row.open .accordion-body {
-  max-height: 240px;
+  grid-template-rows: 1fr;
   opacity: 1;
 }
 
 .accordion-body-inner {
+  overflow: hidden;
+  min-height: 0;
   padding: 0 28px 26px 78px;
 }
 
