@@ -526,14 +526,14 @@ body {
    ================================================================ */
 .distinction {
   width: 100%;
-  max-width: 1072px;
+  max-width: 900px;
   border-radius: var(--r-panel);
   background: var(--surface-distinct);
   box-shadow: var(--inset-lg);
-  padding: 72px 72px 76px;
+  padding: 48px 56px 52px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 32px;
 }
 
 .distinction-list {
@@ -543,7 +543,7 @@ body {
 }
 
 .accordion-row {
-  border-radius: 24px;
+  border-radius: 16px;
   background: #f8f4f1;
   box-shadow: var(--elev-sm);
   overflow: hidden;
@@ -553,17 +553,23 @@ body {
 .accordion-row.open { box-shadow: var(--elev-hover); }
 
 .accordion-trigger {
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
   width: 100%;
   border: none;
   background: transparent;
   cursor: pointer;
-  /* fixed height — accordion-body is a sibling, never affects trigger size */
-  height: 46px;
+  /* fixed height — accordion-body is a SIBLING, never inflates this */
+  height: 32px;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   gap: 22px;
   padding: 0 28px;
   text-align: left;
+  overflow: hidden;
 }
 
 .accordion-number {
@@ -1064,7 +1070,8 @@ body {
 
   /* Distinction */
   .distinction { padding: 40px 20px 44px; border-radius: 32px; }
-  .accordion-trigger { height: 44px; padding: 0 20px; gap: 14px; }
+  .accordion-trigger { height: 40px; padding: 0 16px; gap: 12px; }
+  .distinction { padding: 32px 20px 36px; max-width: 100%; gap: 20px; }
   .accordion-title { font-size: 16px; line-height: 1.35; }
   .accordion-body-inner { padding: 0 20px 20px 20px; }
   .accordion-number { width: 22px; font-size: 14px; }
