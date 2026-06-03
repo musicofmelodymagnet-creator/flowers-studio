@@ -16,6 +16,28 @@
 <body>
 
   <!-- ============================================================
+       MOBILE TOP BAR (sticky — visible on mobile only)
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <span class="mobile-wordmark">FLORINSKY</span>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="#gallery"       class="mobile-nav-link">Gallery</a>
+    <a href="#collections"   class="mobile-nav-link">Collections</a>
+    <a href="#process"       class="mobile-nav-link">Process</a>
+    <a href="#testimonials"  class="mobile-nav-link">Testimonials</a>
+    <a href="#about"         class="mobile-nav-link">About</a>
+    <a href="#contact"       class="mobile-nav-link">Contact</a>
+  </div>
+
+  <!-- ============================================================
        TOP NAV
        ============================================================ -->
   <div class="site-shell">
@@ -497,6 +519,34 @@
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ── Mobile hamburger menu ───────────────────────────────────
+    const mobileBurger  = document.getElementById('mobileBurger');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMobileMenu(forceClose) {
+      const isOpen = mobileOverlay.classList.contains('open') || forceClose;
+      mobileOverlay.classList.toggle('open', !isOpen);
+      mobileBurger.classList.toggle('open', !isOpen);
+      mobileBurger.setAttribute('aria-expanded', String(!isOpen));
+      mobileOverlay.setAttribute('aria-hidden', String(isOpen));
+      // Prevent body scroll while menu is open
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+
+    mobileBurger.addEventListener('click', () => toggleMobileMenu(false));
+
+    // Close menu when any overlay link is clicked
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => toggleMobileMenu(true));
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) {
+        toggleMobileMenu(true);
+      }
+    });
   </script>
 
 </body>
