@@ -18,7 +18,7 @@ a { text-decoration: none; }
   --surface-rose:     #DECED2;
   --surface-lilac:    #C4BAD3;
   --surface-form:     #D4D6DB;
-  --surface-distinct: #DBCFE2;
+  --surface-distinct: #dbcfd2;
   --frame:            #C3BDCF;
 
   /* Ink */
@@ -141,7 +141,8 @@ body {
   font: 500 16px/1.5 var(--font-sans);
   color: var(--ink-soft);
   white-space: nowrap;
-  transition: color var(--dur) var(--ease);
+  /* leave = 2s ease-in-out */
+  transition: color 2s ease-in-out;
   padding-bottom: 4px;
 }
 
@@ -155,10 +156,18 @@ body {
   height: 6px;
   border-radius: 9999px;
   background: var(--brand);
-  transition: width var(--dur) var(--ease);
+  /* leave = 2s ease-in-out */
+  transition: width 2s ease-in-out;
 }
 
-.nav-link:hover { color: var(--brand); }
+.nav-link:hover {
+  color: var(--brand);
+  /* enter = fast */
+  transition: color var(--dur) var(--ease);
+}
+.nav-link:hover::after {
+  transition: width var(--dur) var(--ease);
+}
 .nav-link.active {
   font-weight: 600;
   color: var(--brand-deep);
@@ -189,6 +198,29 @@ body {
   font: 400 68px/1 var(--font-display);
   letter-spacing: 0.05em;
   color: var(--brand);
+  display: inline-block;
+  cursor: default;
+  /* leave = 2s ease-in-out */
+  transition:
+    transform   2s ease-in-out,
+    text-shadow 2s ease-in-out,
+    color       2s ease-in-out;
+}
+
+.wordmark:hover {
+  transform: scale(1.15);
+  color: #c084f5;
+  text-shadow:
+    0 0  8px rgba(192, 132, 245, 0.95),
+    0 0 16px rgba(168, 120, 208, 0.85),
+    0 0 32px rgba(168, 120, 208, 0.65),
+    0 0 64px rgba(142,  95, 182, 0.40),
+    0 0 96px rgba(142,  95, 182, 0.20);
+  /* enter = fast */
+  transition:
+    transform   var(--dur) var(--ease),
+    text-shadow var(--dur) var(--ease),
+    color       var(--dur) var(--ease);
 }
 
 .wordmark-tagline {
@@ -358,10 +390,15 @@ body {
   align-items: center;
   gap: 18px;
   text-align: center;
-  transition: transform var(--dur) var(--ease);
+  /* leave = 2s ease-in-out */
+  transition: transform 2s ease-in-out;
 }
 
-.feature-card:hover { transform: translateY(-6px); }
+.feature-card:hover {
+  transform: translateY(-6px);
+  /* enter = fast */
+  transition: transform var(--dur) var(--ease);
+}
 
 .feature-card h3 {
   font: 700 32px/1.25 var(--font-sans);
@@ -402,10 +439,15 @@ body {
   box-shadow: var(--elev-md);
   padding: 16px;
   cursor: pointer;
-  transition: transform var(--dur) var(--ease);
+  /* leave = 2s ease-in-out */
+  transition: transform 2s ease-in-out;
 }
 
-.collection-card:hover { transform: translateY(-6px); }
+.collection-card:hover {
+  transform: translateY(-6px);
+  /* enter = fast */
+  transition: transform var(--dur) var(--ease);
+}
 
 .collection-card-inner {
   position: relative;
@@ -484,7 +526,7 @@ body {
 
 .accordion-row {
   border-radius: 24px;
-  background: var(--surface);
+  background: #f8f4f1;
   box-shadow: var(--elev-sm);
   overflow: hidden;
   transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
@@ -724,16 +766,22 @@ body {
   display: grid;
   place-items: center;
   color: var(--ink);
+  /* leave = 2s ease-in-out */
   transition:
-    box-shadow var(--dur) var(--ease),
-    transform  var(--dur) var(--ease),
-    color      var(--dur) var(--ease);
+    box-shadow 2s ease-in-out,
+    transform  2s ease-in-out,
+    color      2s ease-in-out;
 }
 
 .social-link:hover {
   box-shadow: var(--elev-hover);
   transform: translateY(-3px);
   color: var(--brand);
+  /* enter = fast */
+  transition:
+    box-shadow var(--dur) var(--ease),
+    transform  var(--dur) var(--ease),
+    color      var(--dur) var(--ease);
 }
 
 .social-link svg { width: 23px; height: 23px; stroke-width: 1.75; }
