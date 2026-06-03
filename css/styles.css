@@ -172,7 +172,6 @@ body {
   font-weight: 600;
   color: var(--brand-deep);
 }
-.nav-link.active::after { width: 6px; }
 
 /* ================================================================
    HERO
@@ -208,7 +207,7 @@ body {
 }
 
 .wordmark:hover {
-  transform: scale(1.15);
+  transform: scale(1.03);
   color: #c084f5;
   text-shadow:
     0 0  8px rgba(192, 132, 245, 0.95),
@@ -216,11 +215,11 @@ body {
     0 0 32px rgba(168, 120, 208, 0.65),
     0 0 64px rgba(142,  95, 182, 0.40),
     0 0 96px rgba(142,  95, 182, 0.20);
-  /* enter = fast */
+  /* enter = 3× slower than --dur (840ms) */
   transition:
-    transform   var(--dur) var(--ease),
-    text-shadow var(--dur) var(--ease),
-    color       var(--dur) var(--ease);
+    transform   840ms var(--ease),
+    text-shadow 840ms var(--ease),
+    color       840ms var(--ease);
 }
 
 .wordmark-tagline {
@@ -396,8 +395,8 @@ body {
 
 .feature-card:hover {
   transform: translateY(-6px);
-  /* enter = fast */
-  transition: transform var(--dur) var(--ease);
+  /* enter = 50% slower (420ms) */
+  transition: transform 420ms var(--ease);
 }
 
 .feature-card h3 {
@@ -445,8 +444,8 @@ body {
 
 .collection-card:hover {
   transform: translateY(-6px);
-  /* enter = fast */
-  transition: transform var(--dur) var(--ease);
+  /* enter = 50% slower (420ms) */
+  transition: transform 420ms var(--ease);
 }
 
 .collection-card-inner {
@@ -529,7 +528,7 @@ body {
   background: #f8f4f1;
   box-shadow: var(--elev-sm);
   overflow: hidden;
-  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  transition: box-shadow 700ms ease-in-out, transform var(--dur) var(--ease);
 }
 
 .accordion-row:hover:not(.open) { transform: translateY(-2px); }
@@ -552,7 +551,7 @@ body {
   color: var(--brand);
   flex-shrink: 0;
   width: 28px;
-  transition: color var(--dur) var(--ease);
+  transition: color 700ms ease-in-out;
 }
 
 .accordion-row.open .accordion-number { color: var(--brand-deep); }
@@ -561,7 +560,7 @@ body {
   flex: 1;
   font: 600 19px/1.4 var(--font-sans);
   color: var(--ink);
-  transition: color var(--dur) var(--ease);
+  transition: color 700ms ease-in-out;
 }
 
 .accordion-row.open .accordion-title { color: var(--brand-deep); }
@@ -575,8 +574,9 @@ body {
   place-items: center;
   box-shadow: var(--elev-sm);
   transition:
-    transform  var(--dur) var(--ease),
-    box-shadow var(--dur) var(--ease);
+    transform  700ms ease-in-out,
+    box-shadow 700ms ease-in-out,
+    color      700ms ease-in-out;
   color: var(--ink-mauve);
 }
 
@@ -593,8 +593,8 @@ body {
   overflow: hidden;
   opacity: 0;
   transition:
-    max-height var(--dur) var(--ease),
-    opacity    var(--dur) var(--ease);
+    max-height 700ms ease-in-out,
+    opacity    700ms ease-in-out;
 }
 
 .accordion-row.open .accordion-body {
@@ -620,6 +620,16 @@ body {
   color: var(--ink-soft);
   margin: 0;
   max-width: 760px;
+}
+
+.distinction-closing {
+  text-align: center;
+  font: 600 18px/1.6 var(--font-sans);
+  color: var(--ink-mauve);
+  letter-spacing: 0.01em;
+  margin: 0;
+  padding-top: 8px;
+  opacity: 0.85;
 }
 
 /* ================================================================
