@@ -194,7 +194,7 @@ body {
 }
 
 .wordmark {
-  font: 400 68px/1 var(--font-display);
+  font: 400 61px/1 var(--font-display);
   letter-spacing: 0.05em;
   color: var(--brand);
   display: inline-block;
@@ -264,7 +264,7 @@ body {
 }
 
 .hero-copy h1 {
-  font: 700 80px/1.25 var(--font-sans);
+  font: 700 64px/1.25 var(--font-sans);
   letter-spacing: -0.01em;
   color: var(--ink-mauve);
   margin: 0;
@@ -560,7 +560,7 @@ body {
   border: none;
   background: transparent;
   cursor: pointer;
-  height: 44px;           /* fixed height for the trigger row only */
+  height: 33px;
   display: flex;
   flex-direction: row;
   align-items: center;    /* strict vertical center */
@@ -614,27 +614,22 @@ body {
 
 .accordion-chevron svg { width: 14px; height: 14px; stroke-width: 2; }
 
-/* CSS grid trick — animates the real content height (not a fixed max-height cap)
-   so opening and closing are mirror images that start simultaneously */
 .accordion-body {
-  display: grid;
-  grid-template-rows: 0fr;
-  overflow: hidden;   /* CRITICAL: forces true 0-height collapse */
+  max-height: 0;
+  overflow: hidden;
   opacity: 0;
   transition:
-    grid-template-rows 700ms ease-in-out,
-    opacity            700ms ease-in-out;
+    max-height 700ms ease-in-out,
+    opacity    700ms ease-in-out;
 }
 
 .accordion-row.open .accordion-body {
-  grid-template-rows: 1fr;
+  max-height: 300px;
   opacity: 1;
 }
 
 .accordion-body-inner {
-  overflow: hidden;
-  min-height: 0;
-  padding: 0 28px 26px 78px;
+  padding: 0 28px 24px 28px;
 }
 
 .accordion-accent-rule {
@@ -998,7 +993,7 @@ body {
   .page-stack { padding: 0 40px 64px; gap: 96px; }
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
-  .hero-copy h1  { font-size: 60px; }
+  .hero-copy h1  { font-size: 48px; }
   .distinction   { padding: 48px 40px 52px; }
   .inquiry       { padding: 64px 56px; }
   .site-footer   { padding: 48px 40px; }
@@ -1010,7 +1005,7 @@ body {
 @media (max-width: 900px) {
   .nav-pill  { gap: 20px; padding: 0 24px; }
   .nav-link  { font-size: 14px; }
-  .hero-copy h1 { font-size: 52px; }
+  .hero-copy h1 { font-size: 42px; }
   .collections-grid { gap: 24px; }
   .features { gap: 24px; }
 }
@@ -1029,7 +1024,7 @@ body {
 
   /* Hero */
   .hero { gap: 40px; padding: 28px 0 0; }
-  .wordmark { font-size: 44px; }
+  .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; }
   .tagline-rule { width: 28px; }
   .hero-copy h1 {
@@ -1070,7 +1065,7 @@ body {
 
   /* Distinction */
   .distinction { padding: 40px 20px 44px; border-radius: 32px; }
-  .accordion-trigger { height: 40px; padding: 0 16px; gap: 12px; }
+  .accordion-trigger { height: 33px; padding: 0 16px; gap: 12px; }
   .distinction { padding: 32px 20px 36px; max-width: 100%; gap: 20px; }
   .accordion-title { font-size: 16px; line-height: 1.35; }
   .accordion-body-inner { padding: 0 20px 20px 20px; }
