@@ -543,7 +543,17 @@ body {
 }
 
 .distinction--raised .accordion-row {
-  background: var(--surface);   /* cream rows pop against the rose base */
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.distinction--raised .accordion-row.open {
+  box-shadow: none;
+}
+
+.distinction--raised .distinction-list {
+  gap: 0;
 }
 
 .distinction-list {
