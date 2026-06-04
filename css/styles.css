@@ -553,7 +553,7 @@ body {
 }
 
 .distinction--raised .distinction-list {
-  gap: 0;
+  gap: 18px;
 }
 
 .distinction-list {
