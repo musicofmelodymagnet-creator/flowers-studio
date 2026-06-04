@@ -552,6 +552,19 @@ body {
   box-shadow: none;
 }
 
+/* Chevron on rose surface — soft calibrated shadow, no white bubble */
+.distinction--raised .accordion-chevron {
+  box-shadow:
+    -3px -3px 7px rgba(255, 255, 255, 0.38),
+     3px  3px 7px rgba(112,  96, 110, 0.18);
+}
+
+.distinction--raised .accordion-row.open .accordion-chevron {
+  box-shadow:
+    inset -2px -2px 6px rgba(255, 255, 255, 0.32),
+    inset  2px  2px 6px rgba(112,  96, 110, 0.16);
+}
+
 .distinction--raised .distinction-list {
   gap: 18px;
 }
