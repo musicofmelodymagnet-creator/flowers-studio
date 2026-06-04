@@ -663,14 +663,14 @@ body {
    ================================================================ */
 .inquiry {
   width: 100%;
-  max-width: 896px;
+  max-width: 717px;
   border-radius: var(--r-panel);
   background: var(--surface-form);
   box-shadow: var(--inset-lg);
-  padding: 88px 88px 92px;
+  padding: 70px 70px 74px;
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: 45px;
 }
 
 .inquiry-header {
@@ -682,7 +682,7 @@ body {
 }
 
 .inquiry-header h2 {
-  font: 700 54px/1.5 var(--font-sans);
+  font: 700 43px/1.4 var(--font-sans);
   letter-spacing: -0.025em;
   color: var(--ink);
   margin: 0;
@@ -698,13 +698,13 @@ body {
 .form-body {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 22px;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 26px;
 }
 
 .form-field {
@@ -774,7 +774,7 @@ body {
 .form-submit {
   display: flex;
   justify-content: center;
-  padding-top: 32px;
+  padding-top: 26px;
 }
 
 /* ================================================================
