@@ -536,6 +536,16 @@ body {
   gap: 32px;
 }
 
+/* Raised variant — matches feature card aesthetic */
+.distinction--raised {
+  background: var(--surface-rose);
+  box-shadow: var(--elev-md);
+}
+
+.distinction--raised .accordion-row {
+  background: var(--surface);   /* cream rows pop against the rose base */
+}
+
 .distinction-list {
   display: flex;
   flex-direction: column;
