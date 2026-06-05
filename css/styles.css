@@ -1018,11 +1018,11 @@ body {
 /* ② Story panel — cream background, full reading text */
 .about-story {
   background: var(--surface);
-  padding: 52px 60px;
+  padding: 52px 60px 60px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 800px;   /* comfortable reading width */
+  /* no max-width — fills the full card width like the identity panel */
 }
 
 .about-bio {
