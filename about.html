@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — FLORINSKY Atelier</title>
+  <meta name="description" content="FLORINSKY Atelier — founded by Ruslan Orlinsky, a professional wedding photographer with 19 years of experience in the industry." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="index.html"         class="mobile-nav-link">Welcome</a>
+    <a href="index.html#gallery" class="mobile-nav-link">Gallery</a>
+    <a href="advantages.html"    class="mobile-nav-link">Our Advantages</a>
+    <a href="index.html#process" class="mobile-nav-link">Process</a>
+    <a href="index.html#testimonials" class="mobile-nav-link">Testimonials</a>
+    <a href="about.html"         class="mobile-nav-link" style="color:var(--brand)">About</a>
+    <a href="index.html#contact" class="mobile-nav-link">Contact</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="index.html"              class="nav-link">Welcome</a>
+        <a href="index.html#gallery"      class="nav-link">Gallery</a>
+        <a href="advantages.html"         class="nav-link">Our Advantages</a>
+        <a href="index.html#process"      class="nav-link">Process</a>
+        <a href="index.html#testimonials" class="nav-link">Testimonials</a>
+        <a href="about.html"              class="nav-link active">About</a>
+        <a href="index.html#contact"      class="nav-link">Contact</a>
+      </div>
+    </nav>
+
+    <main class="page-stack">
+
+      <!-- Page header -->
+      <div class="about-page-header">
+        <span class="section-label">Our Story</span>
+        <h1>About Us</h1>
+        <span class="section-title-rule"></span>
+      </div>
+
+      <!-- About card -->
+      <article class="about-card">
+
+        <!-- Photo side -->
+        <div class="about-photo-side">
+          <div class="about-photo-plate">
+            <img
+              src="assets/ava.jpg"
+              alt="Ruslan Orlinsky — Founder of FLORINSKY Atelier"
+            />
+          </div>
+        </div>
+
+        <!-- Content side -->
+        <div class="about-content">
+          <span class="section-label">Founder</span>
+          <h2 class="about-name">Ruslan Orlinsky</h2>
+          <p class="about-title">Creative Director &amp; Founder · FLORINSKY Atelier</p>
+
+          <span class="about-divider"></span>
+
+          <p class="about-bio">
+            FLORINSKY is a premium floral atelier founded by Ruslan Orlinsky,
+            a professional wedding photographer with 19 years of industry experience.
+            Every floral wall we create is shaped by a photographer's eye — a deep
+            understanding of how light, color, and composition come together to produce
+            images that guests remember forever.
+          </p>
+
+          <p class="about-bio">
+            What began as a quest for the perfect backdrop for his own photography
+            clients evolved into a full atelier dedicated to redefining what floral
+            walls can be. Botanical realism, exclusive design, and ironclad reliability
+            are not marketing promises — they are the standards Ruslan built this
+            company on.
+          </p>
+
+          <a
+            href="https://www.orlinsky.ca"
+            class="about-portfolio"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Photography Portfolio
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+            </svg>
+          </a>
+        </div>
+
+      </article>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
+        <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Terms of Use</a>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">FAQ</a>
+        <a href="#" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Mobile hamburger ────────────────────────────────────────
+    const mobileBurger  = document.getElementById('mobileBurger');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu(close) {
+      const open = mobileOverlay.classList.contains('open') || close;
+      mobileOverlay.classList.toggle('open', !open);
+      mobileBurger.classList.toggle('open', !open);
+      mobileBurger.setAttribute('aria-expanded', String(!open));
+      mobileOverlay.setAttribute('aria-hidden', String(open));
+      document.body.style.overflow = open ? '' : 'hidden';
+    }
+
+    mobileBurger.addEventListener('click', () => toggleMenu(false));
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(l =>
+      l.addEventListener('click', () => toggleMenu(true))
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
+    });
+  </script>
+
+</body>
+</html>

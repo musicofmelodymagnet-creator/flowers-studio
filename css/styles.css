@@ -927,6 +927,151 @@ body {
 .footer-instagram svg { width: 16px; height: 16px; stroke-width: 1.75; }
 
 /* ================================================================
+   ABOUT US
+   ================================================================ */
+.about-page-header {
+  width: 100%;
+  max-width: 1072px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 0 0;
+  text-align: center;
+}
+
+.about-page-header h1 {
+  font: 700 56px/1.2 var(--font-sans);
+  color: var(--ink-mauve);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* Main card */
+.about-card {
+  width: 100%;
+  max-width: 1072px;
+  border-radius: var(--r-card);
+  background: var(--surface);
+  box-shadow: var(--elev-md);
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  overflow: hidden;
+}
+
+/* Photo side */
+.about-photo-side {
+  background: var(--surface-rose);
+  padding: 52px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Neumorphic portrait plate */
+.about-photo-plate {
+  border-radius: var(--r-card);
+  background: var(--surface);
+  box-shadow: var(--elev-lg);
+  padding: 14px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.about-photo-plate img {
+  width: 100%;
+  border-radius: calc(var(--r-card) - 14px);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Text side */
+.about-content {
+  padding: 56px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+}
+
+.about-name {
+  font: 700 52px/1.1 var(--font-sans);
+  color: var(--ink);
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.about-title {
+  font: 400 14px/1.5 var(--font-sans);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: -8px 0 0;
+}
+
+.about-divider {
+  width: 64px;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--brand), var(--ink-mauve));
+}
+
+.about-bio {
+  font: 400 17px/1.75 var(--font-sans);
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 500px;
+}
+
+.about-portfolio {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  margin-top: 4px;
+  font: 600 13px/1.5 var(--font-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease);
+  padding: 0;
+}
+
+.about-portfolio:hover { color: var(--brand-deep); }
+
+.about-portfolio svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.5;
+  transition: transform var(--dur) var(--ease);
+}
+
+.about-portfolio:hover svg { transform: translate(2px, -2px); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-card {
+    grid-template-columns: 1fr;
+  }
+  .about-photo-side { padding: 40px; }
+  .about-photo-plate { max-width: 260px; }
+  .about-content { padding: 40px 36px; }
+  .about-name { font-size: 40px; }
+}
+
+@media (max-width: 480px) {
+  .about-content { padding: 32px 20px; }
+  .about-name { font-size: 32px; }
+  .about-bio { font-size: 15px; }
+}
+
+/* ================================================================
    OUR ADVANTAGES
    ================================================================ */
 .advantages {
