@@ -219,19 +219,45 @@
   </footer>
 
   <script>
-    // ── Advantages expand / collapse — click anywhere on card ───
+    // ── Advantages expand / collapse ──────────────────────────
+    // Closing uses scrollHeight as the animation start point so the
+    // transition begins immediately — no "dead zone" from 800→actual.
     document.querySelectorAll('.adv-card').forEach(card => {
       card.addEventListener('click', () => {
         const btn    = card.querySelector('.adv-toggle');
         const target = document.getElementById(btn.dataset.target);
-        const isOpen = target.classList.contains('open');
+        const isOpen = btn.classList.contains('open');
 
-        target.classList.toggle('open', !isOpen);
+        if (isOpen) {
+          // Snap inline max-height to actual content height
+          target.style.maxHeight = target.scrollHeight + 'px';
+          target.offsetHeight;               // force reflow
+          target.style.maxHeight = '28px';   // transition starts NOW from real height
+          target.classList.remove('open');
+        } else {
+          target.classList.add('open');
+          target.style.maxHeight = target.scrollHeight + 'px';
+        }
+
         btn.classList.toggle('open', !isOpen);
         btn.setAttribute('aria-expanded', String(!isOpen));
         btn.querySelector('.adv-toggle-label').textContent = isOpen ? 'Read More' : 'Read Less';
       });
     });
+
+    // ── Equal card heights ──────────────────────────────────────
+    function equalizeCards() {
+      const cards = Array.from(document.querySelectorAll('.adv-card'));
+      cards.forEach(c => c.style.minHeight = '');          // reset
+      const max = Math.max(...cards.map(c => c.offsetHeight));
+      cards.forEach(c => c.style.minHeight = max + 'px');  // equalize
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(equalizeCards);
+    } else {
+      setTimeout(equalizeCards, 400);
+    }
 
     // ── Mobile hamburger menu ───────────────────────────────────
     const mobileBurger  = document.getElementById('mobileBurger');

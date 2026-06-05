@@ -1057,10 +1057,8 @@ body {
   pointer-events: none;
 }
 
-/* Expanded: show all, no fade */
-.adv-long.open {
-  max-height: 800px;
-}
+/* .adv-long.open max-height is set via JS (scrollHeight)
+   for instant close response. Class used only for ::after visibility. */
 
 .adv-long p {
   font: 400 16px/1.65 var(--font-sans); /* matches adv-short */
