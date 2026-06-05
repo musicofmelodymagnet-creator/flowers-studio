@@ -927,7 +927,7 @@ body {
 .footer-instagram svg { width: 16px; height: 16px; stroke-width: 1.75; }
 
 /* ================================================================
-   ABOUT US
+   ABOUT US — two-panel card (identity top + story bottom)
    ================================================================ */
 .about-page-header {
   width: 100%;
@@ -947,42 +947,51 @@ body {
   margin: 0;
 }
 
-/* Main card */
+/* Outer card shell */
 .about-card {
   width: 100%;
   max-width: 1072px;
   border-radius: var(--r-card);
-  background: var(--surface);
   box-shadow: var(--elev-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ① Identity panel — rose background, avatar + name side by side */
+.about-identity {
+  background: var(--surface-rose);
+  padding: 52px 60px;
   display: grid;
-  grid-template-columns: 420px 1fr;
-  overflow: hidden;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  align-items: center;
 }
 
-/* Photo side — full-bleed portrait filling entire column height */
-.about-photo-side {
-  position: relative;
-  overflow: hidden;
-  min-height: 400px;
+/* Circular avatar with neumorphic raised ring */
+.about-avatar-wrap {
+  width: 200px;
+  height: 200px;
+  border-radius: 9999px;
+  background: var(--surface);
+  box-shadow: var(--elev-lg);
+  padding: 10px;
+  flex-shrink: 0;
 }
 
-.about-photo-side img {
-  position: absolute;
-  inset: 0;
+.about-avatar-wrap img {
   width: 100%;
   height: 100%;
+  border-radius: 9999px;
   object-fit: cover;
-  object-position: top center;
+  object-position: center 20%;
   display: block;
 }
 
-/* Text side */
-.about-content {
-  padding: 56px 60px;
+.about-identity-text {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 22px;
+  gap: 14px;
 }
 
 .about-name {
@@ -993,11 +1002,10 @@ body {
 }
 
 .about-title {
-  font: 400 14px/1.5 var(--font-sans);
+  font: 400 13px/1.5 var(--font-sans);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--ink-muted);
-  margin: -8px 0 0;
 }
 
 .about-divider {
@@ -1007,17 +1015,35 @@ body {
   background: linear-gradient(90deg, var(--brand), var(--ink-mauve));
 }
 
+/* ② Story panel — cream background, full reading text */
+.about-story {
+  background: var(--surface);
+  padding: 52px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;   /* comfortable reading width */
+}
+
 .about-bio {
-  font: 400 16px/1.75 var(--font-sans);
+  font: 400 16px/1.8 var(--font-sans);
   color: var(--ink-soft);
   margin: 0;
 }
+
+.about-link {
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--dur) var(--ease);
+}
+.about-link:hover { color: var(--brand-deep); }
 
 /* Bullet list */
 .about-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 4px 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1041,60 +1067,34 @@ body {
   background: var(--brand-soft);
 }
 
-/* Final goal sentence — slightly emphasised */
+/* Closing goal sentence */
 .about-bio--goal {
   font-style: italic;
   color: var(--ink-mauve);
-  opacity: 0.9;
   border-left: 3px solid var(--brand-soft);
-  padding-left: 16px;
+  padding-left: 18px;
   margin-top: 4px;
 }
-
-.about-portfolio {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  align-self: flex-start;
-  margin-top: 4px;
-  font: 600 13px/1.5 var(--font-sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--brand);
-  text-decoration: none;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: color var(--dur) var(--ease);
-  padding: 0;
-}
-
-.about-portfolio:hover { color: var(--brand-deep); }
-
-.about-portfolio svg {
-  width: 14px;
-  height: 14px;
-  stroke-width: 2.5;
-  transition: transform var(--dur) var(--ease);
-}
-
-.about-portfolio:hover svg { transform: translate(2px, -2px); }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .about-card {
+@media (max-width: 768px) {
+  .about-identity {
     grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 40px 32px;
+    gap: 28px;
   }
-  .about-photo-side { padding: 40px; }
-  .about-photo-plate { max-width: 260px; }
-  .about-content { padding: 40px 36px; }
+  .about-identity-text { align-items: center; }
   .about-name { font-size: 40px; }
+  .about-story { padding: 40px 32px; }
 }
 
 @media (max-width: 480px) {
-  .about-content { padding: 32px 20px; }
+  .about-avatar-wrap { width: 160px; height: 160px; }
   .about-name { font-size: 32px; }
   .about-bio { font-size: 15px; }
+  .about-story { padding: 32px 20px; }
 }
 
 /* ================================================================

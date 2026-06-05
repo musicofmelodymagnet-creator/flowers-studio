@@ -59,31 +59,34 @@
         <span class="section-title-rule"></span>
       </div>
 
-      <!-- About card -->
+      <!-- About card — two-panel layout -->
       <article class="about-card">
 
-        <!-- Photo side — fills full column height -->
-        <div class="about-photo-side">
-          <img
-            src="assets/ava.jpg"
-            alt="Ruslan Orlinsky — Founder of FLORINSKY Atelier"
-          />
+        <!-- ① Identity panel (rose bg): avatar + name + title -->
+        <div class="about-identity">
+          <div class="about-avatar-wrap">
+            <img
+              src="assets/ava.jpg"
+              alt="Ruslan Orlinsky — Founder of FLORINSKY Atelier"
+            />
+          </div>
+          <div class="about-identity-text">
+            <span class="section-label">Founder</span>
+            <h2 class="about-name">Ruslan Orlinsky</h2>
+            <p class="about-title">Creative Director &amp; Founder · FLORINSKY Atelier</p>
+            <span class="about-divider"></span>
+          </div>
         </div>
 
-        <!-- Content side -->
-        <div class="about-content">
-          <span class="section-label">Founder</span>
-          <h2 class="about-name">Ruslan Orlinsky</h2>
-          <p class="about-title">Creative Director &amp; Founder · FLORINSKY Atelier</p>
-
-          <span class="about-divider"></span>
+        <!-- ② Story panel (cream bg): full text -->
+        <div class="about-story">
 
           <p class="about-bio">
             FLORINSKY is a premium floral atelier founded by Ruslan Orlinsky,
             a professional wedding photographer with 19 years of industry experience.
             You can explore his photography portfolio at
             <a href="https://www.orlinsky.ca" target="_blank" rel="noopener noreferrer"
-               style="color:var(--brand);text-decoration:none;font-weight:600">www.orlinsky.ca</a>.
+               class="about-link">www.orlinsky.ca</a>.
           </p>
 
           <p class="about-bio">
@@ -122,6 +125,7 @@
             Our goal is simple: to let our clients truly enjoy their celebration
             while we handle the details.
           </p>
+
         </div>
 
       </article>
