@@ -961,7 +961,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
-  cursor: pointer;  /* entire card is clickable */
+  cursor: pointer;
+  min-height: 380px; /* equal height across all cards */
 }
 
 /* Divider between cards */
@@ -984,9 +985,7 @@ body {
 /* Photo container — fills exactly 50% of card (set by grid) */
 .adv-img-wrap {
   overflow: hidden;
-  /* No aspect-ratio: grid 1fr gives 50% width,
-     default align-self:stretch fills the full card height */
-  min-height: 272px; /* 320×0.85 → −15% */
+  min-height: 272px;
 }
 
 .adv-img-wrap img {
@@ -1037,50 +1036,37 @@ body {
   margin: 0;
 }
 
-/* First-line teaser — shown when closed, fades when expanded */
-.adv-teaser {
-  font: 400 16px/1.65 var(--font-sans);  /* same as .adv-short */
-  color: var(--ink-soft);
-  margin: -4px 0 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  opacity: 1;
-  max-height: 2em;
-  transition:
-    opacity    400ms ease-in-out,
-    max-height 400ms ease-in-out,
-    margin     400ms ease-in-out;
-}
-
-/* Hide teaser when card is expanded */
-.adv-card.expanded .adv-teaser {
-  opacity: 0;
-  max-height: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-/* Expandable long description */
+/* Long description — always shows 1 line (text continues on expand) */
 .adv-long {
-  max-height: 0;
   overflow: hidden;
-  opacity: 0;
-  transition:
-    max-height 700ms ease-in-out,
-    opacity    700ms ease-in-out;
+  /* Show exactly 1 line: 16px × 1.65 ≈ 26px + small buffer */
+  max-height: 28px;
+  position: relative;
+  transition: max-height 700ms ease-in-out;
 }
 
+/* Fade-out "..." hint at end of truncated line */
+.adv-long:not(.open)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 80px;
+  height: 28px;
+  background: linear-gradient(to right, transparent, var(--surface) 60%);
+  pointer-events: none;
+}
+
+/* Expanded: show all, no fade */
 .adv-long.open {
-  max-height: 700px;
-  opacity: 1;
+  max-height: 800px;
 }
 
 .adv-long p {
-  font: 400 15px/1.75 var(--font-sans);
+  font: 400 16px/1.65 var(--font-sans); /* matches adv-short */
   color: var(--ink-soft);
-  margin: 8px 0 0;
+  margin: 0;
+  white-space: normal;
 }
 
 /* Read More / Read Less toggle */
