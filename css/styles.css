@@ -951,8 +951,7 @@ body {
   color: var(--ink-mauve);
   letter-spacing: -0.01em;
   padding: 0 24px;
-  /* force 2-line wrap — wide enough for longest phrase ÷ 2 */
-  max-width: 680px;
+  /* max-width set per-phrase by JS (naturalWidth / 2) for exact 2-line wrap */
   margin: 0 auto;
 
   /* base (hidden) state: comes from behind (scale back) */

@@ -713,6 +713,41 @@
       let pos      = 0;
       let current  = null;
 
+      // ── Force exactly 2 lines on desktop ─────────────────────
+      // Measure each phrase's natural single-line width, then set
+      // max-width = naturalWidth / 2 so the browser wraps at midpoint.
+      function applyTwoLineWidths() {
+        if (window.innerWidth <= 768) return;
+
+        // Off-screen probe element that mimics .hero-phrase styling
+        const probe = document.createElement('span');
+        probe.setAttribute('aria-hidden', 'true');
+        probe.style.cssText = [
+          'position:fixed', 'top:-9999px', 'left:-9999px',
+          'white-space:nowrap', 'visibility:hidden', 'pointer-events:none',
+          'font-size:64px', 'font-weight:700', 'line-height:1.25',
+          'font-family:"Plus Jakarta Sans",system-ui,sans-serif',
+          'letter-spacing:-0.01em', 'padding:0 24px',
+        ].join(';');
+        document.body.appendChild(probe);
+
+        els.forEach(el => {
+          probe.textContent = el.textContent;
+          const w = probe.offsetWidth;
+          // Half the natural width forces a ~50/50 two-line split
+          el.style.maxWidth = Math.ceil(w / 2) + 'px';
+        });
+
+        document.body.removeChild(probe);
+      }
+
+      // Run after Google Fonts are loaded for accurate measurements
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(applyTwoLineWidths);
+      } else {
+        setTimeout(applyTwoLineWidths, 400);
+      }
+
       function next() {
         // Exit current phrase
         if (current !== null) {
