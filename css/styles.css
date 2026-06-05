@@ -959,29 +959,18 @@ body {
   overflow: hidden;
 }
 
-/* Photo side */
+/* Photo side — full-bleed portrait filling entire column height */
 .about-photo-side {
-  background: var(--surface-rose);
-  padding: 52px 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
 }
 
-/* Neumorphic portrait plate */
-.about-photo-plate {
-  border-radius: var(--r-card);
-  background: var(--surface);
-  box-shadow: var(--elev-lg);
-  padding: 14px;
+.about-photo-side img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 320px;
-}
-
-.about-photo-plate img {
-  width: 100%;
-  border-radius: calc(var(--r-card) - 14px);
-  aspect-ratio: 3 / 4;
+  height: 100%;
   object-fit: cover;
   object-position: top center;
   display: block;
@@ -1019,10 +1008,47 @@ body {
 }
 
 .about-bio {
-  font: 400 17px/1.75 var(--font-sans);
+  font: 400 16px/1.75 var(--font-sans);
   color: var(--ink-soft);
   margin: 0;
-  max-width: 500px;
+}
+
+/* Bullet list */
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-list li {
+  font: 400 16px/1.65 var(--font-sans);
+  color: var(--ink-soft);
+  padding-left: 22px;
+  position: relative;
+}
+
+.about-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--brand-soft);
+}
+
+/* Final goal sentence — slightly emphasised */
+.about-bio--goal {
+  font-style: italic;
+  color: var(--ink-mauve);
+  opacity: 0.9;
+  border-left: 3px solid var(--brand-soft);
+  padding-left: 16px;
+  margin-top: 4px;
 }
 
 .about-portfolio {
