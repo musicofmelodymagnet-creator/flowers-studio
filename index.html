@@ -720,7 +720,7 @@
           const prev = current;
           els[prev].classList.remove('ph-enter');
           els[prev].classList.add('ph-exit');
-          setTimeout(() => els[prev].classList.remove('ph-exit'), 750);
+          setTimeout(() => els[prev].classList.remove('ph-exit'), 1500);
         }
 
         // Reshuffle when exhausted, avoid repeating last
@@ -744,7 +744,7 @@
       }
 
       next();
-      setInterval(next, 4000);
+      setInterval(next, 5000);
     })();
 
     // ── Mobile hamburger menu ───────────────────────────────────
