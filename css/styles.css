@@ -132,8 +132,8 @@ body {
   box-shadow: var(--elev-md);
   display: inline-flex;
   align-items: center;
-  gap: 44px;
-  padding: 0 52px;
+  gap: 32px;
+  padding: 0 40px;
 }
 
 .nav-link {
