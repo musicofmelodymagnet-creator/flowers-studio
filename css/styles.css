@@ -228,6 +228,10 @@ body {
   gap: 18px;
 }
 
+.hero-wordmark .eyebrow {
+  font-size: 13.5px; /* 15px × 0.9 */
+}
+
 .tagline-rule {
   display: block;
   width: 40px;

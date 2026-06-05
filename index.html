@@ -732,14 +732,16 @@
         }
         current = order[pos++];
 
-        // Enter next phrase with brief stagger after exit starts
+        // Enter simultaneously — double rAF ensures browser processes
+        // the exit class before starting the enter transition
         const idx = current;
-        setTimeout(() => {
-          els[idx].classList.remove('ph-exit');
-          // Force a repaint so transition fires from the base state
-          els[idx].getBoundingClientRect();
-          els[idx].classList.add('ph-enter');
-        }, 180);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            els[idx].classList.remove('ph-exit');
+            els[idx].getBoundingClientRect(); // force reflow
+            els[idx].classList.add('ph-enter');
+          });
+        });
       }
 
       next();
