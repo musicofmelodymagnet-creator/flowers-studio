@@ -981,13 +981,19 @@ body {
   flex-shrink: 0;
 }
 
-/* Photo container — fills exactly 50% of card (set by grid) */
+/* Photo container — fills 50% of card (set by grid row = text column height).
+   position:relative + img position:absolute removes the image's intrinsic
+   aspect-ratio from the grid height calculation, so a square photo (2-adv.jpg)
+   can't inflate the card beyond the text column's natural height. */
 .adv-img-wrap {
   overflow: hidden;
-  min-height: 272px;
+  position: relative;
+  min-height: 272px;  /* visual floor when text is very short */
 }
 
 .adv-img-wrap img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
