@@ -923,6 +923,71 @@ body {
 .footer-instagram svg { width: 16px; height: 16px; stroke-width: 1.75; }
 
 /* ================================================================
+   HERO ROTATING PHRASES
+   ================================================================ */
+.hero-phrases {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  height: 52px;           /* fixed — prevents layout jump on phrase change */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.hero-phrase {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font: 400 italic 20px/1.5 var(--font-sans);
+  color: var(--ink-mauve);
+  letter-spacing: 0.025em;
+  padding: 0 24px;
+  white-space: nowrap;
+
+  /* hidden/enter-ready state */
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  pointer-events: none;
+  will-change: opacity, transform, filter;
+}
+
+/* Entering — floats up, sharpens, fades in */
+.hero-phrase.ph-enter {
+  transition:
+    opacity   950ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 950ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter    950ms cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Exiting — floats up, blurs out, fades */
+.hero-phrase.ph-exit {
+  transition:
+    opacity   700ms cubic-bezier(0.55, 0, 1, 0.45),
+    transform 700ms cubic-bezier(0.55, 0, 1, 0.45),
+    filter    700ms cubic-bezier(0.55, 0, 1, 0.45);
+  opacity: 0;
+  transform: translateY(-14px);
+  filter: blur(6px);
+}
+
+@media (max-width: 768px) {
+  .hero-phrases { height: 64px; }
+  .hero-phrase  { font-size: 17px; white-space: normal; }
+}
+@media (max-width: 480px) {
+  .hero-phrase  { font-size: 15px; }
+}
+
+/* ================================================================
    MOBILE TOP BAR + OVERLAY NAV (hidden on desktop)
    ================================================================ */
 .mobile-top {

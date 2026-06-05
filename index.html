@@ -75,6 +75,9 @@
           </video>
         </div>
 
+        <!-- Rotating editorial phrases -->
+        <div class="hero-phrases" id="heroPhrases" aria-live="polite" aria-atomic="true"></div>
+
         <div class="hero-copy">
           <h1>Make your event<br>with premium flower walls</h1>
           <p>
@@ -676,6 +679,73 @@
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ── Hero rotating phrases ───────────────────────────────────
+    (function () {
+      const PHRASES = [
+        "Your guests will experience something they haven't seen before",
+        "Exclusive designs found nowhere else in Canada",
+        "When you want something more beautiful than everyone else has",
+        "So realistic that guests actually stop to smell the flowers",
+        "Guests will photograph the wall even without people in front of it",
+        "Created for those who love to impress their guests"
+      ];
+
+      function shuffle(a) {
+        const b = [...a];
+        for (let i = b.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [b[i], b[j]] = [b[j], b[i]];
+        }
+        return b;
+      }
+
+      const wrap = document.getElementById('heroPhrases');
+      PHRASES.forEach(txt => {
+        const s = document.createElement('span');
+        s.className = 'hero-phrase';
+        s.textContent = txt;
+        wrap.appendChild(s);
+      });
+
+      const els    = Array.from(wrap.querySelectorAll('.hero-phrase'));
+      const idxArr = PHRASES.map((_, i) => i);
+      let order    = shuffle(idxArr);
+      let pos      = 0;
+      let current  = null;
+
+      function next() {
+        // Exit current phrase
+        if (current !== null) {
+          const prev = current;
+          els[prev].classList.remove('ph-enter');
+          els[prev].classList.add('ph-exit');
+          setTimeout(() => els[prev].classList.remove('ph-exit'), 750);
+        }
+
+        // Reshuffle when exhausted, avoid repeating last
+        if (pos >= order.length) {
+          let next = shuffle(idxArr);
+          // Ensure no immediate repeat
+          if (current !== null && next[0] === current) next.push(next.shift());
+          order = next;
+          pos   = 0;
+        }
+        current = order[pos++];
+
+        // Enter next phrase with brief stagger after exit starts
+        const idx = current;
+        setTimeout(() => {
+          els[idx].classList.remove('ph-exit');
+          // Force a repaint so transition fires from the base state
+          els[idx].getBoundingClientRect();
+          els[idx].classList.add('ph-enter');
+        }, 180);
+      }
+
+      next();
+      setInterval(next, 4000);
+    })();
 
     // ── Mobile hamburger menu ───────────────────────────────────
     const mobileBurger  = document.getElementById('mobileBurger');
