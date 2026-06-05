@@ -969,12 +969,12 @@ body {
   transition: transform 385ms ease-in-out;
 }
 
-/* Photo container — landscape 16:10 */
+/* Photo container — fills exactly 50% of card (set by grid) */
 .adv-img-wrap {
   overflow: hidden;
-  aspect-ratio: 16 / 10;
-  align-self: stretch;
-  min-height: 100%;
+  /* No aspect-ratio: grid 1fr gives 50% width,
+     default align-self:stretch fills the full card height */
+  min-height: 320px; /* visual floor so short-text cards look good */
 }
 
 .adv-img-wrap img {
@@ -1089,7 +1089,7 @@ body {
   .adv-card { grid-template-columns: 1fr; }
   .adv-card:nth-child(even) .adv-img-wrap { order: 1; }
   .adv-card:nth-child(even) .adv-content  { order: 2; }
-  .adv-img-wrap { aspect-ratio: 16 / 9; min-height: unset; }
+  .adv-img-wrap { aspect-ratio: 16 / 9; min-height: 240px; }
   .adv-content  { padding: 36px 32px; }
   .adv-title    { font-size: 24px; }
 }
