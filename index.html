@@ -31,7 +31,6 @@
   <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
     <a href="index.html"     class="mobile-nav-link">Welcome</a>
     <a href="#gallery"       class="mobile-nav-link">Gallery</a>
-    <a href="#collections"   class="mobile-nav-link">Collections</a>
     <a href="advantages.html"    class="mobile-nav-link">Our Advantages</a>
     <a href="#process"       class="mobile-nav-link">Process</a>
     <a href="#testimonials"  class="mobile-nav-link">Testimonials</a>
@@ -47,7 +46,6 @@
       <div class="nav-pill">
         <a href="index.html"     class="nav-link">Welcome</a>
         <a href="#gallery"       class="nav-link" data-nav>Gallery</a>
-        <a href="#collections"   class="nav-link" data-nav>Collections</a>
         <a href="advantages.html"    class="nav-link" data-nav>Our Advantages</a>
         <a href="#process"       class="nav-link" data-nav>Process</a>
         <a href="#testimonials"  class="nav-link" data-nav>Testimonials</a>
@@ -662,7 +660,7 @@
     // ── Nav highlight on scroll ─────────────────────────────────
     const sections = [
       { id: 'gallery',      nav: 'Gallery' },
-      { id: 'collections',  nav: 'Collections' },
+
       { id: 'process',      nav: 'Process' },
       { id: 'contact',      nav: 'Contact' },
     ];
@@ -684,6 +682,10 @@
     window.addEventListener('scroll', onScroll, { passive: true });
 
     // ── Hero rotating phrases ───────────────────────────────────
+    // INLINE STYLES ONLY — no CSS class toggling, no layout measurement.
+    // This is the only reliable way to prevent phrase overlap: each transition
+    // step explicitly sets opacity/transform/filter via style, with a forced
+    // reflow to guarantee the browser registers the start state before animating.
     (function () {
       const PHRASES = [
         "Your guests will experience something they haven't seen before",
@@ -705,139 +707,66 @@
 
       const wrap = document.getElementById('heroPhrases');
       PHRASES.forEach(txt => {
-        const s = document.createElement('span');
-        s.className = 'hero-phrase';
-        s.textContent = txt;
-        wrap.appendChild(s);
+        const el = document.createElement('span');
+        el.className = 'hero-phrase';
+        el.textContent = txt;
+        wrap.appendChild(el);
       });
 
       const els    = Array.from(wrap.querySelectorAll('.hero-phrase'));
       const idxArr = PHRASES.map((_, i) => i);
       let order    = shuffle(idxArr);
       let pos      = 0;
-      let current  = null;
+      let cur      = -1;
 
-      // ── Force exactly 2 lines on desktop ────────────────────────
-      // 1. At 64px, check if phrase fits in 2 lines at maxAllowed width.
-      // 2. If not → reduce font-size by 4px and retry (long phrases shrink).
-      // 3. Once it fits, binary-search for the narrowest max-width that
-      //    keeps it at 2 lines (for aesthetic centering).
-      function applyTwoLineWidths() {
-        if (window.innerWidth <= 768) return;
+      const T_IN  = 'opacity 1900ms cubic-bezier(.22,1,.36,1),' +
+                    'transform 1900ms cubic-bezier(.22,1,.36,1),' +
+                    'filter 1900ms cubic-bezier(.22,1,.36,1)';
+      const T_OUT = 'opacity 1400ms ease-in,' +
+                    'transform 1400ms ease-in,' +
+                    'filter 1400ms ease-in';
 
-        const probe = document.createElement('span');
-        probe.setAttribute('aria-hidden', 'true');
-        probe.style.cssText = [
-          'position:fixed', 'top:-9999px', 'left:-9999px',
-          'visibility:hidden', 'pointer-events:none', 'display:block',
-          'font-weight:700', 'line-height:1.25',
-          'font-family:"Plus Jakarta Sans",system-ui,sans-serif',
-          'letter-spacing:-0.01em', 'padding:0 24px', 'text-align:center',
-        ].join(';');
-        document.body.appendChild(probe);
-
-        const maxAllowed = window.innerWidth - 128;
-
-        els.forEach(el => {
-          let fs = 64;
-
-          // Step 1: shrink font until phrase fits in ≤2 lines at maxAllowed
-          while (fs >= 32) {
-            probe.style.fontSize   = fs + 'px';
-            probe.style.whiteSpace = 'nowrap';
-            probe.style.maxWidth   = 'none';
-            probe.textContent      = el.textContent;
-            const oneLineH = probe.offsetHeight;
-            probe.style.whiteSpace = 'normal';
-            probe.style.maxWidth   = maxAllowed + 'px';
-
-            if (probe.offsetHeight <= oneLineH * 2.15) break;
-            fs -= 4;
-          }
-
-          // Step 2: binary-search the narrowest width giving ≤2 lines
-          probe.style.whiteSpace = 'nowrap';
-          probe.style.maxWidth   = 'none';
-          const fullWidth = probe.offsetWidth;
-          const oneLineH  = probe.offsetHeight;
-          probe.style.whiteSpace = 'normal';
-          const twoLineH  = oneLineH * 2.15;
-
-          let lo = Math.floor(fullWidth / 5);
-          let hi = Math.min(fullWidth, maxAllowed);
-
-          while (hi - lo > 4) {
-            const mid = Math.floor((lo + hi) / 2);
-            probe.style.maxWidth = mid + 'px';
-            if (probe.offsetHeight <= twoLineH) {
-              hi = mid;
-            } else {
-              lo = mid;
-            }
-          }
-
-          el.style.fontSize = fs + 'px';
-          el.style.maxWidth = (hi + 6) + 'px';
-        });
-
-        document.body.removeChild(probe);
+      // Hard-reset an element to the hidden base state (no transition)
+      function hideEl(el) {
+        el.style.transition = 'none';
+        el.style.opacity    = '0';
+        el.style.transform  = 'scale(0.92)';
+        el.style.filter     = 'blur(8px)';
       }
 
       function next() {
-        // Safety: reset every phrase that isn't current to base hidden state
-        els.forEach((el, i) => {
-          if (i !== current) el.classList.remove('ph-enter');
-        });
-
-        // Exit current phrase
-        if (current !== null) {
-          const prev = current;
-          els[prev].classList.add('ph-exit');
-          // After exit transition, snap to base hidden state
-          setTimeout(() => {
-            els[prev].classList.remove('ph-exit');
-          }, 1450);
-        }
-
-        // Reshuffle when exhausted, avoid repeating last
+        // Reshuffle when exhausted, avoid immediate repeat
         if (pos >= order.length) {
-          const reshuffled = shuffle(idxArr);
-          if (current !== null && reshuffled[0] === current) reshuffled.push(reshuffled.shift());
-          order = reshuffled;
-          pos   = 0;
+          const r = shuffle(idxArr);
+          if (cur >= 0 && r[0] === cur) r.push(r.shift());
+          order = r; pos = 0;
         }
-        current = order[pos++];
+        const nextIdx = order[pos++];
 
-        // Enter simultaneously — double rAF guarantees both transitions
-        // start in the same render frame
-        const idx = current;
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            els[idx].classList.remove('ph-exit');
-            els[idx].getBoundingClientRect();  // force reflow
-            els[idx].classList.add('ph-enter');
-          });
-        });
+        // Exit current phrase simultaneously
+        if (cur >= 0) {
+          const prev = els[cur];
+          prev.style.transition = T_OUT;
+          prev.style.opacity    = '0';
+          prev.style.transform  = 'scale(1.10)';
+          prev.style.filter     = 'blur(8px)';
+        }
+
+        cur = nextIdx;
+
+        // Reset new phrase to base (no transition) then animate in
+        hideEl(els[nextIdx]);
+        els[nextIdx].offsetHeight; // force reflow — browser sees opacity:0 before animating
+        els[nextIdx].style.transition = T_IN;
+        els[nextIdx].style.opacity    = '1';
+        els[nextIdx].style.transform  = 'scale(1)';
+        els[nextIdx].style.filter     = 'blur(0)';
       }
 
-      // ── Start: measure widths first, THEN begin animation ──────
-      // Critical: applyTwoLineWidths must complete before next() starts.
-      // Previously it ran async (fonts.ready.then), which fired DURING
-      // an active transition — forced reflows interrupted CSS transitions,
-      // leaving phrases "stuck" visible and overlapping.
-      function startPhrases() {
-        applyTwoLineWidths();   // synchronous measurement
-        // Reset all to clean hidden state before first animation
-        els.forEach(el => el.classList.remove('ph-enter', 'ph-exit'));
-        next();
-        setInterval(next, 7000);
-      }
-
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(startPhrases);
-      } else {
-        setTimeout(startPhrases, 400);
-      }
+      // Initialise all hidden, then start
+      els.forEach(hideEl);
+      next();
+      setInterval(next, 7000);
     })();
 
     // ── Mobile hamburger menu ───────────────────────────────────

@@ -1192,12 +1192,6 @@ body {
   .hero-phrases { height: 130px; }
   .hero-phrase  { font-size: 48px; max-width: 520px; }
 }
-@media (max-width: 768px) {
-  .hero-phrases { height: 110px; }
-  .hero-phrase  { font-size: 36px; max-width: 380px; }
-}
-@media (max-width: 480px) {
-  .hero-phrases { height: 90px; }
   .hero-phrase  { font-size: 26px; max-width: 280px; }
 }
 
