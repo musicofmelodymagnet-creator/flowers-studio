@@ -713,10 +713,11 @@
       let pos      = 0;
       let current  = null;
 
-      // ── Force exactly 2 lines on desktop via binary search ──────
-      // naturalWidth/2 fails when word boundaries are uneven (e.g.
-      // "Created for those who | love to impress their | guests" → 3 lines).
-      // Binary search finds the minimum max-width where height ≤ 2 × lineH.
+      // ── Force exactly 2 lines on desktop ────────────────────────
+      // 1. At 64px, check if phrase fits in 2 lines at maxAllowed width.
+      // 2. If not → reduce font-size by 4px and retry (long phrases shrink).
+      // 3. Once it fits, binary-search for the narrowest max-width that
+      //    keeps it at 2 lines (for aesthetic centering).
       function applyTwoLineWidths() {
         if (window.innerWidth <= 768) return;
 
@@ -725,25 +726,39 @@
         probe.style.cssText = [
           'position:fixed', 'top:-9999px', 'left:-9999px',
           'visibility:hidden', 'pointer-events:none', 'display:block',
-          'font-size:64px', 'font-weight:700', 'line-height:1.25',
+          'font-weight:700', 'line-height:1.25',
           'font-family:"Plus Jakarta Sans",system-ui,sans-serif',
           'letter-spacing:-0.01em', 'padding:0 24px', 'text-align:center',
         ].join(';');
         document.body.appendChild(probe);
 
+        const maxAllowed = window.innerWidth - 128;
+
         els.forEach(el => {
-          // 1. Measure single-line height & full width
+          let fs = 64;
+
+          // Step 1: shrink font until phrase fits in ≤2 lines at maxAllowed
+          while (fs >= 32) {
+            probe.style.fontSize   = fs + 'px';
+            probe.style.whiteSpace = 'nowrap';
+            probe.style.maxWidth   = 'none';
+            probe.textContent      = el.textContent;
+            const oneLineH = probe.offsetHeight;
+            probe.style.whiteSpace = 'normal';
+            probe.style.maxWidth   = maxAllowed + 'px';
+
+            if (probe.offsetHeight <= oneLineH * 2.15) break;
+            fs -= 4;
+          }
+
+          // Step 2: binary-search the narrowest width giving ≤2 lines
           probe.style.whiteSpace = 'nowrap';
           probe.style.maxWidth   = 'none';
-          probe.textContent      = el.textContent;
-          const fullWidth  = probe.offsetWidth;
-          const oneLineH   = probe.offsetHeight;   // height of exactly 1 line
+          const fullWidth = probe.offsetWidth;
+          const oneLineH  = probe.offsetHeight;
           probe.style.whiteSpace = 'normal';
+          const twoLineH  = oneLineH * 2.15;
 
-          const twoLineH   = oneLineH * 2.15;      // ≤ this = 2 lines or fewer
-          const maxAllowed = window.innerWidth - 128;
-
-          // 2. Binary search: find smallest maxWidth giving ≤ 2 lines
           let lo = Math.floor(fullWidth / 5);
           let hi = Math.min(fullWidth, maxAllowed);
 
@@ -751,13 +766,13 @@
             const mid = Math.floor((lo + hi) / 2);
             probe.style.maxWidth = mid + 'px';
             if (probe.offsetHeight <= twoLineH) {
-              hi = mid;   // still ≤2 lines — try narrower
+              hi = mid;
             } else {
-              lo = mid;   // 3+ lines — need wider
+              lo = mid;
             }
           }
 
-          // Apply with a small safety buffer
+          el.style.fontSize = fs + 'px';
           el.style.maxWidth = (hi + 6) + 'px';
         });
 
