@@ -947,50 +947,55 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* Same font as h1 "Make your event…" */
   font: 700 64px/1.25 var(--font-sans);
   color: var(--ink-mauve);
   letter-spacing: -0.01em;
   padding: 0 24px;
+  /* force 2-line wrap — wide enough for longest phrase ÷ 2 */
+  max-width: 680px;
+  margin: 0 auto;
 
+  /* base (hidden) state: comes from behind (scale back) */
   opacity: 0;
-  transform: translateY(18px);
+  transform: scale(0.92);
   filter: blur(8px);
   pointer-events: none;
   will-change: opacity, transform, filter;
 }
 
+/* Enter: zooms forward from behind → natural resting size */
 .hero-phrase.ph-enter {
   transition:
     opacity   1900ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 1900ms cubic-bezier(0.22, 1, 0.36, 1),
     filter    1900ms cubic-bezier(0.22, 1, 0.36, 1);
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
   filter: blur(0);
 }
 
+/* Exit: zooms further forward past viewer → dissolves */
 .hero-phrase.ph-exit {
   transition:
     opacity   1400ms cubic-bezier(0.55, 0, 1, 0.45),
     transform 1400ms cubic-bezier(0.55, 0, 1, 0.45),
     filter    1400ms cubic-bezier(0.55, 0, 1, 0.45);
   opacity: 0;
-  transform: translateY(-18px);
+  transform: scale(1.10);
   filter: blur(8px);
 }
 
 @media (max-width: 1024px) {
-  .hero-phrases { height: 120px; }
-  .hero-phrase  { font-size: 48px; }
+  .hero-phrases { height: 130px; }
+  .hero-phrase  { font-size: 48px; max-width: 520px; }
 }
 @media (max-width: 768px) {
-  .hero-phrases { height: 100px; }
-  .hero-phrase  { font-size: 36px; }
+  .hero-phrases { height: 110px; }
+  .hero-phrase  { font-size: 36px; max-width: 380px; }
 }
 @media (max-width: 480px) {
-  .hero-phrases { height: 80px; }
-  .hero-phrase  { font-size: 26px; }
+  .hero-phrases { height: 90px; }
+  .hero-phrase  { font-size: 26px; max-width: 280px; }
 }
 
 /* ================================================================
