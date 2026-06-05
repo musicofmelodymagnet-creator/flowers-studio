@@ -962,7 +962,6 @@ body {
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   cursor: pointer;
-  min-height: 380px; /* equal height across all cards */
 }
 
 /* Divider between cards */
@@ -1005,8 +1004,9 @@ body {
 
 /* Odd cards: image left, text right */
 /* Even cards: text left, image right */
-.adv-card:nth-child(even) .adv-img-wrap { order: 2; }
-.adv-card:nth-child(even) .adv-content  { order: 1; }
+/* Use nth-of-type so the .adv-divider element doesn't shift the count */
+.adv-card:nth-of-type(even) .adv-img-wrap { order: 2; }
+.adv-card:nth-of-type(even) .adv-content  { order: 1; }
 
 .adv-content {
   padding: 44px 48px;   /* 52×0.85=44, 56×0.85=48 → −15% */

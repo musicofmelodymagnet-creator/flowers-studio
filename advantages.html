@@ -245,19 +245,6 @@
       });
     });
 
-    // ── Equal card heights ──────────────────────────────────────
-    function equalizeCards() {
-      const cards = Array.from(document.querySelectorAll('.adv-card'));
-      cards.forEach(c => c.style.minHeight = '');          // reset
-      const max = Math.max(...cards.map(c => c.offsetHeight));
-      cards.forEach(c => c.style.minHeight = max + 'px');  // equalize
-    }
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(equalizeCards);
-    } else {
-      setTimeout(equalizeCards, 400);
-    }
 
     // ── Mobile hamburger menu ───────────────────────────────────
     const mobileBurger  = document.getElementById('mobileBurger');
