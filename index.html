@@ -31,6 +31,7 @@
   <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
     <a href="#gallery"       class="mobile-nav-link">Gallery</a>
     <a href="#collections"   class="mobile-nav-link">Collections</a>
+    <a href="#advantages"    class="mobile-nav-link">Our Advantages</a>
     <a href="#process"       class="mobile-nav-link">Process</a>
     <a href="#testimonials"  class="mobile-nav-link">Testimonials</a>
     <a href="#about"         class="mobile-nav-link">About</a>
@@ -45,6 +46,7 @@
       <div class="nav-pill">
         <a href="#gallery"       class="nav-link" data-nav>Gallery</a>
         <a href="#collections"   class="nav-link" data-nav>Collections</a>
+        <a href="#advantages"    class="nav-link" data-nav>Our Advantages</a>
         <a href="#process"       class="nav-link" data-nav>Process</a>
         <a href="#testimonials"  class="nav-link" data-nav>Testimonials</a>
         <a href="#about"         class="nav-link" data-nav>About</a>
@@ -186,6 +188,120 @@
           </div>
 
         </div>
+      </section>
+
+      <!-- ── OUR ADVANTAGES ──────────────────────────────────── -->
+      <section class="advantages" id="advantages" aria-label="Our Advantages">
+
+        <div class="section-title">
+          <span class="section-label">Why Choose Us</span>
+          <h2>Our Advantages</h2>
+          <span class="section-title-rule"></span>
+        </div>
+
+        <p class="advantages-intro">
+          When choosing décor for an important event, you want to be confident
+          that you will receive exactly what you ordered, that the structure will
+          be secure and resistant to tipping over, that the design will be
+          exclusive, and that the company truly stands behind its promises.
+          That's why we've built our service to fully meet your expectations.
+        </p>
+
+        <div class="adv-list">
+
+          <!-- Advantage 1 -->
+          <article class="adv-card">
+            <div class="adv-img-wrap">
+              <img src="assets/adv/1-adv.jpg"
+                   alt="Premium Real Touch floral wall — lifelike petals up close"
+                   loading="lazy" />
+            </div>
+            <div class="adv-content">
+              <span class="adv-number">01</span>
+              <h3 class="adv-title">Floral realism that leaves your guests in awe.</h3>
+              <p class="adv-short">
+                We use premium-grade materials that, in both appearance and touch,
+                closely replicate real flower petals (Real Touch). Even when viewed
+                up close, our floral walls look highly realistic and maintain a sense
+                of luxury both in photographs and in real life.
+              </p>
+              <div class="adv-long" id="adv-long-1">
+                <p>
+                  Many artificial floral walls look beautiful only in promotional
+                  photos. Silk flowers often reveal themselves through a characteristic
+                  shine, a visible fabric texture, and even a slight rustling sound
+                  when touched. That is why we set ourselves the goal of creating
+                  floral walls that inspire genuine admiration through their realism.
+                  <br><br>
+                  We selected a material that closely replicates the look and texture
+                  of real flower petals (Real Touch technology). This level of realism
+                  creates a sense of premium décor and makes the floral wall feel like
+                  a natural part of the celebration atmosphere. Many guests do not
+                  immediately realize that the flowers are artificial, and some even
+                  come closer to smell them.
+                </p>
+              </div>
+              <button class="adv-toggle" data-target="adv-long-1" aria-expanded="false">
+                <span class="adv-toggle-label">Read More</span>
+                <svg class="adv-toggle-chevron" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Advantage 2 -->
+          <article class="adv-card">
+            <div class="adv-img-wrap">
+              <img src="assets/adv/2-adv.jpg"
+                   alt="Exclusive one-of-a-kind floral wall design — unique to Canada"
+                   loading="lazy" />
+            </div>
+            <div class="adv-content">
+              <span class="adv-number">02</span>
+              <h3 class="adv-title">One-of-a-kind design in all of Canada.</h3>
+              <p class="adv-short">
+                Most floral walls on the market are produced in the same factories
+                and differ only in minor details. However, our florists have
+                developed unique floral wall designs, making them truly exclusive
+                to Canada.
+              </p>
+              <div class="adv-long" id="adv-long-2">
+                <p>
+                  When guests arrive at an event, they instantly notice what feels
+                  different from the usual. That is why we do not use popular
+                  templates or replicate designs already seen at weddings, corporate
+                  events, and private celebrations across the country.
+                  <br><br>
+                  Instead, we have created exclusive designs available only to our
+                  clients. This means your guests will not see the same floral wall
+                  at another event a week later. Many design elements were developed
+                  with one goal in mind — to create that immediate sense of surprise
+                  and admiration that comes from the very first glance.
+                  And when décor cannot be found anywhere else in Canada, your event
+                  naturally becomes more special, memorable, and unique.
+                </p>
+              </div>
+              <button class="adv-toggle" data-target="adv-long-2" aria-expanded="false">
+                <span class="adv-toggle-label">Read More</span>
+                <svg class="adv-toggle-chevron" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="advantages-closing">
+          These unique advantages are not offered by any other studio in Canada,
+          as we make client care our top priority.
+        </p>
+
       </section>
 
       <!-- ── OUR PREMIUM DISTINCTION ──────────────────────────── -->
@@ -655,10 +771,23 @@
       submitBtn.style.opacity = '0.7';
     });
 
+    // ── Advantages expand / collapse ───────────────────────────
+    document.querySelectorAll('.adv-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        const isOpen = target.classList.contains('open');
+        target.classList.toggle('open', !isOpen);
+        btn.classList.toggle('open', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        btn.querySelector('.adv-toggle-label').textContent = isOpen ? 'Read More' : 'Read Less';
+      });
+    });
+
     // ── Nav highlight on scroll ─────────────────────────────────
     const sections = [
       { id: 'gallery',      nav: 'Gallery' },
       { id: 'collections',  nav: 'Collections' },
+      { id: 'advantages',   nav: 'Our Advantages' },
       { id: 'process',      nav: 'Process' },
       { id: 'contact',      nav: 'Contact' },
     ];

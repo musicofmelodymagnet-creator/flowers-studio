@@ -927,6 +927,180 @@ body {
 .footer-instagram svg { width: 16px; height: 16px; stroke-width: 1.75; }
 
 /* ================================================================
+   OUR ADVANTAGES
+   ================================================================ */
+.advantages {
+  width: 100%;
+  max-width: 1072px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+}
+
+.advantages-intro {
+  font: 400 18px/1.7 var(--font-sans);
+  color: var(--ink-soft);
+  text-align: center;
+  max-width: 780px;
+  margin: 0;
+}
+
+.adv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+/* Card: editorial two-column split */
+.adv-card {
+  border-radius: var(--r-card);
+  background: var(--surface);
+  box-shadow: var(--elev-md);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  transition: transform 2s ease-in-out;
+}
+
+.adv-card:hover {
+  transform: translateY(-6px);
+  transition: transform 385ms ease-in-out;
+}
+
+/* Photo container — landscape 16:10 */
+.adv-img-wrap {
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  align-self: stretch;
+  min-height: 100%;
+}
+
+.adv-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 700ms ease-in-out;
+}
+
+.adv-card:hover .adv-img-wrap img {
+  transform: scale(1.04);
+}
+
+/* Odd cards: image left, text right */
+/* Even cards: text left, image right */
+.adv-card:nth-child(even) .adv-img-wrap { order: 2; }
+.adv-card:nth-child(even) .adv-content  { order: 1; }
+
+.adv-content {
+  padding: 52px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+.adv-number {
+  font: 700 12px/1.5 var(--font-sans);
+  letter-spacing: 0.32em;
+  color: var(--brand);
+  text-transform: uppercase;
+}
+
+.adv-title {
+  font: 700 28px/1.25 var(--font-sans);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.adv-short {
+  font: 400 16px/1.65 var(--font-sans);
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* Expandable long description */
+.adv-long {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 650ms ease-in-out,
+    opacity    650ms ease-in-out;
+}
+
+.adv-long.open {
+  max-height: 700px;
+  opacity: 1;
+}
+
+.adv-long p {
+  font: 400 15px/1.75 var(--font-sans);
+  color: var(--ink-soft);
+  margin: 8px 0 0;
+}
+
+/* Read More / Read Less toggle */
+.adv-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: 600 13px/1.5 var(--font-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+  cursor: pointer;
+  margin-top: 4px;
+  transition: color var(--dur) var(--ease);
+}
+
+.adv-toggle:hover { color: var(--brand-deep); }
+
+.adv-toggle-chevron {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.5;
+  transition: transform 400ms ease-in-out;
+  flex-shrink: 0;
+}
+
+.adv-toggle.open .adv-toggle-chevron {
+  transform: rotate(180deg);
+}
+
+.advantages-closing {
+  text-align: center;
+  font: 600 18px/1.6 var(--font-sans);
+  color: var(--ink-mauve);
+  letter-spacing: 0.01em;
+  margin: 0;
+  max-width: 760px;
+  opacity: 0.85;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .adv-card { grid-template-columns: 1fr; }
+  .adv-card:nth-child(even) .adv-img-wrap { order: 1; }
+  .adv-card:nth-child(even) .adv-content  { order: 2; }
+  .adv-img-wrap { aspect-ratio: 16 / 9; min-height: unset; }
+  .adv-content  { padding: 36px 32px; }
+  .adv-title    { font-size: 24px; }
+}
+
+@media (max-width: 480px) {
+  .adv-content  { padding: 28px 20px; }
+  .adv-title    { font-size: 20px; }
+  .adv-short    { font-size: 15px; }
+}
+
+/* ================================================================
    HERO ROTATING PHRASES
    ================================================================ */
 .hero-phrases {
