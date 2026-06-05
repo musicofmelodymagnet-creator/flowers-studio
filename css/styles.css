@@ -986,7 +986,7 @@ body {
   overflow: hidden;
   /* No aspect-ratio: grid 1fr gives 50% width,
      default align-self:stretch fills the full card height */
-  min-height: 320px; /* visual floor so short-text cards look good */
+  min-height: 272px; /* 320×0.85 → −15% */
 }
 
 .adv-img-wrap img {
@@ -1010,7 +1010,7 @@ body {
 .adv-card:nth-child(even) .adv-content  { order: 1; }
 
 .adv-content {
-  padding: 52px 56px;
+  padding: 44px 48px;   /* 52×0.85=44, 56×0.85=48 → −15% */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -1039,8 +1039,8 @@ body {
 
 /* First-line teaser — shown when closed, fades when expanded */
 .adv-teaser {
-  font: 400 italic 15px/1.6 var(--font-sans);
-  color: var(--ink-muted);
+  font: 400 16px/1.65 var(--font-sans);  /* same as .adv-short */
+  color: var(--ink-soft);
   margin: -4px 0 0;
   display: -webkit-box;
   -webkit-line-clamp: 1;
