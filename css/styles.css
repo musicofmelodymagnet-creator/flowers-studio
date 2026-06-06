@@ -480,10 +480,9 @@ body {
   will-change: transform, opacity;
 }
 
-/* Trigger sheen 2 seconds after card hover begins */
-.collection-card:hover .collection-card-inner::after {
+/* Triggered by JS class — no CSS hover needed */
+.collection-card-inner.sheen-play::after {
   animation: sheen-run 1560ms ease-out forwards;
-  animation-delay: 2s;
 }
 
 .collection-card-inner img {

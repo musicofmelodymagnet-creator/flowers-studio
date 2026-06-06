@@ -769,6 +769,27 @@
       setInterval(next, 7000);
     })();
 
+    // ── Collection photo sheen — fires 2s after mouseenter ─────
+    // Timer is NOT cancelled on mouseleave: once started, sheen
+    // always completes regardless of mouse position.
+    document.querySelectorAll('.collection-card').forEach(card => {
+      const inner = card.querySelector('.collection-card-inner');
+      let sheenTimer = null;
+
+      card.addEventListener('mouseenter', () => {
+        if (sheenTimer) return;  // already counting, don't stack
+        sheenTimer = setTimeout(() => {
+          inner.classList.remove('sheen-play');
+          void inner.offsetWidth;          // reset animation state
+          inner.classList.add('sheen-play');
+          setTimeout(() => {
+            inner.classList.remove('sheen-play');
+            sheenTimer = null;
+          }, 1650);
+        }, 2000);
+      });
+    });
+
     // ── Mobile hamburger menu ───────────────────────────────────
     const mobileBurger  = document.getElementById('mobileBurger');
     const mobileOverlay = document.getElementById('mobileOverlay');
