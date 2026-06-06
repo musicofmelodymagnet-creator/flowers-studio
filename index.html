@@ -807,7 +807,7 @@
       const cards = Array.from(grid.querySelectorAll('.collection-card'));
       if (!cards.length) return;
 
-      const MAX_TILT = 7.5;    // max degrees
+      const MAX_TILT = 9.75;    // max degrees
       const LERP     = 0.04;  // smoothing (lower = slower follow)
       const PERSP    = 900;   // perspective px
 
@@ -829,15 +829,15 @@
       // Apply 3-layer parallax to one card
       function paint(card, rx, ry) {
         card.style.transform =
-          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.04, 1.04, 1)`;
         // Photo container slides (depth layer 1 — "background")
         const inner = card.querySelector('.collection-card-inner');
         if (inner) inner.style.transform =
-          `translate(${ry * -0.9}px, ${rx * 0.9}px)`;
+          `translate(${ry * -1.17}px, ${rx * 1.17}px)`;
         // Caption floats more (depth layer 2 — "foreground")
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =
-          `translate(${ry * -1.6}px, ${rx * 1.6}px)`;
+          `translate(${ry * -2.08}px, ${rx * 2.08}px)`;
       }
 
       // Smooth return to rest
