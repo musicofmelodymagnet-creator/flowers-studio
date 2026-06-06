@@ -990,6 +990,39 @@ body {
   box-shadow: var(--elev-lg);
   padding: 10px;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sheen stripe — swept across after spring settles */
+.about-avatar-wrap::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 45%;
+  height: 140%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255,255,255,0.52) 50%,
+    transparent 100%
+  );
+  transform: skewX(-14deg) translateX(-250%);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@keyframes sheen-run {
+  0%   { transform: skewX(-14deg) translateX(-250%); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: skewX(-14deg) translateX(700%);  opacity: 0; }
+}
+
+.about-avatar-wrap.sheen-active::after {
+  animation: sheen-run 520ms ease-out forwards;
 }
 
 .about-avatar-wrap img {

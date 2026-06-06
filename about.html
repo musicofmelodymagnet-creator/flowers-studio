@@ -276,9 +276,23 @@
         avatar.style.transition = 'none';
         avatar.style.transform  = '';
         avatar.style.animation  = 'avatar-spring 750ms ease forwards';
+
+        // After spring settles, fire the sheen sweep
+        clearTimeout(avatar._sheenTimer);
+        avatar.classList.remove('sheen-active');
+        avatar._sheenTimer = setTimeout(() => {
+          avatar.classList.remove('sheen-active');
+          void avatar.offsetWidth;          // reset animation state
+          avatar.classList.add('sheen-active');
+          setTimeout(() => avatar.classList.remove('sheen-active'), 600);
+        }, 750);
       });
 
       avatar.addEventListener('mouseleave', () => {
+        // Cancel any pending sheen
+        clearTimeout(avatar._sheenTimer);
+        avatar.classList.remove('sheen-active');
+
         // Snapshot current computed transform before removing animation
         const current = window.getComputedStyle(avatar).transform;
         avatar.style.animation = 'none';
