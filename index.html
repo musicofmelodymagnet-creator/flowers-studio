@@ -796,6 +796,139 @@
       setInterval(next, 7000);
     })();
 
+    // ── Collection cards 3D parallax tilt ─────────────────────────
+    // Zone: 2× the grid area. Each card tilts toward the mouse;
+    // inner layers (photo, caption) have different translateZ depths
+    // creating a parallax effect. Strength ∝ 1 / distance to card.
+    (function() {
+      const grid = document.querySelector('.collections-grid');
+      if (!grid || window.matchMedia('(pointer: coarse)').matches) return;
+
+      const cards = Array.from(grid.querySelectorAll('.collection-card'));
+      if (!cards.length) return;
+
+      const MAX_TILT = 15;    // max degrees
+      const LERP     = 0.08;  // smoothing (lower = slower follow)
+      const PERSP    = 900;   // perspective px
+
+      // Per-card animation state
+      const st = cards.map(() => ({ cx:0, cy:0, tx:0, ty:0 }));
+      let raf = null, inZone = false;
+
+      // Extended zone: 2× the grid bounding box
+      function getZone() {
+        const b = grid.getBoundingClientRect();
+        return {
+          l: b.left   - b.width  * .5,
+          r: b.right  + b.width  * .5,
+          t: b.top    - b.height * .5,
+          b: b.bottom + b.height * .5
+        };
+      }
+
+      // Apply 3-layer parallax to one card
+      function paint(card, rx, ry) {
+        card.style.transform =
+          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        // Photo container slides (depth layer 1 — "background")
+        const inner = card.querySelector('.collection-card-inner');
+        if (inner) inner.style.transform =
+          `translate(${ry * -1.8}px, ${rx * 1.8}px)`;
+        // Caption floats more (depth layer 2 — "foreground")
+        const cap = card.querySelector('.collection-caption');
+        if (cap) cap.style.transform =
+          `translate(${ry * -3.2}px, ${rx * 3.2}px)`;
+      }
+
+      // Smooth return to rest
+      function restore(card) {
+        const ease = 'transform 1.1s cubic-bezier(0.22, 1, 0.36, 1)';
+        const els = [card,
+          card.querySelector('.collection-card-inner'),
+          card.querySelector('.collection-caption')
+        ];
+        els.forEach(el => {
+          if (!el) return;
+          el.style.transition = ease;
+          el.style.transform  = '';
+        });
+        // Remove inline transition after reset so CSS hover rules resume
+        setTimeout(() => els.forEach(el => el && (el.style.transition = '')), 1200);
+      }
+
+      // rAF loop — lerp toward target, paint, or rest
+      function tick() {
+        let anyMoving = false;
+
+        st.forEach((s, i) => {
+          s.cx += (s.tx - s.cx) * LERP;
+          s.cy += (s.ty - s.cy) * LERP;
+
+          // Snap to exact zero when close enough
+          if (s.tx === 0 && s.ty === 0) {
+            if (Math.abs(s.cx) < 0.02) s.cx = 0;
+            if (Math.abs(s.cy) < 0.02) s.cy = 0;
+          }
+
+          const moving = s.cx !== 0 || s.cy !== 0 || s.tx !== 0 || s.ty !== 0;
+          if (moving) {
+            anyMoving = true;
+            // Disable CSS transitions while live-tracking
+            const els = [cards[i],
+              cards[i].querySelector('.collection-card-inner'),
+              cards[i].querySelector('.collection-caption')
+            ];
+            els.forEach(el => el && (el.style.transition = 'none'));
+            paint(cards[i], s.cx, s.cy);
+          }
+        });
+
+        if (anyMoving || inZone) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+          cards.forEach(restore); // smooth return
+        }
+      }
+
+      document.addEventListener('mousemove', e => {
+        const z   = getZone();
+        const mx  = e.clientX, my = e.clientY;
+        inZone = mx >= z.l && mx <= z.r && my >= z.t && my <= z.b;
+
+        if (inZone) {
+          cards.forEach((card, i) => {
+            const b  = card.getBoundingClientRect();
+            const cx = b.left + b.width  / 2;
+            const cy = b.top  + b.height / 2;
+
+            // Normalize: distance from card center / (card + zone padding)
+            // Closer to card = larger value (max tilt)
+            const dx = (mx - cx) / (b.width  * 0.8);
+            const dy = (my - cy) / (b.height * 0.8);
+            const nx = Math.max(-1, Math.min(1, dx));
+            const ny = Math.max(-1, Math.min(1, dy));
+
+            // Card tilts TOWARD mouse:
+            // rotateY negative = right side forward when mouse is right
+            st[i].ty = -nx * MAX_TILT;
+            st[i].tx =  ny * MAX_TILT;
+          });
+        } else {
+          st.forEach(s => { s.tx = 0; s.ty = 0; });
+        }
+
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+
+      // Reset on scroll
+      window.addEventListener('scroll', () => {
+        inZone = false;
+        st.forEach(s => { s.tx = 0; s.ty = 0; });
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+    })();
+
     // ── Collection photo sheen — fires 2s after mouseenter ─────
     // Timer is NOT cancelled on mouseleave: once started, sheen
     // always completes regardless of mouse position.
