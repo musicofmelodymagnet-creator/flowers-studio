@@ -266,6 +266,28 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
     });
+    // ── Avatar spring on hover (first / Variant 1 avatar) ──────
+    // On enter: play damped-spring animation to scale(1.2)
+    // On leave: capture current computed scale, force reflow,
+    //           then transition smoothly back to scale(1) over 2s
+    const avatar = document.querySelector('.about-avatar-wrap');
+    if (avatar) {
+      avatar.addEventListener('mouseenter', () => {
+        avatar.style.transition = 'none';
+        avatar.style.transform  = '';
+        avatar.style.animation  = 'avatar-spring 750ms ease forwards';
+      });
+
+      avatar.addEventListener('mouseleave', () => {
+        // Snapshot current computed transform before removing animation
+        const current = window.getComputedStyle(avatar).transform;
+        avatar.style.animation = 'none';
+        avatar.style.transform = current;   // lock at where it was
+        avatar.offsetHeight;                // force reflow
+        avatar.style.transition = 'transform 2s ease-in-out';
+        avatar.style.transform  = 'scale(1)';
+      });
+    }
   </script>
 
 </body>

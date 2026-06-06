@@ -968,6 +968,19 @@ body {
   align-items: center;
 }
 
+/* ── Avatar spring-bounce animation ─────────────────────────── */
+@keyframes avatar-spring {
+  0%   { transform: scale(1.00); }
+  20%  { transform: scale(1.27); }   /* first overshoot */
+  38%  { transform: scale(1.13); }   /* pull back */
+  53%  { transform: scale(1.22); }   /* bounce up */
+  66%  { transform: scale(1.17); }   /* bounce down */
+  77%  { transform: scale(1.21); }   /* small up */
+  87%  { transform: scale(1.19); }   /* small down */
+  94%  { transform: scale(1.205); }  /* micro bounce */
+  100% { transform: scale(1.20); }   /* settle */
+}
+
 /* Circular avatar with neumorphic raised ring */
 .about-avatar-wrap {
   width: 200px;
