@@ -222,6 +222,43 @@ body {
     color       840ms var(--ease);
 }
 
+/* ── Rose blooming from the O in FLORINSKY ─────────────────── */
+.wm-o-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.wm-rose {
+  position: absolute;
+  bottom: 80%;
+  left: 50%;
+  transform: translateX(-50%) scale(0) rotate(-20deg);
+  transform-origin: center bottom;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  /* Leave: shrink + fade smoothly */
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity   0.8s ease-in;
+  will-change: transform, opacity;
+}
+
+@keyframes rose-bloom {
+  0%   { transform: translateX(-50%) scale(0)    rotate(-20deg); opacity: 0; filter: blur(4px); }
+  50%  { transform: translateX(-50%) scale(1.18) rotate(6deg);  opacity: 1; filter: blur(0);   }
+  68%  { transform: translateX(-50%) scale(0.95) rotate(-3deg); }
+  82%  { transform: translateX(-50%) scale(1.04) rotate(2deg);  }
+  92%  { transform: translateX(-50%) scale(0.98) rotate(-1deg); }
+  100% { transform: translateX(-50%) scale(1)    rotate(0deg);  opacity: 1; }
+}
+
+/* Bloom on hover; transition:none lets animation override */
+.wordmark:hover .wm-rose {
+  animation: rose-bloom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition: none;
+}
+
 .wordmark-tagline {
   display: flex;
   align-items: center;
