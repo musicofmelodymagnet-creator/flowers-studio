@@ -1022,7 +1022,7 @@ body {
 }
 
 .about-avatar-wrap.sheen-active::after {
-  animation: sheen-run 520ms ease-out forwards;
+  animation: sheen-run 1560ms ease-out forwards;
 }
 
 .about-avatar-wrap img {
