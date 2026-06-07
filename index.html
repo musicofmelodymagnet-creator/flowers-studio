@@ -829,7 +829,7 @@
       // Apply 3-layer parallax to one card
       function paint(card, rx, ry) {
         card.style.transform =
-          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.04, 1.04, 1)`;
+          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
         // Photo container slides (depth layer 1 — "background")
         const inner = card.querySelector('.collection-card-inner');
         if (inner) inner.style.transform =
