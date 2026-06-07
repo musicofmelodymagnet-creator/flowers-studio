@@ -528,24 +528,6 @@ body {
   object-fit: cover;
 }
 
-/* ---- slow chaotic pulse (different duration + delay per card) ---- */
-@keyframes photo-breathe {
-  0%, 100% { transform: scale(1);     opacity: 1;    }
-  50%       { transform: scale(1.024); opacity: 0.94; }
-}
-
-.collections-grid .collection-card:nth-child(1) .collection-card-inner img {
-  animation: photo-breathe 9s ease-in-out infinite;
-  animation-delay: -2.3s;
-}
-.collections-grid .collection-card:nth-child(2) .collection-card-inner img {
-  animation: photo-breathe 12s ease-in-out infinite;
-  animation-delay: -7.1s;
-}
-.collections-grid .collection-card:nth-child(3) .collection-card-inner img {
-  animation: photo-breathe 8s ease-in-out infinite;
-  animation-delay: -4.7s;
-}
 
 /* Frosted caption bar */
 .collection-caption {
