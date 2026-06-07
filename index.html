@@ -819,17 +819,17 @@
       function getZone() {
         const b = grid.getBoundingClientRect();
         return {
-          l: b.left   - b.width  * .575,
-          r: b.right  + b.width  * .575,
-          t: b.top    - b.height * .57575,
-          b: b.bottom + b.height * .575
+          l: b.left   - b.width  * .5,
+          r: b.right  + b.width  * .5,
+          t: b.top    - b.height * .5,
+          b: b.bottom + b.height * .5
         };
       }
 
       // Apply 3-layer parallax to one card
       function paint(card, rx, ry) {
         card.style.transform =
-          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.12, 1.04, 1)`;
+          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.04, 1.04, 1)`;
         // Photo container slides (depth layer 1 — "background")
         const inner = card.querySelector('.collection-card-inner');
         if (inner) inner.style.transform =
