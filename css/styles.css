@@ -550,8 +550,8 @@ body {
 /* Frosted caption bar */
 .collection-caption {
   position: absolute;
-  inset: auto 0 0 0;
-  padding: 18px 22px;
+  inset: auto -30px 0 -30px; /* 30px buffer each side absorbs parallax translate */
+  padding: 18px 52px;        /* 22px + 30px to compensate */
   background: rgba(249, 244, 240, 0.45);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
