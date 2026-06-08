@@ -31,7 +31,7 @@
   <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
     <a href="index.html"     class="mobile-nav-link">Welcome</a>
     <a href="gallery.html"   class="mobile-nav-link">Gallery</a>
-    <a href="advantages.html"    class="mobile-nav-link">Next Level</a>
+    <a href="advantages.html"    class="mobile-nav-link">Our Uniqueness</a>
     <a href="#testimonials"  class="mobile-nav-link">Kind Words</a>
     <a href="about.html"         class="mobile-nav-link">Our Story</a>
     <a href="#contact"       class="mobile-nav-link">Client Care</a>
@@ -45,7 +45,7 @@
       <div class="nav-pill">
         <a href="index.html"     class="nav-link">Welcome</a>
         <a href="gallery.html"   class="nav-link">Gallery</a>
-        <a href="advantages.html"    class="nav-link" data-nav>Next Level</a>
+        <a href="advantages.html"    class="nav-link" data-nav>Our Uniqueness</a>
         <a href="#testimonials"  class="nav-link" data-nav>Kind Words</a>
         <a href="about.html"         class="nav-link">Our Story</a>
         <a href="#contact"       class="nav-link" data-nav>Client Care</a>
@@ -88,12 +88,82 @@
 
       </header>
 
-      <!-- ── OUR ADVANTAGES ──────────────────────────────────────── -->
-      <section class="advantages" id="testimonials" aria-label="Next Level">
+      <!-- ── GALLERY PREVIEW ──────────────────────────────────────── -->
+      <section class="collections" id="gallery-preview" aria-label="Gallery">
 
         <div class="section-title">
-          <span class="section-label">Why Choose Us</span>
-          <h2>Next Level</h2>
+          <h2>Gallery</h2>
+          <span class="section-title-rule"></span>
+        </div>
+
+        <div class="collections-grid">
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-1.jpg" alt="Ivory Bloom floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Ivory Bloom</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-2.jpg" alt="Blush Romance floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Blush Romance</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-3.png" alt="Garden Pearl floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Garden Pearl</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-4.png" alt="Velvet Rose floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Velvet Rose</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="section-sep" aria-hidden="true"></div>
+
+      <!-- ── OUR ADVANTAGES ──────────────────────────────────────── -->
+      <section class="advantages" id="testimonials" aria-label="Our Uniqueness">
+
+        <div class="section-title">
+          <h2>Our Uniqueness</h2>
           <span class="section-title-rule"></span>
         </div>
 
@@ -806,17 +876,18 @@
           const ny = rx / MAX_TILT;
           inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
           inner.style.setProperty('--shine-py', (50 + ny * 15).toFixed(1) + '%');
-          // Upward-tilt bell (ny<0 = mouse above center): peak at half range.
-          // Without upward tilt, left-tilt bell is still active but capped at 70%.
+          // 2D bell: both upward (ny<0) AND leftward (nx>0) required.
+          // Each axis peaks at half its range (0.5 normalized); product = 1.0
+          // only when both are at their half-range simultaneously.
           const nyUp   = Math.max(0, -ny);
           const nyBell = nyUp === 0 ? 0
-            : nyUp < 0.5 ? Math.sin(nyUp / 0.5  * Math.PI * 0.5)
+            : nyUp < 0.5 ? Math.sin(nyUp / 0.5 * Math.PI * 0.5)
             : Math.cos((nyUp - 0.5) / 0.5 * Math.PI * 0.5);
           const nxLeft = Math.max(0, nx);
           const nxBell = nxLeft === 0 ? 0
-            : nxLeft < 0.667 ? Math.sin(nxLeft / 0.667 * Math.PI * 0.5)
-            : Math.cos((nxLeft - 0.667) / 0.333 * Math.PI * 0.5);
-          inner.style.setProperty('--shine-o', Math.max(nyBell, nxBell * 0.7).toFixed(3));
+            : nxLeft < 0.5 ? Math.sin(nxLeft / 0.5 * Math.PI * 0.5)
+            : Math.cos((nxLeft - 0.5) / 0.5 * Math.PI * 0.5);
+          inner.style.setProperty('--shine-o', (nyBell * nxBell).toFixed(3));
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =
