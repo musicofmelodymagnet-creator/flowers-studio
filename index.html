@@ -844,28 +844,33 @@
         };
       }
 
-      // Apply 3-layer parallax + specular highlight to one card
+      // Apply 3-layer parallax + glossy-surface sheen to one card.
+      // The sheen is a large soft radial gradient (300%×300% tile) whose
+      // background-position shifts so the bright centre migrates to the
+      // forward-tilting side — exactly like ambient light catching a glossy
+      // lacquered surface, not a spotlight moving on top of it.
       function paint(card, rx, ry) {
         card.style.transform =
           `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
         const inner = card.querySelector('.collection-card-inner');
         if (inner) {
           inner.style.transform = `translate(${ry * -1.17}px, ${rx * 1.17}px)`;
-          // Specular: highlight moves to the forward-tilting side
-          // ry<0 when right side forward; rx>0 when bottom forward
-          const nx = ry / MAX_TILT;
-          const ny = rx / MAX_TILT;
+          const nx  = ry / MAX_TILT;   // horizontal tilt [-1..1]
+          const ny  = rx / MAX_TILT;   // vertical tilt   [-1..1]
           const mag = Math.min(Math.sqrt(nx * nx + ny * ny) / Math.SQRT2, 1);
-          inner.style.setProperty('--shine-x', (50 - nx * 38) + '%');
-          inner.style.setProperty('--shine-y', (50 + ny * 38) + '%');
-          inner.style.setProperty('--shine-o', (mag * 0.62).toFixed(3));
+          // Shift the 300%×300% gradient tile so its bright centre moves
+          // onto the side that tilts toward the viewer (toward the light).
+          // Formula: pos% = 50 + n * 15  (derived from bg-position/bg-size math)
+          inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
+          inner.style.setProperty('--shine-py', (50 + ny * 15).toFixed(1) + '%');
+          inner.style.setProperty('--shine-o',  (mag * 0.85).toFixed(3));
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =
           `translate(${ry * -2.08}px, ${rx * 2.08}px)`;
       }
 
-      // Smooth return to rest, fade shine to zero
+      // Smooth return to rest, fade gloss to zero
       function restore(card) {
         const ease  = 'transform 2.2s cubic-bezier(0.22, 1, 0.36, 1)';
         const inner = card.querySelector('.collection-card-inner');
@@ -875,7 +880,11 @@
           el.style.transition = ease;
           el.style.transform  = '';
         });
-        if (inner) inner.style.setProperty('--shine-o', '0');
+        if (inner) {
+          inner.style.setProperty('--shine-o',  '0');
+          inner.style.setProperty('--shine-px', '50%');
+          inner.style.setProperty('--shine-py', '50%');
+        }
         setTimeout(() => [card, inner, cap].forEach(el => el && (el.style.transition = '')), 2400);
       }
 

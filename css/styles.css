@@ -460,29 +460,30 @@ body {
   aspect-ratio: 293 / 384;
 }
 
-/* Tilt-based gloss reflection — tight specular core + wide ambient bloom */
+/* Glossy-surface ambient sheen.
+   A large soft gradient tile (300%×300%) shifts position via JS custom
+   properties so the bright zone migrates to the forward-tilting edge —
+   exactly as ambient light reflects off lacquered/glossy material.
+   soft-light blend lets the underlying photo show through naturally. */
 .collection-card-inner::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 4;
   border-radius: inherit;
-  background:
-    radial-gradient(
-      ellipse 22% 18% at var(--shine-x, 50%) var(--shine-y, 50%),
-      rgba(255, 255, 255, 0.96)  0%,
-      rgba(255, 255, 255, 0.50) 38%,
-      transparent               86%
-    ),
-    radial-gradient(
-      ellipse 56% 48% at var(--shine-x, 50%) var(--shine-y, 50%),
-      rgba(255, 255, 255, 0.13)  0%,
-      transparent               72%
-    );
+  background: radial-gradient(
+    ellipse 90% 80% at center,
+    rgba(255, 255, 255, 0.90)  0%,
+    rgba(255, 255, 255, 0.45) 30%,
+    rgba(255, 255, 255, 0.10) 55%,
+    transparent               70%
+  );
+  background-size: 300% 300%;
+  background-position: var(--shine-px, 50%) var(--shine-py, 50%);
   opacity: var(--shine-o, 0);
-  mix-blend-mode: overlay;
+  mix-blend-mode: soft-light;
   pointer-events: none;
-  will-change: opacity;
+  will-change: background-position, opacity;
 }
 
 .collection-card-inner img {
