@@ -32,7 +32,6 @@
     <a href="index.html"     class="mobile-nav-link">Welcome</a>
     <a href="#gallery"       class="mobile-nav-link">Gallery</a>
     <a href="advantages.html"    class="mobile-nav-link">Next Level</a>
-    <a href="#process"       class="mobile-nav-link">Process</a>
     <a href="#testimonials"  class="mobile-nav-link">Kind Words</a>
     <a href="about.html"         class="mobile-nav-link">Our Story</a>
     <a href="#contact"       class="mobile-nav-link">Client Care</a>
@@ -47,7 +46,6 @@
         <a href="index.html"     class="nav-link">Welcome</a>
         <a href="#gallery"       class="nav-link" data-nav>Gallery</a>
         <a href="advantages.html"    class="nav-link" data-nav>Next Level</a>
-        <a href="#process"       class="nav-link" data-nav>Process</a>
         <a href="#testimonials"  class="nav-link" data-nav>Kind Words</a>
         <a href="about.html"         class="nav-link">Our Story</a>
         <a href="#contact"       class="nav-link" data-nav>Client Care</a>
@@ -60,7 +58,7 @@
     <main class="page-stack">
 
       <!-- ── HERO ─────────────────────────────────────────────── -->
-      <header class="hero" id="gallery">
+      <header class="hero" id="welcome">
 
         <div class="hero-wordmark">
           <span class="wordmark">FLORINSKY</span>
@@ -91,10 +89,10 @@
       </header>
 
       <!-- ── COLLECTIONS ───────────────────────────────────────── -->
-      <section class="collections" id="collections" aria-label="Flower wall collections">
+      <section class="collections" id="gallery" aria-label="Gallery">
 
         <div class="section-title">
-          <h2>Collections</h2>
+          <h2>Gallery</h2>
           <span class="section-title-rule"></span>
         </div>
 
@@ -597,7 +595,7 @@
 
       <!-- ── CTA PAIR ─────────────────────────────────────────── -->
       <div class="cta-row" aria-label="Primary actions">
-        <button class="neo-btn" onclick="document.getElementById('collections').scrollIntoView({behavior:'smooth'})">
+        <button class="neo-btn" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
           Explore Designs
         </button>
         <button class="neo-btn neo-btn--muted" onclick="document.getElementById('process').scrollIntoView({behavior:'smooth'})">
@@ -629,6 +627,10 @@
           </svg>
           Instagram
         </a>
+      </div>
+      <div class="footer-locations">
+        <span class="footer-locations-title">Locations We Serve</span>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket</p>
       </div>
     </div>
   </footer>
@@ -870,17 +872,21 @@
         const inner = card.querySelector('.collection-card-inner');
         if (inner) {
           inner.style.transform = `translate(${ry * -0.878}px, ${rx * 0.878}px)`;
-          const nx  = ry / MAX_TILT;
-          const ny  = rx / MAX_TILT;
-          const mag = Math.min(Math.sqrt(nx * nx + ny * ny) / Math.SQRT2, 1);
+          const nx = ry / MAX_TILT;
+          const ny = rx / MAX_TILT;
           inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
           inner.style.setProperty('--shine-py', (50 + ny * 15).toFixed(1) + '%');
-          // Directional bell: only left-tilt (nx>0), peak at 60% of range,
-          // zero at center and at extreme — ONE zone, not two symmetric ones.
-          const bell = nx <= 0 ? 0
-            : nx < 0.667 ? Math.sin(nx / 0.667 * Math.PI * 0.5)    // 0→1
-            : Math.cos((nx - 0.667) / 0.333 * Math.PI * 0.5);       // 1→0
-          inner.style.setProperty('--shine-o', Math.max(0, bell).toFixed(3));
+          // Upward-tilt bell (ny<0 = mouse above center): peak at half range.
+          // Without upward tilt, left-tilt bell is still active but capped at 70%.
+          const nyUp   = Math.max(0, -ny);
+          const nyBell = nyUp === 0 ? 0
+            : nyUp < 0.5 ? Math.sin(nyUp / 0.5  * Math.PI * 0.5)
+            : Math.cos((nyUp - 0.5) / 0.5 * Math.PI * 0.5);
+          const nxLeft = Math.max(0, nx);
+          const nxBell = nxLeft === 0 ? 0
+            : nxLeft < 0.667 ? Math.sin(nxLeft / 0.667 * Math.PI * 0.5)
+            : Math.cos((nxLeft - 0.667) / 0.333 * Math.PI * 0.5);
+          inner.style.setProperty('--shine-o', Math.max(nyBell, nxBell * 0.7).toFixed(3));
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =

@@ -465,7 +465,7 @@ body {
   position: relative;
   border-radius: calc(var(--r-card) - 16px);
   overflow: hidden;
-  aspect-ratio: 293 / 384;
+  aspect-ratio: 1 / 1;
 }
 
 /* Glossy-surface ambient sheen.
@@ -943,6 +943,29 @@ body {
 .footer-instagram:hover { opacity: 1; }
 .footer-instagram svg { width: 16px; height: 16px; stroke-width: 1.75; }
 
+.footer-locations {
+  flex-basis: 100%;
+  padding-top: 24px;
+  border-top: 1px solid rgba(249, 244, 240, 0.14);
+}
+
+.footer-locations-title {
+  display: block;
+  font: 600 11px/1.5 var(--font-sans);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--on-dark);
+  opacity: 0.55;
+  margin-bottom: 10px;
+}
+
+.footer-locations-list {
+  font: 400 14px/1.8 var(--font-sans);
+  color: var(--on-dark);
+  opacity: 0.65;
+  margin: 0;
+}
+
 /* ================================================================
    ABOUT US — two-panel card (identity top + story bottom)
    ================================================================ */
@@ -988,14 +1011,14 @@ body {
 /* ── Avatar spring-bounce animation ─────────────────────────── */
 @keyframes avatar-spring {
   0%   { transform: scale(1.000); }
-  20%  { transform: scale(1.189); }
-  38%  { transform: scale(1.091); }
-  53%  { transform: scale(1.154); }
-  66%  { transform: scale(1.119); }
-  77%  { transform: scale(1.147); }
-  87%  { transform: scale(1.133); }
-  94%  { transform: scale(1.144); }
-  100% { transform: scale(1.140); }
+  20%  { transform: scale(1.151); }
+  38%  { transform: scale(1.073); }
+  53%  { transform: scale(1.123); }
+  66%  { transform: scale(1.095); }
+  77%  { transform: scale(1.118); }
+  87%  { transform: scale(1.106); }
+  94%  { transform: scale(1.115); }
+  100% { transform: scale(1.112); }
 }
 
 /* Circular avatar — inverted neumorphic on dark bg, single-ring */
