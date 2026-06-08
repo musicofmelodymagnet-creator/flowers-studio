@@ -86,14 +86,6 @@
             private parties. Each wall is a masterpiece inspired by nature
             and high fashion.
           </p>
-          <div class="hero-ctas">
-            <button class="neo-btn" onclick="document.getElementById('collections').scrollIntoView({behavior:'smooth'})">
-              Explore Designs
-            </button>
-            <button class="neo-btn neo-btn--muted" onclick="document.getElementById('process').scrollIntoView({behavior:'smooth'})">
-              Our Process
-            </button>
-          </div>
         </div>
 
       </header>
@@ -110,9 +102,9 @@
 
           <div class="collection-card">
             <div class="collection-card-inner">
-              <img src="assets/cover-1.jpg" alt="Floral wall — design 01" />
+              <img src="assets/cover-1.jpg" alt="Ivory Bloom floral wall — FLORINSKY Atelier" />
               <div class="collection-caption">
-                <span class="collection-caption-title">Design 01</span>
+                <span class="collection-caption-title">Ivory Bloom</span>
                 <span class="collection-arrow">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
@@ -124,9 +116,9 @@
 
           <div class="collection-card">
             <div class="collection-card-inner">
-              <img src="assets/cover-2.jpg" alt="Floral wall — design 02" />
+              <img src="assets/cover-2.jpg" alt="Blush Romance floral wall — FLORINSKY Atelier" />
               <div class="collection-caption">
-                <span class="collection-caption-title">Design 02</span>
+                <span class="collection-caption-title">Blush Romance</span>
                 <span class="collection-arrow">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
@@ -138,9 +130,9 @@
 
           <div class="collection-card">
             <div class="collection-card-inner">
-              <img src="assets/cover-3.png" alt="Floral wall — design 03" />
+              <img src="assets/cover-3.png" alt="Garden Pearl floral wall — FLORINSKY Atelier" />
               <div class="collection-caption">
-                <span class="collection-caption-title">Design 03</span>
+                <span class="collection-caption-title">Garden Pearl</span>
                 <span class="collection-arrow">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
@@ -152,9 +144,9 @@
 
           <div class="collection-card">
             <div class="collection-card-inner">
-              <img src="assets/cover-4.png" alt="Floral wall — design 04" />
+              <img src="assets/cover-4.png" alt="Velvet Rose floral wall — FLORINSKY Atelier" />
               <div class="collection-caption">
-                <span class="collection-caption-title">Design 04</span>
+                <span class="collection-caption-title">Velvet Rose</span>
                 <span class="collection-arrow">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
@@ -603,6 +595,16 @@
         </div>
       </div>
 
+      <!-- ── CTA PAIR ─────────────────────────────────────────── -->
+      <div class="cta-row" aria-label="Primary actions">
+        <button class="neo-btn" onclick="document.getElementById('collections').scrollIntoView({behavior:'smooth'})">
+          Explore Designs
+        </button>
+        <button class="neo-btn neo-btn--muted" onclick="document.getElementById('process').scrollIntoView({behavior:'smooth'})">
+          Our Process
+        </button>
+      </div>
+
     </main>
   </div><!-- /.site-shell -->
 
@@ -876,7 +878,11 @@
           // Formula: pos% = 50 + n * 15  (derived from bg-position/bg-size math)
           inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
           inner.style.setProperty('--shine-py', (50 + ny * 15).toFixed(1) + '%');
-          inner.style.setProperty('--shine-o',  Math.min(mag * 1.70, 1).toFixed(3));
+          // Piecewise: 0–60% tilt = no gloss, 60–85% = medium, 85–100% = max
+          const shine = mag < 0.60 ? 0
+            : mag < 0.85 ? (mag - 0.60) / 0.25 * 0.50
+            : 0.50 + (mag - 0.85) / 0.15 * 0.50;
+          inner.style.setProperty('--shine-o', shine.toFixed(3));
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =

@@ -289,6 +289,14 @@ body {
   padding-top: 8px;
 }
 
+/* Standalone CTA pair at page bottom */
+.cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+}
+
 /* ================================================================
    NEO BUTTON (neumorphic pill)
    ================================================================ */
