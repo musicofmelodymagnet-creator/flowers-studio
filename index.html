@@ -876,18 +876,19 @@
           const ny = rx / MAX_TILT;
           inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
           inner.style.setProperty('--shine-py', (50 + ny * 15).toFixed(1) + '%');
-          // 2D bell: both upward (ny<0) AND leftward (nx>0) required.
-          // Each axis peaks at half its range (0.5 normalized); product = 1.0
-          // only when both are at their half-range simultaneously.
-          const nyUp   = Math.max(0, -ny);
-          const nyBell = nyUp === 0 ? 0
-            : nyUp < 0.5 ? Math.sin(nyUp / 0.5 * Math.PI * 0.5)
-            : Math.cos((nyUp - 0.5) / 0.5 * Math.PI * 0.5);
+          // Additive 2D bell: each axis contributes 50% independently;
+          // both at half-range simultaneously → 100%.
+          // Left tilt (nx>0) bell, peak at nx=0.5:
           const nxLeft = Math.max(0, nx);
-          const nxBell = nxLeft === 0 ? 0
-            : nxLeft < 0.5 ? Math.sin(nxLeft / 0.5 * Math.PI * 0.5)
+          const nxBell = nxLeft < 0.5
+            ? Math.sin(nxLeft / 0.5 * Math.PI * 0.5)
             : Math.cos((nxLeft - 0.5) / 0.5 * Math.PI * 0.5);
-          inner.style.setProperty('--shine-o', (nyBell * nxBell).toFixed(3));
+          // Upward tilt (ny<0) bell, peak at |ny|=0.5:
+          const nyUp   = Math.max(0, -ny);
+          const nyBell = nyUp < 0.5
+            ? Math.sin(nyUp / 0.5 * Math.PI * 0.5)
+            : Math.cos((nyUp - 0.5) / 0.5 * Math.PI * 0.5);
+          inner.style.setProperty('--shine-o', (0.5 * nxBell + 0.5 * nyBell).toFixed(3));
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =
