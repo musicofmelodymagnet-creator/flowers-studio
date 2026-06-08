@@ -460,7 +460,7 @@ body {
   aspect-ratio: 293 / 384;
 }
 
-/* Tilt-based specular highlight — position/opacity driven by parallax JS */
+/* Tilt-based specular highlight — driven by parallax JS custom props */
 .collection-card-inner::before {
   content: '';
   position: absolute;
@@ -468,13 +468,16 @@ body {
   z-index: 4;
   border-radius: inherit;
   background: radial-gradient(
-    circle at var(--shine-x, 50%) var(--shine-y, 50%),
-    rgba(255, 252, 248, 0.65)  0%,
-    rgba(255, 252, 248, 0.22) 30%,
-    transparent               62%
+    ellipse 55% 45% at var(--shine-x, 50%) var(--shine-y, 50%),
+    rgba(255, 255, 255, 0.88)  0%,
+    rgba(255, 255, 255, 0.42) 28%,
+    rgba(255, 255, 255, 0.10) 52%,
+    transparent               72%
   );
   opacity: var(--shine-o, 0);
+  mix-blend-mode: screen;
   pointer-events: none;
+  will-change: opacity;
 }
 
 .collection-card-inner img {
@@ -1187,6 +1190,25 @@ body {
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   cursor: pointer;
+}
+
+/* Thin separator between Advantages section and Inquiry form */
+.section-sep {
+  width: 100%;
+  max-width: 880px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(168,120,208,0.12) 10%,
+    rgba(168,120,208,0.38) 30%,
+    var(--brand-soft)      50%,
+    rgba(168,120,208,0.38) 70%,
+    rgba(168,120,208,0.12) 90%,
+    transparent
+  );
+  flex-shrink: 0;
 }
 
 /* Divider between cards */
