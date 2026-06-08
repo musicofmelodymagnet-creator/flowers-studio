@@ -396,6 +396,265 @@
 
       </section>
 
+      <!-- ============================================================
+           LAYOUT VARIANT 2 DIVIDER
+           ============================================================ -->
+      <div class="pv2-variant-divider" aria-hidden="true">
+        <span class="pv2-variant-rule"></span>
+        <span class="pv2-variant-label">Layout — Variant 2</span>
+        <span class="pv2-variant-rule"></span>
+      </div>
+
+      <!-- ============================================================
+           LAYOUT VARIANT 2 — wide landscape media, controls on left
+           ============================================================ -->
+      <div class="pv2-wrap">
+
+        <!-- ── Header above media ──────────────────────────── -->
+        <div class="pv2-header">
+          <div class="pv2-header-left">
+            <span class="product-eyebrow">Floral Wall Collection</span>
+            <h2 class="pv2-name">Ivory Bloom</h2>
+          </div>
+          <div class="product-tags" style="margin-bottom:6px">
+            <span class="product-tag">Real Touch</span>
+            <span class="product-tag">Premium Grade</span>
+            <span class="product-tag">Toronto &amp; GTA</span>
+          </div>
+        </div>
+
+        <!-- ── Wide media zone (15:10 landscape) ─────────── -->
+        <div class="pv2-media-zone" id="pv2Zone">
+
+          <!-- ·· Left control pill ·····················  -->
+          <div class="pv2-left-controls">
+
+            <!-- Media tabs -->
+            <button class="pv2-tab active" data-pv2pane="photos" aria-label="Photos">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span class="pv2-tip">Photos</span>
+            </button>
+            <button class="pv2-tab" data-pv2pane="v-wall" aria-label="Wall video">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              <span class="pv2-tip">Wall</span>
+            </button>
+            <button class="pv2-tab" data-pv2pane="v-assembly" aria-label="Assembly video">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+              </svg>
+              <span class="pv2-tip">Assembly</span>
+            </button>
+            <button class="pv2-tab" data-pv2pane="v-teardown" aria-label="Teardown video">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+              <span class="pv2-tip">Teardown</span>
+            </button>
+
+            <div class="pv2-ctrl-sep"></div>
+
+            <!-- Lighting -->
+            <button class="pv2-light-btn active" data-pv2light="indoor" aria-label="Indoor lighting">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21h6"/><path d="M12 3a6 6 0 0 1 6 6c0 2.25-1.25 4.25-3 5.5V17H9v-2.5C7.25 13.25 6 11.25 6 9a6 6 0 0 1 6-6z"/>
+              </svg>
+              <span class="pv2-tip">Indoor</span>
+            </button>
+            <button class="pv2-light-btn" data-pv2light="outdoor" aria-label="Outdoor sunlight">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+              </svg>
+              <span class="pv2-tip">Sunlight</span>
+            </button>
+
+            <div class="pv2-ctrl-sep"></div>
+
+            <!-- Colour palette trigger -->
+            <button class="pv2-palette-btn" id="pv2PaletteBtn" aria-label="Show colour palette" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="16.5" cy="15" r="1.2" fill="currentColor" stroke="none"/><circle cx="9" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
+              </svg>
+              <span class="pv2-tip">Palette</span>
+            </button>
+
+          </div>
+          <!-- /pv2-left-controls -->
+
+          <!-- ·· Sliding colour palette panel ·········  -->
+          <div class="pv2-palette-panel" id="pv2PalettePanel" aria-hidden="true">
+            <div class="pv2-palette-head">
+              <span class="pv2-palette-head-title">Wall Palette</span>
+              <button class="pv2-palette-close" id="pv2PaletteClose" aria-label="Close palette">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="pv2-palette-grid">
+              <div class="pv2-swatch-item">
+                <div class="pv2-swatch-dot" style="background:#F7F1E6"></div>
+                <span class="pv2-swatch-name">Ivory White</span>
+              </div>
+              <div class="pv2-swatch-item">
+                <div class="pv2-swatch-dot" style="background:#EDE0C4"></div>
+                <span class="pv2-swatch-name">Warm Cream</span>
+              </div>
+              <div class="pv2-swatch-item">
+                <div class="pv2-swatch-dot" style="background:#F2C4B4"></div>
+                <span class="pv2-swatch-name">Blush Pink</span>
+              </div>
+              <div class="pv2-swatch-item">
+                <div class="pv2-swatch-dot" style="background:#D1918E"></div>
+                <span class="pv2-swatch-name">Dusty Rose</span>
+              </div>
+              <div class="pv2-swatch-item">
+                <div class="pv2-swatch-dot" style="background:#B7C6B2"></div>
+                <span class="pv2-swatch-name">Sage Whisper</span>
+              </div>
+              <div class="pv2-swatch-item">
+                <div class="pv2-swatch-dot" style="background:#C6A9B2"></div>
+                <span class="pv2-swatch-name">Soft Mauve</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ·· Photo pane ·····························  -->
+          <div class="pv2-pane active" id="pv2-pane-photos">
+            <img class="pv2-img active" src="assets/product-1.jpg" alt="Ivory Bloom — view 1" data-pv2set="indoor" />
+            <img class="pv2-img"        src="assets/product-2.jpg" alt="Ivory Bloom — view 2" data-pv2set="indoor" />
+            <img class="pv2-img"        src="assets/product-3.jpg" alt="Ivory Bloom — view 3" data-pv2set="indoor" />
+            <img class="pv2-img"        src="assets/product-4.jpg" alt="Ivory Bloom — view 4" data-pv2set="indoor" />
+            <img class="pv2-img"        src="assets/product-5.jpg" alt="Ivory Bloom — view 5" data-pv2set="indoor" />
+            <img class="pv2-img"        src="assets/product-outdoor.png" alt="Ivory Bloom — outdoor" data-pv2set="outdoor" />
+          </div>
+
+          <!-- ·· Video panes ····························  -->
+          <div class="pv2-pane" id="pv2-pane-v-wall">
+            <video controls playsinline preload="none" poster="assets/product-1.jpg">
+              <source src="assets/product-video.mp4" type="video/mp4" />
+            </video>
+            <div class="pv2-vid-caption">See how Ivory Bloom looks at a real event</div>
+          </div>
+          <div class="pv2-pane" id="pv2-pane-v-assembly">
+            <video controls playsinline preload="none" poster="assets/product-2.jpg">
+              <source src="assets/product-video.mp4" type="video/mp4" />
+            </video>
+            <div class="pv2-vid-caption">Time-lapse: full wall assembly — from start to finish</div>
+          </div>
+          <div class="pv2-pane" id="pv2-pane-v-teardown">
+            <video controls playsinline preload="none" poster="assets/product-3.jpg">
+              <source src="assets/product-video.mp4" type="video/mp4" />
+            </video>
+            <div class="pv2-vid-caption">Time-lapse: complete wall disassembly</div>
+          </div>
+
+          <!-- ·· Prev / Next arrows ·····················  -->
+          <button class="pv2-arrow prev" id="pv2Prev" aria-label="Previous photo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="pv2-arrow next" id="pv2Next" aria-label="Next photo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+
+          <!-- ·· Photo counter ·························  -->
+          <div class="pv2-counter" id="pv2Counter">1 / 5</div>
+
+        </div>
+        <!-- /pv2-media-zone -->
+
+        <!-- ── Thumbnail strip ────────────────────────── -->
+        <div class="pv2-thumbs-row" id="pv2ThumbsRow">
+          <img class="pv2-thumb active" src="assets/product-1.jpg" alt="View 1" data-pv2idx="0" />
+          <img class="pv2-thumb"        src="assets/product-2.jpg" alt="View 2" data-pv2idx="1" />
+          <img class="pv2-thumb"        src="assets/product-3.jpg" alt="View 3" data-pv2idx="2" />
+          <img class="pv2-thumb"        src="assets/product-4.jpg" alt="View 4" data-pv2idx="3" />
+          <img class="pv2-thumb"        src="assets/product-5.jpg" alt="View 5" data-pv2idx="4" />
+        </div>
+
+        <!-- ── Info strip below media: desc+flowers | size+CTA ── -->
+        <div class="pv2-info-strip">
+
+          <!-- Left: description + flower types -->
+          <div class="pv2-info-left">
+            <p class="product-desc" style="margin:0">
+              Ivory Bloom is our signature floral wall — a study in quiet luxury, composed from layers
+              of cream garden roses, soft ranunculus, and gossamer hydrangea blooms. Every stem is
+              crafted from premium Real Touch material: the texture, weight, and translucency of a
+              living petal, without a single compromise. Under sunlight, the palette glows. Under
+              indoor lighting, it deepens into something warmer and more intimate.
+            </p>
+            <div class="pv2-flowers-block">
+              <span class="size-label">Flower Types</span>
+              <div class="flower-chips">
+                <span class="flower-chip">Garden Roses</span>
+                <span class="flower-chip">Ranunculus</span>
+                <span class="flower-chip">Peonies</span>
+                <span class="flower-chip">Hydrangeas</span>
+                <span class="flower-chip">Baby's Breath</span>
+                <span class="flower-chip">Eucalyptus</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: size selector + CTA -->
+          <div class="pv2-info-right">
+
+            <!-- Size selector with ? tooltip -->
+            <div>
+              <div class="pv2-size-title-row">
+                <span class="size-label" style="margin:0">Wall Size</span>
+                <button class="pv2-size-help" id="pv2SizeHelp" aria-label="Size information" aria-expanded="false">?</button>
+
+                <!-- Tooltip popup -->
+                <div class="pv2-size-popup" id="pv2SizePopup" aria-hidden="true">
+                  <h4>Choosing Your Size</h4>
+                  <div class="pv2-popup-sizes">
+                    <div class="pv2-popup-size-row">
+                      <span class="pv2-popup-size-name">8 × 8 ft</span>
+                      <p class="pv2-popup-size-desc">Refined and intimate. Ideal for ceremonies, portrait zones, and small gathering spaces where elegance takes priority over scale.</p>
+                    </div>
+                    <div class="pv2-popup-size-row">
+                      <span class="pv2-popup-size-name">11 × 8 ft — Most Popular</span>
+                      <p class="pv2-popup-size-desc">Designed for group photos and grand entrances. Balances visual scale with versatility — fits most venues without overpowering them.</p>
+                    </div>
+                    <div class="pv2-popup-size-row">
+                      <span class="pv2-popup-size-name">14 × 8 ft</span>
+                      <p class="pv2-popup-size-desc">The statement wall. Built for large outdoor celebrations, galas, and panoramic backdrops. Creates a fully immersive visual experience.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="size-options" id="pv2SizeOptions">
+                <button class="size-btn"        data-pv2size="8x8"  aria-pressed="false">8 × 8 ft</button>
+                <button class="size-btn active" data-pv2size="11x8" aria-pressed="true" >11 × 8 ft</button>
+                <button class="size-btn"        data-pv2size="14x8" aria-pressed="false">14 × 8 ft</button>
+              </div>
+              <p class="size-desc" id="pv2SizeDesc">
+                Our most requested size. Created for grand entrances, large wedding parties, and
+                group photography. Delivers maximum visual impact.
+              </p>
+            </div>
+
+            <!-- CTA -->
+            <button class="neo-btn product-cta"
+              onclick="document.getElementById('product-contact').scrollIntoView({behavior:'smooth'})">
+              Book This Wall
+            </button>
+
+          </div>
+          <!-- /pv2-info-right -->
+
+        </div>
+        <!-- /pv2-info-strip -->
+
+      </div>
+      <!-- /pv2-wrap -->
+
     </main>
   </div>
   <!-- /.site-shell -->
@@ -598,6 +857,152 @@
       productSubmitBtn.textContent = 'Thank You';
       productSubmitBtn.disabled    = true;
       productSubmitBtn.style.opacity = '0.7';
+    });
+
+    // ════════════════════════════════════════════════════════
+    // VARIANT 2 LOGIC
+    // ════════════════════════════════════════════════════════
+
+    // ── V2 Media tabs ────────────────────────────────────────
+    document.querySelectorAll('.pv2-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.pv2pane;
+        document.querySelectorAll('.pv2-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('[id^="pv2-pane-"]').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('pv2-pane-' + target).classList.add('active');
+        document.querySelectorAll('#pv2Zone video').forEach(v => v.pause());
+        const isPhoto = target === 'photos';
+        document.getElementById('pv2Counter').classList.toggle('hidden', !isPhoto);
+        const tr = document.getElementById('pv2ThumbsRow');
+        tr.style.opacity = isPhoto ? '' : '0.35';
+        tr.style.pointerEvents = isPhoto ? '' : 'none';
+      });
+    });
+
+    // ── V2 Carousel ──────────────────────────────────────────
+    const pv2AllImgs   = Array.from(document.querySelectorAll('.pv2-img'));
+    const pv2Thumbs    = Array.from(document.querySelectorAll('.pv2-thumb'));
+    const pv2CounterEl = document.getElementById('pv2Counter');
+    const pv2TRow      = document.getElementById('pv2ThumbsRow');
+    const pv2Indoor    = pv2AllImgs.filter(i => i.dataset.pv2set === 'indoor');
+    const pv2Outdoor   = pv2AllImgs.filter(i => i.dataset.pv2set === 'outdoor');
+    let pv2Set = pv2Indoor;
+    let pv2Idx = 0;
+
+    function pv2GoTo(idx) {
+      if (idx < 0) idx = pv2Set.length - 1;
+      if (idx >= pv2Set.length) idx = 0;
+      pv2Idx = idx;
+      pv2AllImgs.forEach(i => i.classList.remove('active'));
+      pv2Set[pv2Idx].classList.add('active');
+      if (pv2Set === pv2Indoor) {
+        pv2Thumbs.forEach((th, i) => th.classList.toggle('active', i === pv2Idx));
+      }
+      pv2CounterEl.textContent = (pv2Idx + 1) + ' / ' + pv2Set.length;
+    }
+
+    document.getElementById('pv2Prev').addEventListener('click', () => pv2GoTo(pv2Idx - 1));
+    document.getElementById('pv2Next').addEventListener('click', () => pv2GoTo(pv2Idx + 1));
+    pv2Thumbs.forEach((th, i) => th.addEventListener('click', () => {
+      if (pv2Set === pv2Indoor) pv2GoTo(i);
+    }));
+
+    // Touch swipe on V2
+    let pv2TouchX = 0;
+    const pv2PhotoPane = document.getElementById('pv2-pane-photos');
+    pv2PhotoPane.addEventListener('touchstart', e => {
+      pv2TouchX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    pv2PhotoPane.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].screenX - pv2TouchX;
+      if (Math.abs(dx) > 40) pv2GoTo(pv2Idx + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    // ── V2 Lighting toggle ───────────────────────────────────
+    document.querySelectorAll('.pv2-light-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pv2-light-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const isOutdoor = btn.dataset.pv2light === 'outdoor';
+        pv2Set = isOutdoor ? pv2Outdoor : pv2Indoor;
+        pv2TRow.style.opacity = isOutdoor ? '0.35' : '';
+        pv2TRow.style.pointerEvents = isOutdoor ? 'none' : '';
+        pv2GoTo(0);
+      });
+    });
+
+    // ── V2 Colour palette slide-in ───────────────────────────
+    const pv2PaletteBtn   = document.getElementById('pv2PaletteBtn');
+    const pv2PalettePanel = document.getElementById('pv2PalettePanel');
+    const pv2PaletteClose = document.getElementById('pv2PaletteClose');
+
+    function pv2TogglePalette(forceClose) {
+      const isOpen = pv2PalettePanel.classList.contains('open') || forceClose;
+      pv2PalettePanel.classList.toggle('open', !isOpen);
+      pv2PaletteBtn.classList.toggle('active', !isOpen);
+      pv2PaletteBtn.setAttribute('aria-expanded', String(!isOpen));
+      pv2PalettePanel.setAttribute('aria-hidden', String(isOpen));
+    }
+    pv2PaletteBtn.addEventListener('click', () => pv2TogglePalette(false));
+    pv2PaletteClose.addEventListener('click', () => pv2TogglePalette(true));
+
+    document.getElementById('pv2Zone').addEventListener('click', e => {
+      if (pv2PalettePanel.classList.contains('open') &&
+          !pv2PalettePanel.contains(e.target) &&
+          !pv2PaletteBtn.contains(e.target)) {
+        pv2TogglePalette(true);
+      }
+    });
+
+    // ── V2 Size selector ─────────────────────────────────────
+    const PV2_SIZES = {
+      '8x8':  'Our classic backdrop — refined and intimate. Ideal for ceremonies, portrait zones, and boutique celebrations. Fits beautifully in most indoor venues.',
+      '11x8': 'Our most requested size. Created for grand entrances, large wedding parties, and group photography. Delivers maximum visual impact.',
+      '14x8': 'The signature statement wall. A full panoramic backdrop designed for large-scale outdoor celebrations, corporate events, and gala evenings.'
+    };
+    const pv2SizeDescEl = document.getElementById('pv2SizeDesc');
+
+    document.querySelectorAll('#pv2SizeOptions .size-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#pv2SizeOptions .size-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        pv2SizeDescEl.style.opacity = '0';
+        setTimeout(() => {
+          pv2SizeDescEl.textContent = PV2_SIZES[btn.dataset.pv2size];
+          pv2SizeDescEl.style.opacity = '1';
+        }, 150);
+      });
+    });
+
+    // ── V2 Size help popup ───────────────────────────────────
+    const pv2SizeHelp  = document.getElementById('pv2SizeHelp');
+    const pv2SizePopup = document.getElementById('pv2SizePopup');
+
+    pv2SizeHelp.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = pv2SizePopup.classList.contains('open');
+      pv2SizePopup.classList.toggle('open', !isOpen);
+      pv2SizeHelp.setAttribute('aria-expanded', String(!isOpen));
+      pv2SizePopup.setAttribute('aria-hidden', String(isOpen));
+    });
+    document.addEventListener('click', e => {
+      if (!pv2SizeHelp.contains(e.target) && !pv2SizePopup.contains(e.target)) {
+        pv2SizePopup.classList.remove('open');
+        pv2SizeHelp.setAttribute('aria-expanded', 'false');
+        pv2SizePopup.setAttribute('aria-hidden', 'true');
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        pv2SizePopup.classList.remove('open');
+        pv2SizeHelp.setAttribute('aria-expanded', 'false');
+        pv2TogglePalette(true);
+      }
     });
   </script>
 
