@@ -460,30 +460,21 @@ body {
   aspect-ratio: 293 / 384;
 }
 
-/* Sheen: hidden by default, sweeps on hover after 2s delay */
-.collection-card-inner::after {
+/* Tilt-based specular highlight — position/opacity driven by parallax JS */
+.collection-card-inner::before {
   content: '';
   position: absolute;
-  top: -20%;
-  left: 0;
-  width: 45%;
-  height: 140%;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(255,255,255,0.50) 50%,
-    transparent 100%
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--shine-x, 50%) var(--shine-y, 50%),
+    rgba(255, 252, 248, 0.65)  0%,
+    rgba(255, 252, 248, 0.22) 30%,
+    transparent               62%
   );
-  transform: skewX(-14deg) translateX(-250%);
-  opacity: 0;
+  opacity: var(--shine-o, 0);
   pointer-events: none;
-  z-index: 3;
-  will-change: transform, opacity;
-}
-
-/* Triggered by JS class — no CSS hover needed */
-.collection-card-inner.sheen-play::after {
-  animation: sheen-run 1560ms ease-out forwards;
 }
 
 .collection-card-inner img {
