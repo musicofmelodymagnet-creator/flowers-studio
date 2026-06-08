@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivory Bloom — FLORINSKY Atelier</title>
+  <meta name="description" content="Ivory Bloom — premium floral wall rental by FLORINSKY Atelier. Real Touch flowers, three size options, all-terrain installation. Toronto & GTA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="index.html"              class="mobile-nav-link">Welcome</a>
+    <a href="gallery.html"            class="mobile-nav-link">Gallery</a>
+    <a href="advantages.html"         class="mobile-nav-link">Our Uniqueness</a>
+    <a href="index.html#testimonials" class="mobile-nav-link">Kind Words</a>
+    <a href="about.html"              class="mobile-nav-link">Our Story</a>
+    <a href="index.html#contact"      class="mobile-nav-link">Client Care</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="index.html"              class="nav-link">Welcome</a>
+        <a href="gallery.html"            class="nav-link active">Gallery</a>
+        <a href="advantages.html"         class="nav-link">Our Uniqueness</a>
+        <a href="index.html#testimonials" class="nav-link">Kind Words</a>
+        <a href="about.html"              class="nav-link">Our Story</a>
+        <a href="index.html#contact"      class="nav-link">Client Care</a>
+      </div>
+    </nav>
+
+    <main class="page-stack">
+
+      <!-- Breadcrumb -->
+      <div class="product-breadcrumb">
+        <a href="gallery.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"><path d="m15 18-6-6 6-6"/></svg>Gallery
+        </a>
+      </div>
+
+      <!-- ============================================================
+           PRODUCT LAYOUT — two-column sticky
+           ============================================================ -->
+      <div class="product-layout">
+
+        <!-- ── LEFT: Media panel ──────────────────────────── -->
+        <div class="product-media">
+
+          <!-- Media type tabs -->
+          <div class="media-tabs" role="tablist" aria-label="Media type">
+            <button class="media-tab active" data-pane="photos"       role="tab" aria-selected="true">Photos</button>
+            <button class="media-tab"        data-pane="vid-wall"     role="tab" aria-selected="false">Wall</button>
+            <button class="media-tab"        data-pane="vid-assembly" role="tab" aria-selected="false">Assembly</button>
+            <button class="media-tab"        data-pane="vid-teardown" role="tab" aria-selected="false">Teardown</button>
+          </div>
+
+          <!-- ── Photos pane ─────────────────────────────── -->
+          <div class="media-pane active" id="pane-photos">
+            <div class="carousel-wrap" id="carouselWrap">
+
+              <!-- Lighting toggle — top-right overlay -->
+              <div class="lighting-toggle" role="group" aria-label="Lighting">
+                <button class="lighting-btn active" data-light="indoor">
+                  <!-- Bulb icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21h6"/><path d="M12 3a6 6 0 0 1 6 6c0 2.25-1.25 4.25-3 5.5V17H9v-2.5C7.25 13.25 6 11.25 6 9a6 6 0 0 1 6-6z"/>
+                  </svg>
+                  Indoor
+                </button>
+                <button class="lighting-btn" data-light="outdoor">
+                  <!-- Sun icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                  </svg>
+                  Sunlight
+                </button>
+              </div>
+
+              <!-- Main image frame -->
+              <div class="carousel-main" id="carouselMain">
+                <img class="carousel-img active" src="assets/product-1.jpg" alt="Ivory Bloom floral wall — view 1" data-set="indoor" />
+                <img class="carousel-img"        src="assets/product-2.jpg" alt="Ivory Bloom floral wall — view 2" data-set="indoor" />
+                <img class="carousel-img"        src="assets/product-3.jpg" alt="Ivory Bloom floral wall — view 3" data-set="indoor" />
+                <img class="carousel-img"        src="assets/product-4.jpg" alt="Ivory Bloom floral wall — view 4" data-set="indoor" />
+                <img class="carousel-img"        src="assets/product-5.jpg" alt="Ivory Bloom floral wall — view 5" data-set="indoor" />
+                <img class="carousel-img"        src="assets/product-outdoor.png" alt="Ivory Bloom floral wall — outdoor sunlight" data-set="outdoor" />
+              </div>
+
+              <!-- Prev / Next arrows -->
+              <button class="carousel-arrow prev" id="carouselPrev" aria-label="Previous photo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <button class="carousel-arrow next" id="carouselNext" aria-label="Next photo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+
+            </div>
+
+            <!-- Thumbnail strip -->
+            <div class="carousel-thumbs" id="carouselThumbs">
+              <img class="carousel-thumb active" src="assets/product-1.jpg" alt="View 1" data-idx="0" />
+              <img class="carousel-thumb"        src="assets/product-2.jpg" alt="View 2" data-idx="1" />
+              <img class="carousel-thumb"        src="assets/product-3.jpg" alt="View 3" data-idx="2" />
+              <img class="carousel-thumb"        src="assets/product-4.jpg" alt="View 4" data-idx="3" />
+              <img class="carousel-thumb"        src="assets/product-5.jpg" alt="View 5" data-idx="4" />
+            </div>
+          </div>
+
+          <!-- ── Wall video pane ─────────────────────────── -->
+          <div class="media-pane" id="pane-vid-wall">
+            <div class="product-video-wrap">
+              <video controls playsinline preload="none" poster="assets/product-1.jpg">
+                <source src="assets/product-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="video-caption">See how Ivory Bloom looks at a real event</p>
+          </div>
+
+          <!-- ── Assembly timelapse pane ────────────────── -->
+          <div class="media-pane" id="pane-vid-assembly">
+            <div class="product-video-wrap">
+              <video controls playsinline preload="none" poster="assets/product-2.jpg">
+                <source src="assets/product-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="video-caption">Time-lapse: full wall assembly — from start to finish</p>
+          </div>
+
+          <!-- ── Teardown timelapse pane ────────────────── -->
+          <div class="media-pane" id="pane-vid-teardown">
+            <div class="product-video-wrap">
+              <video controls playsinline preload="none" poster="assets/product-3.jpg">
+                <source src="assets/product-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="video-caption">Time-lapse: complete wall disassembly</p>
+          </div>
+
+        </div>
+        <!-- /product-media -->
+
+        <!-- ── RIGHT: Info panel ──────────────────────────── -->
+        <div class="product-info">
+
+          <span class="product-eyebrow">Floral Wall Collection</span>
+          <h1 class="product-name">Ivory Bloom</h1>
+
+          <div class="product-tags">
+            <span class="product-tag">Real Touch</span>
+            <span class="product-tag">Premium Grade</span>
+            <span class="product-tag">Toronto &amp; GTA</span>
+          </div>
+
+          <p class="product-desc">
+            Ivory Bloom is our signature floral wall — a study in quiet luxury, composed from layers
+            of cream garden roses, soft ranunculus, and gossamer hydrangea blooms. Every stem is
+            crafted from premium Real Touch material: the texture, weight, and translucency of a
+            living petal, without a single compromise. Under sunlight, the palette glows. Under
+            indoor lighting, it deepens into something warmer and more intimate.
+          </p>
+
+          <hr class="product-rule" />
+
+          <!-- ── Detail panels ────────────────────────── -->
+          <div class="detail-panels">
+
+            <!-- Colour Palette -->
+            <div class="detail-panel">
+              <button class="detail-panel-trigger" data-panel="palette" aria-expanded="false">
+                <span class="detail-panel-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="16.5" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+                  </svg>
+                </span>
+                <span class="detail-panel-label">Colour Palette</span>
+                <svg class="detail-panel-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="detail-panel-body" id="body-palette">
+                <div class="detail-panel-inner">
+                  <div class="swatch-row">
+                    <div class="swatch-item">
+                      <div class="swatch-dot" style="background:#F5F0E8;"></div>
+                      <span class="swatch-name">Ivory White</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="swatch-dot" style="background:#EDE0C8;"></div>
+                      <span class="swatch-name">Champagne</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="swatch-dot" style="background:#F0DDD8;"></div>
+                      <span class="swatch-name">Blush Cream</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="swatch-dot" style="background:#D4959A;"></div>
+                      <span class="swatch-name">Dusty Rose</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="swatch-dot" style="background:#C9A8B0;"></div>
+                      <span class="swatch-name">Soft Mauve</span>
+                    </div>
+                    <div class="swatch-item">
+                      <div class="swatch-dot" style="background:#B5C4B1;"></div>
+                      <span class="swatch-name">Sage Whisper</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Flower Types -->
+            <div class="detail-panel">
+              <button class="detail-panel-trigger" data-panel="flowers" aria-expanded="false">
+                <span class="detail-panel-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22V12"/><path d="M12 12C12 12 7 9 7 5a5 5 0 0 1 10 0c0 4-5 7-5 7z"/><path d="M12 12c0 0-5 3-5 7h10c0-4-5-7-5-7z"/>
+                  </svg>
+                </span>
+                <span class="detail-panel-label">Flower Types</span>
+                <svg class="detail-panel-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="detail-panel-body" id="body-flowers">
+                <div class="detail-panel-inner">
+                  <div class="flower-chips">
+                    <span class="flower-chip">Garden Roses</span>
+                    <span class="flower-chip">Ranunculus</span>
+                    <span class="flower-chip">Peonies</span>
+                    <span class="flower-chip">Hydrangeas</span>
+                    <span class="flower-chip">Baby's Breath</span>
+                    <span class="flower-chip">Eucalyptus</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /detail-panels -->
+
+          <!-- ── Size selector ─────────────────────────── -->
+          <div class="size-selector">
+            <span class="size-label">Wall Size</span>
+            <div class="size-options" role="group" aria-label="Select size">
+              <button class="size-btn"        data-size="8x8"  aria-pressed="false">8 × 8 ft</button>
+              <button class="size-btn active" data-size="11x8" aria-pressed="true" >11 × 8 ft</button>
+              <button class="size-btn"        data-size="14x8" aria-pressed="false">14 × 8 ft</button>
+            </div>
+            <p class="size-desc" id="sizeDesc">
+              Our most requested size. Created for grand entrances, large wedding parties, and
+              group photography. Delivers maximum visual impact.
+            </p>
+          </div>
+
+          <!-- ── CTA ───────────────────────────────────── -->
+          <button class="neo-btn product-cta"
+            onclick="document.getElementById('product-contact').scrollIntoView({behavior:'smooth'})">
+            Book This Wall
+          </button>
+
+        </div>
+        <!-- /product-info -->
+
+      </div>
+      <!-- /product-layout -->
+
+      <!-- ============================================================
+           ENGINEERING DETAILS — 5 spec cards
+           ============================================================ -->
+      <section class="product-specs" aria-label="Engineering details">
+
+        <div class="section-title">
+          <h2>Engineering Details</h2>
+          <span class="section-title-rule"></span>
+        </div>
+
+        <div class="specs-list">
+
+          <article class="spec-card">
+            <div class="spec-card-img-wrap">
+              <img src="assets/adv/4-adv.jpg" alt="Three size options" />
+            </div>
+            <div class="spec-card-body">
+              <span class="spec-card-num">01</span>
+              <h3 class="spec-card-title">Three Size Options</h3>
+              <p class="spec-card-desc">Available in 8 × 8, 11 × 8, and 14 × 8 feet — every event finds its perfect scale. Each configuration delivers the same quality of craftsmanship and structural integrity, adapting seamlessly to intimate gatherings and grand celebrations alike.</p>
+            </div>
+          </article>
+
+          <article class="spec-card">
+            <div class="spec-card-img-wrap">
+              <img src="assets/adv/7-adv.jpg" alt="Seamless support system" />
+            </div>
+            <div class="spec-card-body">
+              <span class="spec-card-num">02</span>
+              <h3 class="spec-card-title">Seamless Support System</h3>
+              <p class="spec-card-desc">All structural supports are fully concealed behind the wall — the presentation remains immaculate from every angle. Guests see only the flowers, never the engineering that holds them.</p>
+            </div>
+          </article>
+
+          <article class="spec-card">
+            <div class="spec-card-img-wrap">
+              <img src="assets/adv/3-adv.jpg" alt="Reinforced stability" />
+            </div>
+            <div class="spec-card-body">
+              <span class="spec-card-num">03</span>
+              <h3 class="spec-card-title">Reinforced Stability</h3>
+              <p class="spec-card-desc">Oversized base supports with precision anti-tipping engineering. Built to remain perfectly stable even when large groups lean in for photos, ensuring total peace of mind throughout your event.</p>
+            </div>
+          </article>
+
+          <article class="spec-card">
+            <div class="spec-card-img-wrap">
+              <img src="assets/adv/6-adv.jpg" alt="All-terrain installation" />
+            </div>
+            <div class="spec-card-body">
+              <span class="spec-card-num">04</span>
+              <h3 class="spec-card-title">All-Terrain Installation</h3>
+              <p class="spec-card-desc">An adjustable leg system enables secure installation on uneven ground, grass, pavement, and hillside venues. Where other walls require a perfectly level surface, ours adapts to the real world.</p>
+            </div>
+          </article>
+
+          <article class="spec-card">
+            <div class="spec-card-img-wrap">
+              <img src="assets/adv/5-adv.jpg" alt="Semi-circular configuration" />
+            </div>
+            <div class="spec-card-body">
+              <span class="spec-card-num">05</span>
+              <h3 class="spec-card-title">Semi-Circular Configuration</h3>
+              <p class="spec-card-desc">The frame can be shaped into a graceful semi-circle, creating an enveloping backdrop that wraps around your guests. An immersive visual experience that flat walls simply cannot achieve.</p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============================================================
+           INQUIRY FORM
+           ============================================================ -->
+      <section class="inquiry" id="product-contact" aria-label="Inquiry form">
+
+        <div class="inquiry-header">
+          <span class="section-label">Reserve Your Date</span>
+          <h2>Book Ivory Bloom</h2>
+          <p>Fill out the form below and we will get back to you within 24 hours.</p>
+        </div>
+
+        <form class="form-body" id="productInquiryForm" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="pi-name">Name</label>
+              <input id="pi-name" class="form-input" type="text" placeholder="Your name" autocomplete="name" />
+            </div>
+            <div class="form-field">
+              <label for="pi-email">Email</label>
+              <input id="pi-email" class="form-input" type="email" placeholder="example@mail.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="pi-date">Event Date</label>
+            <div class="form-date-wrap">
+              <input id="pi-date" class="form-input" type="text" placeholder="mm/dd/yyyy" />
+              <span class="form-date-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="pi-message">Message</label>
+            <textarea id="pi-message" class="form-textarea" rows="4" placeholder="Tell us about your event, venue, and any special requests..."></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="neo-btn neo-btn--solid" id="productSubmitBtn">
+              Send Inquiry
+            </button>
+          </div>
+        </form>
+
+      </section>
+
+    </main>
+  </div>
+  <!-- /.site-shell -->
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
+        <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Terms of Use</a>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Conditions</a>
+        <a href="#" class="footer-link">Wind Policy</a>
+        <a href="#" class="footer-link">FAQ</a>
+        <a href="#" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          Instagram
+        </a>
+      </div>
+      <div class="footer-locations">
+        <span class="footer-locations-title">Locations We Serve</span>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    // ── Mobile hamburger ────────────────────────────────────────
+    const mobileBurger  = document.getElementById('mobileBurger');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu(close) {
+      const open = mobileOverlay.classList.contains('open') || close;
+      mobileOverlay.classList.toggle('open', !open);
+      mobileBurger.classList.toggle('open', !open);
+      mobileBurger.setAttribute('aria-expanded', String(!open));
+      mobileOverlay.setAttribute('aria-hidden', String(open));
+      document.body.style.overflow = open ? '' : 'hidden';
+    }
+    mobileBurger.addEventListener('click', () => toggleMenu(false));
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(l =>
+      l.addEventListener('click', () => toggleMenu(true))
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
+    });
+
+    // ── Media tabs ──────────────────────────────────────────────
+    const mediaTabs  = document.querySelectorAll('.media-tab');
+    const mediaPanes = document.querySelectorAll('.media-pane');
+
+    mediaTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.pane;
+        mediaTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        mediaPanes.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById('pane-' + target).classList.add('active');
+        // Pause all videos when switching away
+        document.querySelectorAll('.product-video-wrap video').forEach(v => v.pause());
+      });
+    });
+
+    // ── Carousel ────────────────────────────────────────────────
+    const allImgs    = Array.from(document.querySelectorAll('.carousel-img'));
+    const thumbsEl   = Array.from(document.querySelectorAll('.carousel-thumb'));
+    const thumbsWrap = document.getElementById('carouselThumbs');
+
+    // Separate indoor/outdoor img indices
+    const indoorImgs  = allImgs.filter(img => img.dataset.set === 'indoor');
+    const outdoorImgs = allImgs.filter(img => img.dataset.set === 'outdoor');
+
+    let currentSet   = indoorImgs; // active photo set
+    let currentIndex = 0;           // index within the active set
+
+    function goTo(idx) {
+      if (idx < 0) idx = currentSet.length - 1;
+      if (idx >= currentSet.length) idx = 0;
+      currentIndex = idx;
+
+      // Hide all, show active
+      allImgs.forEach(img => img.classList.remove('active'));
+      currentSet[currentIndex].classList.add('active');
+
+      // Sync thumbnails (only for indoor set)
+      if (currentSet === indoorImgs) {
+        thumbsEl.forEach((th, i) => th.classList.toggle('active', i === currentIndex));
+      }
+    }
+
+    document.getElementById('carouselPrev').addEventListener('click', () => goTo(currentIndex - 1));
+    document.getElementById('carouselNext').addEventListener('click', () => goTo(currentIndex + 1));
+
+    thumbsEl.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => {
+        if (currentSet === indoorImgs) goTo(i);
+      });
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    document.getElementById('carouselMain').addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    document.getElementById('carouselMain').addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(currentIndex + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    // ── Lighting toggle ─────────────────────────────────────────
+    document.querySelectorAll('.lighting-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const light = btn.dataset.light;
+        document.querySelectorAll('.lighting-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (light === 'outdoor') {
+          currentSet = outdoorImgs;
+          thumbsWrap.style.opacity = '0.35';
+          thumbsWrap.style.pointerEvents = 'none';
+        } else {
+          currentSet = indoorImgs;
+          thumbsWrap.style.opacity = '';
+          thumbsWrap.style.pointerEvents = '';
+        }
+        goTo(0);
+      });
+    });
+
+    // ── Detail panels (exclusive accordion) ────────────────────
+    document.querySelectorAll('.detail-panel-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const panel  = trigger.dataset.panel;
+        const body   = document.getElementById('body-' + panel);
+        const isOpen = trigger.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.detail-panel-trigger').forEach(t => {
+          t.classList.remove('open');
+          t.setAttribute('aria-expanded', 'false');
+          const b = document.getElementById('body-' + t.dataset.panel);
+          if (b) b.style.maxHeight = '0';
+        });
+
+        // Open if was closed
+        if (!isOpen) {
+          trigger.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // ── Size selector ───────────────────────────────────────────
+    const SIZE_DESCS = {
+      '8x8':  'Our classic backdrop — refined and intimate. Ideal for ceremonies, portrait zones, and boutique celebrations. Fits beautifully in most indoor venues.',
+      '11x8': 'Our most requested size. Created for grand entrances, large wedding parties, and group photography. Delivers maximum visual impact.',
+      '14x8': 'The signature statement wall. A full panoramic backdrop designed for large-scale outdoor celebrations, corporate events, and gala evenings.'
+    };
+
+    const sizeDescEl = document.getElementById('sizeDesc');
+
+    document.querySelectorAll('.size-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.size-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+
+        sizeDescEl.style.opacity = '0';
+        setTimeout(() => {
+          sizeDescEl.textContent = SIZE_DESCS[btn.dataset.size];
+          sizeDescEl.style.opacity = '1';
+        }, 150);
+      });
+    });
+
+    // ── Inquiry form ────────────────────────────────────────────
+    const productForm      = document.getElementById('productInquiryForm');
+    const productSubmitBtn = document.getElementById('productSubmitBtn');
+
+    productForm.addEventListener('submit', e => {
+      e.preventDefault();
+      productSubmitBtn.textContent = 'Thank You';
+      productSubmitBtn.disabled    = true;
+      productSubmitBtn.style.opacity = '0.7';
+    });
+  </script>
+
+</body>
+</html>
