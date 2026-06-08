@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — FLORINSKY Atelier</title>
+  <meta name="description" content="Explore FLORINSKY Atelier's signature floral wall collections for weddings and events in Toronto and the GTA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .gallery-page-hero {
+      width: 100%;
+      max-width: 1072px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding: 48px 0 8px;
+      text-align: center;
+    }
+    .gallery-page-hero h1 {
+      font: 700 56px/1.2 var(--font-sans);
+      color: var(--ink-mauve);
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .gallery-page-hero p {
+      font: 400 18px/1.7 var(--font-sans);
+      color: var(--ink-soft);
+      max-width: 640px;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="index.html"              class="mobile-nav-link">Welcome</a>
+    <a href="gallery.html"            class="mobile-nav-link" style="color:var(--brand)">Gallery</a>
+    <a href="advantages.html"         class="mobile-nav-link">Next Level</a>
+    <a href="index.html#testimonials" class="mobile-nav-link">Kind Words</a>
+    <a href="about.html"              class="mobile-nav-link">Our Story</a>
+    <a href="index.html#contact"      class="mobile-nav-link">Client Care</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="index.html"              class="nav-link">Welcome</a>
+        <a href="gallery.html"            class="nav-link active">Gallery</a>
+        <a href="advantages.html"         class="nav-link">Next Level</a>
+        <a href="index.html#testimonials" class="nav-link">Kind Words</a>
+        <a href="about.html"              class="nav-link">Our Story</a>
+        <a href="index.html#contact"      class="nav-link">Client Care</a>
+      </div>
+    </nav>
+
+    <main class="page-stack">
+
+      <!-- Page hero -->
+      <div class="gallery-page-hero">
+        <h1>Gallery</h1>
+        <p>
+          Each wall is handcrafted using premium Real Touch materials —
+          so lifelike that guests stop to smell the flowers.
+        </p>
+      </div>
+
+      <!-- ── COLLECTIONS GRID ─────────────────────────────────── -->
+      <section class="collections" id="collections" aria-label="Floral wall gallery">
+
+        <div class="collections-grid">
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-1.jpg" alt="Ivory Bloom floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Ivory Bloom</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-2.jpg" alt="Blush Romance floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Blush Romance</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-3.png" alt="Garden Pearl floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Garden Pearl</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-card">
+            <div class="collection-card-inner">
+              <img src="assets/cover-4.png" alt="Velvet Rose floral wall — FLORINSKY Atelier" />
+              <div class="collection-caption">
+                <span class="collection-caption-title">Velvet Rose</span>
+                <span class="collection-arrow">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
+        <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Terms of Use</a>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Conditions</a>
+        <a href="#" class="footer-link">Wind Policy</a>
+        <a href="#" class="footer-link">FAQ</a>
+        <a href="#" class="footer-instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          Instagram
+        </a>
+      </div>
+      <div class="footer-locations">
+        <span class="footer-locations-title">Locations We Serve</span>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Mobile hamburger ────────────────────────────────────────
+    const mobileBurger  = document.getElementById('mobileBurger');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu(close) {
+      const open = mobileOverlay.classList.contains('open') || close;
+      mobileOverlay.classList.toggle('open', !open);
+      mobileBurger.classList.toggle('open', !open);
+      mobileBurger.setAttribute('aria-expanded', String(!open));
+      mobileOverlay.setAttribute('aria-hidden', String(open));
+      document.body.style.overflow = open ? '' : 'hidden';
+    }
+
+    mobileBurger.addEventListener('click', () => toggleMenu(false));
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(l =>
+      l.addEventListener('click', () => toggleMenu(true))
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
+    });
+
+    // ── Collection cards 3D parallax tilt ──────────────────────
+    (function() {
+      const grid = document.querySelector('.collections-grid');
+      if (!grid || window.matchMedia('(pointer: coarse)').matches) return;
+
+      const cards = Array.from(grid.querySelectorAll('.collection-card'));
+      if (!cards.length) return;
+
+      const MAX_TILT = 7.31;
+      const LERP     = 0.04;
+      const PERSP    = 900;
+
+      const st = cards.map(() => ({ cx:0, cy:0, tx:0, ty:0 }));
+      let raf = null, inZone = false;
+
+      function getZone() {
+        const b = grid.getBoundingClientRect();
+        return {
+          l: b.left   - b.width  * .5,
+          r: b.right  + b.width  * .5,
+          t: b.top    - b.height * .7,
+          b: b.bottom + b.height * .7
+        };
+      }
+
+      function paint(card, rx, ry) {
+        card.style.transform =
+          `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        const inner = card.querySelector('.collection-card-inner');
+        if (inner) {
+          inner.style.transform = `translate(${ry * -0.878}px, ${rx * 0.878}px)`;
+          const nx = ry / MAX_TILT;
+          const ny = rx / MAX_TILT;
+          inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
+          inner.style.setProperty('--shine-py', (50 + ny * 15).toFixed(1) + '%');
+          const nyUp   = Math.max(0, -ny);
+          const nyBell = nyUp === 0 ? 0
+            : nyUp < 0.5 ? Math.sin(nyUp / 0.5  * Math.PI * 0.5)
+            : Math.cos((nyUp - 0.5) / 0.5 * Math.PI * 0.5);
+          const nxLeft = Math.max(0, nx);
+          const nxBell = nxLeft === 0 ? 0
+            : nxLeft < 0.667 ? Math.sin(nxLeft / 0.667 * Math.PI * 0.5)
+            : Math.cos((nxLeft - 0.667) / 0.333 * Math.PI * 0.5);
+          inner.style.setProperty('--shine-o', Math.max(nyBell, nxBell * 0.7).toFixed(3));
+        }
+        const cap = card.querySelector('.collection-caption');
+        if (cap) cap.style.transform =
+          `translate(${ry * -1.56}px, ${rx * 1.56}px)`;
+      }
+
+      function restore(card) {
+        const ease  = 'transform 2.2s cubic-bezier(0.22, 1, 0.36, 1)';
+        const inner = card.querySelector('.collection-card-inner');
+        const cap   = card.querySelector('.collection-caption');
+        [card, inner, cap].forEach(el => {
+          if (!el) return;
+          el.style.transition = ease;
+          el.style.transform  = '';
+        });
+        if (inner) {
+          inner.style.setProperty('--shine-o',  '0');
+          inner.style.setProperty('--shine-px', '50%');
+          inner.style.setProperty('--shine-py', '50%');
+        }
+        setTimeout(() => [card, inner, cap].forEach(el => el && (el.style.transition = '')), 2400);
+      }
+
+      function tick() {
+        let anyMoving = false;
+        st.forEach((s, i) => {
+          s.cx += (s.tx - s.cx) * LERP;
+          s.cy += (s.ty - s.cy) * LERP;
+          if (s.tx === 0 && s.ty === 0) {
+            if (Math.abs(s.cx) < 0.02) s.cx = 0;
+            if (Math.abs(s.cy) < 0.02) s.cy = 0;
+          }
+          const moving = s.cx !== 0 || s.cy !== 0 || s.tx !== 0 || s.ty !== 0;
+          if (moving) {
+            anyMoving = true;
+            const els = [cards[i],
+              cards[i].querySelector('.collection-card-inner'),
+              cards[i].querySelector('.collection-caption')
+            ];
+            els.forEach(el => el && (el.style.transition = 'none'));
+            paint(cards[i], s.cx, s.cy);
+          }
+        });
+        if (anyMoving || inZone) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+          cards.forEach(restore);
+        }
+      }
+
+      document.addEventListener('mousemove', e => {
+        const z   = getZone();
+        const mx  = e.clientX, my = e.clientY;
+        inZone = mx >= z.l && mx <= z.r && my >= z.t && my <= z.b;
+        if (inZone) {
+          cards.forEach((card, i) => {
+            const b  = card.getBoundingClientRect();
+            const cx = b.left + b.width  / 2;
+            const cy = b.top  + b.height / 2;
+            const dx = (mx - cx) / (b.width  * 0.8);
+            const dy = (my - cy) / (b.height * 0.8);
+            const nx = Math.max(-1, Math.min(1, dx));
+            const ny = Math.max(-1, Math.min(1, dy));
+            st[i].ty = -nx * MAX_TILT;
+            st[i].tx =  ny * MAX_TILT;
+          });
+        } else {
+          st.forEach(s => { s.tx = 0; s.ty = 0; });
+        }
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+
+      window.addEventListener('scroll', () => {
+        inZone = false;
+        st.forEach(s => { s.tx = 0; s.ty = 0; });
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>
