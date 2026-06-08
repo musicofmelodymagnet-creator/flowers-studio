@@ -143,6 +143,8 @@
       <div class="footer-links">
         <a href="#" class="footer-link">Terms of Use</a>
         <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Conditions</a>
+        <a href="#" class="footer-link">Wind Policy</a>
         <a href="#" class="footer-link">FAQ</a>
         <a href="#" class="footer-instagram">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -187,7 +189,7 @@
       avatar.addEventListener('mouseenter', () => {
         avatar.style.transition = 'none';
         avatar.style.transform  = '';
-        avatar.style.animation  = 'avatar-spring 750ms ease forwards';
+        avatar.style.animation  = 'avatar-spring 1500ms ease forwards';
 
         // After spring settles, fire the sheen sweep
         clearTimeout(avatar._sheenTimer);
@@ -197,7 +199,7 @@
           void avatar.offsetWidth;          // reset animation state
           avatar.classList.add('sheen-active');
           setTimeout(() => avatar.classList.remove('sheen-active'), 1700);
-        }, 750);
+        }, 1500);
       });
 
       avatar.addEventListener('mouseleave', () => {
