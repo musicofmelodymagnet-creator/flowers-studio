@@ -622,26 +622,38 @@
        JAVASCRIPT — Accordion · Nav · Form
        ============================================================ -->
   <script>
-    // ── Advantages expand / collapse ───────────────────────────
-    document.querySelectorAll('.adv-card').forEach(card => {
+    // ── Advantages expand / collapse (exclusive accordion) ─────
+    const advCards = Array.from(document.querySelectorAll('.adv-card'));
+
+    function closeAdvCard(card) {
+      const btn    = card.querySelector('.adv-toggle');
+      const target = document.getElementById(btn.dataset.target);
+      if (!btn.classList.contains('open')) return;
+      target.style.maxHeight = target.scrollHeight + 'px';
+      target.offsetHeight;
+      target.style.maxHeight = '28px';
+      target.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.querySelector('.adv-toggle-label').textContent = 'Read More';
+    }
+
+    function openAdvCard(card) {
+      const btn    = card.querySelector('.adv-toggle');
+      const target = document.getElementById(btn.dataset.target);
+      target.classList.add('open');
+      target.style.maxHeight = target.scrollHeight + 'px';
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.querySelector('.adv-toggle-label').textContent = 'Read Less';
+    }
+
+    advCards.forEach(card => {
       card.addEventListener('click', () => {
         const btn    = card.querySelector('.adv-toggle');
-        const target = document.getElementById(btn.dataset.target);
         const isOpen = btn.classList.contains('open');
-
-        if (isOpen) {
-          target.style.maxHeight = target.scrollHeight + 'px';
-          target.offsetHeight;
-          target.style.maxHeight = '28px';
-          target.classList.remove('open');
-        } else {
-          target.classList.add('open');
-          target.style.maxHeight = target.scrollHeight + 'px';
-        }
-
-        btn.classList.toggle('open', !isOpen);
-        btn.setAttribute('aria-expanded', String(!isOpen));
-        btn.querySelector('.adv-toggle-label').textContent = isOpen ? 'Read More' : 'Read Less';
+        advCards.forEach(other => { if (other !== card) closeAdvCard(other); });
+        isOpen ? closeAdvCard(card) : openAdvCard(card);
       });
     });
 
@@ -846,7 +858,7 @@
           const mag = Math.min(Math.sqrt(nx * nx + ny * ny) / Math.SQRT2, 1);
           inner.style.setProperty('--shine-x', (50 - nx * 38) + '%');
           inner.style.setProperty('--shine-y', (50 + ny * 38) + '%');
-          inner.style.setProperty('--shine-o', (mag * 0.55).toFixed(3));
+          inner.style.setProperty('--shine-o', (mag * 0.62).toFixed(3));
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =
