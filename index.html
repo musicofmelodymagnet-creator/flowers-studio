@@ -840,7 +840,7 @@
       const cards = Array.from(grid.querySelectorAll('.collection-card'));
       if (!cards.length) return;
 
-      const MAX_TILT = 9.75;    // max degrees
+      const MAX_TILT = 7.31;    // max degrees (−25 % from original 9.75)
       const LERP     = 0.04;  // smoothing (lower = slower follow)
       const PERSP    = 900;   // perspective px
 
@@ -869,24 +869,17 @@
           `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
         const inner = card.querySelector('.collection-card-inner');
         if (inner) {
-          inner.style.transform = `translate(${ry * -1.17}px, ${rx * 1.17}px)`;
-          const nx  = ry / MAX_TILT;   // horizontal tilt [-1..1]
-          const ny  = rx / MAX_TILT;   // vertical tilt   [-1..1]
+          inner.style.transform = `translate(${ry * -0.878}px, ${rx * 0.878}px)`;
+          const nx  = ry / MAX_TILT;
+          const ny  = rx / MAX_TILT;
           const mag = Math.min(Math.sqrt(nx * nx + ny * ny) / Math.SQRT2, 1);
-          // Shift the 300%×300% gradient tile so its bright centre moves
-          // onto the side that tilts toward the viewer (toward the light).
-          // Formula: pos% = 50 + n * 15  (derived from bg-position/bg-size math)
           inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
           inner.style.setProperty('--shine-py', (50 + ny * 15).toFixed(1) + '%');
-          // Piecewise: 0–60% tilt = no gloss, 60–85% = medium, 85–100% = max
-          const shine = mag < 0.60 ? 0
-            : mag < 0.85 ? (mag - 0.60) / 0.25 * 0.50
-            : 0.50 + (mag - 0.85) / 0.15 * 0.50;
-          inner.style.setProperty('--shine-o', shine.toFixed(3));
+          inner.style.setProperty('--shine-o', Math.min(mag * 1.70, 1).toFixed(3));
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =
-          `translate(${ry * -2.08}px, ${rx * 2.08}px)`;
+          `translate(${ry * -1.56}px, ${rx * 1.56}px)`;
       }
 
       // Smooth return to rest, fade gloss to zero
