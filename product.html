@@ -480,13 +480,8 @@
             <img class="pv2-img"        src="assets/product-outdoor.png" alt="Ivory Bloom — outdoor" data-pv2set="outdoor" />
           </div>
 
-          <!-- ·· Video pane (with internal Wall/Assembly/Teardown selector) ·· -->
+          <!-- ·· Video pane ·····································  -->
           <div class="pv2-pane" id="pv2-pane-video">
-            <div class="pv2-video-subtabs">
-              <button class="pv2-vsub active" data-vsub="wall">Wall</button>
-              <button class="pv2-vsub" data-vsub="assembly">Assembly</button>
-              <button class="pv2-vsub" data-vsub="teardown">Teardown</button>
-            </div>
             <video class="pv2-video" controls playsinline preload="none" poster="assets/product-1.jpg" id="pv2MainVideo">
               <source src="assets/product-video.mp4" type="video/mp4" />
             </video>
@@ -917,22 +912,6 @@
         tr.style.opacity = isPhoto ? '' : '0.35';
         tr.style.pointerEvents = isPhoto ? '' : 'none';
         if (!isPhoto && pv2PalettePanel.classList.contains('open')) pv2TogglePalette(true);
-      });
-    });
-
-    // ── V2 Video sub-tabs (Wall / Assembly / Teardown) ────────
-    const PV2_VID_CAPS = {
-      wall:     'See how Ivory Bloom looks at a real event',
-      assembly: 'Time-lapse: full wall assembly — from start to finish',
-      teardown: 'Time-lapse: complete wall disassembly'
-    };
-    document.querySelectorAll('.pv2-vsub').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.pv2-vsub').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('pv2VidCaption').textContent = PV2_VID_CAPS[btn.dataset.vsub];
-        document.getElementById('pv2MainVideo').pause();
-        document.getElementById('pv2MainVideo').load();
       });
     });
 

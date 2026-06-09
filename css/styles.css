@@ -2158,7 +2158,7 @@ body {
   border-radius: 13px;
   font: 500 13px/1 var(--font-sans);
   color: var(--ink-muted);
-  background: var(--surface);
+  background: #f8f4f1;
   border: 2px solid transparent;
   cursor: pointer;
   text-align: center;
@@ -2372,7 +2372,7 @@ body {
   font: 600 13px/1 var(--font-sans);
   letter-spacing: 0.01em;
   color: var(--brand-deep);
-  background: rgba(74,53,64,0.07);
+  background: #f8f4f1;
   border: none;
   cursor: pointer;
   box-shadow: var(--elev-sm);
@@ -2806,7 +2806,7 @@ body {
 .pv2-lighting-bar .pv2-light-btn,
 .pv2-controls-bar .pv2-light-btn {
   color: var(--brand-deep);
-  background: rgba(74,53,64,0.07);
+  background: #f8f4f1;
   box-shadow: var(--elev-sm);
 }
 .pv2-lighting-bar .pv2-light-btn.active,
@@ -3052,7 +3052,7 @@ body {
   font: 600 13px/1 var(--font-sans);
   letter-spacing: 0.01em;
   color: var(--brand-deep);
-  background: rgba(74,53,64,0.07);
+  background: #f8f4f1;
   border: none;
   cursor: pointer;
   box-shadow: var(--elev-sm);
@@ -3073,7 +3073,7 @@ body {
 }
 .pv2-rainbow-tip {
   position: absolute;
-  bottom: calc(100% + 10px);
+  top: calc(100% + 10px);
   right: 0;
   width: 230px;
   background: #f8f4f0;
@@ -3081,7 +3081,7 @@ body {
   padding: 14px 16px;
   pointer-events: none;
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(-6px);
   font: 400 12px/1.55 var(--font-sans);
   color: var(--ink-soft);
   letter-spacing: 0.01em;
