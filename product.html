@@ -77,24 +77,6 @@
           <div class="media-pane active" id="pane-photos">
             <div class="carousel-wrap" id="carouselWrap">
 
-              <!-- Lighting toggle — top-right overlay -->
-              <div class="lighting-toggle" role="group" aria-label="Lighting">
-                <button class="lighting-btn active" data-light="indoor">
-                  <!-- Bulb icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21h6"/><path d="M12 3a6 6 0 0 1 6 6c0 2.25-1.25 4.25-3 5.5V17H9v-2.5C7.25 13.25 6 11.25 6 9a6 6 0 0 1 6-6z"/>
-                  </svg>
-                  Indoor
-                </button>
-                <button class="lighting-btn" data-light="outdoor">
-                  <!-- Sun icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-                  </svg>
-                  Sunlight
-                </button>
-              </div>
-
               <!-- Main image frame -->
               <div class="carousel-main" id="carouselMain">
                 <img class="carousel-img active" src="assets/product-1.jpg" alt="Ivory Bloom floral wall — view 1" data-set="indoor" />
@@ -122,6 +104,23 @@
               <img class="carousel-thumb"        src="assets/product-3.jpg" alt="View 3" data-idx="2" />
               <img class="carousel-thumb"        src="assets/product-4.jpg" alt="View 4" data-idx="3" />
               <img class="carousel-thumb"        src="assets/product-5.jpg" alt="View 5" data-idx="4" />
+            </div>
+
+            <!-- Lighting bar — below thumbnails -->
+            <div class="lighting-bar">
+              <span class="lighting-bar-label">Освещение</span>
+              <div class="lighting-bar-btns" role="group" aria-label="Lighting type">
+                <button class="lighting-btn active" data-light="indoor" aria-label="Indoor lighting">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21h6"/><path d="M12 3a6 6 0 0 1 6 6c0 2.25-1.25 4.25-3 5.5V17H9v-2.5C7.25 13.25 6 11.25 6 9a6 6 0 0 1 6-6z"/>
+                  </svg>
+                </button>
+                <button class="lighting-btn" data-light="outdoor" aria-label="Outdoor sunlight">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -163,12 +162,6 @@
 
           <span class="product-eyebrow">Floral Wall Collection</span>
           <h1 class="product-name">Ivory Bloom</h1>
-
-          <div class="product-tags">
-            <span class="product-tag">Real Touch</span>
-            <span class="product-tag">Premium Grade</span>
-            <span class="product-tag">Toronto &amp; GTA</span>
-          </div>
 
           <p class="product-desc">
             Ivory Bloom is our signature floral wall — a study in quiet luxury, composed from layers
@@ -416,11 +409,6 @@
             <span class="product-eyebrow">Floral Wall Collection</span>
             <h2 class="pv2-name">Ivory Bloom</h2>
           </div>
-          <div class="product-tags" style="margin-bottom:6px">
-            <span class="product-tag">Real Touch</span>
-            <span class="product-tag">Premium Grade</span>
-            <span class="product-tag">Toronto &amp; GTA</span>
-          </div>
         </div>
 
         <!-- ── Wide media zone (15:10 landscape) ─────────── -->
@@ -457,22 +445,6 @@
 
             <div class="pv2-ctrl-sep"></div>
 
-            <!-- Lighting -->
-            <button class="pv2-light-btn active" data-pv2light="indoor" aria-label="Indoor lighting">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 21h6"/><path d="M12 3a6 6 0 0 1 6 6c0 2.25-1.25 4.25-3 5.5V17H9v-2.5C7.25 13.25 6 11.25 6 9a6 6 0 0 1 6-6z"/>
-              </svg>
-              <span class="pv2-tip">Indoor</span>
-            </button>
-            <button class="pv2-light-btn" data-pv2light="outdoor" aria-label="Outdoor sunlight">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-              </svg>
-              <span class="pv2-tip">Sunlight</span>
-            </button>
-
-            <div class="pv2-ctrl-sep"></div>
-
             <!-- Colour palette trigger -->
             <button class="pv2-palette-btn" id="pv2PaletteBtn" aria-label="Show colour palette" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -484,16 +456,13 @@
           </div>
           <!-- /pv2-left-controls -->
 
-          <!-- ·· Sliding colour palette panel ·········  -->
+          <!-- ·· Floating colour palette — no background, swatches over photo ·  -->
           <div class="pv2-palette-panel" id="pv2PalettePanel" aria-hidden="true">
-            <div class="pv2-palette-head">
-              <span class="pv2-palette-head-title">Wall Palette</span>
-              <button class="pv2-palette-close" id="pv2PaletteClose" aria-label="Close palette">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 6 6 18M6 6l12 12"/>
-                </svg>
-              </button>
-            </div>
+            <button class="pv2-palette-close" id="pv2PaletteClose" aria-label="Close palette">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18M6 6l12 12"/>
+              </svg>
+            </button>
             <div class="pv2-palette-grid">
               <div class="pv2-swatch-item">
                 <div class="pv2-swatch-dot" style="background:#F7F1E6"></div>
@@ -566,13 +535,30 @@
         </div>
         <!-- /pv2-media-zone -->
 
-        <!-- ── Thumbnail strip ────────────────────────── -->
-        <div class="pv2-thumbs-row" id="pv2ThumbsRow">
-          <img class="pv2-thumb active" src="assets/product-1.jpg" alt="View 1" data-pv2idx="0" />
-          <img class="pv2-thumb"        src="assets/product-2.jpg" alt="View 2" data-pv2idx="1" />
-          <img class="pv2-thumb"        src="assets/product-3.jpg" alt="View 3" data-pv2idx="2" />
-          <img class="pv2-thumb"        src="assets/product-4.jpg" alt="View 4" data-pv2idx="3" />
-          <img class="pv2-thumb"        src="assets/product-5.jpg" alt="View 5" data-pv2idx="4" />
+        <!-- ── Thumbnail strip + Lighting bar row ────── -->
+        <div class="pv2-thumbs-lighting-row">
+          <div class="pv2-thumbs-row" id="pv2ThumbsRow">
+            <img class="pv2-thumb active" src="assets/product-1.jpg" alt="View 1" data-pv2idx="0" />
+            <img class="pv2-thumb"        src="assets/product-2.jpg" alt="View 2" data-pv2idx="1" />
+            <img class="pv2-thumb"        src="assets/product-3.jpg" alt="View 3" data-pv2idx="2" />
+            <img class="pv2-thumb"        src="assets/product-4.jpg" alt="View 4" data-pv2idx="3" />
+            <img class="pv2-thumb"        src="assets/product-5.jpg" alt="View 5" data-pv2idx="4" />
+          </div>
+          <div class="lighting-bar pv2-lighting-bar" id="pv2LightingBar">
+            <span class="lighting-bar-label">Освещение</span>
+            <div class="lighting-bar-btns" role="group" aria-label="Lighting type">
+              <button class="pv2-light-btn active" data-pv2light="indoor" aria-label="Indoor">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 21h6"/><path d="M12 3a6 6 0 0 1 6 6c0 2.25-1.25 4.25-3 5.5V17H9v-2.5C7.25 13.25 6 11.25 6 9a6 6 0 0 1 6-6z"/>
+                </svg>
+              </button>
+              <button class="pv2-light-btn" data-pv2light="outdoor" aria-label="Sunlight">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- ── Info strip below media: desc+flowers | size+CTA ── -->
