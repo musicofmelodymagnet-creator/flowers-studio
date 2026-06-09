@@ -2357,18 +2357,18 @@ body {
   font: 600 13px/1 var(--font-sans);
   letter-spacing: 0.01em;
   color: var(--brand-deep);
-  background: transparent;
+  background: rgba(74,53,64,0.07);
   border: none;
   cursor: pointer;
   transition: all 200ms ease;
   white-space: nowrap;
 }
 .pv2-topbar-tab svg { width: 14px; height: 14px; stroke-width: 1.75; flex-shrink: 0; }
-.pv2-topbar-tab:hover { color: var(--ink-mauve); background: rgba(255,255,255,0.50); }
+.pv2-topbar-tab:hover { color: var(--ink-mauve); background: rgba(74,53,64,0.13); }
 .pv2-topbar-tab.active {
-  background: var(--bg);
-  color: var(--ink-mauve);
-  box-shadow: 0 2px 8px rgba(45,38,38,0.16);
+  background: var(--ink-mauve);
+  color: rgba(255,255,255,0.93);
+  box-shadow: 0 2px 10px rgba(74,53,64,0.28);
 }
 
 /* ── Wide landscape media zone (15:10) ────────────── */
@@ -2548,30 +2548,32 @@ body {
 }
 .pv2-palette-btn svg { width: 17px; height: 17px; stroke-width: 1.75; flex-shrink: 0; }
 
-/* ── Floating palette panel — transparent, 1-col horizontal swatches ── */
+/* ── Floating palette panel — bottom-right corner, no background ── */
 .pv2-palette-panel {
   position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 186px;
+  right: 16px;
+  bottom: 16px;
   z-index: 8;
   background: transparent;
   border: none;
-  padding: 0 18px 0 16px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-end;
   gap: 0;
   pointer-events: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 300ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.pv2-palette-panel.open { pointer-events: auto; }
+.pv2-palette-panel.open {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+}
 
-/* Floating close X */
+/* Close X — sits above the swatch grid, right-aligned */
 .pv2-palette-close {
-  position: absolute;
-  top: 18px;
-  left: 10px;
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -2584,17 +2586,18 @@ body {
   align-items: center;
   justify-content: center;
   color: rgba(255,255,255,0.92);
+  margin-bottom: 8px;
+  flex-shrink: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms ease, background 180ms ease;
-  z-index: 2;
 }
 .pv2-palette-close:hover { background: rgba(45, 38, 38, 0.68); }
 .pv2-palette-close svg { width: 10px; height: 10px; stroke-width: 2.5; }
 .pv2-palette-panel.open .pv2-palette-close {
   opacity: 1;
   pointer-events: auto;
-  transition-delay: 300ms;
+  transition-delay: 200ms;
 }
 
 /* Single-column list */
@@ -2604,30 +2607,30 @@ body {
   gap: 10px;
 }
 
-/* Each swatch: horizontal row (dot left, name right) */
+/* Each swatch: dot on right, name on left — panel sits on right edge */
 .pv2-swatch-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   align-items: center;
   gap: 10px;
   opacity: 0;
-  transform: translateX(22px);
-  transition: opacity 0ms, transform 0ms;
+  transform: translateX(14px);
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 
 .pv2-palette-panel.open .pv2-swatch-item {
   opacity: 1;
   transform: translateX(0);
   transition:
-    opacity   320ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity   280ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(1) { transition-delay: 30ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(2) { transition-delay: 75ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(3) { transition-delay: 120ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(4) { transition-delay: 165ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(5) { transition-delay: 210ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(6) { transition-delay: 255ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(1) { transition-delay: 220ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(2) { transition-delay: 180ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(3) { transition-delay: 140ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(4) { transition-delay: 100ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(5) { transition-delay: 60ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(6) { transition-delay: 20ms; }
 
 .pv2-swatch-dot {
   width: 38px;
@@ -2669,7 +2672,7 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--ink-mauve);
-  opacity: 0.5;
+  opacity: 0.3;
   transition: opacity 180ms ease, transform 180ms ease;
   z-index: 6;
   box-shadow: 0 2px 8px rgba(45,38,38,0.18);
@@ -2810,23 +2813,24 @@ body {
 .pv2-lighting-bar .pv2-light-btn,
 .pv2-controls-bar .pv2-light-btn {
   color: var(--brand-deep);
+  background: rgba(74,53,64,0.07);
 }
 .pv2-lighting-bar .pv2-light-btn.active,
 .pv2-controls-bar .pv2-light-btn.active {
-  color: var(--ink-mauve);
-  background: var(--bg);
-  box-shadow: 0 1px 5px rgba(45,38,38,0.14);
+  color: rgba(255,255,255,0.92);
+  background: var(--brand-deep);
+  box-shadow: 0 1px 6px rgba(74,53,64,0.28);
 }
 .pv2-lighting-bar .pv2-light-btn:hover,
 .pv2-controls-bar .pv2-light-btn:hover {
   color: var(--ink-mauve);
-  background: rgba(255,255,255,0.55);
+  background: rgba(74,53,64,0.13);
 }
 
 /* Also darken V1 lighting buttons */
-.lighting-bar .lighting-btn { color: var(--brand-deep); }
-.lighting-bar .lighting-btn.active { color: var(--ink-mauve); }
-.lighting-bar .lighting-btn:hover { color: var(--ink-mauve); }
+.lighting-bar .lighting-btn { color: var(--brand-deep); background: rgba(74,53,64,0.07); }
+.lighting-bar .lighting-btn.active { color: rgba(255,255,255,0.92); background: var(--brand-deep); }
+.lighting-bar .lighting-btn:hover { color: var(--ink-mauve); background: rgba(74,53,64,0.13); }
 
 /* ── Thumbs + lighting combined row ──────────────── */
 .pv2-thumbs-lighting-row {
