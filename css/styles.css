@@ -2359,10 +2359,10 @@ body {
 /* Photos / Video top tabs */
 .pv2-topbar-tabs {
   display: flex;
-  gap: 3px;
+  gap: 2px;
   background: var(--surface);
-  border-radius: 14px;
-  padding: 4px;
+  border-radius: 15px;
+  padding: 5px;
   box-shadow: var(--nm-inset);
   align-self: flex-end;
   margin-bottom: 2px;
@@ -2371,24 +2371,25 @@ body {
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 10px 18px;
+  padding: 9px 20px;
   border-radius: 11px;
   font: 600 13px/1 var(--font-sans);
   letter-spacing: 0.01em;
-  color: var(--brand-deep);
-  background: #f8f4f1;
-  border: none;
+  color: var(--ink-muted);
+  background: transparent;
+  border: 2px solid transparent;
   cursor: pointer;
-  box-shadow: var(--elev-sm);
+  box-shadow: none;
   transition: all 200ms ease;
   white-space: nowrap;
 }
 .pv2-topbar-tab svg { width: 14px; height: 14px; stroke-width: 1.75; flex-shrink: 0; }
-.pv2-topbar-tab:hover { color: var(--ink-mauve); background: rgba(74,53,64,0.13); }
+.pv2-topbar-tab:hover { color: var(--ink-soft); background: rgba(249,244,240,0.65); }
 .pv2-topbar-tab.active {
-  background: var(--surface-distinct);
+  background: #f8f4f1;
   color: var(--ink-mauve);
-  box-shadow: var(--inset-sm);
+  border-color: var(--brand);
+  box-shadow: var(--elev-sm);
 }
 
 /* ── Wide landscape media zone (15:10) ────────────── */
