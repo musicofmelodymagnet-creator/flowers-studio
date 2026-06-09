@@ -2321,7 +2321,7 @@ body {
   gap: 16px;
 }
 
-/* ── Header row above media ───────────────────────── */
+/* ── Header row: name left + tabs right ───────────── */
 .pv2-header {
   display: flex;
   align-items: flex-end;
@@ -2335,6 +2335,40 @@ body {
   color: var(--ink-mauve);
   letter-spacing: -0.01em;
   margin: 8px 0 0;
+}
+
+/* Photos / Video top tabs */
+.pv2-topbar-tabs {
+  display: flex;
+  gap: 3px;
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 4px;
+  box-shadow: var(--nm-inset);
+  align-self: flex-end;
+  margin-bottom: 2px;
+}
+.pv2-topbar-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 18px;
+  border-radius: 11px;
+  font: 600 13px/1 var(--font-sans);
+  letter-spacing: 0.01em;
+  color: var(--brand-deep);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+.pv2-topbar-tab svg { width: 14px; height: 14px; stroke-width: 1.75; flex-shrink: 0; }
+.pv2-topbar-tab:hover { color: var(--ink-mauve); background: rgba(255,255,255,0.50); }
+.pv2-topbar-tab.active {
+  background: var(--bg);
+  color: var(--ink-mauve);
+  box-shadow: 0 2px 8px rgba(45,38,38,0.16);
 }
 
 /* ── Wide landscape media zone (15:10) ────────────── */
@@ -2511,108 +2545,108 @@ body {
 }
 .pv2-palette-btn svg { width: 17px; height: 17px; stroke-width: 1.75; flex-shrink: 0; }
 
-/* ── Floating palette panel — transparent, swatches over photo ── */
+/* ── Floating palette panel — transparent, 1-col horizontal swatches ── */
 .pv2-palette-panel {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 148px;
+  width: 186px;
   z-index: 8;
   background: transparent;
   border: none;
-  padding: 24px 16px 24px 68px; /* left offset clears the control pill */
+  padding: 0 16px 0 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0;
   pointer-events: none;
-  /* Panel itself doesn't slide — individual swatches animate in */
 }
 .pv2-palette-panel.open { pointer-events: auto; }
 
-/* Floating close X — top-left corner of swatch area */
+/* Floating close X */
 .pv2-palette-close {
   position: absolute;
-  top: 20px;
-  left: 70px;
+  top: 18px;
+  right: 10px;
   width: 22px;
   height: 22px;
   border-radius: 50%;
   border: none;
-  background: rgba(45, 38, 38, 0.42);
+  background: rgba(45, 38, 38, 0.45);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.90);
+  color: rgba(255,255,255,0.92);
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms ease, background 180ms ease;
   z-index: 2;
 }
-.pv2-palette-close:hover { background: rgba(45, 38, 38, 0.65); }
+.pv2-palette-close:hover { background: rgba(45, 38, 38, 0.68); }
 .pv2-palette-close svg { width: 10px; height: 10px; stroke-width: 2.5; }
 .pv2-palette-panel.open .pv2-palette-close {
   opacity: 1;
   pointer-events: auto;
-  transition-delay: 280ms;
+  transition-delay: 300ms;
 }
 
+/* Single-column list */
 .pv2-palette-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 8px;
-}
-
-/* Each swatch starts hidden and offset — stagger in on open */
-.pv2-swatch-item {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+}
+
+/* Each swatch: horizontal row (dot left, name right) */
+.pv2-swatch-item {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   opacity: 0;
-  transform: translateX(-18px) scale(0.82);
+  transform: translateX(-22px);
   transition: opacity 0ms, transform 0ms;
 }
 
 .pv2-palette-panel.open .pv2-swatch-item {
   opacity: 1;
-  transform: translateX(0) scale(1);
+  transform: translateX(0);
   transition:
-    opacity   300ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity   320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pv2-palette-panel.open .pv2-swatch-item:nth-child(1) { transition-delay: 30ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(2) { transition-delay: 70ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(3) { transition-delay: 110ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(4) { transition-delay: 150ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(5) { transition-delay: 190ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(6) { transition-delay: 230ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(2) { transition-delay: 75ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(3) { transition-delay: 120ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(4) { transition-delay: 165ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(5) { transition-delay: 210ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(6) { transition-delay: 255ms; }
 
 .pv2-swatch-dot {
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   flex-shrink: 0;
   cursor: default;
   box-shadow:
-    0 4px 16px rgba(0,0,0,0.32),
-    0 1px 4px rgba(0,0,0,0.18),
-    inset 0 1px 2px rgba(255,255,255,0.45);
+    0 4px 14px rgba(0,0,0,0.30),
+    0 1px 3px rgba(0,0,0,0.16),
+    inset 0 1px 2px rgba(255,255,255,0.40);
   transition: transform 200ms ease;
 }
 .pv2-swatch-dot:hover { transform: scale(1.12); }
 
 .pv2-swatch-name {
-  font: 500 9px/1.2 var(--font-sans);
-  color: rgba(255,255,255,0.92);
-  text-align: center;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.55);
-  letter-spacing: 0.03em;
-  max-width: 56px;
+  font: 600 10px/1.2 var(--font-sans);
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 5px rgba(0,0,0,0.60), 0 0 10px rgba(0,0,0,0.30);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 
 /* ── Prev / Next arrows ───────────────────────────── */
@@ -2631,14 +2665,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink);
+  color: var(--ink-mauve);
   opacity: 0;
   transition: opacity 180ms ease, transform 180ms ease;
   z-index: 6;
   box-shadow: 0 2px 8px rgba(45,38,38,0.18);
 }
 .pv2-arrow svg { width: 18px; height: 18px; stroke-width: 2; }
-.pv2-arrow.prev { left: 68px; }
+.pv2-arrow.prev { left: 18px; }
 .pv2-arrow.next { right: 18px; }
 .pv2-arrow:hover { transform: translateY(-50%) scale(1.08); }
 .pv2-media-zone:hover .pv2-arrow { opacity: 1; }
@@ -2661,6 +2695,128 @@ body {
   pointer-events: none;
 }
 .pv2-counter.hidden { display: none; }
+
+/* ── Video subtab selector (overlaid bottom of video pane) ── */
+.pv2-video-subtabs {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  gap: 3px;
+  background: rgba(45, 38, 38, 0.52);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 4px;
+}
+.pv2-vsub {
+  padding: 8px 16px;
+  border-radius: 10px;
+  font: 600 11px/1 var(--font-sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 180ms ease;
+  white-space: nowrap;
+}
+.pv2-vsub:hover { color: rgba(255,255,255,0.90); }
+.pv2-vsub.active {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+.pv2-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* ── Controls bar (Lighting + Palette rainbow) ────── */
+.pv2-controls-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pv2-bar-sep {
+  width: 1px;
+  height: 22px;
+  background: rgba(45,38,38,0.14);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+/* ── Rainbow palette button ───────────────────────── */
+.pv2-rainbow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 2px solid rgba(255,255,255,0.50);
+  background: conic-gradient(
+    from 0deg,
+    hsl(350,70%,62%),
+    hsl(20,80%,62%),
+    hsl(45,82%,60%),
+    hsl(80,60%,58%),
+    hsl(150,52%,56%),
+    hsl(200,65%,58%),
+    hsl(240,62%,65%),
+    hsl(275,58%,65%),
+    hsl(315,65%,63%),
+    hsl(350,70%,62%)
+  );
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(45,38,38,0.20), inset 0 1px 0 rgba(255,255,255,0.35);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  position: relative;
+}
+.pv2-rainbow-btn::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.12);
+  pointer-events: none;
+}
+.pv2-rainbow-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(45,38,38,0.28);
+}
+.pv2-rainbow-btn.active {
+  border-color: var(--ink-mauve);
+  box-shadow: 0 0 0 3px rgba(74,53,64,0.22), 0 2px 8px rgba(45,38,38,0.20);
+}
+
+/* ── Brand-dark button colors (V2 controls) ───────── */
+.pv2-lighting-bar .pv2-light-btn,
+.pv2-controls-bar .pv2-light-btn {
+  color: var(--brand-deep);
+}
+.pv2-lighting-bar .pv2-light-btn.active,
+.pv2-controls-bar .pv2-light-btn.active {
+  color: var(--ink-mauve);
+  background: var(--bg);
+  box-shadow: 0 1px 5px rgba(45,38,38,0.14);
+}
+.pv2-lighting-bar .pv2-light-btn:hover,
+.pv2-controls-bar .pv2-light-btn:hover {
+  color: var(--ink-mauve);
+  background: rgba(255,255,255,0.55);
+}
+
+/* Also darken V1 lighting buttons */
+.lighting-bar .lighting-btn { color: var(--brand-deep); }
+.lighting-bar .lighting-btn.active { color: var(--ink-mauve); }
+.lighting-bar .lighting-btn:hover { color: var(--ink-mauve); }
 
 /* ── Thumbs + lighting combined row ──────────────── */
 .pv2-thumbs-lighting-row {

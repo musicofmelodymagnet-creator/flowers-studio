@@ -409,54 +409,28 @@
             <span class="product-eyebrow">Floral Wall Collection</span>
             <h2 class="pv2-name">Ivory Bloom</h2>
           </div>
+
+          <!-- Photos / Video tabs — top-right of header -->
+          <div class="pv2-topbar-tabs" role="tablist">
+            <button class="pv2-topbar-tab active" data-pv2tab="photos" role="tab" aria-selected="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><polyline points="21 15 16 10 5 21"/>
+              </svg>
+              Photos
+            </button>
+            <button class="pv2-topbar-tab" data-pv2tab="video" role="tab" aria-selected="false">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              Video
+            </button>
+          </div>
         </div>
 
         <!-- ── Wide media zone (15:10 landscape) ─────────── -->
         <div class="pv2-media-zone" id="pv2Zone">
 
-          <!-- ·· Left control pill ·····················  -->
-          <div class="pv2-left-controls">
-
-            <!-- Media tabs -->
-            <button class="pv2-tab active" data-pv2pane="photos" aria-label="Photos">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><polyline points="21 15 16 10 5 21"/>
-              </svg>
-              <span class="pv2-tip">Photos</span>
-            </button>
-            <button class="pv2-tab" data-pv2pane="v-wall" aria-label="Wall video">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="5 3 19 12 5 21 5 3"/>
-              </svg>
-              <span class="pv2-tip">Wall</span>
-            </button>
-            <button class="pv2-tab" data-pv2pane="v-assembly" aria-label="Assembly video">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-              </svg>
-              <span class="pv2-tip">Assembly</span>
-            </button>
-            <button class="pv2-tab" data-pv2pane="v-teardown" aria-label="Teardown video">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/>
-              </svg>
-              <span class="pv2-tip">Teardown</span>
-            </button>
-
-            <div class="pv2-ctrl-sep"></div>
-
-            <!-- Colour palette trigger -->
-            <button class="pv2-palette-btn" id="pv2PaletteBtn" aria-label="Show colour palette" aria-expanded="false">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="16.5" cy="15" r="1.2" fill="currentColor" stroke="none"/><circle cx="9" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
-              </svg>
-              <span class="pv2-tip">Palette</span>
-            </button>
-
-          </div>
-          <!-- /pv2-left-controls -->
-
-          <!-- ·· Floating colour palette — no background, swatches over photo ·  -->
+          <!-- ·· Floating colour palette — no background, single column ·  -->
           <div class="pv2-palette-panel" id="pv2PalettePanel" aria-hidden="true">
             <button class="pv2-palette-close" id="pv2PaletteClose" aria-label="Close palette">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -501,24 +475,17 @@
             <img class="pv2-img"        src="assets/product-outdoor.png" alt="Ivory Bloom — outdoor" data-pv2set="outdoor" />
           </div>
 
-          <!-- ·· Video panes ····························  -->
-          <div class="pv2-pane" id="pv2-pane-v-wall">
-            <video controls playsinline preload="none" poster="assets/product-1.jpg">
+          <!-- ·· Video pane (with internal Wall/Assembly/Teardown selector) ·· -->
+          <div class="pv2-pane" id="pv2-pane-video">
+            <div class="pv2-video-subtabs">
+              <button class="pv2-vsub active" data-vsub="wall">Wall</button>
+              <button class="pv2-vsub" data-vsub="assembly">Assembly</button>
+              <button class="pv2-vsub" data-vsub="teardown">Teardown</button>
+            </div>
+            <video class="pv2-video" controls playsinline preload="none" poster="assets/product-1.jpg" id="pv2MainVideo">
               <source src="assets/product-video.mp4" type="video/mp4" />
             </video>
-            <div class="pv2-vid-caption">See how Ivory Bloom looks at a real event</div>
-          </div>
-          <div class="pv2-pane" id="pv2-pane-v-assembly">
-            <video controls playsinline preload="none" poster="assets/product-2.jpg">
-              <source src="assets/product-video.mp4" type="video/mp4" />
-            </video>
-            <div class="pv2-vid-caption">Time-lapse: full wall assembly — from start to finish</div>
-          </div>
-          <div class="pv2-pane" id="pv2-pane-v-teardown">
-            <video controls playsinline preload="none" poster="assets/product-3.jpg">
-              <source src="assets/product-video.mp4" type="video/mp4" />
-            </video>
-            <div class="pv2-vid-caption">Time-lapse: complete wall disassembly</div>
+            <div class="pv2-vid-caption" id="pv2VidCaption">See how Ivory Bloom looks at a real event</div>
           </div>
 
           <!-- ·· Prev / Next arrows ·····················  -->
@@ -535,7 +502,7 @@
         </div>
         <!-- /pv2-media-zone -->
 
-        <!-- ── Thumbnail strip + Lighting bar row ────── -->
+        <!-- ── Thumbnails + Lighting + Palette bar ───── -->
         <div class="pv2-thumbs-lighting-row">
           <div class="pv2-thumbs-row" id="pv2ThumbsRow">
             <img class="pv2-thumb active" src="assets/product-1.jpg" alt="View 1" data-pv2idx="0" />
@@ -544,8 +511,10 @@
             <img class="pv2-thumb"        src="assets/product-4.jpg" alt="View 4" data-pv2idx="3" />
             <img class="pv2-thumb"        src="assets/product-5.jpg" alt="View 5" data-pv2idx="4" />
           </div>
-          <div class="lighting-bar pv2-lighting-bar" id="pv2LightingBar">
-            <span class="lighting-bar-label">Освещение</span>
+
+          <!-- Lighting + Palette combined bar -->
+          <div class="pv2-controls-bar" id="pv2LightingBar">
+            <span class="lighting-bar-label">Lighting</span>
             <div class="lighting-bar-btns" role="group" aria-label="Lighting type">
               <button class="pv2-light-btn active" data-pv2light="indoor" aria-label="Indoor">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -558,6 +527,9 @@
                 </svg>
               </button>
             </div>
+            <div class="pv2-bar-sep"></div>
+            <!-- Rainbow palette button -->
+            <button class="pv2-rainbow-btn" id="pv2PaletteBtn" aria-label="Show colour palette" aria-expanded="false" title="Colour Palette"></button>
           </div>
         </div>
 
@@ -849,20 +821,51 @@
     // VARIANT 2 LOGIC
     // ════════════════════════════════════════════════════════
 
-    // ── V2 Media tabs ────────────────────────────────────────
-    document.querySelectorAll('.pv2-tab').forEach(tab => {
+    // ── V2 Top tabs (Photos / Video) ─────────────────────────
+    document.querySelectorAll('.pv2-topbar-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-        const target = tab.dataset.pv2pane;
-        document.querySelectorAll('.pv2-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('[id^="pv2-pane-"]').forEach(p => p.classList.remove('active'));
+        const target = tab.dataset.pv2tab;
+        document.querySelectorAll('.pv2-topbar-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
         tab.classList.add('active');
-        document.getElementById('pv2-pane-' + target).classList.add('active');
-        document.querySelectorAll('#pv2Zone video').forEach(v => v.pause());
+        tab.setAttribute('aria-selected', 'true');
+
         const isPhoto = target === 'photos';
+        document.getElementById('pv2-pane-photos').classList.toggle('active', isPhoto);
+        document.getElementById('pv2-pane-video').classList.toggle('active', !isPhoto);
+        if (isPhoto) {
+          document.getElementById('pv2MainVideo').pause();
+        }
+
+        // Show/hide photo-only controls
         document.getElementById('pv2Counter').classList.toggle('hidden', !isPhoto);
+        document.getElementById('pv2Prev').style.display = isPhoto ? '' : 'none';
+        document.getElementById('pv2Next').style.display = isPhoto ? '' : 'none';
+        const lb = document.getElementById('pv2LightingBar');
+        lb.style.opacity = isPhoto ? '' : '0.45';
+        lb.style.pointerEvents = isPhoto ? '' : 'none';
         const tr = document.getElementById('pv2ThumbsRow');
         tr.style.opacity = isPhoto ? '' : '0.35';
         tr.style.pointerEvents = isPhoto ? '' : 'none';
+        if (!isPhoto && pv2PalettePanel.classList.contains('open')) pv2TogglePalette(true);
+      });
+    });
+
+    // ── V2 Video sub-tabs (Wall / Assembly / Teardown) ────────
+    const PV2_VID_CAPS = {
+      wall:     'See how Ivory Bloom looks at a real event',
+      assembly: 'Time-lapse: full wall assembly — from start to finish',
+      teardown: 'Time-lapse: complete wall disassembly'
+    };
+    document.querySelectorAll('.pv2-vsub').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pv2-vsub').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('pv2VidCaption').textContent = PV2_VID_CAPS[btn.dataset.vsub];
+        document.getElementById('pv2MainVideo').pause();
+        document.getElementById('pv2MainVideo').load();
       });
     });
 
