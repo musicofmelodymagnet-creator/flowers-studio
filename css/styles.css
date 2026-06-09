@@ -2334,12 +2334,8 @@ body {
   gap: 16px;
 }
 
-/* ── Header: two-row column ────────────────────────── */
-.pv2-header {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+/* ── Header row ────────────────────────────────────── */
+.pv2-header { }
 .pv2-header-top {
   display: flex;
   align-items: flex-end;
@@ -2384,9 +2380,9 @@ body {
 .pv2-topbar-tab svg { width: 14px; height: 14px; stroke-width: 1.75; flex-shrink: 0; }
 .pv2-topbar-tab:hover { color: var(--ink-mauve); background: rgba(74,53,64,0.13); }
 .pv2-topbar-tab.active {
-  background: var(--ink-mauve);
-  color: rgba(255,255,255,0.93);
-  box-shadow: 0 2px 10px rgba(74,53,64,0.28);
+  background: var(--brand);
+  color: rgba(255,255,255,0.97);
+  box-shadow: 0 2px 10px rgba(175,136,148,0.40);
 }
 
 /* ── Wide landscape media zone (15:10) ────────────── */
@@ -3008,6 +3004,7 @@ body {
   .pv2-header-top { flex-direction: column; align-items: flex-start; gap: 12px; }
   .pv2-name { font-size: 34px; }
   .pv2-size-popup { width: 260px; }
+  .pv2-content-tabs { top: 12px; }
 }
 
 @media (max-width: 600px) {
@@ -3027,13 +3024,20 @@ body {
 
 /* ── Content tabs (Sizes / Modification / Structure) ── */
 .pv2-content-tabs {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
   display: flex;
   gap: 3px;
-  background: var(--surface);
+  background: rgba(249,244,240,0.80);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 14px;
   padding: 4px;
-  box-shadow: var(--nm-inset);
-  align-self: flex-start;
+  box-shadow: 0 2px 14px rgba(74,53,64,0.16);
+  white-space: nowrap;
 }
 .pv2-ctab {
   display: flex;
@@ -3051,9 +3055,9 @@ body {
 }
 .pv2-ctab:hover { color: var(--ink-mauve); background: rgba(74,53,64,0.13); }
 .pv2-ctab.active {
-  background: var(--ink-mauve);
-  color: rgba(255,255,255,0.93);
-  box-shadow: 0 2px 10px rgba(74,53,64,0.28);
+  background: var(--brand);
+  color: rgba(255,255,255,0.97);
+  box-shadow: 0 2px 10px rgba(175,136,148,0.40);
 }
 
 /* ── Rainbow palette button wrapper + tooltip ─────── */
@@ -3074,12 +3078,16 @@ body {
   pointer-events: none;
   opacity: 0;
   transform: translateY(6px);
-  transition: opacity 220ms ease, transform 220ms ease;
+  font: 400 12px/1.55 var(--font-sans);
+  color: rgba(255,255,255,0.82);
+  letter-spacing: 0.01em;
   z-index: 20;
+  transition: opacity 220ms ease 0s, transform 220ms ease 0s;
 }
 .pv2-rainbow-wrap:hover .pv2-rainbow-tip {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity 220ms ease 1s, transform 220ms ease 1s;
 }
 .pv2-tip-eyebrow {
   display: block;
@@ -3088,11 +3096,6 @@ body {
   text-transform: uppercase;
   color: var(--brand);
   margin-bottom: 7px;
-}
-.pv2-rainbow-tip {
-  font: 400 12px/1.55 var(--font-sans);
-  color: rgba(255,255,255,0.82);
-  letter-spacing: 0.01em;
 }
 
 /* ── Structure spec table ─────────────────────────── */
