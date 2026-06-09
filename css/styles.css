@@ -2148,8 +2148,12 @@ body {
 
 .size-options {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 12px;
+  background: var(--surface);
+  border-radius: 19px;
+  padding: 6px;
+  box-shadow: var(--nm-inset);
 }
 
 .size-btn {
@@ -3036,12 +3040,12 @@ body {
   z-index: 9;
   display: flex;
   gap: 3px;
-  background: rgba(249,244,240,0.80);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(249,244,240,0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 14px;
   padding: 4px;
-  box-shadow: 0 2px 14px rgba(74,53,64,0.16);
+  box-shadow: var(--nm-inset), 0 4px 20px rgba(74,53,64,0.18);
   white-space: nowrap;
 }
 .pv2-ctab {
