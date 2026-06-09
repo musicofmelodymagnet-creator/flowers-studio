@@ -1049,14 +1049,6 @@
       });
     });
 
-    document.getElementById('pv2Zone').addEventListener('click', e => {
-      if (pv2PalettePanel.classList.contains('open') &&
-          !pv2PalettePanel.contains(e.target) &&
-          !pv2PaletteBtn.contains(e.target)) {
-        pv2TogglePalette(true);
-      }
-    });
-
     // ── V2 Size selector ─────────────────────────────────────
     const PV2_SIZES = {
       '8x8':  'Our classic backdrop — refined and intimate. Ideal for ceremonies, portrait zones, and boutique celebrations. Fits beautifully in most indoor venues.',
@@ -1103,7 +1095,6 @@
       if (e.key === 'Escape') {
         pv2SizePopup.classList.remove('open');
         pv2SizeHelp.setAttribute('aria-expanded', 'false');
-        pv2TogglePalette(true);
       }
     });
   </script>

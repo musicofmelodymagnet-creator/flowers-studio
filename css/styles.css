@@ -46,6 +46,7 @@ a { text-decoration: none; }
   --inset-sm: inset  -4px  -4px 10px var(--nm-light), inset  4px  4px 10px var(--nm-dark);
   --inset-md: inset  -8px  -8px 16px var(--nm-light), inset  8px  8px 16px var(--nm-dark);
   --inset-lg: inset -13px -13px 26px var(--nm-light), inset 13px 13px 26px var(--nm-dark);
+  --nm-inset: var(--inset-sm);
 
   --glow-accent: 0 0 0 1px rgba(168,120,208,.25),
                  -8px -8px 18px var(--nm-light),
@@ -2161,7 +2162,7 @@ body {
   border: 2px solid transparent;
   cursor: pointer;
   text-align: center;
-  box-shadow: var(--nm-inset);
+  box-shadow: var(--elev-sm);
   transition: all 200ms ease;
   letter-spacing: 0.01em;
 }
@@ -2172,7 +2173,7 @@ body {
   color: var(--ink-mauve);
   border-color: var(--surface-distinct);
   background: var(--surface-distinct);
-  box-shadow: 0 1px 6px rgba(107,90,91,0.18);
+  box-shadow: var(--inset-sm);
 }
 
 .size-desc {
@@ -2374,6 +2375,7 @@ body {
   background: rgba(74,53,64,0.07);
   border: none;
   cursor: pointer;
+  box-shadow: var(--elev-sm);
   transition: all 200ms ease;
   white-space: nowrap;
 }
@@ -2382,7 +2384,7 @@ body {
 .pv2-topbar-tab.active {
   background: var(--surface-distinct);
   color: var(--ink-mauve);
-  box-shadow: 0 2px 8px rgba(107,90,91,0.20);
+  box-shadow: var(--inset-sm);
 }
 
 /* ── Wide landscape media zone (15:10) ────────────── */
@@ -2742,6 +2744,8 @@ body {
   border-radius: 14px;
   padding: 5px 10px;
   box-shadow: var(--nm-inset);
+  overflow: visible;
+  position: relative;
 }
 
 .pv2-bar-sep {
@@ -2773,7 +2777,7 @@ body {
   );
   cursor: pointer;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(45,38,38,0.22);
+  box-shadow: var(--elev-sm);
   transition: transform 200ms ease, box-shadow 200ms ease;
   position: relative;
 }
@@ -2795,7 +2799,7 @@ body {
   box-shadow: 0 4px 14px rgba(45,38,38,0.30);
 }
 .pv2-rainbow-btn.active {
-  box-shadow: 0 0 0 3px rgba(74,53,64,0.30), 0 2px 8px rgba(45,38,38,0.22);
+  box-shadow: var(--inset-sm), 0 0 0 3px rgba(74,53,64,0.30);
 }
 
 /* ── Brand-dark button colors (V2 controls) ───────── */
@@ -2803,12 +2807,13 @@ body {
 .pv2-controls-bar .pv2-light-btn {
   color: var(--brand-deep);
   background: rgba(74,53,64,0.07);
+  box-shadow: var(--elev-sm);
 }
 .pv2-lighting-bar .pv2-light-btn.active,
 .pv2-controls-bar .pv2-light-btn.active {
   color: var(--ink-mauve);
   background: var(--surface-distinct);
-  box-shadow: 0 1px 6px rgba(107,90,91,0.18);
+  box-shadow: var(--inset-sm);
 }
 .pv2-lighting-bar .pv2-light-btn:hover,
 .pv2-controls-bar .pv2-light-btn:hover {
@@ -3050,6 +3055,7 @@ body {
   background: rgba(74,53,64,0.07);
   border: none;
   cursor: pointer;
+  box-shadow: var(--elev-sm);
   transition: all 200ms ease;
   white-space: nowrap;
 }
@@ -3057,7 +3063,7 @@ body {
 .pv2-ctab.active {
   background: var(--surface-distinct);
   color: var(--ink-mauve);
-  box-shadow: 0 2px 8px rgba(107,90,91,0.20);
+  box-shadow: var(--inset-sm);
 }
 
 /* ── Rainbow palette button wrapper + tooltip ─────── */
@@ -3079,7 +3085,7 @@ body {
   font: 400 12px/1.55 var(--font-sans);
   color: var(--ink-soft);
   letter-spacing: 0.01em;
-  z-index: 20;
+  z-index: 50;
   box-shadow: 0 4px 20px rgba(107,90,91,0.20), 0 1px 4px rgba(107,90,91,0.10);
   transition: opacity 220ms ease 0s, transform 220ms ease 0s;
 }
