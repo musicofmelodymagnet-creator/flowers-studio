@@ -2188,8 +2188,21 @@ body {
   width: 100%;
   padding: 18px 24px;
   font-size: 15px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
   margin-top: 4px;
+  background: var(--ink-mauve);
+  color: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 20px rgba(74,53,64,0.32);
+}
+.product-cta:hover {
+  background: var(--brand-deep);
+  color: #fff;
+  box-shadow: 0 6px 26px rgba(74,53,64,0.42);
+  transform: translateY(-2px);
+}
+.product-cta:active {
+  background: var(--ink-mauve);
+  transform: scale(0.97) translateY(0);
 }
 
 /* ── Spec cards (Engineering Details) ────────────── */
@@ -2321,8 +2334,13 @@ body {
   gap: 16px;
 }
 
-/* ── Header row: name left + tabs right ───────────── */
+/* ── Header: two-row column ────────────────────────── */
 .pv2-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pv2-header-top {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -2572,69 +2590,43 @@ body {
   transform: translateY(0);
 }
 
-/* Close X — sits above the swatch grid, right-aligned */
-.pv2-palette-close {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(45, 38, 38, 0.45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.92);
-  margin-bottom: 8px;
-  flex-shrink: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 200ms ease, background 180ms ease;
-}
-.pv2-palette-close:hover { background: rgba(45, 38, 38, 0.68); }
-.pv2-palette-close svg { width: 10px; height: 10px; stroke-width: 2.5; }
-.pv2-palette-panel.open .pv2-palette-close {
-  opacity: 1;
-  pointer-events: auto;
-  transition-delay: 200ms;
-}
 
-/* Single-column list */
+/* Horizontal row of swatches */
 .pv2-palette-grid {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
+  align-items: flex-end;
 }
 
-/* Each swatch: dot on right, name on left — panel sits on right edge */
+/* Each swatch: dot top, name below */
 .pv2-swatch-item {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   opacity: 0;
-  transform: translateX(14px);
+  transform: translateY(10px);
   transition: opacity 150ms ease, transform 150ms ease;
 }
 
 .pv2-palette-panel.open .pv2-swatch-item {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
   transition:
-    opacity   280ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity   260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(1) { transition-delay: 220ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(2) { transition-delay: 180ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(3) { transition-delay: 140ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(4) { transition-delay: 100ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(5) { transition-delay: 60ms; }
-.pv2-palette-panel.open .pv2-swatch-item:nth-child(6) { transition-delay: 20ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(1) { transition-delay: 150ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(2) { transition-delay: 120ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(3) { transition-delay: 90ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(4) { transition-delay: 60ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(5) { transition-delay: 30ms; }
+.pv2-palette-panel.open .pv2-swatch-item:nth-child(6) { transition-delay: 0ms; }
 
 .pv2-swatch-dot {
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   flex-shrink: 0;
   cursor: default;
@@ -2644,15 +2636,16 @@ body {
     inset 0 1px 2px rgba(255,255,255,0.40);
   transition: transform 200ms ease;
 }
-.pv2-swatch-dot:hover { transform: scale(1.12); }
+.pv2-swatch-dot:hover { transform: scale(1.14); }
 
 .pv2-swatch-name {
-  font: 600 10px/1.2 var(--font-sans);
+  font: 600 9px/1.2 var(--font-sans);
   color: rgba(255,255,255,0.95);
-  text-shadow: 0 1px 5px rgba(0,0,0,0.60), 0 0 10px rgba(0,0,0,0.30);
+  text-shadow: 0 1px 5px rgba(0,0,0,0.65), 0 0 10px rgba(0,0,0,0.30);
   letter-spacing: 0.04em;
   white-space: nowrap;
   text-transform: uppercase;
+  text-align: center;
 }
 
 /* ── Prev / Next arrows ───────────────────────────── */
@@ -2895,11 +2888,15 @@ body {
 
 /* ── Info strip: two columns below media ─────────── */
 .pv2-info-strip {
+  padding-top: 4px;
+}
+.pv2-ctab-pane { display: none; }
+.pv2-ctab-pane.active { display: block; }
+.pv2-info-grid {
   display: grid;
   grid-template-columns: 1fr 0.6fr;
   gap: 48px;
   align-items: start;
-  padding-top: 4px;
 }
 
 .pv2-info-left {
@@ -3007,8 +3004,8 @@ body {
    PRODUCT V2 — RESPONSIVE
    ================================================================ */
 @media (max-width: 900px) {
-  .pv2-info-strip { grid-template-columns: 1fr; gap: 28px; }
-  .pv2-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .pv2-info-grid { grid-template-columns: 1fr; gap: 28px; }
+  .pv2-header-top { flex-direction: column; align-items: flex-start; gap: 12px; }
   .pv2-name { font-size: 34px; }
   .pv2-size-popup { width: 260px; }
 }
@@ -3024,4 +3021,105 @@ body {
   .pv2-arrow.prev { left: 18px; }
   .pv2-tip { display: none; }
   .pv2-thumbs-lighting-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .pv2-rainbow-tip { display: none; }
+  .pv2-content-tabs { flex-wrap: wrap; }
+}
+
+/* ── Content tabs (Sizes / Modification / Structure) ── */
+.pv2-content-tabs {
+  display: flex;
+  gap: 3px;
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 4px;
+  box-shadow: var(--nm-inset);
+  align-self: flex-start;
+}
+.pv2-ctab {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 11px;
+  font: 600 13px/1 var(--font-sans);
+  letter-spacing: 0.01em;
+  color: var(--brand-deep);
+  background: rgba(74,53,64,0.07);
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+.pv2-ctab:hover { color: var(--ink-mauve); background: rgba(74,53,64,0.13); }
+.pv2-ctab.active {
+  background: var(--ink-mauve);
+  color: rgba(255,255,255,0.93);
+  box-shadow: 0 2px 10px rgba(74,53,64,0.28);
+}
+
+/* ── Rainbow palette button wrapper + tooltip ─────── */
+.pv2-rainbow-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+.pv2-rainbow-tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  width: 230px;
+  background: rgba(74,53,64,0.93);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 14px;
+  padding: 14px 16px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  z-index: 20;
+}
+.pv2-rainbow-wrap:hover .pv2-rainbow-tip {
+  opacity: 1;
+  transform: translateY(0);
+}
+.pv2-tip-eyebrow {
+  display: block;
+  font: 700 9px/1 var(--font-sans);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 7px;
+}
+.pv2-rainbow-tip {
+  font: 400 12px/1.55 var(--font-sans);
+  color: rgba(255,255,255,0.82);
+  letter-spacing: 0.01em;
+}
+
+/* ── Structure spec table ─────────────────────────── */
+.pv2-struct-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 6px;
+}
+.pv2-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(74,53,64,0.08);
+}
+.pv2-spec-row:first-child { border-top: 1px solid rgba(74,53,64,0.08); }
+.pv2-spec-label {
+  font: 600 10px/1 var(--font-sans);
+  color: var(--brand-deep);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.pv2-spec-value {
+  font: 500 13px/1.4 var(--font-sans);
+  color: var(--ink-mauve);
+  text-align: right;
 }
