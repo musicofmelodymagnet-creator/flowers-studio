@@ -575,28 +575,6 @@
 
       </section>
 
-      <!-- ── SOCIAL STRIP ──────────────────────────────────────── -->
-      <div class="social-strip">
-        <span class="eyebrow">Follow Our Journey</span>
-        <div class="social-links">
-          <a href="#" class="social-link" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-            </svg>
-          </a>
-          <a href="#" class="social-link" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-            </svg>
-          </a>
-          <a href="#" class="social-link" aria-label="Twitter / X">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-
       <!-- ── CTA PAIR ─────────────────────────────────────────── -->
       <div class="cta-row" aria-label="Primary actions">
         <button class="neo-btn" onclick="window.location.href='gallery.html'">
@@ -622,15 +600,25 @@
       <div class="footer-links">
         <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
         <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
-        <a href="#" class="footer-link">Conditions</a>
         <a href="#" class="footer-link">Wind Policy</a>
         <a href="#" class="footer-link">FAQ</a>
-        <a href="#" class="footer-instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-          </svg>
-          Instagram
-        </a>
+        <div class="footer-social">
+          <a href="#" class="footer-social-icon" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social-icon" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social-icon" aria-label="X / Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+            </svg>
+          </a>
+        </div>
       </div>
       <div class="footer-locations">
         <span class="footer-locations-title">Locations We Serve</span>
@@ -845,7 +833,7 @@
       const cards = Array.from(grid.querySelectorAll('.collection-card'));
       if (!cards.length) return;
 
-      const MAX_TILT = 7.31;    // max degrees (−25 % from original 9.75)
+      const MAX_TILT = 6.21;    // max degrees (−40 % from original 9.75)
       const LERP     = 0.04;  // smoothing (lower = slower follow)
       const PERSP    = 900;   // perspective px
 
@@ -874,7 +862,7 @@
           `perspective(${PERSP}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
         const inner = card.querySelector('.collection-card-inner');
         if (inner) {
-          inner.style.transform = `translate(${ry * -0.878}px, ${rx * 0.878}px)`;
+          inner.style.transform = `translate(${ry * -0.746}px, ${rx * 0.746}px)`;
           const nx = ry / MAX_TILT;
           const ny = rx / MAX_TILT;
           inner.style.setProperty('--shine-px', (50 + nx * 15).toFixed(1) + '%');
@@ -895,7 +883,7 @@
         }
         const cap = card.querySelector('.collection-caption');
         if (cap) cap.style.transform =
-          `translate(${ry * -1.56}px, ${rx * 1.56}px)`;
+          `translate(${ry * -1.326}px, ${rx * 1.326}px)`;
       }
 
       // Smooth return to rest, fade gloss to zero
@@ -989,6 +977,24 @@
       }, { passive: true });
     })();
 
+
+    // ── Sticky nav (scroll-up reveal) ──────────────────────────
+    (function () {
+      const nav = document.querySelector('.site-nav');
+      if (!nav) return;
+      let lastY = window.scrollY, ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          const y = window.scrollY;
+          if (y < 100) nav.classList.remove('nav--visible');
+          else if (y < lastY - 5) nav.classList.add('nav--visible');
+          else if (y > lastY + 5) nav.classList.remove('nav--visible');
+          lastY = y; ticking = false;
+        });
+      }, { passive: true });
+    })();
 
     // ── Mobile hamburger menu ───────────────────────────────────
     const mobileBurger  = document.getElementById('mobileBurger');
