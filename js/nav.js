@@ -11,13 +11,8 @@
     ticking = true;
     requestAnimationFrame(function () {
       const y = window.scrollY;
-      if (y < 100) {
-        nav.classList.remove('nav--visible');
-      } else if (y < lastY - 5) {
-        nav.classList.add('nav--visible');
-      } else if (y > lastY + 5) {
-        nav.classList.remove('nav--visible');
-      }
+      if (y < lastY - 5) nav.classList.add('nav--visible');
+      else if (y > lastY + 5) nav.classList.remove('nav--visible');
       lastY = y;
       ticking = false;
     });
