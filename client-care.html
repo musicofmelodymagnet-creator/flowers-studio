@@ -18,138 +18,131 @@
       padding: 20px 0 0;
     }
     .cc-hero h1 {
-      font: 700 72px/1.1 var(--font-display);
+      font: 700 58px/1.1 var(--font-display);
       letter-spacing: -0.02em;
       color: var(--ink);
-      margin: 14px 0 22px;
+      margin: 12px 0 18px;
     }
     .cc-hero p {
-      font: 400 20px/1.6 var(--font-sans);
+      font: 400 17px/1.6 var(--font-sans);
       color: var(--ink-soft);
       margin: 0;
     }
 
-    /* Channel cards */
+    /* Contact channels — one unified card, three columns */
     .cc-channels {
+      width: 100%;
+      max-width: 800px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      width: 100%;
-      max-width: 1072px;
+      background: var(--surface);
+      border-radius: 20px;
+      box-shadow: var(--elev-sm);
+      overflow: hidden;
     }
     .cc-card {
-      border-radius: var(--r-card);
-      background: var(--surface);
-      box-shadow: var(--elev-md);
-      padding: 44px 32px 48px;
+      padding: 28px 26px 30px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      text-align: center;
-      transition: transform 2s ease-in-out;
+      align-items: flex-start;
+      gap: 6px;
+      transition: background 220ms ease-in-out;
     }
-    .cc-card:hover {
-      transform: translateY(-6px);
-      transition: transform 385ms ease-in-out;
-    }
+    .cc-card:hover { background: rgba(168,120,208,0.04); }
+    .cc-card + .cc-card { border-left: 1px solid rgba(168,120,208,0.11); }
     .cc-card-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      box-shadow: var(--inset-md);
-      display: grid;
-      place-items: center;
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      box-shadow: var(--inset-sm);
+      display: grid; place-items: center;
       color: var(--brand);
+      margin-bottom: 6px;
       flex-shrink: 0;
     }
-    .cc-card-icon svg { width: 28px; height: 28px; stroke-width: 1.75; }
+    .cc-card-icon svg { width: 17px; height: 17px; stroke-width: 1.75; }
     .cc-card h3 {
-      font: 700 22px/1.3 var(--font-sans);
-      color: var(--ink);
-      margin: 6px 0 0;
+      font: 600 10px/1 var(--font-sans);
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin: 0;
     }
     .cc-card-value {
-      font: 600 17px/1.4 var(--font-sans);
-      color: var(--brand);
+      font: 600 15px/1.3 var(--font-sans);
+      color: var(--ink);
       text-decoration: none;
-      transition: opacity var(--dur) var(--ease);
+      transition: color 180ms ease-in-out;
       cursor: default;
     }
     a.cc-card-value { cursor: pointer; }
-    a.cc-card-value:hover { opacity: 0.7; }
+    a.cc-card-value:hover { color: var(--brand); }
     .cc-card-note {
-      font: 400 14px/1.5 var(--font-sans);
+      font: 400 12px/1.4 var(--font-sans);
       color: var(--ink-muted);
       margin: 0;
     }
 
-    /* Manager promise */
+    /* Manager strip — slim, left-accent */
     .cc-promise {
       width: 100%;
       max-width: 800px;
-      border-radius: var(--r-card);
-      background: linear-gradient(135deg, rgba(168,120,208,0.09) 0%, rgba(168,120,208,0.04) 100%);
-      border: 1px solid rgba(168,120,208,0.20);
+      border-radius: 14px;
+      background: var(--surface);
+      border-left: 3px solid var(--brand);
       box-shadow: var(--elev-sm);
-      padding: 34px 44px;
+      padding: 18px 28px;
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 18px;
     }
     .cc-promise-avatar {
-      width: 70px;
-      height: 70px;
+      width: 46px; height: 46px;
       border-radius: 50%;
       background: linear-gradient(135deg, #cca8e4 0%, var(--brand) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       position: relative;
-      box-shadow: 0 4px 18px rgba(168,120,208,0.38);
     }
     .cc-promise-avatar-letter {
-      font: 600 30px/1 var(--font-display);
+      font: 600 20px/1 var(--font-display);
       color: rgba(255,255,255,0.96);
       user-select: none;
     }
     .cc-promise-avatar-dot {
-      position: absolute;
-      bottom: 3px;
-      right: 3px;
-      width: 15px;
-      height: 15px;
+      position: absolute; bottom: 1px; right: 1px;
+      width: 12px; height: 12px;
       border-radius: 50%;
       background: #4caf50;
-      border: 2.5px solid var(--bg);
+      border: 2px solid var(--surface);
     }
-    .cc-promise-body { flex: 1; }
+    .cc-promise-body { flex: 1; min-width: 0; }
     .cc-promise-name {
-      font: 700 16px/1.3 var(--font-sans);
+      font: 600 13px/1.3 var(--font-sans);
       color: var(--ink);
-      margin: 0 0 8px;
+      margin: 0 0 3px;
     }
     .cc-promise-text {
-      font: 400 15px/1.65 var(--font-sans);
+      font: 400 13px/1.55 var(--font-sans);
       color: var(--ink-soft);
-      margin: 0 0 14px;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .cc-promise-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font: 500 12px/1 var(--font-sans);
-      letter-spacing: 0.03em;
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 6px;
+      font: 500 11px/1 var(--font-sans);
+      letter-spacing: 0.02em;
       color: #2d9c4a;
-      background: rgba(76,175,80,0.11);
-      border-radius: 22px;
-      padding: 6px 14px;
+      background: rgba(76,175,80,0.10);
+      border-radius: 20px;
+      padding: 6px 13px;
+      white-space: nowrap;
     }
     .cc-promise-tag::before {
       content: '';
-      width: 7px;
-      height: 7px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: #4caf50;
       flex-shrink: 0;
@@ -161,36 +154,32 @@
       max-width: 800px;
     }
 
-    /* Service area */
+    /* Service area — no box, just inline */
     .cc-area {
       width: 100%;
       max-width: 800px;
-      border-radius: var(--r-card);
-      background: var(--surface);
-      box-shadow: var(--elev-sm);
-      padding: 36px 44px;
       display: flex;
       align-items: flex-start;
-      gap: 28px;
+      gap: 14px;
+      padding: 0 4px;
     }
     .cc-area-icon {
-      width: 56px;
-      height: 56px;
+      width: 32px; height: 32px;
       border-radius: 50%;
       box-shadow: var(--inset-sm);
-      display: grid;
-      place-items: center;
+      display: grid; place-items: center;
       color: var(--brand);
       flex-shrink: 0;
+      margin-top: 1px;
     }
-    .cc-area-icon svg { width: 26px; height: 26px; stroke-width: 1.75; }
+    .cc-area-icon svg { width: 16px; height: 16px; stroke-width: 1.75; }
     .cc-area-title {
-      font: 700 18px/1.3 var(--font-sans);
+      font: 600 13px/1.3 var(--font-sans);
       color: var(--ink);
-      margin: 0 0 10px;
+      margin: 0 0 5px;
     }
     .cc-area-text {
-      font: 400 15px/1.7 var(--font-sans);
+      font: 400 13px/1.65 var(--font-sans);
       color: var(--ink-soft);
       margin: 0;
     }
@@ -436,18 +425,18 @@
       stroke-linecap: round; stroke-linejoin: round;
     }
 
-    /* Responsive chat */
+    /* Responsive */
     @media (max-width: 960px) {
+      .cc-hero h1 { font-size: 44px; }
       .cc-channels { grid-template-columns: 1fr; max-width: 480px; }
-      .cc-hero h1 { font-size: 52px; }
+      .cc-card + .cc-card { border-left: none; border-top: 1px solid rgba(168,120,208,0.11); }
       .cc-chat { height: 560px; }
     }
     @media (max-width: 480px) {
-      .cc-hero h1 { font-size: 38px; }
-      .cc-hero p { font-size: 16px; }
-      .cc-promise { flex-direction: column; padding: 28px 24px; gap: 20px; }
-      .cc-area { flex-direction: column; gap: 18px; padding: 28px 24px; }
-      .cc-card { padding: 32px 20px 36px; }
+      .cc-hero h1 { font-size: 34px; }
+      .cc-hero p { font-size: 15px; }
+      .cc-promise { padding: 14px 18px; gap: 12px; }
+      .cc-promise-text { display: none; }
       .cc-chat { height: 500px; }
       .cc-chat-hdr-badge { display: none; }
       .cc-msg-bubble { max-width: 85%; }
@@ -494,7 +483,7 @@
       </div>
     </nav>
 
-    <main class="page-stack" style="gap: 72px">
+    <main class="page-stack" style="gap: 48px">
 
       <!-- ── PAGE HERO ─────────────────────────────────────────── -->
       <div class="cc-hero">
@@ -549,10 +538,10 @@
           <span class="cc-promise-avatar-dot"></span>
         </div>
         <div class="cc-promise-body">
-          <p class="cc-promise-name">Lily — Your Personal Manager · FLORINSKY Atelier</p>
-          <p class="cc-promise-text">Every client receives dedicated personal attention. We answer all questions, suggest the ideal solution for your event, and stay with you throughout our entire collaboration — from first inquiry to the final moment of your celebration.</p>
-          <span class="cc-promise-tag">Responds within a few minutes</span>
+          <p class="cc-promise-name">Lily — Personal Manager · FLORINSKY Atelier</p>
+          <p class="cc-promise-text">Every client receives dedicated personal attention throughout our entire collaboration.</p>
         </div>
+        <span class="cc-promise-tag">Responds within minutes</span>
       </div>
 
       <!-- ── CHAT WINDOW ───────────────────────────────────────── -->
