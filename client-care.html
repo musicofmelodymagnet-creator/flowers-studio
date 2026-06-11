@@ -192,7 +192,7 @@
     .cc-chat {
       border-radius: 22px;
       overflow: hidden;
-      box-shadow: 0 10px 44px rgba(90,60,100,0.16), 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: var(--elev-md);
       display: flex;
       flex-direction: column;
       height: 465px;
@@ -201,7 +201,7 @@
 
     /* Header */
     .cc-chat-hdr {
-      background: linear-gradient(130deg, #4e3a5a 0%, #7b5490 55%, #a878d0 100%);
+      background: #60545b;
       padding: 14px 20px;
       display: flex;
       align-items: center;
@@ -226,9 +226,11 @@
       bottom: 1px; right: 1px;
       width: 11px; height: 11px;
       border-radius: 50%;
-      background: #4caf50;
-      border: 2px solid #4e3a5a;
+      background: #6e6e6e;
+      border: 2px solid #60545b;
+      transition: background 700ms ease-in-out;
     }
+    .cc-chat-hdr-avatar-dot.dot-on { background: #4caf50; }
     .cc-chat-hdr-info { flex: 1; }
     .cc-chat-hdr-name {
       font: 700 15px/1.2 var(--font-sans);
@@ -236,14 +238,22 @@
       display: block;
     }
     .cc-chat-hdr-status {
-      display: flex; align-items: center; gap: 6px;
-      font: 400 14px/1 var(--font-sans);
-      color: rgba(255,255,255,0.88);
-      margin-top: 4px;
+      display: flex; align-items: center; gap: 7px;
+      font: 400 13px/1 var(--font-sans);
+      color: rgba(255,255,255,0.85);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 700ms ease-in-out;
     }
+    .cc-chat-hdr-status.status-on { opacity: 1; }
     .cc-chat-hdr-status-dot {
       width: 7px; height: 7px;
       border-radius: 50%;
+      background: #6e6e6e;
+      transition: background 700ms ease-in-out, box-shadow 700ms ease-in-out;
+      flex-shrink: 0;
+    }
+    .cc-chat-hdr-status-dot.dot-on {
       background: #4caf50;
       box-shadow: 0 0 6px #4caf50;
       animation: cc-pulse 2.2s ease-in-out infinite;
@@ -262,6 +272,7 @@
       flex-direction: column;
       gap: 12px;
       scroll-behavior: smooth;
+      background: #dbcfd2;
     }
     .cc-chat-msgs::-webkit-scrollbar { width: 3px; }
     .cc-chat-msgs::-webkit-scrollbar-track { background: transparent; }
@@ -540,15 +551,15 @@
           <div class="cc-chat-hdr">
             <div class="cc-chat-hdr-avatar">
               <span class="cc-chat-hdr-avatar-letter">L</span>
-              <span class="cc-chat-hdr-avatar-dot"></span>
+              <span class="cc-chat-hdr-avatar-dot" id="chatAvatarDot"></span>
             </div>
             <div class="cc-chat-hdr-info">
               <span class="cc-chat-hdr-name">Lily</span>
-              <span class="cc-chat-hdr-status">
-                <span class="cc-chat-hdr-status-dot"></span>
-                Online · responds within minutes
-              </span>
             </div>
+            <span class="cc-chat-hdr-status" id="chatStatus">
+              <span class="cc-chat-hdr-status-dot" id="chatStatusDot"></span>
+              Online · responds within minutes
+            </span>
           </div>
 
           <!-- Messages -->
@@ -868,14 +879,24 @@
         if (btn) send(btn.dataset.msg || btn.textContent);
       });
 
-      // Initial greeting — Lily types first
+      // 3s — green dot lights up
+      setTimeout(function () {
+        var aDot   = document.getElementById('chatAvatarDot');
+        var sDot   = document.getElementById('chatStatusDot');
+        var status = document.getElementById('chatStatus');
+        if (aDot)   aDot.classList.add('dot-on');
+        if (sDot)   sDot.classList.add('dot-on');
+        if (status) status.classList.add('status-on');
+      }, 3000);
+
+      // 5s — Lily types and sends greeting
       setTimeout(function () {
         showTyping();
         setTimeout(function () {
           removeTyping();
-          addMsg('Hello! I\'m Lily, your personal manager. How can I help you today? 🌸', 'mgr');
-        }, 1800);
-      }, 600);
+          addMsg('Привет! Меня зовут Лили. Расскажу о наших цветочных стенах и помогу с выбором — задавайте вопросы 🌸', 'mgr');
+        }, 1600);
+      }, 5000);
 
       scrollBottom();
     })();
