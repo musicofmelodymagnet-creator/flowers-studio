@@ -113,7 +113,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 128px;
-  padding: 0 64px 64px;
+  padding: 80px 64px 64px;
 }
 
 /* ================================================================
@@ -128,14 +128,12 @@ body {
   padding: 14px 64px;
   display: flex;
   justify-content: center;
-  transform: translateY(-110%);
   transition: transform 480ms ease-in-out;
-  pointer-events: none;
 }
 
-.nav--visible {
-  transform: translateY(0) !important;
-  pointer-events: auto !important;
+.nav--hidden {
+  transform: translateY(-110%) !important;
+  pointer-events: none !important;
 }
 
 .nav-pill {
@@ -926,8 +924,8 @@ body {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 32px;
+  align-items: flex-start;
+  gap: 40px;
   flex-wrap: wrap;
 }
 
@@ -951,9 +949,9 @@ body {
 
 .footer-links {
   display: flex;
-  gap: 32px;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .footer-link {
@@ -982,6 +980,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: 16px;
 }
 
 .footer-social-label {
@@ -995,7 +994,7 @@ body {
 .footer-social-icons {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 28px;
 }
 
 .footer-social-icon {
@@ -1004,11 +1003,146 @@ body {
   justify-content: center;
   color: var(--on-dark);
   opacity: 0.75;
-  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  transition: opacity 2s ease-in-out, transform 2s ease-in-out, color 2s ease-in-out;
 }
 
-.footer-social-icon:hover { opacity: 1; transform: translateY(-2px); }
-.footer-social-icon svg { width: 22px; height: 22px; stroke-width: 1.6; }
+.footer-social-icon:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  transition: opacity 200ms ease-in-out, transform 200ms ease-in-out, color 200ms ease-in-out;
+}
+.footer-social-icon[aria-label="Instagram"]:hover { color: #e1306c; }
+.footer-social-icon[aria-label="Facebook"]:hover  { color: #1877f2; }
+.footer-social-icon[aria-label="YouTube"]:hover   { color: #ff0000; }
+.footer-social-icon[aria-label="TikTok"]:hover    { color: #69c9d0; }
+.footer-social-icon svg { width: 33px; height: 33px; stroke-width: 1.5; }
+
+/* ── Footer SEO columns (Our Collections, Event Rentals) ──── */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 150px;
+}
+
+.footer-col-title {
+  font: 600 11px/1.5 var(--font-sans);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--on-dark);
+  opacity: 0.55;
+  display: block;
+}
+
+.footer-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-col-link {
+  font: 400 14px/1.5 var(--font-sans);
+  color: var(--on-dark);
+  opacity: 0.75;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.footer-col-link:hover { opacity: 1; }
+
+.footer-more {
+  opacity: 0.48;
+  font-style: italic;
+}
+
+/* ── Floating contact widget — manager pill ─────────────── */
+.contact-widget {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 300;
+  pointer-events: none;
+}
+
+.contact-widget-btn {
+  position: relative;
+  height: 56px;
+  border-radius: 28px;
+  padding: 0 22px 0 8px;
+  border: none;
+  background: linear-gradient(135deg, #cca8e4 0%, var(--brand) 100%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 22px rgba(168, 120, 208, 0.42), 0 1px 4px rgba(0, 0, 0, 0.07);
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+  animation: widget-float 3s ease-in-out infinite;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.contact-widget-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(168, 120, 208, 0.62), 0 2px 8px rgba(0, 0, 0, 0.10);
+  animation-play-state: paused;
+}
+
+.contact-widget-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-widget-initial {
+  font: 600 22px/1 var(--font-display);
+  color: rgba(255, 255, 255, 0.96);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.contact-widget-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #4caf50;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+}
+
+.contact-widget-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.contact-widget-title {
+  font: 600 13px/1.2 var(--font-sans);
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.contact-widget-online {
+  font: 400 11px/1 var(--font-sans);
+  color: rgba(255, 255, 255, 0.82);
+  letter-spacing: 0.02em;
+}
+
+@keyframes widget-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
 
 .footer-locations {
   flex-basis: 100%;
@@ -1756,7 +1890,12 @@ body {
     align-items: flex-start;
     gap: 24px;
   }
-  .footer-links { gap: 16px; flex-wrap: wrap; }
+  .footer-links { gap: 8px; }
+  .footer-col { flex-basis: calc(50% - 20px); }
+  .contact-widget { bottom: 24px; right: 24px; }
+  .contact-widget-btn { height: 50px; padding: 0 18px 0 7px; gap: 10px; }
+  .contact-widget-avatar { width: 36px; height: 36px; }
+  .contact-widget-initial { font-size: 20px; }
 }
 
 /* ================================================================
@@ -1789,7 +1928,13 @@ body {
   .mobile-nav-link { font-size: 22px; padding: 12px 40px; }
   .site-footer { padding: 32px 16px; }
   .footer-wordmark { font-size: 22px; }
-  .footer-links { gap: 12px; }
+  .footer-links { gap: 8px; }
+  .footer-col { flex-basis: 100%; }
+  .contact-widget { bottom: 20px; right: 20px; }
+  .contact-widget-btn { height: 46px; padding: 0 14px 0 6px; gap: 8px; border-radius: 23px; }
+  .contact-widget-avatar { width: 32px; height: 32px; }
+  .contact-widget-initial { font-size: 18px; }
+  .contact-widget-text { display: none; }
 }
 
 /* ================================================================

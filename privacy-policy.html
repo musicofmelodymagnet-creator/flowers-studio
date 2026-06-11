@@ -123,6 +123,7 @@
     <a href="index.html#testimonials" class="mobile-nav-link">Kind Words</a>
     <a href="about.html"              class="mobile-nav-link">Our Story</a>
     <a href="index.html#contact"      class="mobile-nav-link">Client Care</a>
+    <a href="flower-wall-tips.html"   class="mobile-nav-link">Flower Wall Tips</a>
   </div>
 
   <!-- ============================================================
@@ -136,7 +137,8 @@
         <a href="advantages.html"         class="nav-link">Our Uniqueness</a>
         <a href="index.html#testimonials" class="nav-link">Kind Words</a>
         <a href="about.html"              class="nav-link">Our Story</a>
-        <a href="index.html#contact"      class="nav-link">Client Care</a>
+        <a href="client-care.html"        class="nav-link">Client Care</a>
+        <a href="flower-wall-tips.html"   class="nav-link">Flower Wall Tips</a>
       </div>
     </nav>
 
@@ -228,6 +230,26 @@
         <a href="index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
         <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
       </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Our Collections</span>
+        <ul class="footer-col-list">
+          <li><a href="product.html" class="footer-col-link">Burgundy Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">White Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Pink Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Green Real Touch Flower Wall</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Event Rentals</span>
+        <ul class="footer-col-list">
+          <li><a href="index.html#contact" class="footer-col-link">Wedding Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Birthday Party Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Corporate Event Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Baby Shower Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Bridal Shower Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Anniversary Party Flower Wall Rental</a></li>
+        </ul>
+      </div>
       <div class="footer-links">
         <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
         <a href="privacy-policy.html" class="footer-link active" aria-current="page">Privacy Policy</a>
@@ -261,7 +283,7 @@
       </div>
       <div class="footer-locations">
         <span class="footer-locations-title">Locations We Serve</span>
-        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket</p>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket · Aurora · King City · Stouffville · Scarborough · North York · Etobicoke · East York · Hamilton · Barrie · Guelph · Thornhill · Woodbridge · Bolton · Bradford · Orangeville <span class="footer-more">· + more!</span></p>
       </div>
     </div>
   </footer>
@@ -277,8 +299,8 @@
         ticking = true;
         requestAnimationFrame(function () {
           const y = window.scrollY;
-          if (y < lastY - 5) nav.classList.add('nav--visible');
-          else if (y > lastY + 5) nav.classList.remove('nav--visible');
+          if (y > lastY + 5)      nav.classList.add('nav--hidden');
+          else if (y < lastY - 5) nav.classList.remove('nav--hidden');
           lastY = y; ticking = false;
         });
       }, { passive: true });
@@ -302,6 +324,20 @@
       if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
     });
   </script>
+
+  <!-- ── Floating contact widget — manager pill ────────────── -->
+  <div class="contact-widget">
+    <button class="contact-widget-btn" onclick="const el=document.getElementById('contact');el?el.scrollIntoView({behavior:'smooth'}):(window.location.href='index.html#contact');" aria-label="Связаться с менеджером">
+      <div class="contact-widget-avatar">
+        <span class="contact-widget-initial">L</span>
+        <span class="contact-widget-dot"></span>
+      </div>
+      <div class="contact-widget-text">
+        <span class="contact-widget-title">Менеджер</span>
+        <span class="contact-widget-online">● онлайн</span>
+      </div>
+    </button>
+  </div>
 
 </body>
 </html>

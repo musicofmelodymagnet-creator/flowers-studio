@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Care — FLORINSKY Atelier</title>
+  <meta name="description" content="Contact FLORINSKY Atelier — phone, email, and instant messaging. Our manager responds within minutes. Serving Toronto and the Greater Toronto Area." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── Client Care page ── */
+    .cc-hero {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 0 0;
+    }
+    .cc-hero h1 {
+      font: 700 72px/1.1 var(--font-display);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 14px 0 22px;
+    }
+    .cc-hero p {
+      font: 400 20px/1.6 var(--font-sans);
+      color: var(--ink-soft);
+      margin: 0;
+    }
+
+    /* Channel cards */
+    .cc-channels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      width: 100%;
+      max-width: 1072px;
+    }
+    .cc-card {
+      border-radius: var(--r-card);
+      background: var(--surface);
+      box-shadow: var(--elev-md);
+      padding: 44px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+      transition: transform 2s ease-in-out;
+    }
+    .cc-card:hover {
+      transform: translateY(-6px);
+      transition: transform 385ms ease-in-out;
+    }
+    .cc-card-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      box-shadow: var(--inset-md);
+      display: grid;
+      place-items: center;
+      color: var(--brand);
+      flex-shrink: 0;
+    }
+    .cc-card-icon svg { width: 28px; height: 28px; stroke-width: 1.75; }
+    .cc-card h3 {
+      font: 700 22px/1.3 var(--font-sans);
+      color: var(--ink);
+      margin: 6px 0 0;
+    }
+    .cc-card-value {
+      font: 600 17px/1.4 var(--font-sans);
+      color: var(--brand);
+      text-decoration: none;
+      transition: opacity var(--dur) var(--ease);
+      cursor: default;
+    }
+    a.cc-card-value { cursor: pointer; }
+    a.cc-card-value:hover { opacity: 0.7; }
+    .cc-card-note {
+      font: 400 14px/1.5 var(--font-sans);
+      color: var(--ink-muted);
+      margin: 0;
+    }
+
+    /* Manager promise */
+    .cc-promise {
+      width: 100%;
+      max-width: 800px;
+      border-radius: var(--r-card);
+      background: linear-gradient(135deg, rgba(168,120,208,0.09) 0%, rgba(168,120,208,0.04) 100%);
+      border: 1px solid rgba(168,120,208,0.20);
+      box-shadow: var(--elev-sm);
+      padding: 34px 44px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .cc-promise-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #cca8e4 0%, var(--brand) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      box-shadow: 0 4px 18px rgba(168,120,208,0.38);
+    }
+    .cc-promise-avatar-letter {
+      font: 600 30px/1 var(--font-display);
+      color: rgba(255,255,255,0.96);
+      user-select: none;
+    }
+    .cc-promise-avatar-dot {
+      position: absolute;
+      bottom: 3px;
+      right: 3px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #4caf50;
+      border: 2.5px solid var(--bg);
+    }
+    .cc-promise-body { flex: 1; }
+    .cc-promise-name {
+      font: 700 16px/1.3 var(--font-sans);
+      color: var(--ink);
+      margin: 0 0 8px;
+    }
+    .cc-promise-text {
+      font: 400 15px/1.65 var(--font-sans);
+      color: var(--ink-soft);
+      margin: 0 0 14px;
+    }
+    .cc-promise-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font: 500 12px/1 var(--font-sans);
+      letter-spacing: 0.03em;
+      color: #2d9c4a;
+      background: rgba(76,175,80,0.11);
+      border-radius: 22px;
+      padding: 6px 14px;
+    }
+    .cc-promise-tag::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4caf50;
+      flex-shrink: 0;
+    }
+
+    /* Inquiry wrapper */
+    .cc-inquiry-wrap {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    /* Service area */
+    .cc-area {
+      width: 100%;
+      max-width: 800px;
+      border-radius: var(--r-card);
+      background: var(--surface);
+      box-shadow: var(--elev-sm);
+      padding: 36px 44px;
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+    }
+    .cc-area-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow: var(--inset-sm);
+      display: grid;
+      place-items: center;
+      color: var(--brand);
+      flex-shrink: 0;
+    }
+    .cc-area-icon svg { width: 26px; height: 26px; stroke-width: 1.75; }
+    .cc-area-title {
+      font: 700 18px/1.3 var(--font-sans);
+      color: var(--ink);
+      margin: 0 0 10px;
+    }
+    .cc-area-text {
+      font: 400 15px/1.7 var(--font-sans);
+      color: var(--ink-soft);
+      margin: 0;
+    }
+
+    /* ── Chat window ─────────────────────────────────────────── */
+    .cc-chat-wrap {
+      width: 100%;
+      max-width: 800px;
+    }
+    .cc-chat {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 56px rgba(90, 60, 100, 0.18), 0 2px 10px rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+      height: 620px;
+      background: var(--bg);
+    }
+
+    /* Header */
+    .cc-chat-hdr {
+      background: linear-gradient(130deg, #4e3a5a 0%, #7b5490 55%, #a878d0 100%);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .cc-chat-hdr-avatar {
+      position: relative;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.20);
+      border: 2px solid rgba(255,255,255,0.32);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cc-chat-hdr-avatar-letter {
+      font: 600 24px/1 var(--font-display);
+      color: #fff;
+    }
+    .cc-chat-hdr-avatar-dot {
+      position: absolute;
+      bottom: 2px; right: 2px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: #4caf50;
+      border: 2.5px solid #4e3a5a;
+    }
+    .cc-chat-hdr-info { flex: 1; }
+    .cc-chat-hdr-name {
+      font: 700 16px/1.3 var(--font-sans);
+      color: #fff;
+      display: block;
+    }
+    .cc-chat-hdr-status {
+      display: flex; align-items: center; gap: 6px;
+      font: 400 12px/1 var(--font-sans);
+      color: rgba(255,255,255,0.68);
+      margin-top: 5px;
+    }
+    .cc-chat-hdr-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4caf50;
+      box-shadow: 0 0 6px #4caf50;
+      animation: cc-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes cc-pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.45; }
+    }
+    .cc-chat-hdr-badge {
+      font: 500 11px/1 var(--font-sans);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.62);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      padding: 7px 15px;
+      white-space: nowrap;
+    }
+
+    /* Messages area */
+    .cc-chat-msgs {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+    .cc-chat-msgs::-webkit-scrollbar { width: 4px; }
+    .cc-chat-msgs::-webkit-scrollbar-track { background: transparent; }
+    .cc-chat-msgs::-webkit-scrollbar-thumb {
+      background: rgba(168,120,208,0.28);
+      border-radius: 4px;
+    }
+
+    /* Individual message row */
+    .cc-msg {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      animation: cc-msg-in 280ms ease-out;
+    }
+    @keyframes cc-msg-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .cc-msg--mgr  { align-self: flex-start; }
+    .cc-msg--user { align-self: flex-end; flex-direction: row-reverse; }
+
+    .cc-msg-ava {
+      width: 33px; height: 33px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #cca8e4 0%, var(--brand) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font: 600 14px/1 var(--font-display);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .cc-msg-bubble {
+      max-width: 70%;
+      padding: 13px 18px;
+      border-radius: 18px;
+      font: 400 14.5px/1.65 var(--font-sans);
+      position: relative;
+    }
+    .cc-msg--mgr .cc-msg-bubble {
+      background: var(--surface);
+      box-shadow: 0 2px 14px rgba(90,60,100,0.09);
+      color: var(--ink);
+      border-bottom-left-radius: 5px;
+    }
+    .cc-msg--user .cc-msg-bubble {
+      background: linear-gradient(135deg, #c9a4e2 0%, var(--brand) 55%, #8f5ec2 100%);
+      color: #fff;
+      border-bottom-right-radius: 5px;
+    }
+    .cc-msg-time {
+      display: block;
+      font: 400 11px/1 var(--font-sans);
+      margin-top: 7px;
+      letter-spacing: 0.02em;
+    }
+    .cc-msg--mgr  .cc-msg-time { color: var(--ink-muted); }
+    .cc-msg--user .cc-msg-time { color: rgba(255,255,255,0.55); text-align: right; }
+
+    /* Typing indicator */
+    .cc-typing {
+      display: flex; align-items: flex-end; gap: 10px;
+      animation: cc-msg-in 280ms ease-out;
+    }
+    .cc-typing-bubble {
+      background: var(--surface);
+      box-shadow: 0 2px 14px rgba(90,60,100,0.09);
+      border-radius: 18px;
+      border-bottom-left-radius: 5px;
+      padding: 14px 20px;
+      display: flex; gap: 5px; align-items: center;
+    }
+    .cc-typing-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--ink-muted);
+      animation: cc-typing 1.4s ease-in-out infinite;
+    }
+    .cc-typing-dot:nth-child(2) { animation-delay: 0.22s; }
+    .cc-typing-dot:nth-child(3) { animation-delay: 0.44s; }
+    @keyframes cc-typing {
+      0%, 60%, 100% { transform: translateY(0);   opacity: 0.45; }
+      30%            { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* Quick reply chips */
+    .cc-chat-quick {
+      padding: 2px 26px 14px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      flex-shrink: 0;
+    }
+    .cc-quick-btn {
+      font: 500 13px/1 var(--font-sans);
+      color: var(--brand);
+      background: rgba(168,120,208,0.07);
+      border: 1px solid rgba(168,120,208,0.28);
+      border-radius: 20px;
+      padding: 8px 16px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 180ms ease-in-out, border-color 180ms ease-in-out, transform 180ms ease-in-out;
+    }
+    .cc-quick-btn:hover {
+      background: rgba(168,120,208,0.15);
+      border-color: var(--brand);
+      transform: translateY(-2px);
+    }
+
+    /* Input row */
+    .cc-chat-input-row {
+      padding: 14px 20px 20px;
+      display: flex; gap: 10px; align-items: center;
+      flex-shrink: 0;
+      border-top: 1px solid rgba(168,120,208,0.12);
+      background: var(--surface);
+    }
+    .cc-chat-input {
+      flex: 1; height: 48px;
+      border-radius: 24px;
+      border: 1.5px solid rgba(168,120,208,0.18);
+      background: var(--bg);
+      padding: 0 20px;
+      font: 400 15px/1 var(--font-sans);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+    }
+    .cc-chat-input::placeholder { color: var(--ink-muted); }
+    .cc-chat-input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(168,120,208,0.11);
+    }
+    .cc-chat-send {
+      width: 48px; height: 48px;
+      border-radius: 50%; border: none;
+      background: linear-gradient(135deg, #cca8e4 0%, var(--brand) 100%);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 3px 14px rgba(168,120,208,0.40);
+      transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+      flex-shrink: 0;
+    }
+    .cc-chat-send:hover {
+      transform: scale(1.10);
+      box-shadow: 0 5px 20px rgba(168,120,208,0.55);
+    }
+    .cc-chat-send:active { transform: scale(0.93); }
+    .cc-chat-send svg {
+      width: 20px; height: 20px;
+      fill: none; stroke: #fff; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Responsive chat */
+    @media (max-width: 960px) {
+      .cc-channels { grid-template-columns: 1fr; max-width: 480px; }
+      .cc-hero h1 { font-size: 52px; }
+      .cc-chat { height: 560px; }
+    }
+    @media (max-width: 480px) {
+      .cc-hero h1 { font-size: 38px; }
+      .cc-hero p { font-size: 16px; }
+      .cc-promise { flex-direction: column; padding: 28px 24px; gap: 20px; }
+      .cc-area { flex-direction: column; gap: 18px; padding: 28px 24px; }
+      .cc-card { padding: 32px 20px 36px; }
+      .cc-chat { height: 500px; }
+      .cc-chat-hdr-badge { display: none; }
+      .cc-msg-bubble { max-width: 85%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="index.html"              class="mobile-nav-link">Welcome</a>
+    <a href="gallery.html"            class="mobile-nav-link">Gallery</a>
+    <a href="advantages.html"         class="mobile-nav-link">Our Uniqueness</a>
+    <a href="index.html#testimonials" class="mobile-nav-link">Kind Words</a>
+    <a href="about.html"              class="mobile-nav-link">Our Story</a>
+    <a href="client-care.html"        class="mobile-nav-link" style="color:var(--brand)">Client Care</a>
+    <a href="flower-wall-tips.html"   class="mobile-nav-link">Flower Wall Tips</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="index.html"              class="nav-link">Welcome</a>
+        <a href="gallery.html"            class="nav-link">Gallery</a>
+        <a href="advantages.html"         class="nav-link">Our Uniqueness</a>
+        <a href="index.html#testimonials" class="nav-link">Kind Words</a>
+        <a href="about.html"              class="nav-link">Our Story</a>
+        <a href="client-care.html"        class="nav-link active">Client Care</a>
+        <a href="flower-wall-tips.html"   class="nav-link">Flower Wall Tips</a>
+      </div>
+    </nav>
+
+    <main class="page-stack" style="gap: 72px">
+
+      <!-- ── PAGE HERO ─────────────────────────────────────────── -->
+      <div class="cc-hero">
+        <span class="section-label">We're Here For You</span>
+        <h1>Client Care</h1>
+        <p>Premium service and a personal touch — from your very first question to the final bow.</p>
+      </div>
+
+      <!-- ── CONTACT CHANNELS ───────────────────────────────────── -->
+      <div class="cc-channels">
+
+        <div class="cc-card">
+          <div class="cc-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.05 6.05l1.97-1.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <h3>Give Us a Call</h3>
+          <a href="tel:+14160000000" class="cc-card-value">+1 (416) 000-0000</a>
+          <p class="cc-card-note">Mon – Sun · 9:00 AM – 9:00 PM</p>
+        </div>
+
+        <div class="cc-card">
+          <div class="cc-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <h3>Write to Us</h3>
+          <a href="mailto:hello@florinsky.ca" class="cc-card-value">hello@florinsky.ca</a>
+          <p class="cc-card-note">Response within a few hours</p>
+        </div>
+
+        <div class="cc-card">
+          <div class="cc-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3>Instant Message</h3>
+          <span class="cc-card-value">Telegram · WhatsApp</span>
+          <p class="cc-card-note">Our manager replies within minutes</p>
+        </div>
+
+      </div>
+
+      <!-- ── MANAGER PROMISE ────────────────────────────────────── -->
+      <div class="cc-promise">
+        <div class="cc-promise-avatar">
+          <span class="cc-promise-avatar-letter">L</span>
+          <span class="cc-promise-avatar-dot"></span>
+        </div>
+        <div class="cc-promise-body">
+          <p class="cc-promise-name">Lily — Your Personal Manager · FLORINSKY Atelier</p>
+          <p class="cc-promise-text">Every client receives dedicated personal attention. We answer all questions, suggest the ideal solution for your event, and stay with you throughout our entire collaboration — from first inquiry to the final moment of your celebration.</p>
+          <span class="cc-promise-tag">Responds within a few minutes</span>
+        </div>
+      </div>
+
+      <!-- ── CHAT WINDOW ───────────────────────────────────────── -->
+      <div class="cc-chat-wrap">
+        <div class="cc-chat">
+
+          <!-- Header -->
+          <div class="cc-chat-hdr">
+            <div class="cc-chat-hdr-avatar">
+              <span class="cc-chat-hdr-avatar-letter">L</span>
+              <span class="cc-chat-hdr-avatar-dot"></span>
+            </div>
+            <div class="cc-chat-hdr-info">
+              <span class="cc-chat-hdr-name">Lily · FLORINSKY Atelier</span>
+              <span class="cc-chat-hdr-status">
+                <span class="cc-chat-hdr-status-dot"></span>
+                Online · responds within minutes
+              </span>
+            </div>
+            <span class="cc-chat-hdr-badge">Premium Support</span>
+          </div>
+
+          <!-- Messages -->
+          <div class="cc-chat-msgs" id="chatMsgs">
+
+            <div class="cc-msg cc-msg--mgr">
+              <div class="cc-msg-ava">L</div>
+              <div class="cc-msg-bubble">
+                Hello! I'm Lily, your personal manager at FLORINSKY Atelier. I'm here to help you create something truly unforgettable. What are you planning? ✨
+                <span class="cc-msg-time">Just now</span>
+              </div>
+            </div>
+
+            <div class="cc-msg cc-msg--user">
+              <div class="cc-msg-bubble">
+                Hi! We're planning a wedding next summer and looking for a flower wall for the photo zone
+                <span class="cc-msg-time">Just now</span>
+              </div>
+            </div>
+
+            <div class="cc-msg cc-msg--mgr">
+              <div class="cc-msg-ava">L</div>
+              <div class="cc-msg-bubble">
+                Congratulations on your upcoming wedding! 🌸 You've come to the perfect place. Our flower walls are crafted with Real Touch flowers — so lifelike that guests actually try to smell them. What color palette are you envisioning?
+                <span class="cc-msg-time">Just now</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Quick replies -->
+          <div class="cc-chat-quick" id="chatQuick">
+            <button class="cc-quick-btn" data-msg="What colors are available?">What colors are available?</button>
+            <button class="cc-quick-btn" data-msg="What sizes do you offer?">What sizes do you offer?</button>
+            <button class="cc-quick-btn" data-msg="How much does it cost?">Pricing info</button>
+            <button class="cc-quick-btn" data-msg="How do I book?">How do I book?</button>
+          </div>
+
+          <!-- Input -->
+          <div class="cc-chat-input-row">
+            <input class="cc-chat-input" id="chatInput" type="text" placeholder="Type your message…" autocomplete="off" maxlength="300" />
+            <button class="cc-chat-send" id="chatSend" aria-label="Send message">
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── INQUIRY FORM ───────────────────────────────────────── -->
+      <div class="cc-inquiry-wrap">
+        <section class="inquiry" id="contact" aria-label="Inquiry form">
+
+          <div class="inquiry-header">
+            <span class="section-label">Quick Contact</span>
+            <h2>Send an Inquiry</h2>
+            <p>Fill out the form and our manager will get back to you within a few minutes.</p>
+          </div>
+
+          <form class="form-body" id="inquiryForm" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="field-name">Name</label>
+                <input id="field-name" class="form-input" type="text" placeholder="Your name" autocomplete="name" />
+              </div>
+              <div class="form-field">
+                <label for="field-email">Email</label>
+                <input id="field-email" class="form-input" type="email" placeholder="example@mail.com" autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="field-date">Event Date</label>
+              <div class="form-date-wrap">
+                <input id="field-date" class="form-input" type="text" placeholder="mm/dd/yyyy" />
+                <span class="form-date-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="field-message">Message</label>
+              <textarea id="field-message" class="form-textarea" rows="4" placeholder="Describe your wishes..."></textarea>
+            </div>
+
+            <div class="form-submit">
+              <button type="submit" class="neo-btn neo-btn--solid" id="submitBtn">
+                Send Inquiry
+              </button>
+              <p class="form-consent">
+                By submitting this inquiry, you confirm that you have read and agree to our&nbsp;<a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+              </p>
+            </div>
+          </form>
+
+        </section>
+      </div>
+
+      <!-- ── SERVICE AREA ───────────────────────────────────────── -->
+      <div class="cc-area">
+        <div class="cc-area-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <p class="cc-area-title">Where We Work</p>
+          <p class="cc-area-text">We serve events across Toronto and the Greater Toronto Area. Venues outside GTA are available upon individual arrangement — reach out to discuss your specific location and we will do our best to accommodate your needs.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
+        <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Our Collections</span>
+        <ul class="footer-col-list">
+          <li><a href="product.html" class="footer-col-link">Burgundy Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">White Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Pink Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Green Real Touch Flower Wall</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Event Rentals</span>
+        <ul class="footer-col-list">
+          <li><a href="client-care.html#contact" class="footer-col-link">Wedding Flower Wall Rental</a></li>
+          <li><a href="client-care.html#contact" class="footer-col-link">Birthday Party Flower Wall Rental</a></li>
+          <li><a href="client-care.html#contact" class="footer-col-link">Corporate Event Flower Wall Rental</a></li>
+          <li><a href="client-care.html#contact" class="footer-col-link">Baby Shower Flower Wall Rental</a></li>
+          <li><a href="client-care.html#contact" class="footer-col-link">Bridal Shower Flower Wall Rental</a></li>
+          <li><a href="client-care.html#contact" class="footer-col-link">Anniversary Party Flower Wall Rental</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
+        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Wind Policy</a>
+        <a href="#" class="footer-link">FAQ</a>
+        <div class="footer-social">
+          <span class="footer-social-label">Follow Our Journey</span>
+          <div class="footer-social-icons">
+            <a href="#" class="footer-social-icon" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-locations">
+        <span class="footer-locations-title">Locations We Serve</span>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket · Aurora · King City · Stouffville · Scarborough · North York · Etobicoke · East York · Hamilton · Barrie · Guelph · Thornhill · Woodbridge · Bolton · Bradford · Orangeville <span class="footer-more">· + more!</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Sticky nav ───────────────────────────────────────────────
+    (function () {
+      const nav = document.querySelector('.site-nav');
+      if (!nav) return;
+      let lastY = window.scrollY, ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          const y = window.scrollY;
+          if (y > lastY + 5)      nav.classList.add('nav--hidden');
+          else if (y < lastY - 5) nav.classList.remove('nav--hidden');
+          lastY = y; ticking = false;
+        });
+      }, { passive: true });
+    })();
+
+    // ── Mobile hamburger ─────────────────────────────────────────
+    const mobileBurger  = document.getElementById('mobileBurger');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu(close) {
+      const open = mobileOverlay.classList.contains('open') || close;
+      mobileOverlay.classList.toggle('open', !open);
+      mobileBurger.classList.toggle('open', !open);
+      mobileBurger.setAttribute('aria-expanded', String(!open));
+      mobileOverlay.setAttribute('aria-hidden', String(open));
+      document.body.style.overflow = open ? '' : 'hidden';
+    }
+
+    mobileBurger.addEventListener('click', () => toggleMenu(false));
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(l =>
+      l.addEventListener('click', () => toggleMenu(true))
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
+    });
+
+    // ── Chat bot ─────────────────────────────────────────────────
+    (function () {
+      const msgs    = document.getElementById('chatMsgs');
+      const input   = document.getElementById('chatInput');
+      const sendBtn = document.getElementById('chatSend');
+      const quick   = document.getElementById('chatQuick');
+      if (!msgs || !input) return;
+
+      const NOW = (function () {
+        const d = new Date();
+        const h = d.getHours(), m = d.getMinutes();
+        return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
+      })();
+
+      // Update all "Just now" placeholders to real time
+      msgs.querySelectorAll('.cc-msg-time').forEach(el => { el.textContent = NOW; });
+
+      const RULES = [
+        { keys: ['color','colour','white','pink','burgundy','green','palette','shade'],
+          reply: 'We currently offer four exclusive designs: Burgundy, White, Pink, and Green Real Touch Flower Walls 🌸 Each palette is unique — would you like me to guide you to our collection?' },
+        { keys: ['price','cost','how much','pricing','rate','fee','charge'],
+          reply: 'Pricing depends on rental duration and your venue location. I\'d love to send you a personalized quote! Could you share your event date and city?' },
+        { keys: ['size','dimension','dimension','big','large','small','ft','feet','11','14'],
+          reply: 'We offer three sizes: Classic 8×8 ft, Grand 11×8 ft, and XL 14×8 ft. For weddings, the Grand or XL are especially popular — they let larger groups look stunning in every shot 📸' },
+        { keys: ['book','reserve','order','availability','available'],
+          reply: 'I\'d love to check availability for your date right away! What day is your event, and which area are you in?' },
+        { keys: ['deliver','setup','install','arrive','bring','transport'],
+          reply: 'We handle full delivery and professional setup across Toronto and the entire GTA. Our team ensures everything is picture-perfect before your first guest arrives 🌿' },
+        { keys: ['real touch','artificial','fake','realistic','silk','plastic'],
+          reply: 'Our flowers use premium Real Touch technology — they replicate the exact texture of real petals. Guests regularly walk up and try to catch a scent! Completely unmatched in photographs 💜' },
+        { keys: ['semi','circle','circular','curved','arc','shape','360'],
+          reply: 'Yes! We offer a unique semi-circular setup that creates a stunning dimensional space for photos — something you genuinely won\'t find at any other studio in Canada ✨' },
+        { keys: ['outdoor','outside','wind','uneven','slope','hill','terrain','grass'],
+          reply: 'No problem at all! Our walls feature an adjustable leg system for uneven terrain and a reinforced support structure engineered to handle wind safely. Your outdoor venue is in great hands ☀️' },
+        { keys: ['guarantee','contract','money back','refund','insurance','promise'],
+          reply: 'We stand behind our word with a financial guarantee written into the contract: if we fail to deliver on your event day, you receive 3× the order value back. No other décor company in Canada offers this level of protection 🤝' },
+        { keys: ['toronto','gta','mississauga','brampton','vaughan','markham','richmond','oakville'],
+          reply: 'We serve all of Toronto and the Greater Toronto Area! For events outside GTA, just share your location and we\'ll discuss options personally 📍' },
+        { keys: ['semi-circle','semicircle','unique','exclusive','canada','different'],
+          reply: 'FLORINSKY was designed from the ground up to offer what no one else in Canada does — Real Touch exclusivity, semi-circular setup, reinforced structures, and a financial delivery guarantee. One-of-a-kind 💜' },
+        { keys: ['photo','photograph','picture','camera','instagram','shot'],
+          reply: 'Our walls are designed specifically with photography in mind — the texture, depth, and scale create images that stop the scroll. Your guests will be photographing the wall even without people in front of it 📸' },
+        { keys: ['hello','hi','hey','good morning','good afternoon','good evening'],
+          reply: 'Hello again! 🌸 Always here to help. What would you like to know about our flower walls?' },
+        { keys: ['thank','thanks','awesome','perfect','great','wonderful'],
+          reply: 'It\'s truly my pleasure! 💜 Is there anything else I can help you with?' },
+        { keys: ['wedding','bride','groom','ceremony','reception'],
+          reply: 'Weddings are our absolute favourite! 🌸 A FLORINSKY flower wall becomes the centrepiece of your reception — something your guests will talk about long after the day. What\'s your wedding date?' },
+        { keys: ['birthday','party','corporate','baby shower','bridal shower','anniversary','event'],
+          reply: 'We love making every celebration unforgettable! Our flower walls work beautifully for weddings, birthdays, corporate events, baby showers, and more. What\'s the occasion?' },
+      ];
+
+      function getBotReply(text) {
+        const t = text.toLowerCase();
+        for (const rule of RULES) {
+          if (rule.keys.some(k => t.includes(k))) return rule.reply;
+        }
+        return 'That\'s a wonderful question! 💜 I\'d love to give you the most helpful answer — could you share a little more detail? Or feel free to fill out the inquiry form below and I\'ll get back to you within minutes.';
+      }
+
+      function getTime() {
+        const d = new Date(), h = d.getHours(), m = d.getMinutes();
+        return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
+      }
+
+      function scrollBottom() {
+        msgs.scrollTop = msgs.scrollHeight;
+      }
+
+      function addMsg(text, type) {
+        const row = document.createElement('div');
+        row.className = 'cc-msg cc-msg--' + type;
+        if (type === 'mgr') {
+          row.innerHTML = '<div class="cc-msg-ava">L</div>' +
+            '<div class="cc-msg-bubble">' + text +
+            '<span class="cc-msg-time">' + getTime() + '</span></div>';
+        } else {
+          row.innerHTML = '<div class="cc-msg-bubble">' + text +
+            '<span class="cc-msg-time">' + getTime() + '</span></div>';
+        }
+        msgs.appendChild(row);
+        scrollBottom();
+      }
+
+      function showTyping() {
+        const t = document.createElement('div');
+        t.className = 'cc-typing';
+        t.id = 'ccTyping';
+        t.innerHTML = '<div class="cc-msg-ava">L</div>' +
+          '<div class="cc-typing-bubble">' +
+          '<span class="cc-typing-dot"></span>' +
+          '<span class="cc-typing-dot"></span>' +
+          '<span class="cc-typing-dot"></span>' +
+          '</div>';
+        msgs.appendChild(t);
+        scrollBottom();
+      }
+
+      function removeTyping() {
+        const t = document.getElementById('ccTyping');
+        if (t) t.remove();
+      }
+
+      function send(text) {
+        text = text.trim();
+        if (!text) return;
+        addMsg(text, 'user');
+        input.value = '';
+        quick.innerHTML = '';
+        showTyping();
+        const delay = 4000 + Math.random() * 2000;
+        setTimeout(function () {
+          removeTyping();
+          addMsg(getBotReply(text), 'mgr');
+        }, delay);
+      }
+
+      sendBtn.addEventListener('click', function () { send(input.value); });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
+      });
+      quick.addEventListener('click', function (e) {
+        const btn = e.target.closest('.cc-quick-btn');
+        if (btn) send(btn.dataset.msg || btn.textContent);
+      });
+
+      scrollBottom();
+    })();
+
+    // ── Inquiry form ─────────────────────────────────────────────
+    const form = document.getElementById('inquiryForm');
+    const submitBtn = document.getElementById('submitBtn');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitBtn.textContent = 'Thank You';
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+    });
+  </script>
+
+  <!-- ── Floating contact widget — manager pill ────────────── -->
+  <div class="contact-widget">
+    <button class="contact-widget-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});" aria-label="Связаться с менеджером">
+      <div class="contact-widget-avatar">
+        <span class="contact-widget-initial">L</span>
+        <span class="contact-widget-dot"></span>
+      </div>
+      <div class="contact-widget-text">
+        <span class="contact-widget-title">Менеджер</span>
+        <span class="contact-widget-online">● онлайн</span>
+      </div>
+    </button>
+  </div>
+
+</body>
+</html>
