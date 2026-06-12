@@ -58,7 +58,7 @@
     /* Main FAQ layout */
     .faq-wrap {
       width: 100%;
-      max-width: 624px;
+      max-width: 748px;
       margin: 0 auto;
       padding: 0 24px 80px;
       display: flex;
@@ -153,18 +153,19 @@
     .faq-q-icon svg {
       width: 14px;
       height: 14px;
-      stroke: #60545b;
+      stroke: #60545b !important;
       transition: stroke 260ms;
     }
     .faq-item.open .faq-q-icon svg {
-      stroke: #fff;
+      stroke: #fff !important;
     }
-    /* Read state — arrow stays light after closing */
-    .faq-item.read .faq-q-icon {
-      background: var(--brand);
+    /* Read (closed): arrow stays light — user already read this */
+    .faq-item.read:not(.open) .faq-q-icon {
+      background: var(--brand) !important;
+      transition: transform 340ms var(--ease) !important;
     }
-    .faq-item.read .faq-q-icon svg {
-      stroke: #fff;
+    .faq-item.read:not(.open) .faq-q-icon svg {
+      stroke: #fff !important;
     }
 
     /* Answer panel */
@@ -210,7 +211,7 @@
     /* Bottom CTA band */
     .faq-cta {
       width: 100%;
-      max-width: 624px;
+      max-width: 748px;
       margin: 0 auto 80px;
       padding: 0 24px;
     }
@@ -330,9 +331,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">What guarantees do you provide?</span>
-              <span class="faq-q-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -345,9 +344,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">What makes your flower walls different from others?</span>
-              <span class="faq-q-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -360,9 +357,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">How can I reserve a flower wall?</span>
-              <span class="faq-q-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -375,14 +370,226 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Is a security deposit required?</span>
-              <span class="faq-q-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
                 <p>No, we do not require a security deposit, as we trust our clients.</p>
                 <p>At the same time, we kindly ask that the flower wall be treated with care. In the event of significant damage (for example, if the wall falls due to guest negligence or is damaged by rain), the contract provides for compensation covering the cost of restoring the flower wall.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Can a flower wall be installed outdoors?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Yes, we are happy to install your flower wall outdoors. There is no need to set up an additional tent for rain protection, which can negatively affect the overall appearance of your event decor.</p>
+                <p>We provide special protective covers with every flower wall at no additional cost. If it begins to rain, simply cover the structure to protect it from moisture. Please note that our flower walls are made from premium materials and are not waterproof.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">How stable is your flower wall?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Guest safety is one of our top priorities. Most companies use standard 20-inch factory-made support bases, which do not always provide sufficient stability, even in moderate wind conditions or when accidentally bumped during photos.</p>
+                <p>To minimize these risks, we developed custom reinforced 40-inch support bases—twice the size of the industry standard. This design provides maximum stability and significantly reduces the risk of tipping.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Do you use exclusive flower wall designs?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Today’s market is filled with mass-produced factory-made backdrops, but we chose a different path. Every flower wall we create is the result of exclusive original design work.</p>
+                <p>Our florists developed each flower wall design from the ground up, creating pieces that cannot be found anywhere else in Canada. We carefully consider every detail, color combination, and dimension to create truly striking floral installations.</p>
+                <p>Your guests have never seen anything like it before.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Will the flower wall look the same in person?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>We completely understand your hesitation—photos don't always fully capture true-to-life shades and intricate details. To eliminate any uncertainty, we at FLORINSKY Atelier are the first in Canada to offer an interactive 3D tour on our website, allowing you to explore every flower wall in close detail. You can view the backdrop from all angles, almost as if you were standing right in front of it. This ensures you can be 100% confident in your choice.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">What flower wall sizes do you offer?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Most companies only offer the standard 8x8 foot size. While this is a great format for photos of 5–6 people, larger groups inevitably spill past the edges of the floral backdrop.</p>
+                <p>That is exactly why we developed two formats: the classic 8x8 foot size and our exclusive, expanded 11x8 foot size. The extra width allows larger groups to comfortably fit entirely within the floral display.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Can a flower wall be installed on uneven ground?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>We believe the perfect spot for your photo zone should be defined by the beauty of the location, not by equipment limitations. Virtually all standard flower walls on the market require a perfectly flat surface, often forcing clients to compromise on their preferred setup spots.</p>
+                <p>To solve this, we designed an exclusive support system with individually adjustable tilt angles. Thanks to this technology, we can securely install our walls even on slopes, hills, and other uneven terrain. Choose the most beautiful backdrop location, and leave the technical details to us.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Do you only offer traditional straight flower walls?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>We decided to push past conventional boundaries and create something completely new for you—something currently unavailable elsewhere on the Canadian market.</p>
+                <p>In addition to classic straight structures, we offer the option to install our flower walls in a semi-circle. This format allows your guests to literally step inside the floral space rather than just standing next to it. A semi-circular setup adds depth and dimension to photos, making them much more striking.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">What is included in the rental package?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Your rental package already includes your chosen flower wall, delivery, setup, and teardown after the event.</p>
+                <p>We arrive at the venue 2 hours prior to the start time to handle all the prep work well in advance. We take full care of every single step so that the entire process is completely stress-free for you.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Which cities do you serve?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Our atelier provides services throughout the GTA, including Toronto, Mississauga, Vaughan, Markham, Richmond Hill, Brampton, and all other municipalities in the region. If you are unsure whether your location falls within our service area, simply send us an inquiry.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">How long does the installation take?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>To properly prepare and perfect the flower wall, we require access to the venue 2 hours before the event begins. The actual installation takes about 40 minutes.</p>
+                <p>We build in the remaining time as an extra buffer to ensure everything is flawless and completely ready by the time your event starts. Teardown is quick, discreet, and seamless for your guests, typically taking less than 30 minutes.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">What time does the flower wall removal take place?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Your rental package includes backdrop teardown at any time convenient for you up until 11:00 PM. If your event timeline requires the decor to remain in place later into the evening, we are happy to accommodate your schedule. For any teardown scheduled after 11:00 PM, a flat late-night service fee of $150 applies.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Can we move the flower wall ourselves?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Our flower walls are large, heavy structures. For the safety of your guests and the protection of the decor, moving the photo zone on your own is strictly prohibited.</p>
+                <p>If your event itinerary requires the wall to be relocated (for example, from the outdoor ceremony space to the reception hall), please let us know during the booking process. Our team will safely handle the transition on the day of the event. The fee for this service is $100 and will be locked into your contract in advance.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Will my guests’ faces appear on your social media?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>We deeply respect your privacy. As a creative atelier, we photograph the installed decor for our portfolio and social media channels. However, we guarantee that no photos featuring your guests' faces will ever be published without your prior consent.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Can I reschedule my booking?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Yes, we can reschedule your order to a new date, provided that two conditions are met: • You notify us in writing at least 30 days prior to your original event date. • Your chosen flower wall is available for the newly requested date.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Do you offer customer pickup for flower walls?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>We do not offer self-pickup for our flower walls. Our backdrops are large-scale structures that require specialized skills to assemble securely. To ensure everything is perfect, we handle the delivery, setup, and teardown entirely ourselves.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">Do you clean the flower walls after events?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>Yes. After every event, all of our flower walls undergo a thorough cleaning and refreshing process. This ensures that the backdrop looks absolutely immaculate, pristine, and flawless for every single client.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              <span class="faq-q-text">How far in advance should I book?</span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                <p>We recommend booking your decor as early as possible. However, if your event is happening as soon as tomorrow, please reach out to us right away. If your chosen flower wall is available, we will gladly arrange the delivery and installation with absolutely no rush or last-minute surcharges.</p>
               </div>
             </div>
           </div>
