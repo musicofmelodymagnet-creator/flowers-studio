@@ -118,17 +118,21 @@
 
     /* Individual item */
     .faq-item {
-      background: #fff;
+      background: var(--surface);
       border-radius: 18px;
-      box-shadow: var(--elev-md);
-      border: 1px solid rgba(168,120,208,0.12);
+      /* elev-md strengthened: brighter light, deeper dark for clearer nm groove */
+      box-shadow:
+        -10px -10px 22px rgba(255,255,255,0.88),
+         10px  10px 22px rgba(112, 96,110, 0.34);
       border-left: 3px solid transparent;
       position: relative;
       transition: box-shadow 320ms var(--ease);
     }
     .faq-item.open {
       border-left-color: var(--brand);
-      box-shadow: var(--elev-lg);
+      box-shadow:
+        -14px -14px 30px rgba(255,255,255,0.92),
+          14px  14px 30px rgba(112, 96,110, 0.38);
     }
 
     /* Question button */
