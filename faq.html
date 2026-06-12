@@ -37,7 +37,7 @@
     }
     .faq-hero h1 {
       font: 700 56px/1.2 var(--font-sans);
-      color: var(--ink);
+      color: var(--ink-soft);
       margin: 0;
     }
     .faq-hero-sub {
@@ -141,31 +141,26 @@
       height: 28px;
       border-radius: 50%;
       background: rgba(168,120,208,0.08);
+      color: #60545b;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 260ms, transform 340ms var(--ease);
+      transition: background 260ms, transform 340ms var(--ease), color 260ms;
     }
     .faq-item.open .faq-q-icon {
       background: var(--brand);
+      color: #fff;
       transform: rotate(180deg);
     }
     .faq-q-icon svg {
       width: 14px;
       height: 14px;
-      stroke: #60545b !important;
-      transition: stroke 260ms;
     }
-    .faq-item.open .faq-q-icon svg {
-      stroke: #fff !important;
-    }
-    /* Read (closed): arrow stays light — user already read this */
+    /* Read (closed): stays light — already read indicator */
     .faq-item.read:not(.open) .faq-q-icon {
       background: var(--brand) !important;
+      color: #fff !important;
       transition: transform 340ms var(--ease) !important;
-    }
-    .faq-item.read:not(.open) .faq-q-icon svg {
-      stroke: #fff !important;
     }
 
     /* Answer panel */
@@ -319,7 +314,7 @@
 
       <!-- ── Hero ──────────────────────────────────────── -->
       <section class="faq-hero">
-        <h1>Frequently Asked Questions</h1>
+        <h1>FAQ</h1>
         <p class="faq-hero-sub">Everything you might wish to know — carefully gathered</p>
         <hr class="faq-hero-rule" />
       </section>
@@ -331,7 +326,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">What guarantees do you provide?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -344,7 +339,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">What makes your flower walls different from others?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -357,7 +352,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">How can I reserve a flower wall?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -370,7 +365,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Is a security deposit required?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -383,7 +378,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Can a flower wall be installed outdoors?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -396,7 +391,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">How stable is your flower wall?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -409,7 +404,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Do you use exclusive flower wall designs?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -423,7 +418,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Will the flower wall look the same in person?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -435,7 +430,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">What flower wall sizes do you offer?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -448,7 +443,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Can a flower wall be installed on uneven ground?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -461,7 +456,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Do you only offer traditional straight flower walls?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -474,7 +469,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">What is included in the rental package?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -487,7 +482,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Which cities do you serve?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -499,7 +494,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">How long does the installation take?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -512,7 +507,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">What time does the flower wall removal take place?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -524,7 +519,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Can we move the flower wall ourselves?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -537,7 +532,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Will my guests’ faces appear on your social media?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -549,7 +544,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Can I reschedule my booking?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -561,7 +556,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Do you offer customer pickup for flower walls?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -573,7 +568,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">Do you clean the flower walls after events?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
@@ -585,7 +580,7 @@
           <div class="faq-item">
             <button class="faq-q" aria-expanded="false">
               <span class="faq-q-text">How far in advance should I book?</span>
-              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+              <span class="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
             </button>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
