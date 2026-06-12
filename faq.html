@@ -92,9 +92,19 @@
       flex-direction: column;
       gap: 20px;
     }
-    /* Double gap before 7th, 13th, 19th item — visual block separators */
-    .faq-list .faq-item:nth-child(6n+1):not(:first-child) {
-      margin-top: 24px;
+    /* Group separator: before 6th, 11th, 16th, 21st item */
+    .faq-list .faq-item:nth-child(5n+1):not(:first-child) {
+      margin-top: 36px;
+    }
+    .faq-list .faq-item:nth-child(5n+1):not(:first-child)::before {
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(168,120,208,0.22), transparent);
+      pointer-events: none;
     }
 
     /* Individual item */
@@ -102,7 +112,7 @@
       background: #fff;
       border-radius: 18px;
       box-shadow: var(--elev-sm);
-      overflow: hidden;
+      position: relative;
       transition: box-shadow 320ms var(--ease);
       border-left: 3px solid transparent;
     }
