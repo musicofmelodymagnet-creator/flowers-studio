@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — FLORINSKY Atelier</title>
+  <meta name="description" content="Frequently asked questions about FLORINSKY Atelier's premium Real Touch flower wall rentals in Toronto and GTA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       FAQ PAGE — Premium accordion
+    ═══════════════════════════════════════════════ */
+
+    /* Hero */
+    .faq-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px 24px 40px;
+      gap: 14px;
+    }
+    .faq-hero-eyebrow {
+      display: inline-block;
+      font: 700 10px/1 var(--font-sans);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brand);
+      background: rgba(168,120,208,0.09);
+      border: 1px solid rgba(168,120,208,0.18);
+      border-radius: var(--r-pill);
+      padding: 6px 16px;
+    }
+    .faq-hero h1 {
+      font: 400 48px/1.1 var(--font-display);
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .faq-hero-sub {
+      font: 400 16px/1.65 var(--font-sans);
+      color: var(--ink-muted);
+      max-width: 520px;
+      font-style: italic;
+      margin: 0;
+    }
+    .faq-hero-rule {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--brand-soft), transparent);
+      border: none;
+      margin: 6px 0 0;
+    }
+
+    /* Main FAQ layout */
+    .faq-wrap {
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 52px;
+    }
+
+    /* Category section */
+    .faq-cat-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .faq-cat-label-text {
+      font: 700 10px/1 var(--font-sans);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brand);
+      white-space: nowrap;
+    }
+    .faq-cat-label-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(168,120,208,0.25), transparent);
+    }
+
+    /* Accordion list */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Individual item */
+    .faq-item {
+      background: var(--surface);
+      border-radius: 18px;
+      box-shadow: var(--elev-sm);
+      overflow: hidden;
+      transition: box-shadow 320ms var(--ease);
+      border-left: 3px solid transparent;
+    }
+    .faq-item.open {
+      border-left-color: var(--brand);
+      box-shadow: var(--elev-md);
+    }
+
+    /* Question button */
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 26px;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      transition: background 220ms;
+    }
+    .faq-q:hover {
+      background: rgba(168,120,208,0.04);
+    }
+    .faq-q-text {
+      font: 600 15px/1.45 var(--font-sans);
+      color: var(--ink);
+      transition: color 220ms;
+    }
+    .faq-item.open .faq-q-text {
+      color: var(--brand-deep);
+    }
+    .faq-q-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(168,120,208,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 260ms, transform 340ms var(--ease);
+    }
+    .faq-item.open .faq-q-icon {
+      background: var(--brand);
+      transform: rotate(180deg);
+    }
+    .faq-q-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--ink-muted);
+      transition: stroke 260ms;
+    }
+    .faq-item.open .faq-q-icon svg {
+      stroke: #fff;
+    }
+
+    /* Answer panel */
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 440ms var(--ease);
+    }
+    .faq-a-inner {
+      padding: 0 26px 24px 29px; /* 29px = 26 + 3 (border offset) */
+      font: 400 14px/1.75 var(--font-sans);
+      color: var(--ink-soft);
+      border-top: 1px solid rgba(168,120,208,0.1);
+    }
+    .faq-a-inner p {
+      margin: 14px 0 0;
+    }
+    .faq-a-inner p:first-child {
+      margin-top: 0;
+    }
+
+    /* Highlight pill inside answer */
+    .faq-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(168,120,208,0.08);
+      border: 1px solid rgba(168,120,208,0.15);
+      border-radius: 10px;
+      padding: 10px 16px;
+      margin-top: 14px;
+      font: 600 13px/1.4 var(--font-sans);
+      color: var(--brand-deep);
+    }
+    .faq-highlight-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      flex-shrink: 0;
+    }
+
+    /* Bottom CTA band */
+    .faq-cta {
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    .faq-cta-card {
+      background: linear-gradient(135deg, #cca8e4 0%, var(--brand) 100%);
+      border-radius: 22px;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 6px 32px rgba(168,120,208,0.36), 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .faq-cta-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .faq-cta-text h2 {
+      font: 600 22px/1.2 var(--font-display);
+      color: #fff;
+      margin: 0;
+    }
+    .faq-cta-text p {
+      font: 400 14px/1.55 var(--font-sans);
+      color: rgba(255,255,255,0.82);
+      margin: 0;
+      max-width: 360px;
+    }
+    .faq-cta-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: var(--r-pill);
+      padding: 14px 30px;
+      font: 600 14px/1 var(--font-sans);
+      color: #fff;
+      backdrop-filter: blur(8px);
+      transition: background 220ms, transform 220ms;
+    }
+    .faq-cta-btn:hover {
+      background: rgba(255,255,255,0.32);
+      transform: translateY(-1px);
+    }
+
+    /* Responsive */
+    @media (max-width: 620px) {
+      .faq-hero h1 { font-size: 34px; }
+      .faq-cta-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 28px;
+      }
+      .faq-q { padding: 18px 20px; }
+      .faq-a-inner { padding: 0 20px 20px 23px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="index.html"              class="mobile-nav-link">Welcome</a>
+    <a href="gallery.html"            class="mobile-nav-link">Gallery</a>
+    <a href="advantages.html"         class="mobile-nav-link">Our Uniqueness</a>
+    <a href="index.html#testimonials" class="mobile-nav-link">Kind Words</a>
+    <a href="about.html"              class="mobile-nav-link">Our Story</a>
+    <a href="client-care.html"        class="mobile-nav-link">Client Care</a>
+    <a href="faq.html"                class="mobile-nav-link" style="color:var(--brand)">FAQ</a>
+    <a href="flower-wall-tips.html"   class="mobile-nav-link">Flower Wall Tips</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="index.html"              class="nav-link">Welcome</a>
+        <a href="gallery.html"            class="nav-link">Gallery</a>
+        <a href="advantages.html"         class="nav-link">Our Uniqueness</a>
+        <a href="index.html#testimonials" class="nav-link">Kind Words</a>
+        <a href="about.html"              class="nav-link">Our Story</a>
+        <a href="client-care.html"        class="nav-link">Client Care</a>
+        <a href="faq.html"                class="nav-link active">FAQ</a>
+        <a href="flower-wall-tips.html"   class="nav-link">Flower Wall Tips</a>
+      </div>
+    </nav>
+
+    <main class="page-stack" style="gap: 0; padding-top: 80px">
+
+      <!-- ── Hero ──────────────────────────────────────── -->
+      <section class="faq-hero">
+        <span class="faq-hero-eyebrow">FAQ</span>
+        <h1>Frequently Asked Questions</h1>
+        <p class="faq-hero-sub">Everything you might wish to know — carefully gathered</p>
+        <hr class="faq-hero-rule" />
+      </section>
+
+      <!-- ── Accordion ─────────────────────────────────── -->
+      <div class="faq-wrap">
+
+        <!-- ─── Category 1: Booking & Terms ─────────── -->
+        <section>
+          <div class="faq-cat-label">
+            <span class="faq-cat-label-text">Booking &amp; Terms</span>
+            <span class="faq-cat-label-line"></span>
+          </div>
+          <div class="faq-list">
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">How can I reserve a flower wall?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>To reserve your selected flower wall, a non-refundable deposit of 40% of the total order value and a signed contract are required. Once completed, your event date is reserved exclusively for you.</p>
+                  <p>The remaining 60% balance is due 7 days before the event. To book, simply send us your event date along with your preferences and requirements — our manager will guide you through every step.</p>
+                  <span class="faq-highlight"><span class="faq-highlight-dot"></span>Your date is locked in as soon as the deposit is confirmed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">Is a security deposit required?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>No, we do not require a security deposit — we trust our clients.</p>
+                  <p>At the same time, we kindly ask that the flower wall be treated with care. In the event of significant damage (for example, if the wall falls due to guest negligence or is damaged by rain), the contract provides for compensation covering the cost of restoring the flower wall.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">What guarantees do you provide?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>We value our reputation and always fulfill our commitments 100%. At FLORINSKY, we are the only studio in Canada that backs our guarantees both legally and financially.</p>
+                  <p>Our contract clearly states that if the service is not provided due to our fault, we will pay you compensation equal to three times the value of your order. This is not a verbal promise — it is a formally documented obligation, completely transparent and agreed upon in advance.</p>
+                  <span class="faq-highlight"><span class="faq-highlight-dot"></span>3× order value refund if we fail to deliver — written into the contract</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ─── Category 2: Our Flower Walls ─────────── -->
+        <section>
+          <div class="faq-cat-label">
+            <span class="faq-cat-label-text">Our Flower Walls</span>
+            <span class="faq-cat-label-line"></span>
+          </div>
+          <div class="faq-list">
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">What makes your flower walls different from others?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>Unlike most options on the market that use standard silk or fabric alternatives, we create our flower walls exclusively from premium Real Touch materials. Our flowers are not only visually indistinguishable from freshly cut blooms — they also replicate the naturally cool, velvety texture of real petals.</p>
+                  <p>Beyond materials, our designs are exclusive to Canada. We do not use popular templates or replicate designs already seen at other events. What your guests see on the day will not appear at another wedding a week later.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">What if the color looks different from what I see online?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>We understand that photos on a screen can't always convey real colors, volume, and fine details. That's exactly why we were the first in Canada to introduce an interactive 3D preview for every flower wall in our collection.</p>
+                  <p>You can examine each wall in detail — almost as if you were standing right next to it in person. We also provide photos and videos from multiple angles so you can study every element of the composition. You know precisely what you will receive on the day of your event, with no surprises.</p>
+                  <span class="faq-highlight"><span class="faq-highlight-dot"></span>First in Canada to offer interactive 3D preview for flower walls</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">What sizes are available?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>We offer three formats to suit any event scale:</p>
+                  <p><strong>8×8 ft</strong> — the classic format, ideal for intimate groups and portrait photography.</p>
+                  <p><strong>11×8 ft</strong> — our exclusive expanded size, developed so that larger groups fit comfortably within the frame without guests extending beyond the floral backdrop.</p>
+                  <p><strong>14×8 ft</strong> — a grand format for large-scale events where maximum visual impact is the priority.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">Is a semi-circular setup available?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>Yes. Most flower walls on the market are simply flat photographic backdrops. We offer a unique option to arrange floral walls in a semi-circular shape, so guests feel as if they are actually inside a floral space rather than standing in front of one.</p>
+                  <p>The result is photographs with more depth, volume, and visual impact — a completely different experience that turns your photo zone into one of the key highlights of the event.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ─── Category 3: Logistics & Installation ── -->
+        <section>
+          <div class="faq-cat-label">
+            <span class="faq-cat-label-text">Logistics &amp; Installation</span>
+            <span class="faq-cat-label-line"></span>
+          </div>
+          <div class="faq-list">
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">Where do you serve?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>We serve Toronto and the full Greater Toronto Area — including Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, Pickering, Whitby, and many more communities across the GTA.</p>
+                  <p>For events outside the GTA, please reach out to us directly. Travel to other regions is arranged individually, and we are happy to discuss options.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">Can you install on uneven ground or slopes?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>Yes — our stands feature an adjustable leg angle system that allows secure installation even on hills and other uneven terrain. Many beautiful outdoor venues have imperfect ground; our equipment is designed for real-world conditions, not just level studio floors.</p>
+                  <p>When choosing your event location, you can focus entirely on the beauty of the scenery rather than the technical limitations of the setup.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-q" aria-expanded="false">
+                <span class="faq-q-text">How safe and stable is the structure?</span>
+                <span class="faq-q-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </button>
+              <div class="faq-a" role="region">
+                <div class="faq-a-inner">
+                  <p>Safety is built into the design itself. Our flower walls use support legs that are three times the size of standard market solutions, providing a fundamentally higher level of stability. Even in gusty wind conditions at outdoor venues, the structure remains securely fixed.</p>
+                  <p>We have also accounted for real-event scenarios — active guests, children, accidental contact. The wall is not a source of concern for event organizers; its engineering is designed to handle these interactions calmly and without incident.</p>
+                  <span class="faq-highlight"><span class="faq-highlight-dot"></span>Support legs 3× larger than standard — engineered for real-world events</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div><!-- /faq-wrap -->
+
+      <!-- ── CTA band ───────────────────────────────── -->
+      <div class="faq-cta">
+        <div class="faq-cta-card">
+          <div class="faq-cta-text">
+            <h2>Still have questions?</h2>
+            <p>Our manager responds within minutes. We are happy to help you choose the perfect flower wall for your event.</p>
+          </div>
+          <a href="client-care.html" class="faq-cta-btn">
+            Chat with us
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
+        <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Our Collections</span>
+        <ul class="footer-col-list">
+          <li><a href="product.html" class="footer-col-link">Burgundy Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">White Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Pink Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Green Real Touch Flower Wall</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Event Rentals</span>
+        <ul class="footer-col-list">
+          <li><a href="index.html#contact" class="footer-col-link">Wedding Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Birthday Party Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Corporate Event Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Baby Shower Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Bridal Shower Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Anniversary Party Flower Wall Rental</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
+        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Wind Policy</a>
+        <a href="faq.html" class="footer-link" style="color:var(--brand-soft)">FAQ</a>
+        <div class="footer-social">
+          <span class="footer-social-label">Follow Our Journey</span>
+          <div class="footer-social-icons">
+            <a href="#" class="footer-social-icon" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-locations">
+        <span class="footer-locations-title">Locations We Serve</span>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket · Aurora · King City · Stouffville · Scarborough · North York · Etobicoke · East York · Hamilton · Barrie · Guelph · Thornhill · Woodbridge · Bolton · Bradford · Orangeville <span class="footer-more">· + more!</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Sticky nav ──────────────────────────────────────────────
+    (function () {
+      const nav = document.querySelector('.site-nav');
+      if (!nav) return;
+      let lastY = window.scrollY, ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          const y = window.scrollY;
+          if (y > lastY + 5)      nav.classList.add('nav--hidden');
+          else if (y < lastY - 5) nav.classList.remove('nav--hidden');
+          lastY = y; ticking = false;
+        });
+      }, { passive: true });
+    })();
+
+    // ── Mobile hamburger ────────────────────────────────────────
+    const mobileBurger  = document.getElementById('mobileBurger');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    function toggleMenu(close) {
+      const open = mobileOverlay.classList.contains('open') || close;
+      mobileOverlay.classList.toggle('open', !open);
+      mobileBurger.classList.toggle('open', !open);
+      mobileBurger.setAttribute('aria-expanded', String(!open));
+      mobileOverlay.setAttribute('aria-hidden', String(open));
+      document.body.style.overflow = open ? '' : 'hidden';
+    }
+    mobileBurger.addEventListener('click', () => toggleMenu(false));
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(l =>
+      l.addEventListener('click', () => toggleMenu(true))
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
+    });
+
+    // ── Accordion ───────────────────────────────────────────────
+    document.querySelectorAll('.faq-item').forEach(function (item) {
+      var btn    = item.querySelector('.faq-q');
+      var panel  = item.querySelector('.faq-a');
+      var inner  = item.querySelector('.faq-a-inner');
+
+      btn.addEventListener('click', function () {
+        var isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item.open').forEach(function (o) {
+          o.classList.remove('open');
+          o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+          o.querySelector('.faq-a').style.maxHeight = '0';
+        });
+
+        // Toggle clicked
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          panel.style.maxHeight = inner.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+
+  <!-- ── Floating contact widget ──────────────────────────── -->
+  <div class="contact-widget">
+    <button class="contact-widget-btn" onclick="window.location.href='client-care.html';" aria-label="Связаться с менеджером">
+      <div class="contact-widget-avatar">
+        <span class="contact-widget-initial">L</span>
+        <span class="contact-widget-dot"></span>
+      </div>
+      <div class="contact-widget-text">
+        <span class="contact-widget-title">Менеджер</span>
+        <span class="contact-widget-online">● онлайн</span>
+      </div>
+    </button>
+  </div>
+
+</body>
+</html>
