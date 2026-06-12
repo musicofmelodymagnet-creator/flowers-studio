@@ -153,10 +153,17 @@
     .faq-q-icon svg {
       width: 14px;
       height: 14px;
-      stroke: var(--ink-muted);
+      stroke: #60545b;
       transition: stroke 260ms;
     }
     .faq-item.open .faq-q-icon svg {
+      stroke: #fff;
+    }
+    /* Read state — arrow stays light after closing */
+    .faq-item.read .faq-q-icon {
+      background: var(--brand);
+    }
+    .faq-item.read .faq-q-icon svg {
       stroke: #fff;
     }
 
@@ -167,7 +174,7 @@
       transition: max-height 440ms var(--ease);
     }
     .faq-a-inner {
-      padding: 0 26px 24px 29px; /* 29px = 26 + 3 (border offset) */
+      padding: 20px 26px 20px 29px;
       font: 400 14px/1.75 var(--font-sans);
       color: var(--ink-soft);
       border-top: 1px solid rgba(168,120,208,0.1);
@@ -311,7 +318,6 @@
 
       <!-- ── Hero ──────────────────────────────────────── -->
       <section class="faq-hero">
-        <span class="faq-hero-eyebrow">FAQ</span>
         <h1>Frequently Asked Questions</h1>
         <p class="faq-hero-sub">Everything you might wish to know — carefully gathered</p>
         <hr class="faq-hero-rule" />
@@ -522,6 +528,7 @@
       // Open if was closed
       if (!isOpen) {
         item.classList.add('open');
+        item.classList.add('read');
         btn.setAttribute('aria-expanded', 'true');
         panel.style.maxHeight = inner.scrollHeight + 'px';
       }
