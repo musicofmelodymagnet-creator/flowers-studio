@@ -4,14 +4,170 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FLORINSKY — Premium Flower Walls</title>
-  <meta name="description" content="Bespoke floral wall rentals for weddings, corporate events, and private parties in Toronto and the GTA. Each wall is a masterpiece inspired by nature and high fashion." />
+  <meta name="description" content="Bespoke flower wall rentals for weddings, corporate events, and private parties in Toronto and the GTA. Each wall is a masterpiece inspired by nature and high fashion." />
   <meta property="og:title" content="FLORINSKY — Premium Flower Walls" />
-  <meta property="og:description" content="Bespoke floral walls. Weddings, corporate events, private parties." />
+  <meta property="og:description" content="Bespoke flower walls. Weddings, corporate events, private parties." />
   <meta property="og:image" content="assets/hero-flower-wall.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* ── Reviews carousel ──────────────────────────────────────── */
+    .rv-section {
+      width: 100%;
+      max-width: 1160px;
+    }
+    /* Hide the decorative rule under the heading in this section */
+    .rv-section .section-title-rule { display: none; }
+    .rv-intro {
+      text-align: center;
+      font: 400 16px/1.7 var(--font-sans);
+      color: var(--ink-soft);
+      max-width: 680px;
+      margin: 20px auto 40px;
+    }
+
+    /* Outer wrap: no overflow clip — arrows live here */
+    .rv-carousel-wrap {
+      position: relative;
+      padding: 0 30px;
+    }
+    /* Inner viewport: clips the scrolling track only */
+    .rv-viewport {
+      overflow: hidden;
+    }
+    .rv-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    .rv-card {
+      flex: 0 0 calc((100% - 24px * 2) / 3.35);
+      background: var(--surface);
+      border-radius: var(--r-card);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    /* Sheen stripe — swept after 2s on photo hover, clipped to photo area */
+    .rv-photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .rv-photo-wrap::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 0;
+      width: 45%;
+      height: 140%;
+      background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.40) 50%, transparent 100%);
+      transform: skewX(-14deg) translateX(-250%);
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      z-index: 3;
+    }
+    .rv-photo-wrap.rv-sheen::after {
+      animation: sheen-run 1560ms ease-out forwards;
+    }
+    .rv-card-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+      /* transition handled by JS for asymmetric in/out */
+    }
+    .rv-card-body {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .rv-quote-mark {
+      font: 700 46px/0.7 var(--font-display);
+      color: var(--brand);
+      opacity: 0.55;
+      user-select: none;
+    }
+    .rv-text {
+      font: 400 13.5px/1.65 var(--font-sans);
+      color: var(--ink);
+      margin: 0;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .rv-attribution {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+    .rv-name {
+      font: 600 13px/1.2 var(--font-sans);
+      color: var(--ink);
+    }
+    .rv-event-tag {
+      font: 500 10.5px/1 var(--font-sans);
+      letter-spacing: 0.04em;
+      color: var(--brand);
+      background: rgba(168,120,208,0.10);
+      border-radius: var(--r-pill);
+      padding: 3px 8px;
+    }
+    /* Arrow buttons — centered vertically on card, 50% opacity */
+    .rv-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(168,120,208,0.25);
+      background: var(--surface);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-mauve);
+      opacity: 0.5;
+      transition: background 200ms, box-shadow 200ms, opacity 200ms;
+      z-index: 2;
+    }
+    .rv-arrow svg { width: 20px; height: 20px; }
+    .rv-arrow:hover {
+      background: var(--bg);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.13);
+      opacity: 1;
+    }
+    .rv-arrow:disabled { opacity: 0.18; pointer-events: none; }
+    /* Centered in the 30px padding strip each side */
+    .rv-arrow--prev { left: 4px; }
+    .rv-arrow--next { right: 4px; }
+
+    @media (max-width: 900px) {
+      .rv-card { flex: 0 0 calc((100% - 24px) / 2.2); }
+    }
+    @media (max-width: 600px) {
+      .rv-card { flex: 0 0 85%; }
+      .rv-carousel-wrap { padding: 0 20px; }
+      .rv-arrow--prev { left: -2px; }
+      .rv-arrow--next { right: -2px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -30,13 +186,12 @@
   <!-- Mobile nav overlay -->
   <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
     <a href="index.html"     class="mobile-nav-link">Welcome</a>
-    <a href="gallery.html"   class="mobile-nav-link">Gallery</a>
+    <a href="gallery.html"   class="mobile-nav-link">Flower Walls</a>
     <a href="advantages.html"    class="mobile-nav-link">Our Uniqueness</a>
-    <a href="#testimonials"  class="mobile-nav-link">Kind Words</a>
+    <a href="kind-words.html" class="mobile-nav-link">Kind Words</a>
     <a href="about.html"         class="mobile-nav-link">Our Story</a>
-    <a href="client-care.html" class="mobile-nav-link">Client Care</a>
     <a href="faq.html" class="mobile-nav-link">FAQ</a>
-    <a href="flower-wall-tips.html" class="mobile-nav-link">Flower Wall Tips</a>
+    <a href="client-care.html" class="mobile-nav-link">Contacts</a>
   </div>
 
   <!-- ============================================================
@@ -46,13 +201,12 @@
     <nav class="site-nav" aria-label="Main navigation">
       <div class="nav-pill">
         <a href="index.html"     class="nav-link">Welcome</a>
-        <a href="gallery.html"   class="nav-link">Gallery</a>
-        <a href="advantages.html"    class="nav-link" data-nav>Our Uniqueness</a>
-        <a href="#testimonials"  class="nav-link" data-nav>Kind Words</a>
+        <a href="gallery.html"   class="nav-link">Flower Walls</a>
+        <a href="advantages.html"    class="nav-link">Our Uniqueness</a>
+        <a href="kind-words.html"    class="nav-link">Kind Words</a>
         <a href="about.html"         class="nav-link">Our Story</a>
-        <a href="client-care.html" class="nav-link">Client Care</a>
         <a href="faq.html" class="nav-link">FAQ</a>
-        <a href="flower-wall-tips.html"  class="nav-link">Flower Wall Tips</a>
+        <a href="client-care.html"       class="nav-link">Contacts</a>
       </div>
     </nav>
 
@@ -68,7 +222,7 @@
           <span class="wordmark">FLORINSKY</span>
           <div class="wordmark-tagline">
             <span class="tagline-rule"></span>
-            <span class="eyebrow">Luxury Floral Atelier</span>
+            <span class="eyebrow">Luxury flower wall rental Toronto / GTA</span>
             <span class="tagline-rule"></span>
           </div>
         </div>
@@ -84,7 +238,7 @@
 
         <div class="hero-copy">
           <p>
-            We create stunning backdrops for weddings, corporate events, and
+            We create stunning flower wall backdrops for weddings, corporate events, and
             private parties. Each wall is a masterpiece inspired by nature
             and high fashion.
           </p>
@@ -104,7 +258,7 @@
 
           <div class="collection-card" onclick="window.location.href='product.html'" style="cursor:pointer">
             <div class="collection-card-inner">
-              <img src="assets/cover-1.jpg" alt="Ivory Bloom floral wall — FLORINSKY Atelier" />
+              <img src="assets/cover-1.jpg" alt="Ivory Bloom flower wall — FLORINSKY Atelier" />
               <div class="collection-caption">
                 <span class="collection-caption-title">Ivory Bloom</span>
                 <span class="collection-arrow">
@@ -118,7 +272,7 @@
 
           <div class="collection-card">
             <div class="collection-card-inner">
-              <img src="assets/cover-2.jpg" alt="Blush Romance floral wall — FLORINSKY Atelier" />
+              <img src="assets/cover-2.jpg" alt="Blush Romance flower wall — FLORINSKY Atelier" />
               <div class="collection-caption">
                 <span class="collection-caption-title">Blush Romance</span>
                 <span class="collection-arrow">
@@ -132,7 +286,7 @@
 
           <div class="collection-card">
             <div class="collection-card-inner">
-              <img src="assets/cover-3.png" alt="Garden Pearl floral wall — FLORINSKY Atelier" />
+              <img src="assets/cover-3.png" alt="Garden Pearl flower wall — FLORINSKY Atelier" />
               <div class="collection-caption">
                 <span class="collection-caption-title">Garden Pearl</span>
                 <span class="collection-arrow">
@@ -146,7 +300,7 @@
 
           <div class="collection-card">
             <div class="collection-card-inner">
-              <img src="assets/cover-4.png" alt="Velvet Rose floral wall — FLORINSKY Atelier" />
+              <img src="assets/cover-4.png" alt="Velvet Rose flower wall — FLORINSKY Atelier" />
               <div class="collection-caption">
                 <span class="collection-caption-title">Velvet Rose</span>
                 <span class="collection-arrow">
@@ -175,27 +329,27 @@
 
           <article class="adv-card">
             <div class="adv-img-wrap">
-              <img src="assets/adv/1-adv.jpg" alt="Premium Real Touch floral wall — lifelike petals up close" />
+              <img src="assets/adv/1-adv.jpg" alt="Premium Real Touch flower wall — lifelike petals up close" />
             </div>
             <div class="adv-content">
               <h3 class="adv-title">Floral realism that leaves your guests in awe</h3>
               <p class="adv-short">
                 We use premium-grade materials that, in both appearance and touch,
                 closely replicate real flower petals (Real Touch). Even when viewed
-                up close, our floral walls look highly realistic and maintain a sense
+                up close, our flower walls look highly realistic and maintain a sense
                 of luxury both in photographs and in real life.
               </p>
               <div class="adv-long" id="idx-adv-long-1">
                 <p>
-                  Many artificial floral walls look beautiful only in promotional
+                  Many artificial flower walls look beautiful only in promotional
                   photos. Silk flowers often reveal themselves through a characteristic
                   shine, a visible fabric texture, and even a slight rustling sound
                   when touched. That is why we set ourselves the goal of creating
-                  floral walls that inspire genuine admiration through their realism.
+                  flower walls that inspire genuine admiration through their realism.
                   <br><br>
                   We selected a material that closely replicates the look and texture
                   of real flower petals (Real Touch technology). This level of realism
-                  creates a sense of premium decor and makes the floral wall feel like
+                  creates a sense of premium decor and makes the flower wall feel like
                   a natural part of the celebration atmosphere. Many guests do not
                   immediately realize that the flowers are artificial, and some even
                   come closer to smell them. Your guests will admire the beauty of the
@@ -209,18 +363,17 @@
             </div>
           </article>
 
-          <div class="adv-divider" aria-hidden="true"></div>
 
           <article class="adv-card">
             <div class="adv-img-wrap">
-              <img src="assets/adv/2-adv.jpg" alt="Exclusive one-of-a-kind floral wall design — unique to Canada" />
+              <img src="assets/adv/2-adv.jpg" alt="Exclusive one-of-a-kind flower wall design — unique to Canada" />
             </div>
             <div class="adv-content">
               <h3 class="adv-title">One-of-a-kind design in all of Canada</h3>
               <p class="adv-short">
-                Most floral walls on the market are produced in the same factories
+                Most flower walls on the market are produced in the same factories
                 and differ only in minor details. However, our florists have
-                developed unique floral wall designs, making them truly exclusive
+                developed unique flower wall designs, making them truly exclusive
                 to Canada.
               </p>
               <div class="adv-long" id="idx-adv-long-2">
@@ -231,7 +384,7 @@
                   events, and private celebrations across the country.
                   <br><br>
                   Instead, we have created exclusive designs available only to our
-                  clients. This means your guests will not see the same floral wall
+                  clients. This means your guests will not see the same flower wall
                   at another event a week later. Many design elements were developed
                   with one goal in mind — to create that immediate sense of surprise
                   and admiration that comes from the very first glance.
@@ -247,16 +400,15 @@
             </div>
           </article>
 
-          <div class="adv-divider" aria-hidden="true"></div>
 
           <article class="adv-card">
             <div class="adv-img-wrap">
-              <img src="assets/adv/3-adv.jpg" alt="3D preview of floral wall — see exact colors before your event" />
+              <img src="assets/adv/3-adv.jpg" alt="3D preview of flower wall — see exact colors before your event" />
             </div>
             <div class="adv-content">
               <h3 class="adv-title">What if the wall color turns out to be different?</h3>
               <p class="adv-short">
-                When choosing a floral wall online, there is always a concern that the
+                When choosing a flower wall online, there is always a concern that the
                 colors in reality may differ from what you see on screen. That is why we
                 were the first in Canada to introduce the ability to examine each floral
                 wall in detail through a 3D preview. This allows you to see every detail
@@ -265,10 +417,10 @@
               <div class="adv-long" id="idx-adv-long-3">
                 <p>
                   Photos on a website are not always able to fully convey the real colors,
-                  volume, and fine details of a floral wall. That is why many clients feel
+                  volume, and fine details of a flower wall. That is why many clients feel
                   uncertain when choosing decor. We have completely eliminated this uncertainty.
                   <br><br>
-                  With an interactive 3D preview, you can examine the floral wall almost as
+                  With an interactive 3D preview, you can examine the flower wall almost as
                   if you were standing right next to it in person. In addition, we provide
                   detailed photos and videos from multiple angles so you can carefully study
                   every element of the composition. This allows you to evaluate the color
@@ -286,11 +438,10 @@
             </div>
           </article>
 
-          <div class="adv-divider" aria-hidden="true"></div>
 
           <article class="adv-card">
             <div class="adv-img-wrap">
-              <img src="assets/adv/4-adv.jpg" alt="Large group photo against an 11x8 ft floral wall backdrop" />
+              <img src="assets/adv/4-adv.jpg" alt="Large group photo against an 11x8 ft flower wall backdrop" />
             </div>
             <div class="adv-content">
               <h3 class="adv-title">The perfect solution for large groups of guests</h3>
@@ -306,13 +457,13 @@
                   At events, guests often take group photos — families, friends, colleagues,
                   or larger groups who want to capture memories together.
                   <br><br>
-                  When a standard 8×8 ft floral wall is used, people positioned at the edges
+                  When a standard 8×8 ft flower wall is used, people positioned at the edges
                   of the frame inevitably extend beyond the floral backdrop and end up standing
                   against plain walls or other venue elements. As a result, the photos look
                   less impressive and lose the sense of a fully luxurious setting.
                   <br><br>
                   To avoid this, we have developed not only the standard 8×8 ft format, but
-                  also an expanded 11×8 ft floral wall size. The additional width allows more
+                  also an expanded 11×8 ft flower wall size. The additional width allows more
                   guests to be comfortably included within a beautiful floral space, making
                   group photos look more balanced, cohesive, and professionally composed.
                 </p>
@@ -324,25 +475,24 @@
             </div>
           </article>
 
-          <div class="adv-divider" aria-hidden="true"></div>
 
           <article class="adv-card">
             <div class="adv-img-wrap">
-              <img src="assets/adv/5-adv.jpg" alt="Semi-circular floral wall creating a dimensional photo space" />
+              <img src="assets/adv/5-adv.jpg" alt="Semi-circular flower wall creating a dimensional photo space" />
             </div>
             <div class="adv-content">
               <h3 class="adv-title">No basic flower walls like everyone else has</h3>
               <p class="adv-short">
-                Most floral walls on the market are simply flat photographic backdrops.
-                We, however, offer a unique option to install floral walls in a
+                Most flower walls on the market are simply flat photographic backdrops.
+                We, however, offer a unique option to install flower walls in a
                 semi-circular shape, creating a more dimensional space and a completely
                 different visual experience for guests during photo sessions.
               </p>
               <div class="adv-long" id="idx-adv-long-5">
                 <p>
-                  Most floral walls look the same — flat photographic backdrops. We decided
+                  Most flower walls look the same — flat photographic backdrops. We decided
                   to go beyond this traditional format and introduced the option to arrange
-                  floral walls in a semi-circular shape. This design allows guests not just
+                  flower walls in a semi-circular shape. This design allows guests not just
                   to stand in front of flowers, but to feel as if they are actually inside
                   a floral space.
                   <br><br>
@@ -362,30 +512,29 @@
             </div>
           </article>
 
-          <div class="adv-divider" aria-hidden="true"></div>
 
           <article class="adv-card">
             <div class="adv-img-wrap">
-              <img src="assets/adv/6-adv.jpg" alt="Floral wall installed on a sloped outdoor venue" />
+              <img src="assets/adv/6-adv.jpg" alt="Flower wall installed on a sloped outdoor venue" />
             </div>
             <div class="adv-content">
               <h3 class="adv-title">Don't let the venue's terrain limit your ideas</h3>
               <p class="adv-short">
-                Traditionally, floral walls can only be installed on perfectly level
+                Traditionally, flower walls can only be installed on perfectly level
                 surfaces. However, thanks to our adjustable leg tilt system, our walls
                 can also be set up on slopes and other uneven terrain. This allows you
                 to choose your location based on its beauty, not the limitations of the
-                floral wall setup.
+                flower wall setup.
               </p>
               <div class="adv-long" id="idx-adv-long-6">
                 <p>
                   Some of the most beautiful event locations are outdoors in nature.
-                  However, many floral walls are designed to be installed only on perfectly
+                  However, many flower walls are designed to be installed only on perfectly
                   level surfaces, which significantly limits location options. As a result,
                   clients are often forced to give up ideal venues or look for compromises.
                   <br><br>
                   We have solved this issue with an adjustable leg angle system for our
-                  stands. This allows floral walls to be securely installed even on hills
+                  stands. This allows flower walls to be securely installed even on hills
                   and other uneven terrain. Now, when choosing your event location, you can
                   focus on the beauty of the scenery rather than technical limitations.
                   <br><br>
@@ -400,11 +549,10 @@
             </div>
           </article>
 
-          <div class="adv-divider" aria-hidden="true"></div>
 
           <article class="adv-card">
             <div class="adv-img-wrap">
-              <img src="assets/adv/7-adv.jpg" alt="Stable floral wall structure with reinforced support legs" />
+              <img src="assets/adv/7-adv.jpg" alt="Stable flower wall structure with reinforced support legs" />
             </div>
             <div class="adv-content">
               <h3 class="adv-title">Wall reliability matters more than pretty photos</h3>
@@ -422,7 +570,7 @@
                   and distract you from the event itself. That is why we have developed
                   a structure designed for real-life conditions, not just studio setups.
                   <br><br>
-                  Our floral walls feature support legs that are three times larger than
+                  Our flower walls feature support legs that are three times larger than
                   standard solutions on the market. This provides a fundamentally higher
                   level of stability and significantly reduces the risk of any accidental
                   movement. Even in gusty wind conditions at outdoor venues, the structure
@@ -441,7 +589,6 @@
             </div>
           </article>
 
-          <div class="adv-divider" aria-hidden="true"></div>
 
           <article class="adv-card">
             <div class="adv-img-wrap">
@@ -450,7 +597,7 @@
             <div class="adv-content">
               <h3 class="adv-title">Our commitments are backed by money</h3>
               <p class="adv-short">
-                The client's main concern is that the floral wall might simply not be
+                The client's main concern is that the flower wall might simply not be
                 delivered on the day of the event. If that ever happens, we refund
                 three times the order value. This is a real financial guarantee, formally
                 stated in the contract. No one in the decor market offers this level
@@ -493,7 +640,120 @@
 
       <div class="section-sep" aria-hidden="true"></div>
 
+      <!-- ── REVIEWS CAROUSEL ────────────────────────────────────── -->
+      <section class="rv-section" aria-label="Client reviews">
+
+        <div class="section-title">
+          <h2>Kind Words</h2>
+          <span class="section-title-rule"></span>
+        </div>
+
+        <p class="rv-intro">We genuinely love what we do and put our heart into every detail of our flower walls to create emotions for you that stay in your memory for a long time. That's why your reviews inspire us and motivate us to keep getting better.</p>
+
+        <div class="rv-carousel-wrap">
+          <div class="rv-viewport">
+          <div class="rv-track" id="rvTrack">
+
+            <!-- Card 1 -->
+            <article class="rv-card">
+              <div class="rv-photo-wrap"><img class="rv-card-photo" src="assets/reviews/review-1.jpg" alt="Flower wall at Isabella's wedding" loading="lazy" /></div>
+              <div class="rv-card-body">
+                <div class="rv-quote-mark">"</div>
+                <p class="rv-text">We rented a flower wall for a wedding in Toronto. Everything looked exactly like it did in the photos on the website, which was very important to us. Many guests came up close and were amazed by how realistic the flowers looked.</p>
+                <div class="rv-attribution">
+                  <span class="rv-name">Isabella</span>
+                  <span class="rv-event-tag">Wedding</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="rv-card">
+              <div class="rv-photo-wrap"><img class="rv-card-photo" src="assets/reviews/review-2.jpg" alt="Flower wall at baby shower" loading="lazy" /></div>
+              <div class="rv-card-body">
+                <div class="rv-quote-mark">"</div>
+                <p class="rv-text">We were looking for a beautiful backdrop for a baby shower and decided on the FLORINSKY flower wall. In the end, it was even better than expected. The photos turned out really great.</p>
+                <div class="rv-attribution">
+                  <span class="rv-name">Amelia</span>
+                  <span class="rv-event-tag">Baby Shower</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="rv-card">
+              <div class="rv-photo-wrap"><img class="rv-card-photo" src="assets/reviews/review-3.jpg" alt="Flower wall at engagement party" loading="lazy" /></div>
+              <div class="rv-card-body">
+                <div class="rv-quote-mark">"</div>
+                <p class="rv-text">We needed a photo zone for an engagement party. Guests kept asking where we found it. We are still getting compliments on the pictures from the event.</p>
+                <div class="rv-attribution">
+                  <span class="rv-name">Sophia</span>
+                  <span class="rv-event-tag">Engagement Party</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="rv-card">
+              <div class="rv-photo-wrap"><img class="rv-card-photo" src="assets/reviews/review-4.jpg" alt="Flower wall at special event" loading="lazy" /></div>
+              <div class="rv-card-body">
+                <div class="rv-quote-mark">"</div>
+                <p class="rv-text">We spent a long time choosing between several companies. When we saw the wall at the venue, we knew we had made the right choice. The flowers really look very natural.</p>
+                <div class="rv-attribution">
+                  <span class="rv-name">Harper</span>
+                  <span class="rv-event-tag">Special Event</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="rv-card">
+              <div class="rv-photo-wrap"><img class="rv-card-photo" src="assets/reviews/review-5.jpg" alt="Flower wall at birthday party" loading="lazy" /></div>
+              <div class="rv-card-body">
+                <div class="rv-quote-mark">"</div>
+                <p class="rv-text">The most frequent question from the guests was: 'Are these real flowers?' I think that already says a lot about the quality of execution. The wall looked very realistic.</p>
+                <div class="rv-attribution">
+                  <span class="rv-name">Emma</span>
+                  <span class="rv-event-tag">Birthday Party</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="rv-card">
+              <div class="rv-photo-wrap"><img class="rv-card-photo" src="assets/reviews/review-6.jpg" alt="Flower wall at private event" loading="lazy" /></div>
+              <div class="rv-card-body">
+                <div class="rv-quote-mark">"</div>
+                <p class="rv-text">After the event, we noticed that the flower wall is in almost every other shot taken by the guests. It truly became one of the most popular zones of the evening.</p>
+                <div class="rv-attribution">
+                  <span class="rv-name">Evelyn</span>
+                  <span class="rv-event-tag">Private Event</span>
+                </div>
+              </div>
+            </article>
+
+          </div><!-- /rv-track -->
+          </div><!-- /rv-viewport -->
+
+          <!-- Navigation arrows -->
+          <button class="rv-arrow rv-arrow--prev" id="rvPrev" aria-label="Previous reviews">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="rv-arrow rv-arrow--next" id="rvNext" aria-label="Next reviews">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div><!-- /rv-carousel-wrap -->
+
+        <div style="text-align:center; margin-top:28px">
+          <a href="kind-words.html" class="neo-btn neo-btn--muted" style="display:inline-flex; text-decoration:none; font-size:13px">Read All Reviews</a>
+        </div>
+
+      </section>
+
+      <div class="section-sep" aria-hidden="true"></div>
+
       <!-- ── INQUIRY FORM ──────────────────────────────────────── -->
+      <div class="cc-inquiry-wrap">
       <section class="inquiry" id="contact" aria-label="Inquiry form">
 
         <div class="inquiry-header">
@@ -542,6 +802,7 @@
         </form>
 
       </section>
+      </div><!-- end cc-inquiry-wrap -->
 
       <!-- ── FEATURES ──────────────────────────────────────────── -->
       <section class="features" aria-label="Service highlights">
@@ -602,7 +863,7 @@
         <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
       </div>
       <div class="footer-col">
-        <span class="footer-col-title">Our Collections</span>
+        <span class="footer-col-title">Real Touch Flower Walls</span>
         <ul class="footer-col-list">
           <li><a href="product.html" class="footer-col-link">Burgundy Real Touch Flower Wall</a></li>
           <li><a href="product.html" class="footer-col-link">White Real Touch Flower Wall</a></li>
@@ -744,27 +1005,6 @@
       submitBtn.style.opacity = '0.7';
     });
 
-    // ── Nav highlight on scroll ─────────────────────────────────
-    const sections = [
-      { id: 'testimonials', nav: 'Kind Words' },
-      { id: 'contact',      nav: 'Client Care' },
-    ];
-
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    function onScroll() {
-      let current = '';
-      sections.forEach(({ id }) => {
-        const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 120) current = id;
-      });
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href').slice(1);
-        link.classList.toggle('active', href === current);
-      });
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
 
     // ── Hero rotating phrases ───────────────────────────────────
     // INLINE STYLES ONLY — no CSS class toggling, no layout measurement.
@@ -773,7 +1013,7 @@
     // reflow to guarantee the browser registers the start state before animating.
     (function () {
       const PHRASES = [
-        "Your guests will experience something they haven't seen before",
+        "Your guests will experience something\nthey haven't seen before",
         "Exclusive designs found nowhere else in Canada",
         "When you want something more beautiful than everyone else has",
         "So realistic that guests actually stop to smell the flowers",
@@ -794,7 +1034,7 @@
       PHRASES.forEach(txt => {
         const el = document.createElement('span');
         el.className = 'hero-phrase';
-        el.textContent = txt;
+        el.innerHTML = txt.replace('\n', '<br>');
         wrap.appendChild(el);
       });
 
@@ -1054,6 +1294,123 @@
         toggleMobileMenu(true);
       }
     });
+
+    // ── Reviews carousel (infinite loop) ────────────────────────
+    (function () {
+      const track   = document.getElementById('rvTrack');
+      const prevBtn = document.getElementById('rvPrev');
+      const nextBtn = document.getElementById('rvNext');
+      if (!track) return;
+
+      const origCards = Array.from(track.querySelectorAll('.rv-card'));
+      const N   = origCards.length; // 6
+      const GAP = 24;
+      const PEEK = 100; // px of adjacent card peeking in from each side
+
+      // Build infinite loop: prepend clones of all cards + append clones of all cards
+      // Layout: [lc0..lc5, real0..real5, rc0..rc5]  (3N total)
+      const rightFrag = document.createDocumentFragment();
+      const leftFrag  = document.createDocumentFragment();
+      origCards.forEach(c => rightFrag.appendChild(c.cloneNode(true)));
+      origCards.forEach(c => leftFrag.appendChild(c.cloneNode(true)));
+      track.appendChild(rightFrag);
+      track.insertBefore(leftFrag, track.firstChild);
+
+      const allCards = Array.from(track.querySelectorAll('.rv-card'));
+      // Real zone: indices N to 2N-1
+      let idx       = N; // start at first real card
+      let animating = false;
+      let peeked    = false; // true after first navigation — enables left-side peek
+
+      function cardWidth() { return allCards[0] ? allCards[0].offsetWidth : 0; }
+
+      function getOffset(i) {
+        const step = cardWidth() + GAP;
+        // Initial state: card R0 flush at left (no left peek), right partial natural
+        if (!peeked && i === N) return N * step;
+        return i * step - PEEK;
+      }
+
+      function applyTransform(animated) {
+        if (!animated) {
+          track.style.transition = 'none';
+          track.offsetWidth;
+        }
+        track.style.transform = `translateX(-${getOffset(idx)}px)`;
+        if (!animated) {
+          track.offsetWidth;
+          track.style.transition = '';
+        }
+      }
+
+      // After each animated step, if in clone zone, jump back to real equivalent
+      track.addEventListener('transitionend', () => {
+        let jumped = false;
+        if (idx >= 2 * N) { idx -= N; jumped = true; }
+        else if (idx < N) { idx += N; jumped = true; }
+        if (jumped) applyTransform(false);
+        animating = false;
+      });
+
+      function go(delta) {
+        if (animating) return;
+        peeked = true; // from now on always show left peek
+        animating = true;
+        idx += delta;
+        applyTransform(true);
+      }
+
+      prevBtn.addEventListener('click', () => go(-1));
+      nextBtn.addEventListener('click', () => go(1));
+
+      // Click on partially visible card: navigate toward it
+      allCards.forEach((card, i) => {
+        card.addEventListener('click', () => {
+          if (i > idx)      go(1);
+          else if (i < idx) go(-1);
+        });
+      });
+
+      // Zoom: card hover → fast scale-up, slow return
+      // Sheen: photo mouseenter → fires 2s later, not cancelled by mouseleave
+      allCards.forEach(card => {
+        const photo = card.querySelector('.rv-card-photo');
+        const photoWrap = card.querySelector('.rv-photo-wrap');
+
+        card.addEventListener('mouseenter', () => {
+          if (photo) {
+            photo.style.transition = 'transform 420ms ease-out';
+            photo.style.transform  = 'scale(1.025)';
+          }
+        });
+        card.addEventListener('mouseleave', () => {
+          if (photo) {
+            photo.style.transition = 'transform 1500ms ease-in-out';
+            photo.style.transform  = 'scale(1)';
+          }
+        });
+
+        if (photoWrap) {
+          photoWrap.addEventListener('mouseenter', () => {
+            if (card._sheenPending) return; // already counting down
+            card._sheenPending = true;
+            setTimeout(() => {
+              photoWrap.classList.remove('rv-sheen');
+              void photoWrap.offsetWidth;
+              photoWrap.classList.add('rv-sheen');
+              setTimeout(() => {
+                photoWrap.classList.remove('rv-sheen');
+                card._sheenPending = false; // ready for next hover
+              }, 1560);
+            }, 1500);
+          });
+          // No mouseleave on photoWrap — timer runs to completion regardless
+        }
+      });
+
+      window.addEventListener('resize', () => applyTransform(false), { passive: true });
+      applyTransform(false);
+    })();
   </script>
 
   <!-- ── Floating contact widget — manager pill ────────────── -->
@@ -1070,5 +1427,12 @@
     </button>
   </div>
 
+<script src="js/chat-widget.js?v=4"></script>
+<style>
+  .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
+  .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }
+  .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
+  .cw-quick                     { background: #F8F4F2 !important; }
+</style>
 </body>
 </html>

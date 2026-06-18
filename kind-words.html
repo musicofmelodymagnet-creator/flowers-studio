@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kind Words — FLORINSKY Atelier</title>
+  <meta name="description" content="Real reviews from real people who chose FLORINSKY flower walls for their weddings, celebrations, and gatherings." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* ── Page header ───────────────────────────────────────────── */
+    .kw-page-header {
+      width: 100%;
+      text-align: center;
+      padding: 72px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .kw-page-header h1 {
+      font: 700 56px/1.2 var(--font-sans);
+      letter-spacing: -0.02em;
+      color: var(--ink-mauve);
+      margin: 0;
+    }
+    .kw-header-rule { display: none; }
+
+    /* ── Intro text ────────────────────────────────────────────── */
+    .kw-intro {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      font: 400 17px/1.7 var(--font-sans);
+      color: var(--ink-soft);
+      margin: 0 auto;
+    }
+
+    /* ── Equal-height grid ─────────────────────────────────────── */
+    .kw-section {
+      width: 100%;
+      max-width: 1160px;
+    }
+    .kw-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    /* ── Single card ───────────────────────────────────────────── */
+    .kw-card {
+      background: var(--surface);
+      border-radius: var(--r-card);
+      box-shadow: var(--elev-sm);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    .kw-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Card photo ────────────────────────────────────────────── */
+    .kw-photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .kw-photo-wrap::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 0;
+      width: 45%;
+      height: 140%;
+      background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.40) 50%, transparent 100%);
+      transform: skewX(-14deg) translateX(-250%);
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      z-index: 3;
+    }
+    .kw-photo-wrap.kw-sheen::after {
+      animation: sheen-run 1560ms ease-out forwards;
+    }
+    .kw-card-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      background: var(--bg);
+    }
+
+    /* ── Card body ─────────────────────────────────────────────── */
+    .kw-card-body {
+      padding: 22px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    /* ── Quote mark ────────────────────────────────────────────── */
+    .kw-quote-mark {
+      font: 700 52px/0.8 var(--font-display);
+      color: var(--brand);
+      opacity: 0.55;
+      line-height: 0.7;
+      margin-bottom: -4px;
+      user-select: none;
+    }
+
+    /* ── Review text ───────────────────────────────────────────── */
+    .kw-text {
+      font: 400 14.5px/1.65 var(--font-sans);
+      color: var(--ink);
+      margin: 0;
+      flex: 1;
+    }
+
+    /* ── Attribution ───────────────────────────────────────────── */
+    .kw-attribution {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+    .kw-person {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .kw-name {
+      font: 600 14px/1.2 var(--font-sans);
+      color: var(--ink);
+    }
+    .kw-event-tag {
+      display: inline-flex;
+      align-items: center;
+      font: 500 11px/1 var(--font-sans);
+      letter-spacing: 0.04em;
+      color: var(--brand);
+      background: rgba(168,120,208,0.10);
+      border-radius: var(--r-pill);
+      padding: 3px 9px;
+      width: fit-content;
+    }
+
+    /* Stagger handled in JS */
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .kw-page-header h1 { font-size: 42px; }
+      .kw-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .kw-page-header h1 { font-size: 34px; }
+      .kw-page-header { padding-top: 40px; }
+      .kw-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="index.html"       class="mobile-nav-link">Welcome</a>
+    <a href="gallery.html"     class="mobile-nav-link">Flower Walls</a>
+    <a href="advantages.html"  class="mobile-nav-link">Our Uniqueness</a>
+    <a href="kind-words.html"  class="mobile-nav-link" style="color:var(--brand)">Kind Words</a>
+    <a href="about.html"       class="mobile-nav-link">Our Story</a>
+    <a href="faq.html"              class="mobile-nav-link">FAQ</a>
+    <a href="client-care.html"      class="mobile-nav-link">Contacts</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="index.html"       class="nav-link">Welcome</a>
+        <a href="gallery.html"     class="nav-link">Flower Walls</a>
+        <a href="advantages.html"  class="nav-link">Our Uniqueness</a>
+        <a href="kind-words.html"  class="nav-link active">Kind Words</a>
+        <a href="about.html"       class="nav-link">Our Story</a>
+        <a href="faq.html"              class="nav-link">FAQ</a>
+        <a href="client-care.html"      class="nav-link">Contacts</a>
+      </div>
+    </nav>
+
+    <main class="page-stack" style="gap: 64px">
+
+      <!-- ── Page header ──────────────────────────────────────── -->
+      <header class="kw-page-header">
+        <h1>Kind Words</h1>
+        <span class="kw-header-rule"></span>
+      </header>
+
+      <!-- ── Intro text ───────────────────────────────────────── -->
+      <p class="kw-intro">We genuinely love what we do and put our heart into every detail of our flower walls to create emotions for you that stay in your memory for a long time. That's why your reviews inspire us and motivate us to keep getting better.</p>
+
+      <!-- ── Reviews masonry ──────────────────────────────────── -->
+      <section class="kw-section" aria-label="Client reviews">
+        <div class="kw-grid">
+
+          <!-- Card 1 · Isabella · Wedding Toronto -->
+          <article class="kw-card">
+            <div class="kw-photo-wrap"><img class="kw-card-photo" src="assets/reviews/review-1.jpg" alt="Flower wall at Isabella's wedding in Toronto" loading="lazy" /></div>
+            <div class="kw-card-body">
+              <div class="kw-quote-mark">"</div>
+              <p class="kw-text">We rented a flower wall for a wedding in Toronto. Everything looked exactly like it did in the photos on the website, which was very important to us. Many guests came up close and were amazed by how realistic the flowers looked. In the evening, there was constantly someone taking photos by the wall.</p>
+              <div class="kw-attribution">
+                <div class="kw-person">
+                  <span class="kw-name">Isabella</span>
+                  <span class="kw-event-tag">Wedding</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 · Amelia · Baby Shower -->
+          <article class="kw-card">
+            <div class="kw-photo-wrap"><img class="kw-card-photo" src="assets/reviews/review-2.jpg" alt="Flower wall at Amelia's baby shower" loading="lazy" /></div>
+            <div class="kw-card-body">
+              <div class="kw-quote-mark">"</div>
+              <p class="kw-text">We were looking for a beautiful backdrop for a baby shower and decided on the FLORINSKY flower wall. To be honest, we were a bit worried about whether it would look as good in person as it did in the photos. In the end, it was even better than expected. The photos turned out really great.</p>
+              <div class="kw-attribution">
+                <div class="kw-person">
+                  <span class="kw-name">Amelia</span>
+                  <span class="kw-event-tag">Baby Shower</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 · Sophia · Engagement Party -->
+          <article class="kw-card">
+            <div class="kw-photo-wrap"><img class="kw-card-photo" src="assets/reviews/review-3.jpg" alt="Flower wall at Sophia's engagement party" loading="lazy" /></div>
+            <div class="kw-card-body">
+              <div class="kw-quote-mark">"</div>
+              <p class="kw-text">We needed a photo zone for an engagement party. Out of all the decor options, the flower wall looked the most stunning in photos. Guests kept asking where we found it. We are still getting compliments on the pictures from the event.</p>
+              <div class="kw-attribution">
+                <div class="kw-person">
+                  <span class="kw-name">Sophia</span>
+                  <span class="kw-event-tag">Engagement Party</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4 · Harper · Special Event -->
+          <article class="kw-card">
+            <div class="kw-photo-wrap"><img class="kw-card-photo" src="assets/reviews/review-4.jpg" alt="Flower wall at Harper's event" loading="lazy" /></div>
+            <div class="kw-card-body">
+              <div class="kw-quote-mark">"</div>
+              <p class="kw-text">We spent a long time choosing between several companies. In the end, we decided on FLORINSKY because of the quality of the flowers themselves in the photos. When we saw the wall at the venue, we knew we had made the right choice. The flowers really look very natural.</p>
+              <div class="kw-attribution">
+                <div class="kw-person">
+                  <span class="kw-name">Harper</span>
+                  <span class="kw-event-tag">Special Event</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5 · Emma · Birthday Party -->
+          <article class="kw-card">
+            <div class="kw-photo-wrap"><img class="kw-card-photo" src="assets/reviews/review-5.jpg" alt="Flower wall at Emma's birthday party" loading="lazy" /></div>
+            <div class="kw-card-body">
+              <div class="kw-quote-mark">"</div>
+              <p class="kw-text">We hosted a private birthday party. The most frequent question from the guests was: 'Are these real flowers?' I think that already says a lot about the quality of execution. The wall looked very realistic.</p>
+              <div class="kw-attribution">
+                <div class="kw-person">
+                  <span class="kw-name">Emma</span>
+                  <span class="kw-event-tag">Birthday Party</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6 · Evelyn · Private Event -->
+          <article class="kw-card">
+            <div class="kw-photo-wrap"><img class="kw-card-photo" src="assets/reviews/review-6.jpg" alt="Flower wall at Evelyn's private event" loading="lazy" /></div>
+            <div class="kw-card-body">
+              <div class="kw-quote-mark">"</div>
+              <p class="kw-text">After the event, we were looking through the photos and noticed that the flower wall is in almost every other shot taken by the guests. It truly became one of the most popular zones of the evening. A great option for those who want to add a beautiful accent to the decor without any unnecessary hassle.</p>
+              <div class="kw-attribution">
+                <div class="kw-person">
+                  <span class="kw-name">Evelyn</span>
+                  <span class="kw-event-tag">Private Event</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- /kw-grid -->
+      </section>
+
+      <!-- ── CTA strip ─────────────────────────────────────────── -->
+      <div class="hero-plate" style="text-align:center; padding: 40px 48px; max-width:680px">
+        <p class="section-label" style="margin-bottom:14px">Ready to create your moment?</p>
+        <h2 style="font: 600 28px/1.25 var(--font-display); margin: 0 0 20px; color: var(--ink)">Your guests will be talking about it for years</h2>
+        <a href="client-care.html" class="neo-btn neo-btn--filled" style="display:inline-flex; text-decoration:none">Get in Touch</a>
+      </div>
+
+    </main>
+  </div><!-- /site-shell -->
+
+  <!-- ── Floating contact widget ───────────────────────────────── -->
+  <div class="contact-widget">
+    <button class="contact-widget-btn" onclick="window.location.href='client-care.html';" aria-label="Contact manager">
+      <div class="contact-widget-avatar">
+        <span class="contact-widget-initial">L</span>
+        <span class="contact-widget-dot"></span>
+      </div>
+      <div class="contact-widget-text">
+        <span class="contact-widget-title">Manager</span>
+        <span class="contact-widget-online">● online</span>
+      </div>
+    </button>
+  </div>
+
+  <script>
+    /* ── Mobile nav ──────────────────────────────────────────────── */
+    (function () {
+      const burger  = document.getElementById('mobileBurger');
+      const overlay = document.getElementById('mobileOverlay');
+      const top     = document.getElementById('mobileTop');
+      if (!burger) return;
+      burger.addEventListener('click', () => {
+        const open = overlay.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open);
+        top.classList.toggle('nav-open', open);
+      });
+      overlay.querySelectorAll('.mobile-nav-link').forEach(l => {
+        l.addEventListener('click', () => {
+          overlay.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+          top.classList.remove('nav-open');
+        });
+      });
+    })();
+
+    /* ── Cards: scroll reveal + hover ───────────────────────────── */
+    (function () {
+      const REVEAL_MS  = 1040;   /* 2× the original 520ms, ease-in-out */
+      const HOVER_IN   = 420;    /* fast lift on mouse enter */
+      const HOVER_OUT  = 1500;   /* slow return on mouse leave */
+      const STAGGER    = [0, 80, 160, 60, 140, 220];
+
+      const cards = document.querySelectorAll('.kw-card');
+
+      function attachHover(card) {
+        const photo     = card.querySelector('.kw-card-photo');
+        const photoWrap = card.querySelector('.kw-photo-wrap');
+
+        card.addEventListener('mouseenter', () => {
+          card.style.transition  = `transform ${HOVER_IN}ms ease-out, box-shadow ${HOVER_IN}ms ease-out`;
+          card.style.transform   = 'translateY(-4px)';
+          card.style.boxShadow   = 'var(--elev-hover)';
+          if (photo) {
+            photo.style.transition = `transform ${HOVER_IN}ms ease-out`;
+            photo.style.transform  = 'scale(1.025)';
+          }
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transition  = `transform ${HOVER_OUT}ms ease-in-out, box-shadow ${HOVER_OUT}ms ease-in-out`;
+          card.style.transform   = 'translateY(0)';
+          card.style.boxShadow   = '';
+          if (photo) {
+            photo.style.transition = `transform ${HOVER_OUT}ms ease-in-out`;
+            photo.style.transform  = 'scale(1)';
+          }
+        });
+
+        // Sheen: fires 1.5s after photo mouseenter, not cancelled by mouseleave
+        if (photoWrap) {
+          photoWrap.addEventListener('mouseenter', () => {
+            if (card._sheenPending) return;
+            card._sheenPending = true;
+            setTimeout(() => {
+              photoWrap.classList.remove('kw-sheen');
+              void photoWrap.offsetWidth;
+              photoWrap.classList.add('kw-sheen');
+              setTimeout(() => {
+                photoWrap.classList.remove('kw-sheen');
+                card._sheenPending = false;
+              }, 1560);
+            }, 1500);
+          });
+        }
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        cards.forEach((c, i) => {
+          c.style.transition = `opacity ${REVEAL_MS}ms ease-in-out ${STAGGER[i]||0}ms, transform ${REVEAL_MS}ms ease-in-out ${STAGGER[i]||0}ms`;
+          c.classList.add('is-visible');
+          setTimeout(() => attachHover(c), REVEAL_MS + (STAGGER[i]||0));
+        });
+        return;
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const card  = entry.target;
+            const idx   = Array.from(cards).indexOf(card);
+            const delay = STAGGER[idx] || 0;
+            card.style.transition = `opacity ${REVEAL_MS}ms ease-in-out ${delay}ms, transform ${REVEAL_MS}ms ease-in-out ${delay}ms`;
+            card.classList.add('is-visible');
+            io.unobserve(card);
+            setTimeout(() => attachHover(card), REVEAL_MS + delay);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      cards.forEach(c => io.observe(c));
+    })();
+  </script>
+
+  <script src="js/chat-widget.js?v=4"></script>
+<style>
+  .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
+  .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }
+  .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
+  .cw-quick                     { background: #F8F4F2 !important; }
+</style>
+</body>
+</html>

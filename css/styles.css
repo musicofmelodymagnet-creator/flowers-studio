@@ -259,6 +259,9 @@ body {
   background: var(--surface);
   box-shadow: var(--elev-lg);
   padding: 16px;
+  border: 1.5px solid transparent;
+  border-top-color: rgba(255,255,255,0.88);
+  border-left-color: rgba(255,255,255,0.88);
 }
 
 .hero-plate img,
@@ -463,6 +466,7 @@ body {
   box-shadow: var(--elev-md);
   padding: 16px;
   cursor: pointer;
+  aspect-ratio: 1 / 1;
   /* leave = 2s ease-in-out */
   transition: transform 2s ease-in-out;
 }
@@ -865,6 +869,78 @@ body {
 }
 
 /* ================================================================
+   INQUIRY FORM — narrow wrapper (Contacts page + Home page)
+   ================================================================ */
+.cc-inquiry-wrap {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cc-inquiry-wrap .inquiry {
+  width: 100%;
+  padding: 44px 44px 48px;
+  gap: 26px;
+  box-shadow: var(--elev-md);
+}
+.cc-inquiry-wrap .neo-btn {
+  padding: 13px 26px;
+  font-size: 13px;
+  letter-spacing: 0.09em;
+}
+.cc-inquiry-wrap .inquiry-header {
+  gap: 10px;
+}
+.cc-inquiry-wrap .inquiry-header h2 {
+  font-size: 34px;
+  line-height: 1.25;
+}
+.cc-inquiry-wrap .inquiry-header p {
+  font-size: 14px;
+  line-height: 1.45;
+}
+.cc-inquiry-wrap .form-body {
+  gap: 16px;
+}
+.cc-inquiry-wrap .form-row {
+  gap: 18px;
+}
+.cc-inquiry-wrap .form-field {
+  gap: 8px;
+}
+.cc-inquiry-wrap .form-field label {
+  font-size: 14px;
+}
+.cc-inquiry-wrap .form-input,
+.cc-inquiry-wrap .form-textarea {
+  padding: 13px 20px;
+  font-size: 14px;
+  box-shadow: 0 0 0 0 transparent,
+              inset -8px -8px 16px rgba(255,255,255,0.72),
+              inset  8px  8px 16px rgba(112,96,110,0.30) !important;
+  transition-property: box-shadow !important;
+  transition-duration: 700ms !important;
+  transition-timing-function: ease-in-out !important;
+}
+.cc-inquiry-wrap .form-input:focus,
+.cc-inquiry-wrap .form-textarea:focus {
+  box-shadow: 0 0 0 0 transparent,
+              inset -3px -3px 5px rgba(255,255,255,1.0),
+              inset  3px  3px 5px rgba(112,96,110,0.60) !important;
+}
+.cc-inquiry-wrap .form-submit {
+  padding-top: 16px;
+  gap: 8px;
+}
+.cc-inquiry-wrap .form-consent {
+  white-space: nowrap;
+  font-size: 12px;
+  max-width: none;
+}
+
+/* ================================================================
    SOCIAL STRIP
    ================================================================ */
 .social-strip {
@@ -1026,11 +1102,11 @@ body {
 }
 
 .footer-col-title {
-  font: 600 11px/1.5 var(--font-sans);
+  font: 700 11px/1.5 var(--font-sans);
   letter-spacing: 0.10em;
   text-transform: uppercase;
   color: var(--on-dark);
-  opacity: 0.55;
+  opacity: 0.92;
   display: block;
 }
 
@@ -1415,7 +1491,7 @@ body {
 .adv-list {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 48px;
   width: 100%;
 }
 
@@ -1428,6 +1504,39 @@ body {
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
+}
+/* White border highlight — same taper technique as FAQ panels */
+.adv-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-card);
+  border: 1.5px solid rgba(255,255,255,0.82);
+  pointer-events: none;
+  z-index: 1;
+}
+/* Odd cards (image-left, text-right): visible over text half only, fades at the image boundary */
+.adv-card:nth-of-type(odd)::after {
+  -webkit-mask-image:
+    linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+    linear-gradient(to left,   black 0%,  black 45%,  transparent 50%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+    linear-gradient(to left,   black 0%,  black 45%,  transparent 50%);
+  mask-composite: intersect;
+}
+/* Even cards (text-left, image-right): visible over text half only, fades at the image boundary */
+.adv-card:nth-of-type(even)::after {
+  -webkit-mask-image:
+    linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+    linear-gradient(to right,  black 0%,  black 45%,  transparent 50%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+    linear-gradient(to right,  black 0%,  black 45%,  transparent 50%);
+  mask-composite: intersect;
 }
 
 /* Thin separator between Advantages section and Inquiry form.
@@ -1436,7 +1545,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: -76px auto -68px;
+  margin: -55px auto -5px;
   background: linear-gradient(
     to right,
     transparent,

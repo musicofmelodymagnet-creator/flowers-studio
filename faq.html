@@ -41,10 +41,9 @@
       margin: 0;
     }
     .faq-hero-sub {
-      font: 400 16px/1.65 var(--font-sans);
-      color: var(--ink-muted);
-      max-width: 520px;
-      font-style: italic;
+      font: 400 18px/1.7 var(--font-sans);
+      color: var(--ink-soft);
+      max-width: 700px;
       margin: 0;
     }
     .faq-hero-rule {
@@ -92,14 +91,14 @@
       flex-direction: column;
       gap: 20px;
     }
-    /* Group separator: before 6th, 11th, 16th, 21st item */
-    .faq-list .faq-item:nth-child(5n+1):not(:first-child) {
-      margin-top: 36px;
+    /* Group separator: before 6th, 11th, 16th item (last block = items 16-21, 6 together) */
+    .faq-list .faq-item:nth-child(5n+1):not(:first-child):not(:nth-child(21)) {
+      margin-top: 43px;
     }
-    .faq-list .faq-item:nth-child(5n+1):not(:first-child)::before {
+    .faq-list .faq-item:nth-child(5n+1):not(:first-child):not(:nth-child(21))::before {
       content: '';
       position: absolute;
-      top: -28px;
+      top: -32px;
       left: 0;
       right: 0;
       height: 1px;
@@ -120,19 +119,37 @@
     .faq-item {
       background: var(--surface);
       border-radius: 18px;
-      /* elev-md strengthened: brighter light, deeper dark for clearer nm groove */
-      box-shadow:
-        -10px -10px 22px rgba(255,255,255,0.88),
-         10px  10px 22px rgba(112, 96,110, 0.34);
-      border-left: 3px solid transparent;
+      box-shadow: var(--elev-sm), inset 3px 0 0 transparent;
       position: relative;
       transition: box-shadow 320ms var(--ease);
     }
     .faq-item.open {
-      border-left-color: var(--brand);
-      box-shadow:
-        -14px -14px 30px rgba(255,255,255,0.92),
-          14px  14px 30px rgba(112, 96,110, 0.38);
+      box-shadow: var(--elev-hover), inset 3px 0 0 var(--brand);
+    }
+    .faq-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      border: 1.5px solid rgba(255,255,255,0.82);
+      /* Closed: corner curves, fades just past the bend; right fades at 78% */
+      -webkit-mask-image:
+        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
+      mask-composite: intersect;
+      pointer-events: none;
+    }
+    /* Open: purple stripe owns the left — white border stays only on top,
+       fades in past the corner so the two elements don't compete */
+    .faq-item.open::after {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 78%, transparent 93%);
+      -webkit-mask-composite: add;
+      mask-image: linear-gradient(to right, transparent 0%, black 6%, black 78%, transparent 93%);
+      mask-composite: add;
     }
 
     /* Question button */
@@ -145,6 +162,7 @@
       padding: 19px 26px;
       background: none;
       border: none;
+      border-radius: 16px;
       text-align: left;
       cursor: pointer;
       transition: background 220ms;
@@ -154,6 +172,7 @@
     }
     .faq-item.open .faq-q {
       background: rgba(168,120,208,0.04);
+      border-radius: 16px 16px 0 0;
     }
     .faq-q-text {
       font: 600 15px/1.45 var(--font-sans);
@@ -168,12 +187,14 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(168,120,208,0.08);
+      background: var(--brand);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 260ms, transform 340ms var(--ease);
     }
+    .faq-q-icon svg,
+    .faq-q-icon svg polyline { stroke: #fff !important; }
     .faq-item.open .faq-q-icon {
       background: var(--brand);
       transform: rotate(180deg);
@@ -184,13 +205,13 @@
       width: 14px;
       height: 14px;
     }
-    /* Read (closed): stays light — already read indicator */
+    /* Read (closed): light bg + dark arrow — "already visited" */
     .faq-item.read:not(.open) .faq-q-icon {
-      background: var(--brand) !important;
+      background: rgba(168,120,208,0.08) !important;
       transition: transform 340ms var(--ease) !important;
     }
     .faq-item.read:not(.open) .faq-q-icon svg,
-    .faq-item.read:not(.open) .faq-q-icon svg polyline { stroke: #fff !important; }
+    .faq-item.read:not(.open) .faq-q-icon svg polyline { stroke: #60545b !important; }
 
     /* Answer panel */
     .faq-a {
@@ -313,13 +334,12 @@
 
   <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
     <a href="index.html"              class="mobile-nav-link">Welcome</a>
-    <a href="gallery.html"            class="mobile-nav-link">Gallery</a>
+    <a href="gallery.html"            class="mobile-nav-link">Flower Walls</a>
     <a href="advantages.html"         class="mobile-nav-link">Our Uniqueness</a>
-    <a href="index.html#testimonials" class="mobile-nav-link">Kind Words</a>
+    <a href="kind-words.html" class="mobile-nav-link">Kind Words</a>
     <a href="about.html"              class="mobile-nav-link">Our Story</a>
-    <a href="client-care.html"        class="mobile-nav-link">Client Care</a>
     <a href="faq.html"                class="mobile-nav-link" style="color:var(--brand)">FAQ</a>
-    <a href="flower-wall-tips.html"   class="mobile-nav-link">Flower Wall Tips</a>
+    <a href="client-care.html"        class="mobile-nav-link">Contacts</a>
   </div>
 
   <!-- ============================================================
@@ -329,13 +349,12 @@
     <nav class="site-nav" aria-label="Main navigation">
       <div class="nav-pill">
         <a href="index.html"              class="nav-link">Welcome</a>
-        <a href="gallery.html"            class="nav-link">Gallery</a>
+        <a href="gallery.html"            class="nav-link">Flower Walls</a>
         <a href="advantages.html"         class="nav-link">Our Uniqueness</a>
-        <a href="index.html#testimonials" class="nav-link">Kind Words</a>
+        <a href="kind-words.html" class="nav-link">Kind Words</a>
         <a href="about.html"              class="nav-link">Our Story</a>
-        <a href="client-care.html"        class="nav-link">Client Care</a>
         <a href="faq.html"                class="nav-link active">FAQ</a>
-        <a href="flower-wall-tips.html"   class="nav-link">Flower Wall Tips</a>
+        <a href="client-care.html"        class="nav-link">Contacts</a>
       </div>
     </nav>
 
@@ -647,7 +666,7 @@
         <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
       </div>
       <div class="footer-col">
-        <span class="footer-col-title">Our Collections</span>
+        <span class="footer-col-title">Real Touch Flower Walls</span>
         <ul class="footer-col-list">
           <li><a href="product.html" class="footer-col-link">Burgundy Real Touch Flower Wall</a></li>
           <li><a href="product.html" class="footer-col-link">White Real Touch Flower Wall</a></li>
@@ -790,5 +809,12 @@
     </button>
   </div>
 
+<script src="js/chat-widget.js?v=4"></script>
+<style>
+  .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
+  .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }
+  .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
+  .cw-quick                     { background: #F8F4F2 !important; }
+</style>
 </body>
 </html>
