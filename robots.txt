@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://musicofmelodymagnet-creator.github.io/flowers-studio/sitemap.xml
+Sitemap: https://florinsky.ca/sitemap.xml
