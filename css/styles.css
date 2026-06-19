@@ -1753,7 +1753,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 1050px;
-  height: 160px;
+  height: 132px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1767,7 +1767,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font: 700 64px/1.25 var(--font-sans);
+  font: 700 52px/1.25 var(--font-sans);
   color: var(--ink-mauve);
   letter-spacing: -0.01em;
   padding: 0 24px;
