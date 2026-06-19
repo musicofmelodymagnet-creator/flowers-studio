@@ -101,6 +101,33 @@
       overflow: hidden;
       position: relative;
     }
+
+    /* Map caption panel */
+    .loc-map-caption {
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      z-index: 10;
+      background: rgba(237, 230, 224, 0.90);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 18px 22px 20px;
+      max-width: 252px;
+      box-shadow: 0 2px 16px rgba(80,60,70,0.10),
+                  0 0 0 0.5px rgba(255,255,255,0.6) inset;
+    }
+    .loc-map-caption-title {
+      font: 700 13px/1.35 var(--font-sans);
+      color: var(--ink);
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+    }
+    .loc-map-caption-body {
+      font: 400 11.5px/1.6 var(--font-sans);
+      color: var(--ink-muted);
+      margin: 0;
+    }
     .loc-map-svg {
       width: 100%;
       height: auto;
@@ -398,6 +425,11 @@
       <section aria-label="Service area map" style="width:100%">
         <div class="loc-map-frame">
           <div class="loc-map-inset">
+
+            <div class="loc-map-caption">
+              <p class="loc-map-caption-title">Luxury flower wall rental across the GTA.</p>
+              <p class="loc-map-caption-body">We deliver, install, and remove everything, so you can focus on enjoying your event.</p>
+            </div>
 
             <!-- ════════════════════════════════════════
                  GTA MAP  — viewBox 0 0 920 660
