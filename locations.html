@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ6NXY94JC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GQ6NXY94JC');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flower Wall Rental Locations — GTA | FLORINSKY Atelier</title>
+  <meta name="description" content="FLORINSKY Atelier delivers luxury flower wall rentals across 30+ Greater Toronto Area municipalities — Toronto, Mississauga, Vaughan, Markham, Oakville and more." />
+  <link rel="canonical" href="https://florinsky.ca/locations.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+  <meta property="og:title" content="Flower Wall Rental Locations — GTA | FLORINSKY Atelier" />
+  <meta property="og:description" content="FLORINSKY Atelier delivers luxury flower wall rentals across 30+ Greater Toronto Area municipalities." />
+  <meta property="og:image" content="https://florinsky.ca/assets/hero-flower-wall.jpg" />
+  <meta property="og:url" content="https://florinsky.ca/locations.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Flower Wall Rental Locations — GTA | FLORINSKY Atelier" />
+  <meta name="twitter:description" content="FLORINSKY Atelier delivers luxury flower wall rentals across 30+ Greater Toronto Area municipalities." />
+  <meta name="twitter:image" content="https://florinsky.ca/assets/hero-flower-wall.jpg" />
+  <meta name="msvalidate.01" content="REPLACE_WITH_BING_VERIFICATION_KEY" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://florinsky.ca/locations.html#service-area",
+    "name": "Flower Wall Rental — Greater Toronto Area",
+    "provider": { "@id": "https://florinsky.ca/#business" },
+    "areaServed": [
+      {"@type":"City","name":"Toronto"},{"@type":"City","name":"Mississauga"},
+      {"@type":"City","name":"Brampton"},{"@type":"City","name":"Vaughan"},
+      {"@type":"City","name":"Markham"},{"@type":"City","name":"Richmond Hill"},
+      {"@type":"City","name":"Oakville"},{"@type":"City","name":"Burlington"},
+      {"@type":"City","name":"Hamilton"},{"@type":"City","name":"Pickering"},
+      {"@type":"City","name":"Ajax"},{"@type":"City","name":"Whitby"},
+      {"@type":"City","name":"Oshawa"},{"@type":"City","name":"Newmarket"},
+      {"@type":"City","name":"Aurora"},{"@type":"City","name":"Milton"},
+      {"@type":"City","name":"Georgetown"},{"@type":"City","name":"Halton Hills"},
+      {"@type":"City","name":"Caledon"},{"@type":"City","name":"Stouffville"},
+      {"@type":"City","name":"Thornhill"},{"@type":"City","name":"Woodbridge"},
+      {"@type":"City","name":"King City"},{"@type":"City","name":"Bradford"},
+      {"@type":"City","name":"Bolton"},{"@type":"City","name":"North York"},
+      {"@type":"City","name":"Scarborough"},{"@type":"City","name":"Etobicoke"},
+      {"@type":"City","name":"East York"}
+    ],
+    "url": "https://florinsky.ca/locations.html"
+  }
+  </script>
+
+  <style>
+    /* ════════════════════════════════════════════════
+       Locations page — local styles
+       ════════════════════════════════════════════════ */
+
+    /* ── Page header ─────────────────────────── */
+    .loc-header {
+      text-align: center;
+      max-width: 660px;
+      padding-top: 16px;
+    }
+    .loc-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+      margin: 0 0 20px;
+      text-wrap: balance;
+    }
+    .loc-intro {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--ink-muted);
+      margin: 0;
+      max-width: 54ch;
+    }
+
+    /* ── Map container ─────────────────────────── */
+    .loc-map-frame {
+      width: 100%;
+      background: var(--bg);
+      border-radius: var(--r-card);
+      box-shadow: var(--elev-lg);
+      padding: 7px;
+    }
+    .loc-map-inset {
+      background: #EDE6E0;
+      border-radius: calc(var(--r-card) - 5px);
+      box-shadow: var(--inset-md);
+      overflow: hidden;
+      position: relative;
+    }
+    .loc-map-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    @media (max-width: 640px) {
+      .loc-map-inset { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .loc-map-svg   { min-width: 580px; }
+    }
+
+    /* ── SVG pin elements ──────────────────────── */
+    .city-pin { cursor: pointer; }
+
+    .city-pin .pin-aura {
+      fill: var(--brand);
+      opacity: 0;
+      transition: opacity 0.22s var(--ease);
+    }
+    .city-pin:hover .pin-aura { opacity: 0.13; }
+
+    .city-pin .pin-core {
+      fill: var(--brand);
+      transition: transform 0.22s var(--ease);
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .city-pin:hover .pin-core { transform: scale(1.6); }
+
+    /* Toronto tier-1 larger marker */
+    .city-pin--t1 .pin-core { fill: var(--brand-deep); }
+
+    /* Pulse rings — Toronto only */
+    .pin-pulse, .pin-pulse-2 {
+      fill: none;
+      stroke: var(--brand);
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .pin-pulse   { stroke-width: 1.6; animation: map-pulse 3s ease-out infinite; }
+    .pin-pulse-2 { stroke-width: 1.0; animation: map-pulse 3s ease-out 1.5s infinite; }
+
+    @keyframes map-pulse {
+      0%   { transform: scale(1);   opacity: 0.75; }
+      100% { transform: scale(2.8); opacity: 0;    }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pin-pulse, .pin-pulse-2 { animation: none; opacity: 0; }
+    }
+
+    /* SVG text labels */
+    .pin-label {
+      font-family: var(--font-sans);
+      fill: var(--ink-soft);
+      user-select: none;
+      pointer-events: none;
+    }
+    .pin-label--t1 { font-size: 12.5px; font-weight: 800; fill: var(--ink); }
+    .pin-label--t2 { font-size:  10px;  font-weight: 600; fill: var(--ink-soft); }
+    .pin-label--t3 { font-size:   8.5px; font-weight: 500; fill: var(--ink-muted); }
+
+    /* ── Tooltip ──────────────────────────────── */
+    .loc-tooltip {
+      position: fixed;
+      background: var(--surface);
+      box-shadow: var(--elev-md);
+      border-radius: 14px;
+      padding: 10px 16px 12px;
+      pointer-events: none;
+      z-index: 600;
+      opacity: 0;
+      transform: translateY(5px) scale(0.97);
+      transition: opacity 0.14s var(--ease), transform 0.14s var(--ease);
+      min-width: 140px;
+    }
+    .loc-tooltip.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .loc-tooltip-city {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .loc-tooltip-tag {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--brand);
+      letter-spacing: 0.04em;
+      margin-top: 3px;
+    }
+
+    /* ── Stats strip ──────────────────────────── */
+    .loc-stats {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg);
+      border-radius: var(--r-card);
+      box-shadow: var(--elev-md);
+      overflow: hidden;
+    }
+    .loc-stat {
+      flex: 1;
+      padding: 38px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .loc-stat + .loc-stat::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 22%; height: 56%;
+      width: 1px;
+      background: rgba(168,120,208,0.18);
+    }
+    .loc-stat-num {
+      display: block;
+      font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+      font-weight: 800;
+      color: var(--brand);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .loc-stat-lbl {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 7px;
+    }
+    @media (max-width: 560px) {
+      .loc-stats { flex-wrap: wrap; }
+      .loc-stat  { flex: 0 0 50%; }
+      .loc-stat:nth-child(2n+1):not(:first-child)::before { top: 0; height: 1px; width: 56%; left: 22%; }
+      .loc-stat:nth-child(even)::before { display: none; }
+    }
+
+    /* ── Regions ──────────────────────────────── */
+    .loc-regions { width: 100%; }
+
+    .loc-regions-title {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin: 0 0 40px;
+    }
+
+    .loc-regions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 880px) { .loc-regions-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .loc-regions-grid { grid-template-columns: 1fr; } }
+
+    .loc-region-card {
+      background: var(--bg);
+      border-radius: var(--r-card);
+      box-shadow: var(--elev-sm);
+      padding: 28px 24px 32px;
+    }
+
+    .loc-region-dir {
+      display: block;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 10px;
+    }
+
+    .loc-region-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 18px;
+      line-height: 1.3;
+    }
+
+    .loc-region-cities {
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .loc-region-cities li {
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.4;
+      padding-left: 15px;
+      position: relative;
+    }
+    .loc-region-cities li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--brand-soft);
+      opacity: 0.7;
+    }
+
+    /* ── CTA section ──────────────────────────── */
+    .loc-cta {
+      width: 100%;
+      max-width: 700px;
+      background: var(--bg);
+      border-radius: var(--r-panel);
+      box-shadow: var(--elev-lg);
+      padding: 64px 56px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .loc-cta-heading {
+      font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin: 0;
+      text-wrap: balance;
+    }
+    .loc-cta-body {
+      font-size: 15px;
+      color: var(--ink-muted);
+      line-height: 1.75;
+      max-width: 46ch;
+      margin: 0;
+    }
+    @media (max-width: 600px) {
+      .loc-cta { padding: 44px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="index.html"      class="mobile-nav-link">Welcome</a>
+    <a href="gallery.html"    class="mobile-nav-link">Flower Walls</a>
+    <a href="advantages.html" class="mobile-nav-link">Our Uniqueness</a>
+    <a href="kind-words.html" class="mobile-nav-link">Kind Words</a>
+    <a href="about.html"      class="mobile-nav-link">Our Story</a>
+    <a href="faq.html"        class="mobile-nav-link">FAQ</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="index.html"       class="nav-link">Welcome</a>
+        <a href="gallery.html"     class="nav-link">Flower Walls</a>
+        <a href="advantages.html"  class="nav-link">Our Uniqueness</a>
+        <a href="kind-words.html"  class="nav-link">Kind Words</a>
+        <a href="about.html"       class="nav-link">Our Story</a>
+        <a href="faq.html"         class="nav-link">FAQ</a>
+        <a href="client-care.html" class="nav-link">Contacts</a>
+      </div>
+    </nav>
+
+    <main class="page-stack" style="gap: 72px">
+
+      <!-- ── Header ───────────────────────────────── -->
+      <header class="loc-header">
+        <h1>Greater Toronto Area</h1>
+        <p class="loc-intro">Luxury flower wall rental, delivered and installed at your venue across 30+ municipalities — from Hamilton and Oakville in the west, to Oshawa and Markham in the east.</p>
+      </header>
+
+      <!-- ── Map ──────────────────────────────────── -->
+      <section aria-label="Service area map" style="width:100%">
+        <div class="loc-map-frame">
+          <div class="loc-map-inset">
+
+            <!-- ════════════════════════════════════════
+                 GTA MAP  — viewBox 0 0 920 660
+                 Coordinate system:
+                   lon range: -80.2 → -78.6  (span 1.6°)
+                   lat range:  43.1 → 44.25  (span 1.15°)
+                   x = (lon + 80.2) × 575
+                   y = (44.25 − lat) × 574
+                 Lake Ontario occupies the south portion.
+                 ════════════════════════════════════════ -->
+            <svg class="loc-map-svg"
+                 viewBox="0 0 920 660"
+                 xmlns="http://www.w3.org/2000/svg"
+                 role="img"
+                 aria-label="Map of the Greater Toronto Area showing all service municipalities">
+
+              <defs>
+
+                <!-- Lake gradient: dusty steel-blue, darker at bottom -->
+                <linearGradient id="lk-grad" x1="0%" y1="0%" x2="8%" y2="100%">
+                  <stop offset="0%"   stop-color="#B0C9DC"/>
+                  <stop offset="100%" stop-color="#89B0C7"/>
+                </linearGradient>
+
+                <!-- Subtle dot grid -->
+                <pattern id="dot-grid" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <circle cx="14" cy="14" r="0.85" fill="rgba(168,120,208,0.09)"/>
+                </pattern>
+
+                <!-- Radial service-area glow centred on Toronto (470,343) -->
+                <radialGradient id="svc-glow" cx="470" cy="343" r="330" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"   stop-color="#A878D0" stop-opacity="0.08"/>
+                  <stop offset="100%" stop-color="#A878D0" stop-opacity="0"/>
+                </radialGradient>
+
+                <!-- Edge vignette — softens the crop -->
+                <radialGradient id="vignette" cx="50%" cy="44%" r="65%">
+                  <stop offset="0%"   stop-color="#EDE6E0" stop-opacity="0"/>
+                  <stop offset="100%" stop-color="#EDE6E0" stop-opacity="0.54"/>
+                </radialGradient>
+
+              </defs>
+
+              <!-- ① Land background -->
+              <rect x="0" y="0" width="920" height="660" fill="#EDE6E0"/>
+
+              <!-- ② Dot grid -->
+              <rect x="0" y="0" width="920" height="660" fill="url(#dot-grid)"/>
+
+              <!-- ③ Service area glow -->
+              <circle cx="470" cy="343" r="330" fill="url(#svc-glow)"/>
+
+              <!-- ④ Geographic grid lines (lon / lat references) -->
+              <g stroke="rgba(168,120,208,0.065)" stroke-width="1" fill="none">
+                <!-- lon lines -->
+                <line x1="115" y1="0" x2="115" y2="660"/>
+                <line x1="230" y1="0" x2="230" y2="660"/>
+                <line x1="345" y1="0" x2="345" y2="660"/>
+                <line x1="460" y1="0" x2="460" y2="660"/>
+                <line x1="575" y1="0" x2="575" y2="660"/>
+                <line x1="690" y1="0" x2="690" y2="660"/>
+                <line x1="805" y1="0" x2="805" y2="660"/>
+                <!-- lat lines -->
+                <line x1="0" y1="144" x2="920" y2="144"/>
+                <line x1="0" y1="258" x2="920" y2="258"/>
+                <line x1="0" y1="373" x2="920" y2="373"/>
+                <line x1="0" y1="488" x2="920" y2="488"/>
+                <line x1="0" y1="603" x2="920" y2="603"/>
+              </g>
+
+              <!-- ⑤ Lake Ontario fill -->
+              <path fill="url(#lk-grad)"
+                d="M 0,700
+                   L 0,578
+                   C 55,577 120,574 189,571
+                   C 208,566 220,552 231,534
+                   C 246,516 268,487 295,462
+                   C 314,444 348,420 400,397
+                   C 430,384 450,371 470,362
+                   C 494,350 520,331 542,316
+                   C 553,309 556,306 560,302
+                   C 586,281 615,261 638,255
+                   C 655,247 667,241 678,239
+                   C 699,228 712,220 723,215
+                   C 742,208 756,205 767,204
+                   C 800,202 860,200 920,198
+                   L 920,700 Z"/>
+
+              <!-- ⑥ Shoreline stroke -->
+              <path fill="none" stroke="rgba(70,105,135,0.3)" stroke-width="1.3"
+                d="M 0,578
+                   C 55,577 120,574 189,571
+                   C 208,566 220,552 231,534
+                   C 246,516 268,487 295,462
+                   C 314,444 348,420 400,397
+                   C 430,384 450,371 470,362
+                   C 494,350 520,331 542,316
+                   C 553,309 556,306 560,302
+                   C 586,281 615,261 638,255
+                   C 655,247 667,241 678,239
+                   C 699,228 712,220 723,215
+                   C 742,208 756,205 767,204
+                   C 800,202 860,200 920,198"/>
+
+              <!-- ⑦ Lake Ontario label -->
+              <text x="348" y="562"
+                text-anchor="middle"
+                font-style="italic"
+                font-size="13.5"
+                letter-spacing="0.22em"
+                fill="rgba(62,98,128,0.44)"
+                font-family="Plus Jakarta Sans"
+                font-weight="300">Lake Ontario</text>
+
+              <!-- ══════════════════════════════════════
+                   CITY MARKERS — bottom to top, so
+                   higher-tier dots render last (on top).
+                   ══════════════════════════════════════ -->
+
+              <!-- — TIER 4 minor dots (no permanent label) — -->
+
+              <g class="city-pin city-pin--t4" data-name="Bradford" data-region="North GTA">
+                <circle class="pin-aura" cx="367" cy="74"  r="15"/>
+                <circle class="pin-core" cx="367" cy="74"  r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="King City" data-region="North GTA">
+                <circle class="pin-aura" cx="387" cy="186" r="15"/>
+                <circle class="pin-core" cx="387" cy="186" r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="Caledon" data-region="West GTA">
+                <circle class="pin-aura" cx="192" cy="220" r="15"/>
+                <circle class="pin-core" cx="192" cy="220" r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="Bolton" data-region="West GTA">
+                <circle class="pin-aura" cx="268" cy="214" r="15"/>
+                <circle class="pin-core" cx="268" cy="214" r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="Stouffville" data-region="East GTA">
+                <circle class="pin-aura" cx="547" cy="161" r="15"/>
+                <circle class="pin-core" cx="547" cy="161" r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="Woodbridge" data-region="North GTA">
+                <circle class="pin-aura" cx="348" cy="267" r="15"/>
+                <circle class="pin-core" cx="348" cy="267" r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="Thornhill" data-region="North GTA">
+                <circle class="pin-aura" cx="446" cy="249" r="15"/>
+                <circle class="pin-core" cx="446" cy="249" r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="Georgetown" data-region="West GTA">
+                <circle class="pin-aura" cx="162" cy="346" r="15"/>
+                <circle class="pin-core" cx="162" cy="346" r="3.5" opacity="0.65"/>
+              </g>
+              <g class="city-pin city-pin--t4" data-name="Halton Hills" data-region="West GTA">
+                <circle class="pin-aura" cx="142" cy="330" r="15"/>
+                <circle class="pin-core" cx="142" cy="330" r="3.5" opacity="0.65"/>
+              </g>
+
+              <!-- — TIER 3 secondary cities with labels — -->
+
+              <g class="city-pin city-pin--t3" data-name="Etobicoke" data-region="Toronto Core">
+                <circle class="pin-aura" cx="395" cy="361" r="18"/>
+                <circle class="pin-core" cx="395" cy="361" r="5"/>
+                <text class="pin-label pin-label--t3" x="382" y="365" text-anchor="end">Etobicoke</text>
+              </g>
+              <g class="city-pin city-pin--t3" data-name="North York" data-region="Toronto Core">
+                <circle class="pin-aura" cx="454" cy="280" r="18"/>
+                <circle class="pin-core" cx="454" cy="280" r="5"/>
+                <text class="pin-label pin-label--t3" x="465" y="284">North York</text>
+              </g>
+              <g class="city-pin city-pin--t3" data-name="Scarborough" data-region="Toronto Core">
+                <circle class="pin-aura" cx="558" cy="272" r="18"/>
+                <circle class="pin-core" cx="558" cy="272" r="5"/>
+                <text class="pin-label pin-label--t3" x="569" y="276">Scarborough</text>
+              </g>
+              <g class="city-pin city-pin--t3" data-name="Aurora" data-region="North GTA">
+                <circle class="pin-aura" cx="431" cy="140" r="18"/>
+                <circle class="pin-core" cx="431" cy="140" r="5"/>
+                <text class="pin-label pin-label--t3" x="442" y="144">Aurora</text>
+              </g>
+              <g class="city-pin city-pin--t3" data-name="Pickering" data-region="East GTA">
+                <circle class="pin-aura" cx="638" cy="238" r="18"/>
+                <circle class="pin-core" cx="638" cy="238" r="5"/>
+                <text class="pin-label pin-label--t3" x="638" y="227" text-anchor="middle">Pickering</text>
+              </g>
+              <g class="city-pin city-pin--t3" data-name="Ajax" data-region="East GTA">
+                <circle class="pin-aura" cx="678" cy="229" r="18"/>
+                <circle class="pin-core" cx="678" cy="229" r="5"/>
+                <text class="pin-label pin-label--t3" x="689" y="225">Ajax</text>
+              </g>
+              <g class="city-pin city-pin--t3" data-name="Whitby" data-region="East GTA">
+                <circle class="pin-aura" cx="723" cy="202" r="18"/>
+                <circle class="pin-core" cx="723" cy="202" r="5"/>
+                <text class="pin-label pin-label--t3" x="723" y="191" text-anchor="middle">Whitby</text>
+              </g>
+              <g class="city-pin city-pin--t3" data-name="Milton" data-region="West GTA">
+                <circle class="pin-aura" cx="186" cy="420" r="18"/>
+                <circle class="pin-core" cx="186" cy="420" r="5"/>
+                <text class="pin-label pin-label--t3" x="173" y="424" text-anchor="end">Milton</text>
+              </g>
+
+              <!-- — TIER 2 major cities — -->
+
+              <g class="city-pin city-pin--t2" data-name="Richmond Hill" data-region="North GTA">
+                <circle class="pin-aura" cx="437" cy="211" r="20"/>
+                <circle class="pin-core" cx="437" cy="211" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="437" y="200" text-anchor="middle">Richmond Hill</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Vaughan" data-region="North GTA">
+                <circle class="pin-aura" cx="398" cy="226" r="20"/>
+                <circle class="pin-core" cx="398" cy="226" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="385" y="230" text-anchor="end">Vaughan</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Markham" data-region="East GTA">
+                <circle class="pin-aura" cx="496" cy="226" r="20"/>
+                <circle class="pin-core" cx="496" cy="226" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="509" y="230">Markham</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Newmarket" data-region="North GTA">
+                <circle class="pin-aura" cx="425" cy="109" r="20"/>
+                <circle class="pin-core" cx="425" cy="109" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="438" y="113">Newmarket</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Brampton" data-region="West GTA">
+                <circle class="pin-aura" cx="252" cy="298" r="20"/>
+                <circle class="pin-core" cx="252" cy="298" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="239" y="302" text-anchor="end">Brampton</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Mississauga" data-region="West GTA">
+                <circle class="pin-aura" cx="320" cy="379" r="20"/>
+                <circle class="pin-core" cx="320" cy="379" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="307" y="383" text-anchor="end">Mississauga</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Oakville" data-region="West GTA">
+                <circle class="pin-aura" cx="295" cy="449" r="20"/>
+                <circle class="pin-core" cx="295" cy="449" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="282" y="453" text-anchor="end">Oakville</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Burlington" data-region="West GTA">
+                <circle class="pin-aura" cx="231" cy="531" r="20"/>
+                <circle class="pin-core" cx="231" cy="531" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="218" y="535" text-anchor="end">Burlington</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Hamilton" data-region="West GTA">
+                <circle class="pin-aura" cx="189" cy="571" r="20"/>
+                <circle class="pin-core" cx="189" cy="571" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="176" y="568" text-anchor="end">Hamilton</text>
+              </g>
+              <g class="city-pin city-pin--t2" data-name="Oshawa" data-region="East GTA">
+                <circle class="pin-aura" cx="767" cy="203" r="20"/>
+                <circle class="pin-core" cx="767" cy="203" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="780" y="207">Oshawa</text>
+              </g>
+
+              <!-- — TIER 1 — Toronto hero marker — -->
+              <g class="city-pin city-pin--t1" data-name="Toronto" data-region="Toronto Core">
+                <circle class="pin-aura"    cx="470" cy="343" r="30"/>
+                <circle class="pin-pulse"   cx="470" cy="343" r="15"/>
+                <circle class="pin-pulse-2" cx="470" cy="343" r="15"/>
+                <circle class="pin-core"    cx="470" cy="343" r="10"/>
+                <!-- inner white dot for depth -->
+                <circle cx="470" cy="343" r="3.5" fill="rgba(255,255,255,0.55)" pointer-events="none"/>
+                <text class="pin-label pin-label--t1" x="484" y="348">Toronto</text>
+              </g>
+
+              <!-- ⑧ Compass rose -->
+              <g transform="translate(876, 42)">
+                <circle r="18" fill="rgba(237,230,224,0.9)" stroke="rgba(168,120,208,0.2)" stroke-width="0.75"/>
+                <!-- north arrow (solid) -->
+                <path d="M0,-12 L-3.5,1.5 L0,-0.5 L3.5,1.5 Z" fill="#A878D0" opacity="0.88"/>
+                <!-- south arrow (faint) -->
+                <path d="M0,12 L-3.5,-1.5 L0,0.5 L3.5,-1.5 Z" fill="rgba(168,120,208,0.28)"/>
+                <!-- cross-hair tick -->
+                <line x1="-7" y1="0" x2="7" y2="0" stroke="rgba(168,120,208,0.22)" stroke-width="0.6"/>
+                <text y="-15" text-anchor="middle"
+                  font-size="7" fill="#A878D0"
+                  font-family="Plus Jakarta Sans" font-weight="700"
+                  letter-spacing="0.06em">N</text>
+              </g>
+
+              <!-- ⑨ Edge vignette — rendered last so it overlays everything -->
+              <rect x="0" y="0" width="920" height="660" fill="url(#vignette)" pointer-events="none"/>
+
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Stats ─────────────────────────────────── -->
+      <div class="loc-stats">
+        <div class="loc-stat">
+          <span class="loc-stat-num">30<span style="font-size:1.4rem">+</span></span>
+          <span class="loc-stat-lbl">Municipalities</span>
+        </div>
+        <div class="loc-stat">
+          <span class="loc-stat-num">100<span style="font-size:1.4rem">km</span></span>
+          <span class="loc-stat-lbl">Service Radius</span>
+        </div>
+        <div class="loc-stat">
+          <span class="loc-stat-num">7</span>
+          <span class="loc-stat-lbl">Days a Week</span>
+        </div>
+        <div class="loc-stat">
+          <span class="loc-stat-num">&lt;30<span style="font-size:1.4rem">min</span></span>
+          <span class="loc-stat-lbl">Inquiry Response</span>
+        </div>
+      </div>
+
+      <!-- ── Regions ────────────────────────────────── -->
+      <section style="width:100%">
+        <h2 class="loc-regions-title">Full service area</h2>
+        <div class="loc-regions-grid">
+
+          <div class="loc-region-card">
+            <span class="loc-region-dir">Centre</span>
+            <h3 class="loc-region-name">Toronto Core</h3>
+            <ul class="loc-region-cities">
+              <li>Toronto</li>
+              <li>North York</li>
+              <li>Scarborough</li>
+              <li>Etobicoke</li>
+              <li>East York</li>
+            </ul>
+          </div>
+
+          <div class="loc-region-card">
+            <span class="loc-region-dir">West &amp; South</span>
+            <h3 class="loc-region-name">Peel &amp; Halton</h3>
+            <ul class="loc-region-cities">
+              <li>Mississauga</li>
+              <li>Brampton</li>
+              <li>Oakville</li>
+              <li>Burlington</li>
+              <li>Hamilton</li>
+              <li>Milton</li>
+              <li>Georgetown</li>
+              <li>Halton Hills</li>
+              <li>Caledon</li>
+              <li>Bolton</li>
+            </ul>
+          </div>
+
+          <div class="loc-region-card">
+            <span class="loc-region-dir">North</span>
+            <h3 class="loc-region-name">York Region</h3>
+            <ul class="loc-region-cities">
+              <li>Vaughan</li>
+              <li>Woodbridge</li>
+              <li>Richmond Hill</li>
+              <li>Thornhill</li>
+              <li>Aurora</li>
+              <li>Newmarket</li>
+              <li>King City</li>
+              <li>Bradford</li>
+            </ul>
+          </div>
+
+          <div class="loc-region-card">
+            <span class="loc-region-dir">East</span>
+            <h3 class="loc-region-name">Durham Region</h3>
+            <ul class="loc-region-cities">
+              <li>Markham</li>
+              <li>Stouffville</li>
+              <li>Pickering</li>
+              <li>Ajax</li>
+              <li>Whitby</li>
+              <li>Oshawa</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── CTA ───────────────────────────────────── -->
+      <section class="loc-cta">
+        <h2 class="loc-cta-heading">Your city is on the map.</h2>
+        <p class="loc-cta-body">Tell us your venue location and we will confirm availability, walk you through the 3D preview, and send a detailed quote — usually within the hour.</p>
+        <a href="client-care.html" class="neo-btn neo-btn--solid">Request a quote</a>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
+        <span class="footer-copy">© 2026 FLORINSKY. All rights reserved.</span>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Real Touch Flower Walls</span>
+        <ul class="footer-col-list">
+          <li><a href="product.html" class="footer-col-link">Burgundy Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">White Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Pink Real Touch Flower Wall</a></li>
+          <li><a href="product.html" class="footer-col-link">Green Real Touch Flower Wall</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Event Rentals</span>
+        <ul class="footer-col-list">
+          <li><a href="index.html#contact" class="footer-col-link">Wedding Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Birthday Party Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Corporate Event Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Baby Shower Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Bridal Shower Flower Wall Rental</a></li>
+          <li><a href="index.html#contact" class="footer-col-link">Anniversary Party Flower Wall Rental</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
+        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Wind Policy</a>
+        <a href="faq.html" class="footer-link">FAQ</a>
+        <a href="locations.html" class="footer-link" style="color:var(--brand-soft)">Locations</a>
+        <div class="footer-social">
+          <span class="footer-social-label">Follow Our Journey</span>
+          <div class="footer-social-icons">
+            <a href="#" class="footer-social-icon" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-locations">
+        <span class="footer-locations-title">Locations We Serve</span>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket · Aurora · King City · Stouffville · Scarborough · North York · Etobicoke · East York · Hamilton · Thornhill · Woodbridge · Bolton · Bradford · Orangeville <a href="locations.html" class="footer-more" style="text-decoration:none">· View all →</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Tooltip element ───────────────────────── -->
+  <div class="loc-tooltip" id="locTooltip" role="tooltip" aria-hidden="true">
+    <span class="loc-tooltip-city"></span>
+    <span class="loc-tooltip-tag">Flower wall rental available</span>
+  </div>
+
+  <script>
+    // ── Sticky nav ─────────────────────────────────────────
+    (function () {
+      var nav = document.querySelector('.site-nav');
+      if (!nav) return;
+      var lastY = window.scrollY, ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          var y = window.scrollY;
+          if      (y > lastY + 5)  nav.classList.add('nav--hidden');
+          else if (y < lastY - 5)  nav.classList.remove('nav--hidden');
+          lastY = y; ticking = false;
+        });
+      }, { passive: true });
+    })();
+
+    // ── Mobile hamburger ────────────────────────────────────
+    var mobileBurger  = document.getElementById('mobileBurger');
+    var mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu(forceClose) {
+      var open = mobileOverlay.classList.contains('open') || forceClose;
+      mobileOverlay.classList.toggle('open',  !open);
+      mobileBurger.classList.toggle('open',   !open);
+      mobileBurger.setAttribute('aria-expanded', String(!open));
+      mobileOverlay.setAttribute('aria-hidden',  String(open));
+      document.body.style.overflow = open ? '' : 'hidden';
+    }
+    mobileBurger.addEventListener('click', function () { toggleMenu(false); });
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(function (l) {
+      l.addEventListener('click', function () { toggleMenu(true); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
+    });
+
+    // ── Map tooltip ─────────────────────────────────────────
+    (function () {
+      var tip     = document.getElementById('locTooltip');
+      var tipCity = tip.querySelector('.loc-tooltip-city');
+
+      document.querySelectorAll('.city-pin').forEach(function (pin) {
+        pin.addEventListener('mouseenter', function () {
+          tipCity.textContent = pin.dataset.name || '';
+          tip.setAttribute('aria-hidden', 'false');
+          tip.classList.add('is-visible');
+        });
+        pin.addEventListener('mousemove', function (e) {
+          var x = e.clientX + 16;
+          var y = e.clientY - 52;
+          var tw = tip.offsetWidth;
+          if (x + tw > window.innerWidth - 12) x = e.clientX - tw - 16;
+          tip.style.left = x + 'px';
+          tip.style.top  = y + 'px';
+        });
+        pin.addEventListener('mouseleave', function () {
+          tip.classList.remove('is-visible');
+          tip.setAttribute('aria-hidden', 'true');
+        });
+      });
+    })();
+  </script>
+
+  <!-- ── Floating contact widget ───────────────── -->
+  <div class="contact-widget">
+    <button class="contact-widget-btn"
+      onclick="window.location.href='index.html#contact';"
+      aria-label="Contact manager">
+      <div class="contact-widget-avatar">
+        <span class="contact-widget-initial">L</span>
+        <span class="contact-widget-dot"></span>
+      </div>
+      <div class="contact-widget-text">
+        <span class="contact-widget-title">Менеджер</span>
+        <span class="contact-widget-online">● онлайн</span>
+      </div>
+    </button>
+  </div>
+
+  <script src="js/chat-widget.js?v=4"></script>
+  <style>
+    .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
+    .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }
+    .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
+    .cw-quick                     { background: #F8F4F2 !important; }
+  </style>
+</body>
+</html>
