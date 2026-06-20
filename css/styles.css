@@ -1252,9 +1252,13 @@ body {
   font: 600 11px/1.5 var(--font-sans);
   letter-spacing: 0.10em;
   text-transform: uppercase;
-  color: var(--on-dark);
-  opacity: 0.55;
+  color: var(--brand);
+  opacity: 1;
   margin-bottom: 10px;
+  transition: color 0.22s var(--ease);
+}
+.footer-locations-title:hover {
+  color: var(--brand-deep);
 }
 
 .footer-locations-list {
