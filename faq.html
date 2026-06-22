@@ -326,15 +326,22 @@
     }
 
     /* Responsive */
-    @media (max-width: 620px) {
-      .faq-hero h1 { font-size: 36px; }
+    @media (max-width: 768px) {
+      .faq-hero { padding: 32px 16px 28px; }
+      .faq-hero h1 { font-size: 40px; }
+      .faq-hero-sub { font-size: 16px; }
+      .faq-wrap { padding: 0 0 60px; gap: 36px; }
       .faq-cta-card {
         flex-direction: column;
         align-items: flex-start;
-        padding: 30px 28px;
+        padding: 32px 28px;
       }
-      .faq-q { padding: 18px 20px; }
-      .faq-a-inner { padding: 0 20px 20px 23px; }
+    }
+    @media (max-width: 480px) {
+      .faq-hero h1 { font-size: 30px; }
+      .faq-hero-sub { font-size: 15px; }
+      .faq-q { padding: 14px 16px; }
+      .faq-a-inner { padding: 0 16px 16px 20px; }
     }
   </style>
   <script type="application/ld+json">

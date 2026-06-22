@@ -176,6 +176,11 @@
 
     /* Stagger handled in JS */
 
+    /* CTA strip */
+    .kw-cta-h2 {
+      font: 600 28px/1.25 var(--font-display);
+    }
+
     /* ── Responsive ────────────────────────────────────────────── */
     @media (max-width: 900px) {
       .kw-page-header h1 { font-size: 42px; }
@@ -185,6 +190,11 @@
       .kw-page-header h1 { font-size: 34px; }
       .kw-page-header { padding-top: 40px; }
       .kw-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .kw-page-header h1 { font-size: 28px; }
+      .kw-cta-plate { padding: 32px 24px; }
+      .kw-cta-plate h2 { font-size: 22px; }
     }
   </style>
   <script type="application/ld+json">
@@ -396,10 +406,10 @@
       </section>
 
       <!-- ── CTA strip ─────────────────────────────────────────── -->
-      <div class="hero-plate" style="text-align:center; padding: 40px 48px; max-width:680px">
+      <div class="hero-plate kw-cta-plate" style="text-align:center; padding: 40px 48px; max-width:680px">
         <p class="section-label" style="margin-bottom:14px">Ready to create your moment?</p>
-        <h2 style="font: 600 28px/1.25 var(--font-display); margin: 0 0 20px; color: var(--ink)">Your guests will be talking about it for years</h2>
-        <a href="client-care.html" class="neo-btn neo-btn--filled" style="display:inline-flex; text-decoration:none">Get in Touch</a>
+        <h2 class="kw-cta-h2" style="margin: 0 0 20px; color: var(--ink)">Your guests will be talking about it for years</h2>
+        <a href="client-care.html" class="neo-btn neo-btn--solid" style="display:inline-flex; text-decoration:none">Get in Touch</a>
       </div>
 
     </main>

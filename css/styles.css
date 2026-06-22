@@ -1979,6 +1979,7 @@ body {
 
   /* Section titles */
   .section-title h2 { font-size: 38px; }
+  .about-page-header h1 { font-size: 40px; }
 
   /* Features — 1 column */
   .features {
@@ -1998,7 +1999,7 @@ body {
 
   /* Distinction */
   .distinction { padding: 40px 20px 44px; border-radius: 32px; }
-  .accordion-trigger { height: 33px; padding: 0 16px; gap: 12px; }
+  .accordion-trigger { height: 48px; padding: 0 16px; gap: 12px; }
   .distinction { padding: 32px 20px 36px; max-width: 100%; gap: 20px; }
   .accordion-title { font-size: 16px; line-height: 1.35; }
   .accordion-body-inner { padding: 0 20px 20px 20px; }
@@ -2019,6 +2020,16 @@ body {
   .social-links { gap: 20px; }
 
   /* Footer */
+  /* CTA row — stack on mobile */
+  .cta-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .cta-row .neo-btn { text-align: center; width: 100%; }
+
   .site-footer { padding: 40px 20px; }
   .footer-inner {
     flex-direction: column;
@@ -2045,6 +2056,7 @@ body {
   .hero-ctas { max-width: 100%; }
 
   .section-title h2 { font-size: 30px; }
+  .about-page-header h1 { font-size: 32px; }
 
   .feature-card h3 { font-size: 22px; }
   .feature-card p { font-size: 15px; }
@@ -3481,4 +3493,42 @@ body {
   font: 500 13px/1.4 var(--font-sans);
   color: var(--ink-mauve);
   text-align: right;
+}
+
+/* ================================================================
+   TOUCH DEVICE ADAPTATIONS
+   ================================================================ */
+
+/* Carousel arrows: visible on touch (no hover available) */
+@media (hover: none) {
+  .carousel-arrow { opacity: 0.72; }
+  .carousel-wrap:hover .carousel-arrow { opacity: 0.72; }
+  .pv2-arrow { opacity: 0.72; }
+}
+
+/* Accordion trigger: larger tap zone on coarse pointer */
+@media (pointer: coarse) {
+  .accordion-trigger { min-height: 48px; height: auto; padding: 12px 16px; }
+  .accordion-chevron { width: 36px; height: 36px; }
+}
+
+/* ================================================================
+   PAGE-LEVEL GAP MODIFIERS (replaces inline style="gap:Xpx")
+   ================================================================ */
+.page-stack--about    { gap: 80px; }
+.page-stack--locations { gap: 72px; }
+
+@media (max-width: 768px) {
+  .page-stack--about    { gap: 48px; }
+  .page-stack--locations { gap: 40px; }
+}
+
+@media (max-width: 480px) {
+  .page-stack--about    { gap: 36px; }
+  .page-stack--locations { gap: 32px; }
+}
+
+/* Locations map caption: hide on mobile (pins already show all cities) */
+@media (max-width: 640px) {
+  .loc-map-caption { display: none; }
 }

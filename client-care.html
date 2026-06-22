@@ -478,7 +478,8 @@
       background: rgba(255,255,255,0.70);
       border: 1px solid rgba(168,120,208,0.28);
       border-radius: 20px;
-      padding: 6px 13px;
+      padding: 10px 13px;
+      min-height: 36px;
       cursor: pointer;
       white-space: nowrap;
       transition: background 180ms ease-in-out, border-color 180ms ease-in-out, transform 180ms ease-in-out;
@@ -498,8 +499,8 @@
       background: #685b5b;
     }
     .cc-chat-input {
-      flex: 1; height: 40px;
-      border-radius: 20px;
+      flex: 1; height: 44px;
+      border-radius: 22px;
       border: 1.5px solid rgba(168,120,208,0.18);
       background: var(--surface);
       padding: 0 16px;
@@ -539,14 +540,14 @@
       animation: cg-spin 9s infinite linear;
       flex: 1;
       position: relative;
-      border-radius: 20px;
+      border-radius: 22px;
       display: flex;
       align-items: center;
       border: 1.5px solid transparent;
       background: linear-gradient(var(--surface), var(--surface)) padding-box,
                   var(--cg-grad) border-box;
       min-width: 0;
-      height: 40px;
+      height: 44px;
     }
     .cg-input-wrap .cc-chat-input {
       position: relative;
@@ -563,7 +564,7 @@
       outline: none;
     }
     .cc-chat-send {
-      width: 40px; height: 40px;
+      width: 44px; height: 44px;
       border-radius: 50%; border: none;
       background: linear-gradient(135deg, #cca8e4 0%, var(--brand) 100%);
       display: flex; align-items: center; justify-content: center;
@@ -586,6 +587,8 @@
     /* Responsive */
     @media (max-width: 960px) {
       .cc-hero h1 { font-size: 44px; }
+    }
+    @media (max-width: 768px) {
       .cc-channels { grid-template-columns: 1fr; max-width: 480px; }
       .cc-card + .cc-card { border-left: none; border-top: 1px solid rgba(168,120,208,0.11); }
       .cc-chat { height: 420px; }
