@@ -1480,10 +1480,9 @@
       prevBtn.addEventListener('click', () => go(-1));
       nextBtn.addEventListener('click', () => go(1));
 
-      // Click on photo of side card → navigate; center card photo → nothing
+      // Click anywhere on side card (photo or text) → navigate; center card → nothing
       allCards.forEach((card, i) => {
-        card.addEventListener('click', (e) => {
-          if (!e.target.closest('.rv-photo-wrap')) return;
+        card.addEventListener('click', () => {
           if (i > idx)      go(1);
           else if (i < idx) go(-1);
         });
