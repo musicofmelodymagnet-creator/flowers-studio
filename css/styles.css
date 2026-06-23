@@ -961,6 +961,11 @@ body {
   max-width: none;
 }
 
+@media (max-width: 768px) {
+  .cc-inquiry-wrap .form-consent { padding: 0 4px; }
+  .form-submit { padding-bottom: 8px; }
+}
+
 /* ================================================================
    SOCIAL STRIP
    ================================================================ */
@@ -1563,6 +1568,11 @@ body {
     linear-gradient(to right,  black 0%,  black 45%,  transparent 50%);
   mask-composite: intersect;
 }
+/* Highlight visible on both sides — only vertical fade, no horizontal crop */
+.adv-card.adv-card--hl-both::after {
+  -webkit-mask-image: linear-gradient(to bottom, black 0px, black 19px, transparent 30px);
+  mask-image: linear-gradient(to bottom, black 0px, black 19px, transparent 30px);
+}
 
 /* Thin separator between Advantages section and Inquiry form.
    Negative margins pull it closer to both neighbours (page-stack gap is 128px). */
@@ -1757,7 +1767,8 @@ body {
   position: relative;
   width: 100%;
   max-width: 1050px;
-  height: 132px;
+  height: clamp(82px, 14vw, 158px);
+  margin-top: -24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1771,11 +1782,10 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font: 700 52px/1.25 var(--font-sans);
+  font: 700 clamp(31px, 5.5vw, 62px)/1.25 var(--font-sans);
   color: var(--ink-mauve);
   letter-spacing: -0.01em;
   padding: 0 24px;
-  /* max-width set per-phrase by JS (naturalWidth / 2) for exact 2-line wrap */
   margin: 0 auto;
 
   /* base (hidden) state: comes from behind (scale back) */
@@ -1808,18 +1818,6 @@ body {
   filter: blur(8px);
 }
 
-@media (max-width: 1024px) {
-  .hero-phrases { height: 130px; }
-  .hero-phrase  { font-size: 48px; }
-}
-@media (max-width: 768px) {
-  .hero-phrases { height: 110px; }
-  .hero-phrase  { font-size: 36px; }
-}
-@media (max-width: 480px) {
-  .hero-phrases { height: 90px; }
-  .hero-phrase  { font-size: 26px; }
-}
 
 /* ================================================================
    MOBILE TOP BAR + OVERLAY NAV (hidden on desktop)
@@ -1831,11 +1829,18 @@ body {
   z-index: 300;
   width: 100%;
   height: 64px;
-  background: var(--bg);
-  box-shadow: var(--elev-sm);
+  background: transparent;
   padding: 0 24px;
   justify-content: space-between;
   align-items: center;
+  transition: transform 380ms ease-in-out, background-color 280ms ease, box-shadow 280ms ease;
+}
+.mobile-top.nav-scrolled {
+  background: var(--bg);
+  box-shadow: 0 2px 12px rgba(142,95,182,0.08), 0 1px 3px rgba(0,0,0,0.06);
+}
+.mobile-top.nav-hidden {
+  transform: translateY(-100%);
 }
 
 .mobile-wordmark {
@@ -1946,6 +1951,9 @@ body {
    RESPONSIVE — mobile (max 768px)
    ================================================================ */
 @media (max-width: 768px) {
+  /* Fix horizontal overflow on mobile */
+  html, body { overflow-x: hidden; max-width: 100%; }
+
   /* Switch to mobile nav */
   .site-nav        { display: none; }
   .mobile-top      { display: flex; }
@@ -1957,7 +1965,8 @@ body {
   /* Hero */
   .hero { gap: 40px; padding: 28px 0 0; }
   .wordmark { font-size: 40px; }
-  .wordmark-tagline { gap: 12px; }
+  .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .eyebrow { text-align: center; }
   .tagline-rule { width: 28px; }
   .hero-copy h1 {
     font-size: 36px;
@@ -1977,6 +1986,9 @@ body {
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
 
+  /* Section separator — tighter on mobile */
+  .section-sep { margin: -32px auto -32px; }
+
   /* Section titles */
   .section-title h2 { font-size: 38px; }
   .about-page-header h1 { font-size: 40px; }
@@ -1989,6 +2001,17 @@ body {
   }
   .feature-card { padding: 32px 24px 36px; }
   .feature-card h3 { font-size: 26px; }
+
+  /* Advantages cards — mobile fixes */
+  .adv-card::after { display: none; }
+  .adv-card { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .adv-img-wrap {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+    transition: none;
+  }
+  .adv-img-wrap img { transition: none; }
+  .adv-card.card-open .adv-img-wrap { aspect-ratio: 4 / 3; }
 
   /* Collections — 1 column */
   .collections-grid {
@@ -2034,9 +2057,9 @@ body {
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 40px;
   }
-  .footer-links { gap: 8px; }
+  .footer-links { gap: 24px; }
   .footer-col { flex-basis: calc(50% - 20px); }
   .contact-widget { bottom: 24px; right: 24px; }
   .contact-widget-btn { height: 50px; padding: 0 18px 0 7px; gap: 10px; }
@@ -2067,15 +2090,16 @@ body {
   .accordion-body-text { font-size: 15px; }
 
   .inquiry { padding: 32px 16px 36px; }
-  .inquiry-header h2 { font-size: 26px; }
+  .inquiry-header h2 { font-size: 22px; white-space: nowrap; }
   .inquiry-header p { font-size: 14px; }
   .form-field label { font-size: 14px; }
   .form-input, .form-textarea { padding: 15px 20px; font-size: 15px; }
 
   .mobile-nav-link { font-size: 22px; padding: 12px 40px; }
   .site-footer { padding: 32px 16px; }
+  .footer-inner { gap: 36px; }
   .footer-wordmark { font-size: 22px; }
-  .footer-links { gap: 8px; }
+  .footer-links { gap: 20px; }
   .footer-col { flex-basis: 100%; }
   .contact-widget { bottom: 20px; right: 20px; }
   .contact-widget-btn { height: 46px; padding: 0 14px 0 6px; gap: 8px; border-radius: 23px; }
