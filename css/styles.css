@@ -1968,10 +1968,10 @@ body {
   .site-shell { padding-top: 64px; }
 
   /* Shell */
-  .page-stack { padding: 0 20px 48px; gap: 80px; }
+  .page-stack { padding: 0 20px 48px; gap: 120px; }
 
-  /* Hero */
-  .hero { gap: 24px; padding: 8px 0 0; }
+  /* Hero: fills first viewport so only logo+video+phrases+copy are above the fold */
+  .hero { gap: 24px; padding: 8px 0 0; min-height: calc(100dvh - 64px); justify-content: center; }
   .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
@@ -1996,12 +1996,10 @@ body {
   /* Section separator — tighter on mobile */
   .section-sep { margin: -20px auto -20px; }
 
-  /* Hero: hide duplicate FLORINSKY (already in mobile top bar) */
-  .hero-wordmark .wordmark { display: none; }
-  /* Hero: remove decorative lines flanking the eyebrow */
-  .tagline-rule { display: none; }
-  /* Hero: phrases match video inner width; smaller font so split stays 2 lines */
-  .hero-phrases { height: clamp(52px, 12vw, 100px); margin-top: 8px; max-width: calc(100% - 24px); }
+  /* Hero: hide wordmark block entirely on mobile (FLORINSKY is in fixed bar; eyebrow is below fold) */
+  .hero-wordmark { display: none; }
+  /* Hero: full-width phrases; smaller font so split stays 2 lines */
+  .hero-phrases { height: clamp(52px, 12vw, 100px); margin-top: 8px; }
   .hero-phrase  { font-size: clamp(15px, 4.7vw, 24px); padding: 0 4px; line-height: 1.35; }
 
   /* Section titles */
@@ -2097,7 +2095,7 @@ body {
    RESPONSIVE — small mobile (max 480px)
    ================================================================ */
 @media (max-width: 480px) {
-  .page-stack { padding: 0 16px 40px; gap: 52px; }
+  .page-stack { padding: 0 16px 40px; gap: 80px; }
 
   .wordmark { font-size: 36px; }
   .hero-copy h1 { font-size: 30px; }
