@@ -2000,16 +2000,16 @@ body {
   .hero-wordmark .wordmark { display: none; }
   /* Hero: hide decorative lines flanking the eyebrow */
   .tagline-rule { display: none; }
-  /* Hero phrases: align-self:stretch overrides hero's align-items:center,
-     then negative margins break out of page padding → true full screen width */
+  /* Hero phrases: 100vw forces viewport width regardless of align-items:center;
+     calc(50% - 50vw) = exact negative offset to align left edge with screen edge,
+     auto-adjusts for any page padding without needing breakpoint overrides */
   .hero-phrases {
     height: clamp(52px, 12vw, 100px);
     margin-top: 0;
-    align-self: stretch;
-    width: auto;
-    max-width: none;
-    margin-left: -20px;
-    margin-right: -20px;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: 0;
   }
   .hero-phrase  { font-size: clamp(15px, 4.7vw, 24px); padding: 0 20px; line-height: 1.35; }
 
@@ -2112,8 +2112,6 @@ body {
   .hero-copy h1 { font-size: 30px; }
   .hero-copy p { font-size: 15px; }
   .hero-ctas { max-width: 100%; }
-  /* Adjust phrases breakout for 16px page padding on small screens */
-  .hero-phrases { margin-left: -16px; margin-right: -16px; }
 
   .section-title h2 { font-size: 30px; }
   .about-page-header h1 { font-size: 32px; }
