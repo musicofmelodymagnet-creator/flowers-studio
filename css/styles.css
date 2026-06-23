@@ -956,9 +956,9 @@ body {
   gap: 8px;
 }
 .cc-inquiry-wrap .form-consent {
-  white-space: nowrap;
   font-size: 12px;
   max-width: none;
+  white-space: normal;
 }
 
 @media (max-width: 768px) {
@@ -1836,9 +1836,11 @@ body {
   align-items: center;
   transition: transform 380ms ease-in-out, background-color 280ms ease, box-shadow 280ms ease;
 }
+.mobile-top.nav-shadow {
+  box-shadow: 0 2px 12px rgba(142,95,182,0.10), 0 1px 4px rgba(0,0,0,0.07);
+}
 .mobile-top.nav-scrolled {
   background: var(--bg);
-  box-shadow: 0 2px 12px rgba(142,95,182,0.08), 0 1px 3px rgba(0,0,0,0.06);
 }
 .mobile-top.nav-hidden {
   transform: translateY(-100%);
@@ -1952,13 +1954,13 @@ body {
    RESPONSIVE — mobile (max 768px)
    ================================================================ */
 @media (max-width: 768px) {
-  /* Fix horizontal overflow — keep on html only; overflow on body breaks position:fixed on iOS */
-  html { overflow-x: hidden; }
-  body { max-width: 100%; }
+  /* Fix horizontal overflow on mobile */
+  html, body { overflow-x: hidden; max-width: 100%; }
 
   /* Switch to mobile nav */
   .site-nav        { display: none; }
-  .mobile-top      { display: flex; }
+  .mobile-top      { display: flex; justify-content: center; }
+  .mobile-burger   { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
   .mobile-nav-overlay { display: flex; }
 
   /* Shell: offset for fixed mobile bar */
@@ -1997,8 +1999,9 @@ body {
   .hero-wordmark .wordmark { display: none; }
   /* Hero: remove decorative lines flanking the eyebrow */
   .tagline-rule { display: none; }
-  /* Hero: more breathing room between video and phrases */
-  .hero-phrases { margin-top: 8px; }
+  /* Hero: more breathing room between video and phrases; smaller font so split stays 2 lines */
+  .hero-phrases { height: clamp(52px, 12vw, 100px); margin-top: 8px; }
+  .hero-phrase  { font-size: clamp(15px, 4.7vw, 24px); padding: 0 4px; line-height: 1.35; }
 
   /* Section titles */
   .section-title h2 { font-size: 38px; }
@@ -2065,13 +2068,16 @@ body {
   }
   .cta-row .neo-btn { text-align: center; width: 100%; }
 
-  /* Reviews carousel — full screen width, hide arrows (swipe available) */
+  /* Reviews carousel — full screen width, one card at a time, touch edges */
   .rv-carousel-wrap {
     margin-left: -20px;
     margin-right: -20px;
     padding: 0;
   }
   .rv-arrow { display: none; }
+  .rv-track { gap: 0; }
+  .rv-card  { flex: 0 0 100%; border-radius: 0; }
+  .rv-section { padding-top: 24px; }
 
   .site-footer { padding: 40px 20px; }
   .footer-inner {
@@ -2116,8 +2122,9 @@ body {
   .form-input, .form-textarea { padding: 15px 20px; font-size: 15px; }
 
   .mobile-nav-link { font-size: 22px; padding: 12px 40px; }
-  /* Reviews carousel — adjust for 16px padding */
+  /* Reviews carousel — adjust for 16px padding on smallest screens */
   .rv-carousel-wrap { margin-left: -16px; margin-right: -16px; }
+  .hero-phrase { font-size: clamp(14px, 4.5vw, 20px); }
 
   .site-footer { padding: 32px 16px; }
   .footer-inner { gap: 44px; }
