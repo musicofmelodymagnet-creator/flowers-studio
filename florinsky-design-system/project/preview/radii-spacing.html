@@ -1,0 +1,25 @@
+<!-- @dsCard group="Spacing" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html,body{margin:0;}
+  body{background:var(--bg);font-family:var(--font-sans);padding:30px 36px;display:flex;flex-direction:column;gap:22px;}
+  .grp{display:flex;align-items:center;gap:16px;}
+  .lab{font:500 13px/1.3 var(--font-sans);color:var(--ink-muted);width:64px;flex:none;}
+  .r{background:var(--surface);box-shadow:var(--elev-sm);height:56px;display:flex;align-items:center;justify-content:center;font:12px/1 var(--font-sans);color:var(--ink-muted);}
+  .bar{height:16px;background:var(--ink-mauve);border-radius:4px;opacity:.85;}
+</style></head><body>
+  <div class="grp"><span class="lab">Radii</span>
+    <div class="r" style="width:90px;border-radius:16px">16</div>
+    <div class="r" style="width:90px;border-radius:32px">card 32</div>
+    <div class="r" style="width:90px;border-radius:48px">panel 48</div>
+    <div class="r" style="width:120px;border-radius:9999px">pill</div>
+  </div>
+  <div class="grp"><span class="lab">Spacing</span>
+    <div class="bar" style="width:16px"></div><span class="lab" style="width:auto">16</span>
+    <div class="bar" style="width:32px"></div><span class="lab" style="width:auto">32</span>
+    <div class="bar" style="width:48px"></div><span class="lab" style="width:auto">48</span>
+    <div class="bar" style="width:96px"></div><span class="lab" style="width:auto">96</span>
+  </div>
+</body></html>

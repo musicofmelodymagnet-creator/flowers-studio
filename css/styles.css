@@ -1968,10 +1968,10 @@ body {
   .site-shell { padding-top: 64px; }
 
   /* Shell */
-  .page-stack { padding: 0 20px 48px; gap: 120px; }
+  .page-stack { padding: 0 20px 48px; gap: 48px; }
 
-  /* Hero: fills first viewport; tight top gap, more breathing between elements */
-  .hero { gap: 32px; padding: 8px 0 0; min-height: calc(100dvh - 64px); justify-content: flex-start; }
+  /* Hero: fills first viewport; space-evenly distributes empty space between all elements */
+  .hero { gap: 0; padding: 8px 0 0; min-height: calc(100dvh - 64px); justify-content: space-evenly; align-items: stretch; }
   .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
@@ -2000,19 +2000,18 @@ body {
   .hero-wordmark .wordmark { display: none; }
   /* Hero: hide decorative lines flanking the eyebrow */
   .tagline-rule { display: none; }
-  /* Hero phrases full screen width:
-     align-self:flex-start disables the hero's align-items:center for this element
-     so the item anchors to hero's left edge (not centered).
-     Then margin-left:calc(50%-50vw) = exact -page_padding shifts it to screen left edge.
-     width:100vw = full viewport. Works for any screen / padding automatically. */
+  /* Hero phrases full screen width — CSS-spec approach:
+     align-items:stretch on parent means item width = container_width - margin_left - margin_right.
+     With margin -20px on each side: width = (screen-40) - (-20) - (-20) = screen.
+     align-self:auto inherits stretch from parent. width:auto lets flex determine the size. */
   .hero-phrases {
     height: clamp(52px, 12vw, 100px);
     margin-top: 0;
-    align-self: flex-start;
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: 0;
+    align-self: auto;
+    width: auto;
+    max-width: none;
+    margin-left: -20px;
+    margin-right: -20px;
   }
   .hero-phrase  { font-size: clamp(15px, 4.7vw, 24px); padding: 0 20px; line-height: 1.35; }
 
@@ -2109,7 +2108,7 @@ body {
    RESPONSIVE — small mobile (max 480px)
    ================================================================ */
 @media (max-width: 480px) {
-  .page-stack { padding: 0 16px 40px; gap: 80px; }
+  .page-stack { padding: 0 16px 40px; gap: 48px; }
 
   .wordmark { font-size: 36px; }
   .hero-copy h1 { font-size: 30px; }

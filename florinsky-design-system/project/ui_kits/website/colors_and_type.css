@@ -1,0 +1,123 @@
+/* ============================================================
+   FLORINSKY ATELIER — Design Tokens
+   Soft pastel premium neumorphism. Warm rose + cream base,
+   lilac & dusty-rose surfaces. Harmonized from the source
+   Figma (cool greys + saturated violet were tuned warmer).
+   ============================================================ */
+
+/* Fonts loaded via Google Fonts in each HTML file:
+   Playfair Display (display serif wordmark) + Plus Jakarta Sans (UI) */
+
+:root {
+  /* ---- Core surfaces (warm, light) ---- */
+  --bg:            #EADCDB;  /* page base — warm rose-beige        */
+  --surface:       #F9F4F0;  /* raised cream — buttons, inputs     */
+  --surface-rose:  #DECED2;  /* dusty-rose card (feature cards)    */
+  --surface-lilac: #C4BAD3;  /* heather-lilac card (collections)   */
+  --surface-form:  #D4D6DB;  /* cool inset panel (inquiry form, per Figma) */
+  --surface-distinct: #DBCFE2; /* lilac inset panel (Premium Distinction) */
+  --frame:         #C3BDCF;  /* lilac frame around the 3 wall photos */
+
+  /* ---- Ink (warm browns, never pure black) ---- */
+  --ink:        #2D2626;  /* headings                      */
+  --ink-soft:   #4E4444;  /* body copy                     */
+  --ink-mauve:  #6B5A5B;  /* hero heading / button labels  */
+  --ink-muted:  #8A7B7C;  /* placeholder / hints           */
+  --on-dark:    #F9F4F0;  /* text on footer / dark fills   */
+
+  /* ---- Brand accent (saturated lilac) ---- */
+  --brand:       #A878D0;  /* wordmark, accent rules        */
+  --brand-deep:  #8E5FB6;  /* hover / pressed accent        */
+  --brand-soft:  #C9B0E0;  /* light accent tint / glows     */
+  --footer-bg:   #63535B;  /* deep mauve footer plate       */
+
+  /* =========================================================
+     UNIFIED NEUMORPHIC SHADOW SYSTEM
+     One style, consistent strength. A translucent white
+     highlight + a neutral warm-mauve shade read identically
+     on every surface (warm, cool, rose, lilac). Three tiers
+     (sm / md / lg) keep the geometry proportional; the only
+     thing that changes between elements is the tier.
+     ========================================================= */
+  --nm-light: rgba(255, 255, 255, 0.72);
+  --nm-dark:  rgba(112, 96, 110, 0.30);
+
+  /* Raised */
+  --elev-sm: -5px -5px 12px var(--nm-light), 5px 5px 12px var(--nm-dark);
+  --elev-md: -9px -9px 18px var(--nm-light), 9px 9px 18px var(--nm-dark);
+  --elev-lg: -16px -16px 32px var(--nm-light), 16px 16px 32px var(--nm-dark);
+  /* Button hover — a touch deeper than its rest (md) state */
+  --elev-hover: -12px -12px 24px var(--nm-light), 12px 12px 24px var(--nm-dark);
+
+  /* Pressed / inset wells */
+  --inset-sm: inset -4px -4px 10px var(--nm-light), inset 4px 4px 10px var(--nm-dark);
+  --inset-md: inset -8px -8px 16px var(--nm-light), inset 8px 8px 16px var(--nm-dark);
+  --inset-lg: inset -13px -13px 26px var(--nm-light), inset 13px 13px 26px var(--nm-dark);
+
+  /* Back-compat aliases (cards previously used surface-tinted pairs) */
+  --elev-rose:  var(--elev-md);
+  --elev-lilac: var(--elev-md);
+  --inset-form: var(--inset-lg);
+  --inset-input: var(--inset-md);
+
+  /* Accent glow — premium focus / active highlight */
+  --glow-accent: 0 0 0 1px rgba(168,120,208,0.25), -8px -8px 18px var(--nm-light), 8px 8px 18px rgba(142,95,182,0.28);
+
+  /* =========================================================
+     TYPE  —  Playfair Display (serif) + Plus Jakarta Sans
+     ========================================================= */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+  /* Roles */
+  --wordmark:   400 68px/1   var(--font-display); /* FLORINSKY hero  */
+  --wordmark-sm:400 28px/1.5 var(--font-display); /* footer brand    */
+
+  --h1:    700 80px/1.25  var(--font-sans);   /* hero headline       */
+  --h2:    700 48px/1.17  var(--font-sans);   /* section titles      */
+  --h2-lg: 700 54px/1.5   var(--font-sans);   /* form title          */
+  --h3:    700 32px/1.25  var(--font-sans);   /* card titles         */
+  --body-lg: 400 18px/1.625 var(--font-sans); /* hero subcopy        */
+  --body:    400 16px/1.5   var(--font-sans); /* default body        */
+  --label:   700 16px/1.5   var(--font-sans); /* form labels         */
+  --btn:     700 16px/1.5   var(--font-sans); /* button labels       */
+
+  /* Letter-spacing roles */
+  --ls-wordmark: 0.05em;   /* 3.4px on 68 */
+  --ls-eyebrow:  0.5em;    /* 8px  — THE ART OF FLORAL DESIGN */
+  --ls-btn:      0.1em;    /* 1.6px on 16 */
+  --ls-cta:      0.25em;   /* 4px — SEND INQUIRY */
+  --ls-h2:       -0.02em;  /* tight display tracking */
+
+  /* ---- Radii ---- */
+  --r-pill: 9999px;
+  --r-card: 32px;
+  --r-panel: 48px;
+  --r-icon: 9999px;
+
+  /* ---- Spacing scale (8pt) ---- */
+  --s-1: 8px;  --s-2: 16px;  --s-3: 24px;  --s-4: 32px;
+  --s-6: 48px; --s-8: 64px;  --s-10: 80px; --s-12: 96px;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 280ms;
+}
+
+/* ---- Base type helpers ---- */
+.fl-eyebrow {
+  font: var(--body);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.fl-wordmark {
+  font: var(--wordmark);
+  letter-spacing: var(--ls-wordmark);
+  color: var(--brand);
+}
+.fl-h1 { font: var(--h1); color: var(--ink-mauve); letter-spacing: -0.01em; }
+.fl-h2 { font: var(--h2); color: var(--ink); letter-spacing: var(--ls-h2); }
+.fl-h3 { font: var(--h3); color: var(--ink); letter-spacing: -0.01em; }
+.fl-body { font: var(--body); color: var(--ink-soft); }
+.fl-body-lg { font: var(--body-lg); color: var(--ink-soft); }

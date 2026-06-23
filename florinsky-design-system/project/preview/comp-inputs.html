@@ -1,0 +1,15 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html,body{margin:0;}
+  body{background:var(--surface-form);font-family:var(--font-sans);padding:30px 36px;display:flex;flex-direction:column;gap:18px;}
+  label{display:flex;flex-direction:column;gap:10px;}
+  .lab{font:var(--label);color:var(--ink-soft);padding-left:16px;}
+  .inp{border:none;outline:none;border-radius:var(--r-pill);background:var(--surface);box-shadow:var(--inset-input);padding:16px 24px;font:var(--body);color:var(--ink-muted);}
+  .ta{border-radius:var(--r-card);}
+</style></head><body>
+  <label><span class="lab">Name</span><div class="inp">Your name</div></label>
+  <label><span class="lab">Message</span><div class="inp ta" style="padding-bottom:40px">Describe your wishes...</div></label>
+</body></html>

@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<style>
+  html,body{margin:0;}
+  body{background:var(--surface-distinct);font-family:var(--font-sans);padding:28px 32px;box-shadow:var(--inset-lg);display:flex;flex-direction:column;gap:14px;}
+  .row{border-radius:24px;background:var(--surface);box-shadow:var(--elev-sm);display:flex;align-items:center;gap:20px;padding:20px 24px;}
+  .row.open{box-shadow:var(--elev-hover);}
+  .num{font:700 15px/1 var(--font-sans);color:var(--brand);width:24px;flex:none;}
+  .num.on{color:var(--brand-deep);}
+  .t{flex:1;font:600 18px/1.4 var(--font-sans);color:var(--ink);}
+  .t.on{color:var(--brand-deep);}
+  .chev{width:36px;height:36px;flex:none;border-radius:9999px;display:grid;place-items:center;box-shadow:var(--elev-sm);}
+  .chev.on{box-shadow:var(--inset-sm);transform:rotate(180deg);}
+  .chev i{color:var(--ink-mauve);}
+  .chev.on i{color:var(--brand-deep);}
+  .detail{padding:2px 24px 6px 64px;}
+  .rule{width:48px;height:3px;border-radius:9999px;background:var(--brand-soft);margin-bottom:12px;}
+  .detail p{font:16px/1.5 var(--font-sans);color:var(--ink-soft);margin:0;}
+</style></head><body>
+  <div class="row open" style="flex-direction:column;align-items:stretch;gap:14px;">
+    <div style="display:flex;align-items:center;gap:20px;">
+      <span class="num on">01</span>
+      <span class="t on">Floral realism that leaves your guests in awe.</span>
+      <span class="chev on"><i data-lucide="chevron-down"></i></span>
+    </div>
+    <div class="detail"><div class="rule"></div><p>Every bloom is placed by hand for true botanical realism — guests reach out to touch it.</p></div>
+  </div>
+  <div class="row"><span class="num">02</span><span class="t">One-of-a-kind design in all of Canada.</span><span class="chev"><i data-lucide="chevron-down"></i></span></div>
+  <script>lucide.createIcons({attrs:{width:20,height:20,'stroke-width':2}});</script>
+</body></html>
