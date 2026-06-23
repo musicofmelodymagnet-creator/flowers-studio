@@ -1970,8 +1970,8 @@ body {
   /* Shell */
   .page-stack { padding: 0 20px 48px; gap: 120px; }
 
-  /* Hero: fills first viewport; 20px top padding keeps eyebrow below the fixed bar */
-  .hero { gap: 24px; padding: 20px 0 0; min-height: calc(100dvh - 64px); justify-content: center; }
+  /* Hero: fills first viewport; tight top gap, more breathing between elements */
+  .hero { gap: 32px; padding: 8px 0 0; min-height: calc(100dvh - 64px); justify-content: flex-start; }
   .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
@@ -2000,14 +2000,18 @@ body {
   .hero-wordmark .wordmark { display: none; }
   /* Hero: hide decorative lines flanking the eyebrow */
   .tagline-rule { display: none; }
-  /* Hero phrases: break out of page-stack padding → full screen width */
+  /* Hero phrases: align-self:stretch overrides hero's align-items:center,
+     then negative margins break out of page padding → true full screen width */
   .hero-phrases {
     height: clamp(52px, 12vw, 100px);
-    margin-top: 8px;
-    width: calc(100% + 40px);
+    margin-top: 0;
+    align-self: stretch;
+    width: auto;
+    max-width: none;
     margin-left: -20px;
+    margin-right: -20px;
   }
-  .hero-phrase  { font-size: clamp(15px, 4.7vw, 24px); padding: 0 4px; line-height: 1.35; }
+  .hero-phrase  { font-size: clamp(15px, 4.7vw, 24px); padding: 0 20px; line-height: 1.35; }
 
   /* Section titles */
   .section-title h2 { font-size: 38px; }
@@ -2108,8 +2112,8 @@ body {
   .hero-copy h1 { font-size: 30px; }
   .hero-copy p { font-size: 15px; }
   .hero-ctas { max-width: 100%; }
-  /* Adjust phrases breakout for 16px page padding */
-  .hero-phrases { width: calc(100% + 32px); margin-left: -16px; }
+  /* Adjust phrases breakout for 16px page padding on small screens */
+  .hero-phrases { margin-left: -16px; margin-right: -16px; }
 
   .section-title h2 { font-size: 30px; }
   .about-page-header h1 { font-size: 32px; }

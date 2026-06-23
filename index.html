@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=7" />
+  <link rel="stylesheet" href="css/styles.css?v=8" />
 
   <style>
     /* ── Reviews carousel ──────────────────────────────────────── */
@@ -1622,7 +1622,7 @@
           bar.classList.remove('nav-shadow', 'nav-scrolled', 'nav-hidden');
           lastY = 0; ticking = false; return;
         }
-        if (y > 20) {
+        if (y > 8) {
           bar.classList.add('nav-scrolled');
           if (y > lastY + 4)      bar.classList.add('nav-hidden');
           else if (y < lastY - 4) bar.classList.remove('nav-hidden');
