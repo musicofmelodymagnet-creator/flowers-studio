@@ -1962,15 +1962,16 @@ body {
   .mobile-top      { display: flex; justify-content: center; }
   .mobile-burger   { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
   .mobile-nav-overlay { display: flex; }
+  .mobile-wordmark { font-size: 30px; }
 
   /* Shell: offset for fixed mobile bar */
   .site-shell { padding-top: 64px; }
 
   /* Shell */
-  .page-stack { padding: 0 20px 48px; gap: 64px; }
+  .page-stack { padding: 0 20px 48px; gap: 80px; }
 
   /* Hero */
-  .hero { gap: 40px; padding: 28px 0 0; }
+  .hero { gap: 24px; padding: 8px 0 0; }
   .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
@@ -1993,14 +1994,14 @@ body {
   .hero-yt-wrap { border-radius: 16px; }
 
   /* Section separator — tighter on mobile */
-  .section-sep { margin: -32px auto -32px; }
+  .section-sep { margin: -20px auto -20px; }
 
   /* Hero: hide duplicate FLORINSKY (already in mobile top bar) */
   .hero-wordmark .wordmark { display: none; }
   /* Hero: remove decorative lines flanking the eyebrow */
   .tagline-rule { display: none; }
-  /* Hero: more breathing room between video and phrases; smaller font so split stays 2 lines */
-  .hero-phrases { height: clamp(52px, 12vw, 100px); margin-top: 8px; }
+  /* Hero: phrases match video inner width; smaller font so split stays 2 lines */
+  .hero-phrases { height: clamp(52px, 12vw, 100px); margin-top: 8px; max-width: calc(100% - 24px); }
   .hero-phrase  { font-size: clamp(15px, 4.7vw, 24px); padding: 0 4px; line-height: 1.35; }
 
   /* Section titles */
@@ -2068,16 +2069,15 @@ body {
   }
   .cta-row .neo-btn { text-align: center; width: 100%; }
 
-  /* Reviews carousel — full screen width, one card at a time, touch edges */
+  /* Reviews carousel — full-width viewport, 75% cards, center+peek both sides */
   .rv-carousel-wrap {
     margin-left: -20px;
     margin-right: -20px;
     padding: 0;
   }
   .rv-arrow { display: none; }
-  .rv-track { gap: 0; }
-  .rv-card  { flex: 0 0 100%; border-radius: 0; }
-  .rv-section { padding-top: 24px; }
+  .rv-track { gap: 16px; }
+  .rv-card  { flex: 0 0 75%; border-radius: var(--r-card); }
 
   .site-footer { padding: 40px 20px; }
   .footer-inner {
