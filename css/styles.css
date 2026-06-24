@@ -1577,7 +1577,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: -64px auto 0;
+  margin: -64px auto 64px;
   background: linear-gradient(
     to right,
     transparent,
@@ -1844,7 +1844,7 @@ body {
 }
 
 .mobile-wordmark {
-  font: 400 26px/1 var(--font-display);
+  font: 400 30px/1 var(--font-display);
   letter-spacing: 0.05em;
   color: var(--brand);
   text-decoration: none;
@@ -1929,7 +1929,7 @@ body {
    ================================================================ */
 @media (max-width: 1024px) {
   .page-stack { padding: 0 40px 64px; gap: 96px; }
-  .section-sep { margin: -48px auto 0; }
+  .section-sep { margin: -48px auto 48px; }
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
   .hero-copy h1  { font-size: 48px; }
@@ -1961,7 +1961,7 @@ body {
   .mobile-top      { display: flex; justify-content: center; }
   .mobile-burger   { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
   .mobile-nav-overlay { display: flex; }
-  .mobile-wordmark { font-size: 30px; }
+  .mobile-wordmark { font-size: 35px; }
 
   /* Shell: offset for fixed mobile bar */
   .site-shell { padding-top: 64px; }
@@ -1992,8 +1992,8 @@ body {
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
 
-  /* Section separator — top gap is 2× less than bottom gap (1:2 ratio at gap:48px) */
-  .section-sep { margin: -20px auto 8px; }
+  /* Section separator — top gap is 3× less than bottom gap (1:3 ratio at gap:48px) */
+  .section-sep { margin: -20px auto 36px; }
 
   /* Hero: hide only the big FLORINSKY span (already in fixed bar); keep eyebrow tagline visible */
   .hero-wordmark .wordmark { display: none; }
