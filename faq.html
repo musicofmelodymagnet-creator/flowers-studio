@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=12" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
 
   <style>
     /* ═══════════════════════════════════════════════
@@ -498,12 +498,12 @@
       </div>
     </nav>
 
-    <main class="page-stack" style="gap: 0; padding-top: 80px">
+    <main class="page-stack" style="gap: 0">
 
       <!-- ── Hero ──────────────────────────────────────── -->
       <section class="faq-hero">
         <h1>FAQ</h1>
-        <p class="faq-hero-sub">Everything you might wish to know — carefully gathered</p>
+        <p class="faq-hero-sub">Everything you might wish to know —<br>carefully gathered</p>
       </section>
 
       <!-- ── Accordion ─────────────────────────────────── -->
@@ -890,7 +890,20 @@
       mobileBurger.classList.toggle('open', !open);
       mobileBurger.setAttribute('aria-expanded', String(!open));
       mobileOverlay.setAttribute('aria-hidden', String(open));
-      document.body.style.overflow = open ? '' : 'hidden';
+      var scrollY = open ? parseInt(document.body.dataset.scrollY || '0') : window.scrollY;
+      if (!open) {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + scrollY + 'px';
+        document.body.style.width = '100%';
+        document.body.dataset.scrollY = scrollY;
+      } else {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+      }
     }
     mobileBurger.addEventListener('click', () => toggleMenu(false));
     mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(l =>

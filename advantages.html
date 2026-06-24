@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=12" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
   <style>
     /* Page-level overrides for advantages.html */
     .adv-page-hero {
@@ -594,6 +594,7 @@
         }
 
         btn.classList.toggle('open', !isOpen);
+        card.classList.toggle('card-open', !isOpen);
         btn.setAttribute('aria-expanded', String(!isOpen));
         btn.querySelector('.adv-toggle-label').textContent = isOpen ? 'Read More' : 'Read Less';
       });
@@ -610,7 +611,20 @@
       mobileBurger.classList.toggle('open', !isOpen);
       mobileBurger.setAttribute('aria-expanded', String(!isOpen));
       mobileOverlay.setAttribute('aria-hidden', String(isOpen));
-      document.body.style.overflow = isOpen ? '' : 'hidden';
+      var scrollY = isOpen ? parseInt(document.body.dataset.scrollY || '0') : window.scrollY;
+      if (!isOpen) {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + scrollY + 'px';
+        document.body.style.width = '100%';
+        document.body.dataset.scrollY = scrollY;
+      } else {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+      }
     }
 
     mobileBurger.addEventListener('click', () => toggleMobileMenu(false));

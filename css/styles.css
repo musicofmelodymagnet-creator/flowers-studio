@@ -1330,8 +1330,8 @@ body {
 
 /* Circular avatar — inverted neumorphic on dark bg, single-ring */
 .about-avatar-wrap {
-  width: 200px;
-  height: 200px;
+  width: 260px;
+  height: 260px;
   border-radius: 9999px;
   background: var(--surface);
   box-shadow:
@@ -1407,10 +1407,7 @@ body {
 }
 
 .about-divider {
-  width: 64px;
-  height: 3px;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, var(--brand-soft), var(--brand));
+  display: none;
 }
 
 /* ② Story panel — cream background, full reading text */
@@ -1489,7 +1486,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .about-avatar-wrap { width: 160px; height: 160px; }
+  .about-avatar-wrap { width: 208px; height: 208px; }
   .about-name { font-size: 32px; }
   .about-bio { font-size: 15px; }
   .about-story { padding: 32px 20px; }
@@ -1580,7 +1577,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: -55px auto -5px;
+  margin: -64px auto 0;
   background: linear-gradient(
     to right,
     transparent,
@@ -1932,6 +1929,7 @@ body {
    ================================================================ */
 @media (max-width: 1024px) {
   .page-stack { padding: 0 40px 64px; gap: 96px; }
+  .section-sep { margin: -48px auto 0; }
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
   .hero-copy h1  { font-size: 48px; }
@@ -1994,8 +1992,8 @@ body {
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
 
-  /* Section separator — sep peeks at fold, doubled gap to section title */
-  .section-sep { margin: -50px auto 8px; }
+  /* Section separator — top gap is 2× less than bottom gap (1:2 ratio at gap:48px) */
+  .section-sep { margin: -20px auto 8px; }
 
   /* Hero: hide only the big FLORINSKY span (already in fixed bar); keep eyebrow tagline visible */
   .hero-wordmark .wordmark { display: none; }
@@ -2006,7 +2004,7 @@ body {
      With margin -20px on each side: width = (screen-40) - (-20) - (-20) = screen.
      align-self:auto inherits stretch from parent. width:auto lets flex determine the size. */
   .hero-phrases {
-    height: clamp(64px, 15vw, 120px);
+    height: clamp(70px, 16.5vw, 132px);
     margin-top: 0;
     align-self: auto;
     width: auto;
@@ -2014,7 +2012,7 @@ body {
     margin-left: -20px;
     margin-right: -20px;
   }
-  .hero-phrase  { font-size: clamp(18px, 5.6vw, 29px); padding: 0 20px; line-height: 1.35; }
+  .hero-phrase  { font-size: clamp(20px, 6.2vw, 32px); padding: 0 20px; line-height: 1.35; }
 
   /* Section titles */
   .section-title h2 { font-size: 38px; }
@@ -2136,7 +2134,7 @@ body {
   .mobile-nav-link { font-size: 22px; padding: 12px 40px; }
   /* Reviews carousel — adjust for 16px padding on smallest screens */
   .rv-carousel-wrap { margin-left: -16px; margin-right: -16px; }
-  .hero-phrase { font-size: clamp(17px, 5.4vw, 24px); }
+  .hero-phrase { font-size: clamp(19px, 5.9vw, 26px); }
 
   .site-footer { padding: 32px 16px; }
   .footer-inner { gap: 44px; }
@@ -3581,11 +3579,11 @@ body {
 /* ================================================================
    PAGE-LEVEL GAP MODIFIERS (replaces inline style="gap:Xpx")
    ================================================================ */
-.page-stack--about    { gap: 80px; }
+.page-stack--about    { gap: 80px; padding-bottom: 192px; }
 .page-stack--locations { gap: 72px; }
 
 @media (max-width: 768px) {
-  .page-stack--about    { gap: 48px; }
+  .page-stack--about    { gap: 48px; padding-bottom: 144px; }
   .page-stack--locations { gap: 40px; }
 }
 
