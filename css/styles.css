@@ -1577,7 +1577,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: -64px auto 64px;
+  margin: -64px auto 128px;
   background: linear-gradient(
     to right,
     transparent,
@@ -1929,7 +1929,7 @@ body {
    ================================================================ */
 @media (max-width: 1024px) {
   .page-stack { padding: 0 40px 64px; gap: 96px; }
-  .section-sep { margin: -48px auto 48px; }
+  .section-sep { margin: -48px auto 96px; }
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
   .hero-copy h1  { font-size: 48px; }
@@ -1992,8 +1992,8 @@ body {
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
 
-  /* Section separator — top gap is 3× less than bottom gap (1:3 ratio at gap:48px) */
-  .section-sep { margin: -20px auto 36px; }
+  /* Section separator — top gap is 4× less than bottom gap (1:4 ratio at gap:48px) */
+  .section-sep { margin: -20px auto 64px; }
 
   /* Hero: hide only the big FLORINSKY span (already in fixed bar); keep eyebrow tagline visible */
   .hero-wordmark .wordmark { display: none; }
