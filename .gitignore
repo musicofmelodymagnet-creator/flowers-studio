@@ -1,4 +1,31 @@
+# macOS
 .DS_Store
+**/.DS_Store
+
+# Claude Code / AI tools
+.agents/
+.claude/
+SKILL.md
+skills-lock.json
+PRODUCT.md
+
+# Development & design tools
+florinsky-design-system/
+mobile-audit.html
+
+# Business documents (not for hosting)
+GEO-AUDIT-REPORT.md
+GEO Аудит сайта от 19 июня.pdf
+Moya filosofia brenda (flowers).docx
+TZ for website - flowers.xlsx
+
+# Source materials — originals, not for hosting (use assets/ instead)
+Photos/
+Videos/
+Документы на сайт/
+Мозги чата/
+
+# Common dev
 node_modules/
 .env
 .env.local
