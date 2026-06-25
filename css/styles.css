@@ -1969,8 +1969,8 @@ body {
   /* Shell */
   .page-stack { padding: 0 20px 48px; gap: 48px; }
 
-  /* Hero: fills first viewport; space-between distributes space between elements, 20px from bottom edge */
-  .hero { gap: 0; padding: 8px 0 20px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
+  /* Hero: fills first viewport; space-between distributes space between elements, 48px from bottom edge */
+  .hero { gap: 0; padding: 8px 0 48px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
   .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
@@ -1991,12 +1991,6 @@ body {
   .hero-plate img,
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
-
-  /* Hero mobile order: slogans → video → tagline → description */
-  .hero-phrases  { order: 1; }
-  .hero-plate    { order: 2; }
-  .hero-wordmark { order: 3; }
-  .hero-copy     { order: 4; }
 
   /* Section separator — 1:4 ratio (top=24px, bottom=96px) at gap:48px */
   .section-sep { margin: -24px auto 48px; }
