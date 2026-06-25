@@ -117,13 +117,21 @@
   }
   function scrollBottom() { msgs.scrollTop = msgs.scrollHeight; }
 
+  function fmtBot(s) {
+    return s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
   function addMsg(text, type) {
     var row = document.createElement('div');
     row.className = 'cw-msg cw-msg--' + type;
     if (type === 'mgr') {
-      row.innerHTML = '<div class="cw-msg-ava">O</div><div class="cw-msg-bubble">' + text + '<span class="cw-msg-time">' + getTime() + '</span></div>';
+      row.innerHTML = '<div class="cw-msg-ava">O</div><div class="cw-msg-bubble">' + fmtBot(text) + '<span class="cw-msg-time">' + getTime() + '</span></div>';
     } else {
-      row.innerHTML = '<div class="cw-msg-bubble">' + text + '<span class="cw-msg-time">' + getTime() + '</span></div>';
+      row.innerHTML = '<div class="cw-msg-bubble">' + escHtml(text) + '<span class="cw-msg-time">' + getTime() + '</span></div>';
     }
     msgs.appendChild(row);
     scrollBottom();

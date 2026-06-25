@@ -1072,12 +1072,17 @@
 
         function scrollBottom() { msgs.scrollTop = msgs.scrollHeight; }
 
+        function fmtBot(s) {
+          return s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                  .replace(/\n/g, '<br>');
+        }
+
         function addMsg(text, type) {
           const row = document.createElement('div');
           row.className = 'cc-msg cc-msg--' + type;
           if (type === 'mgr') {
             row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
-              '<div class="cc-msg-bubble">' + text +
+              '<div class="cc-msg-bubble">' + fmtBot(text) +
               '<span class="cc-msg-time">' + getTime() + '</span></div>';
           } else {
             row.innerHTML = '<div class="cc-msg-bubble">' + escHtml(text) +
