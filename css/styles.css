@@ -937,7 +937,7 @@ body {
 .cc-inquiry-wrap .form-input,
 .cc-inquiry-wrap .form-textarea {
   padding: 13px 20px;
-  font-size: 14px;
+  font-size: 16px;
   box-shadow: 0 0 0 0 transparent,
               inset -8px -8px 16px rgba(255,255,255,0.72),
               inset  8px  8px 16px rgba(112,96,110,0.30) !important;
@@ -1577,7 +1577,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: -64px auto 128px;
+  margin: -96px auto 128px;
   background: linear-gradient(
     to right,
     transparent,
@@ -1929,7 +1929,7 @@ body {
    ================================================================ */
 @media (max-width: 1024px) {
   .page-stack { padding: 0 40px 64px; gap: 96px; }
-  .section-sep { margin: -48px auto 96px; }
+  .section-sep { margin: -72px auto 96px; }
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
   .hero-copy h1  { font-size: 48px; }
@@ -1992,8 +1992,8 @@ body {
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
 
-  /* Section separator — top gap is 4× less than bottom gap (1:4 ratio at gap:48px) */
-  .section-sep { margin: -20px auto 64px; }
+  /* Section separator — top gap halved; bottom still 4× original top (1:8 at gap:48px) */
+  .section-sep { margin: -34px auto 64px; }
 
   /* Hero: hide only the big FLORINSKY span (already in fixed bar); keep eyebrow tagline visible */
   .hero-wordmark .wordmark { display: none; }
@@ -2129,7 +2129,7 @@ body {
   .inquiry-header h2 { font-size: 22px; white-space: nowrap; }
   .inquiry-header p { font-size: 14px; }
   .form-field label { font-size: 14px; }
-  .form-input, .form-textarea { padding: 15px 20px; font-size: 15px; }
+  .form-input, .form-textarea { padding: 15px 20px; font-size: 16px; }
 
   .mobile-nav-link { font-size: 22px; padding: 12px 40px; }
   /* Reviews carousel — adjust for 16px padding on smallest screens */
