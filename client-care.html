@@ -763,11 +763,11 @@
             <div class="cc-chat cc-chat--primary">
               <div class="cc-chat-hdr">
                 <div class="cc-chat-hdr-avatar">
-                  <div class="cc-hdr-ava-img"><img src="assets/ava-chat.jpg" alt="Lily"></div>
+                  <div class="cc-hdr-ava-img"><img src="assets/ava-chat.jpg" alt="Olivia"></div>
                   <span class="cc-chat-hdr-avatar-dot" id="chatAvatarDot"></span>
                 </div>
                 <div class="cc-chat-hdr-info">
-                  <span class="cc-chat-hdr-name">Lily</span>
+                  <span class="cc-chat-hdr-name">Olivia</span>
                 </div>
                 <span class="cc-chat-hdr-status" id="chatStatus">
                   <span class="cc-chat-hdr-status-text">
@@ -785,46 +785,6 @@
                   <input class="cc-chat-input" id="chatInput" type="text" placeholder="Type your message…" autocomplete="off" maxlength="300" />
                 </div>
                 <button class="cc-chat-send" id="chatSend" aria-label="Send message">
-                  <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ── DUAL CHAT 2 ───────────────────────────────────────── -->
-
-      <div class="cc-dual-chat">
-
-        <div class="cc-chat-column">
-          <div class="cc-chat-wrap">
-            <div class="cc-chat cc-chat--primary">
-              <div class="cc-chat-hdr">
-                <div class="cc-chat-hdr-avatar">
-                  <div class="cc-hdr-ava-img"><img src="assets/ava-chat.jpg" alt="Lily"></div>
-                  <span class="cc-chat-hdr-avatar-dot" id="chat2AvatarDot"></span>
-                </div>
-                <div class="cc-chat-hdr-info">
-                  <span class="cc-chat-hdr-name">Lily</span>
-                </div>
-                <span class="cc-chat-hdr-status" id="chat2Status">
-                  <span class="cc-chat-hdr-status-text">
-                    <span class="cc-hdr-online-line">
-                      <span>Online</span>
-                      <span class="cc-chat-hdr-status-dot" id="chat2StatusDot"></span>
-                    </span>
-                    <span>responds within minute</span>
-                  </span>
-                </span>
-              </div>
-              <div class="cc-chat-msgs" id="chat2Msgs"></div>
-              <div class="cc-chat-input-row">
-                <div class="cg-input-wrap">
-                  <input class="cc-chat-input" id="chat2Input" type="text" placeholder="Type your message…" autocomplete="off" maxlength="300" />
-                </div>
-                <button class="cc-chat-send" id="chat2Send" aria-label="Send message">
                   <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                 </button>
               </div>
@@ -1116,7 +1076,7 @@
           const row = document.createElement('div');
           row.className = 'cc-msg cc-msg--' + type;
           if (type === 'mgr') {
-            row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
+            row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
               '<div class="cc-msg-bubble">' + text +
               '<span class="cc-msg-time">' + getTime() + '</span></div>';
           } else {
@@ -1132,7 +1092,7 @@
           const t = document.createElement('div');
           t.className = 'cc-typing';
           t.id = ids.typing;
-          t.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
+          t.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
             '<div class="cc-typing-bubble">' +
             '<span class="cc-typing-dot"></span>' +
             '<span class="cc-typing-dot"></span>' +
@@ -1213,12 +1173,12 @@
           if (status) status.classList.add('status-on');
         }, 3000);
 
-        // 5s — Lily sends greeting
+        // 5s — Olivia sends greeting
         var GREETINGS = [
-          'Hi! I\'m Lily. Let me know if you have any questions.',
-          'Hi! I\'m Lily. I\'m here if you have any questions.',
-          'Hi! I\'m Lily. Happy to help with any questions.',
-          'Hi! I\'m Lily. I\'m here to help if you need anything.',
+          'Hi! I\'m Olivia. Let me know if you have any questions.',
+          'Hi! I\'m Olivia. I\'m here if you have any questions.',
+          'Hi! I\'m Olivia. Happy to help with any questions.',
+          'Hi! I\'m Olivia. I\'m here to help if you need anything.',
         ];
         setTimeout(function () {
           var greeting  = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
@@ -1233,10 +1193,8 @@
         scrollBottom();
       }
 
-      initChat({ msgs: 'chatMsgs',  input: 'chatInput',  send: 'chatSend',  quick: 'chatQuick',
-                 typing: 'ccTyping',  avatarDot: 'chatAvatarDot',  statusDot: 'chatStatusDot',  status: 'chatStatus' });
-      initChat({ msgs: 'chat2Msgs', input: 'chat2Input', send: 'chat2Send', quick: 'chat2Quick',
-                 typing: 'ccTyping2', avatarDot: 'chat2AvatarDot', statusDot: 'chat2StatusDot', status: 'chat2Status' });
+      initChat({ msgs: 'chatMsgs', input: 'chatInput', send: 'chatSend', quick: 'chatQuick',
+                 typing: 'ccTyping', avatarDot: 'chatAvatarDot', statusDot: 'chatStatusDot', status: 'chatStatus' });
     })();
 
     // ── Inquiry form ─────────────────────────────────────────────

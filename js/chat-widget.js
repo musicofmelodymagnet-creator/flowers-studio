@@ -62,49 +62,9 @@
   ].join('');
   document.head.appendChild(st);
 
-  /* ── Bot rules ──────────────────────────────────────────────── */
-  var RULES = [
-    { keys: ['color','colour','white','pink','burgundy','green','palette','shade'],
-      reply: 'We have four designs — Burgundy, White, Pink, and Green Real Touch. Each photographs differently, so it comes down to your colour scheme and venue. Which are you working with?' },
-    { keys: ['price','cost','how much','pricing','rate','fee','charge'],
-      reply: 'Pricing depends on rental duration and your area. Send over your event date and city and I can put together an accurate quote.' },
-    { keys: ['size','dimension','big','large','small','ft','feet','11','14'],
-      reply: 'Three sizes: Classic 8×8 ft, Grand 11×8 ft, and XL 14×8 ft. For weddings the Grand or XL usually works better — more people fit in frame.' },
-    { keys: ['book','reserve','order','availability','available'],
-      reply: 'Happy to check availability for your date. What day are you thinking, and which area are you in?' },
-    { keys: ['deliver','setup','install','arrive','bring','transport'],
-      reply: 'We handle full delivery and setup across Toronto and the GTA. Everything is ready before your guests arrive.' },
-    { keys: ['real touch','artificial','fake','realistic','silk','plastic'],
-      reply: 'Real Touch flowers replicate real petals — the texture is very convincing. They also photograph much better than silk.' },
-    { keys: ['semi','circle','circular','curved','arc','shape','360'],
-      reply: 'Yes, we offer a semi-circular setup. It gives much more depth than a flat wall — wraps around people naturally.' },
-    { keys: ['outdoor','outside','wind','uneven','slope','hill','terrain','grass'],
-      reply: 'No issue with outdoor setups. The walls have an adjustable leg system for uneven ground and handle wind well.' },
-    { keys: ['guarantee','contract','money back','refund','insurance','promise'],
-      reply: 'We have a financial guarantee in the contract — if we fail to deliver, you get 3× the order value back. No other decor company in Canada offers that.' },
-    { keys: ['toronto','gta','mississauga','brampton','vaughan','markham','richmond','oakville'],
-      reply: 'We cover all of Toronto and the GTA. Outside that area — just share your location and we\'ll work something out.' },
-    { keys: ['unique','exclusive','canada','different','nobody','no one'],
-      reply: 'FLORINSKY offers Real Touch exclusivity, semi-circular setup, reinforced outdoor structures, and a financial delivery guarantee — a pretty different package.' },
-    { keys: ['photo','photograph','picture','camera','instagram','shot'],
-      reply: 'The walls are designed with photography in mind. The texture and depth make images look substantial, not flat.' },
-    { keys: ['hello','hi','hey','good morning','good afternoon','good evening'],
-      reply: 'Hey! What would you like to know about our flower walls?' },
-    { keys: ['thank','thanks','awesome','perfect','great','wonderful'],
-      reply: 'Of course! Anything else you\'d like to know?' },
-    { keys: ['wedding','bride','groom','ceremony','reception'],
-      reply: 'Weddings are what we do most. The wall tends to become the main gathering spot all evening. What\'s your date?' },
-    { keys: ['birthday','party','corporate','baby shower','bridal shower','anniversary','event'],
-      reply: 'Flower walls work well for any event — weddings, birthdays, corporate, baby showers, all of it. What are you planning?' },
-  ];
-
-  function getBotReply(text) {
-    var t = text.toLowerCase();
-    for (var i = 0; i < RULES.length; i++) {
-      if (RULES[i].keys.some(function(k){ return t.includes(k); })) return RULES[i].reply;
-    }
-    return 'Good question — could you give me a bit more detail? Or fill out the inquiry form on our Contacts page and I\'ll get back to you shortly.';
-  }
+  /* ── Conversation history ───────────────────────────────────── */
+  var cwHistory   = [];
+  var cwIsSending = false;
 
   /* ── Popup HTML ─────────────────────────────────────────────── */
   var popup = document.createElement('div');
@@ -114,10 +74,10 @@
     '<div class="cw-chat">' +
       '<div class="cw-hdr">' +
         '<div class="cw-hdr-avatar">' +
-          '<span class="cw-hdr-letter">L</span>' +
+          '<span class="cw-hdr-letter">O</span>' +
           '<span class="cw-hdr-dot" id="cwAvaDot"></span>' +
         '</div>' +
-        '<div class="cw-hdr-info"><span class="cw-hdr-name">Lily</span></div>' +
+        '<div class="cw-hdr-info"><span class="cw-hdr-name">Olivia</span></div>' +
         '<div class="cw-hdr-status">' +
           '<div class="cw-hdr-status-text">' +
             '<div class="cw-online-line"><span>Online</span><span class="cw-status-dot" id="cwStDot"></span></div>' +
@@ -161,7 +121,7 @@
     var row = document.createElement('div');
     row.className = 'cw-msg cw-msg--' + type;
     if (type === 'mgr') {
-      row.innerHTML = '<div class="cw-msg-ava">L</div><div class="cw-msg-bubble">' + text + '<span class="cw-msg-time">' + getTime() + '</span></div>';
+      row.innerHTML = '<div class="cw-msg-ava">O</div><div class="cw-msg-bubble">' + text + '<span class="cw-msg-time">' + getTime() + '</span></div>';
     } else {
       row.innerHTML = '<div class="cw-msg-bubble">' + text + '<span class="cw-msg-time">' + getTime() + '</span></div>';
     }
@@ -172,24 +132,54 @@
   function showTyping() {
     var t = document.createElement('div');
     t.className = 'cw-typing'; t.id = 'cwTyping';
-    t.innerHTML = '<div class="cw-msg-ava">L</div><div class="cw-typing-bubble"><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span></div>';
+    t.innerHTML = '<div class="cw-msg-ava">O</div><div class="cw-typing-bubble"><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span></div>';
     msgs.appendChild(t); scrollBottom();
   }
   function removeTyping() { var t = document.getElementById('cwTyping'); if (t) t.remove(); }
 
-  function send(text) {
+  async function send(text) {
     text = text.trim();
-    if (!text) return;
+    if (!text || cwIsSending) return;
+    cwIsSending = true;
+
     addMsg(text, 'user');
     input.value = '';
     quick.innerHTML = '';
-    var reply = getBotReply(text);
-    var readDelay  = 4000 + Math.random() * 2000;
-    var typeDelay  = reply.trim().split(/\s+/).length * 500;
+    cwHistory.push({ role: 'user', content: text });
+
+    var t0 = Date.now();
+    var typingTimer = setTimeout(showTyping, 2000);
+
+    var reply = '';
+    try {
+      var res = await fetch('/api/chat.php', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ messages: cwHistory.slice(-12) })
+      });
+      if (res.ok) {
+        var data = await res.json();
+        reply = (data.reply || '').trim();
+      }
+    } catch (e) { /* network error */ }
+
+    if (!reply) reply = "Give me just a sec — let me check that for you.";
+
+    clearTimeout(typingTimer);
+    var elapsed   = Date.now() - t0;
+    var wordCount = reply.trim().split(/\s+/).length;
+    var typeMs    = Math.max(1000, Math.round(wordCount / 2) * 1000);
+    var waitMs    = Math.max(0, 2000 - elapsed);
+
     setTimeout(function() {
       showTyping();
-      setTimeout(function() { removeTyping(); addMsg(reply, 'mgr'); }, typeDelay);
-    }, readDelay);
+      setTimeout(function() {
+        removeTyping();
+        cwHistory.push({ role: 'assistant', content: reply });
+        addMsg(reply, 'mgr');
+        cwIsSending = false;
+      }, typeMs);
+    }, waitMs);
   }
 
   /* ── Event listeners ────────────────────────────────────────── */
@@ -213,9 +203,9 @@
     if (!greeted) {
       greeted = true;
       var GREETINGS = [
-        "Hi! I'm Lily. Let me know if you have any questions.",
-        "Hi! I'm Lily. Happy to help with any questions.",
-        "Hi! I'm Lily. I'm here to help if you need anything."
+        "Hi! I'm Olivia. Let me know if you have any questions.",
+        "Hi! I'm Olivia. Happy to help with any questions.",
+        "Hi! I'm Olivia. I'm here to help if you need anything."
       ];
       setTimeout(function() {
         var g = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
