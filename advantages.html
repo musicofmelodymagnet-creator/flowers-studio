@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=21" />
+  <link rel="stylesheet" href="css/styles.css?v=22" />
   <style>
     /* Page-level overrides for advantages.html */
     .adv-page-hero {
@@ -611,6 +611,8 @@
       mobileBurger.classList.toggle('open', !isOpen);
       mobileBurger.setAttribute('aria-expanded', String(!isOpen));
       mobileOverlay.setAttribute('aria-hidden', String(isOpen));
+      const mobileTopBar = document.getElementById('mobileTop');
+      if (mobileTopBar) { mobileTopBar.classList.toggle('menu-open', !isOpen); if (!isOpen) mobileTopBar.classList.remove('nav-hidden'); }
       var scrollY = isOpen ? parseInt(document.body.dataset.scrollY || '0') : window.scrollY;
       if (!isOpen) {
         document.body.style.overflow = 'hidden';

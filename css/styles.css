@@ -1842,6 +1842,11 @@ body {
 .mobile-top.nav-hidden {
   transform: translateY(-100%);
 }
+.mobile-top.menu-open {
+  background: var(--bg);
+  box-shadow: 0 2px 12px rgba(142,95,182,0.10), 0 1px 4px rgba(0,0,0,0.07);
+  transform: none;
+}
 
 .mobile-wordmark {
   font: 400 30px/1 var(--font-display);
