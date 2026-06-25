@@ -1969,8 +1969,8 @@ body {
   /* Shell */
   .page-stack { padding: 0 20px 48px; gap: 48px; }
 
-  /* Hero: fills first viewport; space-between distributes space between elements, 48px from bottom edge */
-  .hero { gap: 0; padding: 8px 0 48px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
+  /* Hero: fills first viewport; space-between distributes space between elements, 72px from bottom edge */
+  .hero { gap: 0; padding: 8px 0 72px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
   .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
