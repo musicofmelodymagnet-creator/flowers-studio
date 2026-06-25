@@ -1,10 +1,45 @@
-# Block access to sensitive files
-<FilesMatch "^(config\.php|config\.example\.php|\.env|\.env\.example|docker-compose\.yml|Dockerfile|\.gitignore|\.git)">
+# ── Block access to sensitive files (all directories, not just root) ──────────
+<FilesMatch "(config\.php|config\.example\.php|\.env|\.env\.example|docker-compose\.yml|Dockerfile|\.gitignore)$">
     Require all denied
 </FilesMatch>
 
-# Optional: pretty URLs (uncomment if needed)
-# RewriteEngine On
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^(.*)$ index.html [L]
+# Block .git directory and everything inside it
+<DirectoryMatch "\.git">
+    Require all denied
+</DirectoryMatch>
+
+# ── HTTP Security Headers ─────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    # Prevent MIME-type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Clickjacking protection
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Limit referrer information
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Force HTTPS for 1 year (enable only after SSL is confirmed working)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # Disable browser features not needed by this site
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+    # Content Security Policy
+    # Allows: self, inline styles (needed for neumorphic design), Google Fonts,
+    # Google Analytics, YouTube nocookie embeds.
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://www.google-analytics.com; object-src 'none'; base-uri 'self';"
+
+    # Remove Apache version from headers
+    Header always unset X-Powered-By
+    Header always unset Server
+</IfModule>
+
+# ── Disable directory listing ─────────────────────────────────────────────────
+Options -Indexes
+
+# ── PHP error display off (belt-and-suspenders alongside ini_set in PHP) ──────
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+</IfModule>

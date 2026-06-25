@@ -1035,6 +1035,11 @@
   </footer>
 
   <script>
+    // Escape HTML entities in user-typed text before inserting into the DOM.
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
     // ── Sticky nav ───────────────────────────────────────────────
     (function () {
       const nav = document.querySelector('.site-nav');
@@ -1154,7 +1159,7 @@
             '<div class="cc-msg-bubble">' + text +
             '<span class="cc-msg-time">' + getTime() + '</span></div>';
         } else {
-          row.innerHTML = '<div class="cc-msg-bubble">' + text +
+          row.innerHTML = '<div class="cc-msg-bubble">' + escHtml(text) +
             '<span class="cc-msg-time">' + getTime() + '</span></div>';
         }
         msgs.appendChild(row);
@@ -1304,7 +1309,7 @@
             '<div class="cc-msg-bubble">' + text +
             '<span class="cc-msg-time">' + getTime() + '</span></div>';
         } else {
-          row.innerHTML = '<div class="cc-msg-bubble">' + text +
+          row.innerHTML = '<div class="cc-msg-bubble">' + escHtml(text) +
             '<span class="cc-msg-time">' + getTime() + '</span></div>';
         }
         msgs.appendChild(row);

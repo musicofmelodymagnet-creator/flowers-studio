@@ -1,0 +1,22 @@
+.git
+.gitignore
+.env
+.env.example
+config.php
+node_modules
+Photos/
+Videos/
+Документы на сайт/
+Мозги чата/
+florinsky-design-system/
+security-audit.html
+mobile-audit.html
+GEO-AUDIT-REPORT.md
+*.pdf
+*.xlsx
+*.docx
+docker-compose.yml
+Dockerfile
+.dockerignore
+README.md
+readme.txt
