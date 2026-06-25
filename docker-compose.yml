@@ -1,0 +1,8 @@
+services:
+  florinsky:
+    build: .
+    ports:
+      - "3007:80"
+    environment:
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+    restart: unless-stopped

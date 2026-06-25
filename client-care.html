@@ -1389,11 +1389,40 @@
     // ── Inquiry form ─────────────────────────────────────────────
     const form = document.getElementById('inquiryForm');
     const submitBtn = document.getElementById('submitBtn');
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      submitBtn.textContent = 'Thank You';
-      submitBtn.disabled = true;
+      const name    = document.getElementById('field-name').value.trim();
+      const email   = document.getElementById('field-email').value.trim();
+      const date    = document.getElementById('field-date')?.value.trim() || '';
+      const message = document.getElementById('field-message').value.trim();
+
+      submitBtn.textContent   = 'Sending…';
+      submitBtn.disabled      = true;
       submitBtn.style.opacity = '0.7';
+
+      try {
+        const res  = await fetch('/api/contact.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, date, message })
+        });
+        const data = await res.json();
+        if (data.success) {
+          submitBtn.textContent = 'Sent ✓';
+          const note = document.createElement('p');
+          note.style.cssText = 'margin-top:16px;font-size:14px;color:var(--ink-soft);text-align:center;line-height:1.6';
+          note.textContent = data.message;
+          form.appendChild(note);
+        } else {
+          submitBtn.textContent   = 'Try again';
+          submitBtn.disabled      = false;
+          submitBtn.style.opacity = '1';
+        }
+      } catch {
+        submitBtn.textContent   = 'Try again';
+        submitBtn.disabled      = false;
+        submitBtn.style.opacity = '1';
+      }
     });
   </script>
 

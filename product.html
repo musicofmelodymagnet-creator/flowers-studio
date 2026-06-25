@@ -996,11 +996,40 @@
     const productForm      = document.getElementById('productInquiryForm');
     const productSubmitBtn = document.getElementById('productSubmitBtn');
 
-    productForm.addEventListener('submit', e => {
+    productForm.addEventListener('submit', async e => {
       e.preventDefault();
-      productSubmitBtn.textContent = 'Thank You';
-      productSubmitBtn.disabled    = true;
+      const name    = document.getElementById('pi-name').value.trim();
+      const email   = document.getElementById('pi-email').value.trim();
+      const date    = document.getElementById('pi-date')?.value.trim() || '';
+      const message = document.getElementById('pi-message').value.trim();
+
+      productSubmitBtn.textContent   = 'Sending…';
+      productSubmitBtn.disabled      = true;
       productSubmitBtn.style.opacity = '0.7';
+
+      try {
+        const res  = await fetch('/api/contact.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, date, message })
+        });
+        const data = await res.json();
+        if (data.success) {
+          productSubmitBtn.textContent = 'Sent ✓';
+          const note = document.createElement('p');
+          note.style.cssText = 'margin-top:16px;font-size:14px;color:var(--ink-soft);text-align:center;line-height:1.6';
+          note.textContent = data.message;
+          productForm.appendChild(note);
+        } else {
+          productSubmitBtn.textContent   = 'Try again';
+          productSubmitBtn.disabled      = false;
+          productSubmitBtn.style.opacity = '1';
+        }
+      } catch {
+        productSubmitBtn.textContent   = 'Try again';
+        productSubmitBtn.disabled      = false;
+        productSubmitBtn.style.opacity = '1';
+      }
     });
 
     // ════════════════════════════════════════════════════════
