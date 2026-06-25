@@ -3,11 +3,6 @@
     Require all denied
 </FilesMatch>
 
-# Block .git directory and everything inside it
-<DirectoryMatch "\.git">
-    Require all denied
-</DirectoryMatch>
-
 # ── HTTP Security Headers ─────────────────────────────────────────────────────
 <IfModule mod_headers.c>
     # Prevent MIME-type sniffing
