@@ -1,5 +1,5 @@
 # Block access to sensitive files
-<FilesMatch "^(\.env|\.env\.example|docker-compose\.yml|Dockerfile|\.gitignore|\.git)">
+<FilesMatch "^(config\.php|config\.example\.php|\.env|\.env\.example|docker-compose\.yml|Dockerfile|\.gitignore|\.git)">
     Require all denied
 </FilesMatch>
 

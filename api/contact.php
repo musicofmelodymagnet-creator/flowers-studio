@@ -37,7 +37,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // ── Claude API ────────────────────────────────────────────────────────────────
-$apiKey = getenv('CLAUDE_API_KEY');
+// 1) config.php in the project root (shared hosting without env vars)
+// 2) environment variable (Docker / VPS)
+$configFile = __DIR__ . '/../config.php';
+if (file_exists($configFile)) {
+    require_once $configFile;
+}
+$apiKey = defined('CLAUDE_API_KEY') ? CLAUDE_API_KEY : (getenv('CLAUDE_API_KEY') ?: '');
 
 $replyText = "Thank you, {$name}! We received your inquiry and will be in touch within 4 hours.";
 

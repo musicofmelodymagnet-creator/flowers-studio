@@ -31,3 +31,6 @@ node_modules/
 .env.local
 dist/
 .next/
+
+# Local API key config (never commit the real key)
+config.php
