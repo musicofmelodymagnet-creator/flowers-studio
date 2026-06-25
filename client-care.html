@@ -1093,304 +1093,150 @@
       if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
     });
 
-    // ── Chat bot ─────────────────────────────────────────────────
+    // ── Chat bots (shared API-powered initializer) ───────────────
     (function () {
-      const msgs    = document.getElementById('chatMsgs');
-      const input   = document.getElementById('chatInput');
-      const sendBtn = document.getElementById('chatSend');
-      const quick   = document.getElementById('chatQuick');
-      if (!msgs || !input) return;
+      function initChat(ids) {
+        const msgs    = document.getElementById(ids.msgs);
+        const input   = document.getElementById(ids.input);
+        const sendBtn = document.getElementById(ids.send);
+        const quick   = document.getElementById(ids.quick);
+        if (!msgs || !input) return;
 
-      const RULES = [
-        { keys: ['color','colour','white','pink','burgundy','green','palette','shade'],
-          reply: 'We have four designs right now — Burgundy, White, Pink, and Green Real Touch. Each one photographs differently, so it really comes down to your colour scheme and venue. Which are you working with?' },
-        { keys: ['price','cost','how much','pricing','rate','fee','charge'],
-          reply: 'Pricing depends on rental duration and where you\'re based. If you send over your event date and city, I can put together an accurate quote for you.' },
-        { keys: ['size','dimension','big','large','small','ft','feet','11','14'],
-          reply: 'Three sizes: Classic 8x8 ft, Grand 11x8 ft, and XL 14x8 ft. For weddings the Grand or XL usually works better — more people fit in frame and the scale just looks right.' },
-        { keys: ['book','reserve','order','availability','available'],
-          reply: 'Happy to check availability for your date. What day are you thinking, and which area are you in?' },
-        { keys: ['deliver','setup','install','arrive','bring','transport'],
-          reply: 'We take care of full delivery and setup across Toronto and the GTA. The team gets everything ready before your guests arrive, so you don\'t need to worry about any of that.' },
-        { keys: ['real touch','artificial','fake','realistic','silk','plastic'],
-          reply: 'Real Touch flowers are made to replicate real petals — the texture is very convincing. People genuinely try to touch them at events. They also photograph much better than silk.' },
-        { keys: ['semi','circle','circular','curved','arc','shape','360'],
-          reply: 'Yes, we offer a semi-circular setup. It gives a lot more depth than a flat wall — wraps around people naturally and the photos come out looking completely different. Not something you\'ll find at many other companies here.' },
-        { keys: ['outdoor','outside','wind','uneven','slope','hill','terrain','grass'],
-          reply: 'No issue with outdoor setups. The walls have an adjustable leg system for uneven ground and the structure is built to handle wind. Just let us know the venue details when you book.' },
-        { keys: ['guarantee','contract','money back','refund','insurance','promise'],
-          reply: 'We have a financial guarantee in the contract — if we don\'t show up or fail to deliver, you get 3x the order value back. No other decor company in Canada offers that.' },
-        { keys: ['toronto','gta','mississauga','brampton','vaughan','markham','richmond','oakville'],
-          reply: 'We cover all of Toronto and the GTA. If you\'re outside that area, just let us know your location and we\'ll work something out.' },
-        { keys: ['unique','exclusive','canada','different','nobody','no one'],
-          reply: 'FLORINSKY was built to offer things you can\'t find elsewhere in Canada — Real Touch exclusivity, semi-circular setup, reinforced outdoor structures, and a financial delivery guarantee. It\'s a pretty different package.' },
-        { keys: ['photo','photograph','picture','camera','instagram','shot'],
-          reply: 'The walls are designed with photography in mind. The texture and depth make a real difference — images come out looking substantial, not flat like most backdrop alternatives.' },
-        { keys: ['hello','hi','hey','good morning','good afternoon','good evening'],
-          reply: 'Hey! What would you like to know about our flower walls?' },
-        { keys: ['thank','thanks','awesome','perfect','great','wonderful'],
-          reply: 'Of course! Anything else you\'d like to know?' },
-        { keys: ['wedding','bride','groom','ceremony','reception'],
-          reply: 'Weddings are what we do most. The wall tends to become the main spot people gather around all evening — it just naturally draws people in. What\'s your date?' },
-        { keys: ['birthday','party','corporate','baby shower','bridal shower','anniversary','event'],
-          reply: 'Flower walls work well for pretty much any event — weddings, birthdays, corporate, baby showers, all of it. What are you planning?' },
-      ];
+        const history   = [];
+        let   isSending = false;
 
-      function getBotReply(text) {
-        const t = text.toLowerCase();
-        for (const rule of RULES) {
-          if (rule.keys.some(k => t.includes(k))) return rule.reply;
+        function getTime() {
+          const d = new Date(), h = d.getHours(), m = d.getMinutes();
+          return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
         }
-        return 'Good question — could you give me a bit more detail? Or feel free to fill out the inquiry form below and I\'ll get back to you shortly.';
-      }
 
-      function getTime() {
-        const d = new Date(), h = d.getHours(), m = d.getMinutes();
-        return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
-      }
+        function scrollBottom() { msgs.scrollTop = msgs.scrollHeight; }
 
-      function scrollBottom() {
-        msgs.scrollTop = msgs.scrollHeight;
-      }
-
-      function addMsg(text, type) {
-        const row = document.createElement('div');
-        row.className = 'cc-msg cc-msg--' + type;
-        if (type === 'mgr') {
-          row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
-            '<div class="cc-msg-bubble">' + text +
-            '<span class="cc-msg-time">' + getTime() + '</span></div>';
-        } else {
-          row.innerHTML = '<div class="cc-msg-bubble">' + escHtml(text) +
-            '<span class="cc-msg-time">' + getTime() + '</span></div>';
+        function addMsg(text, type) {
+          const row = document.createElement('div');
+          row.className = 'cc-msg cc-msg--' + type;
+          if (type === 'mgr') {
+            row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
+              '<div class="cc-msg-bubble">' + text +
+              '<span class="cc-msg-time">' + getTime() + '</span></div>';
+          } else {
+            row.innerHTML = '<div class="cc-msg-bubble">' + escHtml(text) +
+              '<span class="cc-msg-time">' + getTime() + '</span></div>';
+          }
+          msgs.appendChild(row);
+          scrollBottom();
         }
-        msgs.appendChild(row);
-        scrollBottom();
-      }
 
-      function showTyping() {
-        const t = document.createElement('div');
-        t.className = 'cc-typing';
-        t.id = 'ccTyping';
-        t.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
-          '<div class="cc-typing-bubble">' +
-          '<span class="cc-typing-dot"></span>' +
-          '<span class="cc-typing-dot"></span>' +
-          '<span class="cc-typing-dot"></span>' +
-          '</div>';
-        msgs.appendChild(t);
-        scrollBottom();
-      }
+        function showTyping() {
+          if (document.getElementById(ids.typing)) return;
+          const t = document.createElement('div');
+          t.className = 'cc-typing';
+          t.id = ids.typing;
+          t.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
+            '<div class="cc-typing-bubble">' +
+            '<span class="cc-typing-dot"></span>' +
+            '<span class="cc-typing-dot"></span>' +
+            '<span class="cc-typing-dot"></span>' +
+            '</div>';
+          msgs.appendChild(t);
+          scrollBottom();
+        }
 
-      function removeTyping() {
-        const t = document.getElementById('ccTyping');
-        if (t) t.remove();
-      }
+        function removeTyping() {
+          const t = document.getElementById(ids.typing);
+          if (t) t.remove();
+        }
 
-      function send(text) {
-        text = text.trim();
-        if (!text) return;
-        addMsg(text, 'user');
-        input.value = '';
-        quick.innerHTML = '';
-        const reply = getBotReply(text);
-        const readDelay  = 4000 + Math.random() * 2000;          // 4–6s before typing indicator
-        const wordCount  = reply.trim().split(/\s+/).length;
-        const typeDelay  = wordCount * 500;                       // 0.5s per word
+        async function send(text) {
+          text = text.trim();
+          if (!text || isSending) return;
+          isSending = true;
+
+          addMsg(text, 'user');
+          input.value   = '';
+          quick.innerHTML = '';
+          history.push({ role: 'user', content: text });
+
+          const t0 = Date.now();
+          // Show typing indicator after 2 seconds (per spec)
+          const typingTimer = setTimeout(showTyping, 2000);
+
+          let reply = '';
+          try {
+            const res = await fetch('/api/chat.php', {
+              method:  'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body:    JSON.stringify({ messages: history.slice(-12) })
+            });
+            if (res.ok) {
+              const data = await res.json();
+              reply = (data.reply || '').trim();
+            }
+          } catch (e) { /* network error — fall through to fallback */ }
+
+          if (!reply) reply = "Give me just a sec — let me check that for you.";
+
+          // Per spec: typing shows at 2s mark; stays visible for wordCount÷2 seconds
+          clearTimeout(typingTimer);
+          const elapsed   = Date.now() - t0;
+          const wordCount = reply.trim().split(/\s+/).length;
+          const typeMs    = Math.max(1000, Math.round(wordCount / 2) * 1000);
+          const waitMs    = Math.max(0, 2000 - elapsed);
+
+          setTimeout(function () {
+            showTyping();
+            setTimeout(function () {
+              removeTyping();
+              history.push({ role: 'assistant', content: reply });
+              addMsg(reply, 'mgr');
+              isSending = false;
+            }, typeMs);
+          }, waitMs);
+        }
+
+        sendBtn.addEventListener('click', function () { send(input.value); });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
+        });
+        quick.addEventListener('click', function (e) {
+          const btn = e.target.closest('.cc-quick-btn');
+          if (btn) send(btn.dataset.msg || btn.textContent);
+        });
+
+        // 3s — green dot lights up
         setTimeout(function () {
+          var aDot   = document.getElementById(ids.avatarDot);
+          var sDot   = document.getElementById(ids.statusDot);
+          var status = document.getElementById(ids.status);
+          if (aDot)   aDot.classList.add('dot-on');
+          if (sDot)   sDot.classList.add('dot-on');
+          if (status) status.classList.add('status-on');
+        }, 3000);
+
+        // 5s — Lily sends greeting
+        var GREETINGS = [
+          'Hi! I\'m Lily. Let me know if you have any questions.',
+          'Hi! I\'m Lily. I\'m here if you have any questions.',
+          'Hi! I\'m Lily. Happy to help with any questions.',
+          'Hi! I\'m Lily. I\'m here to help if you need anything.',
+        ];
+        setTimeout(function () {
+          var greeting  = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
+          var typeDelay = greeting.trim().split(/\s+/).length * 500;
           showTyping();
           setTimeout(function () {
             removeTyping();
-            addMsg(reply, 'mgr');
+            addMsg(greeting, 'mgr');
           }, typeDelay);
-        }, readDelay);
-      }
+        }, 5000);
 
-      sendBtn.addEventListener('click', function () { send(input.value); });
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
-      });
-      quick.addEventListener('click', function (e) {
-        const btn = e.target.closest('.cc-quick-btn');
-        if (btn) send(btn.dataset.msg || btn.textContent);
-      });
-
-      // 3s — green dot lights up
-      setTimeout(function () {
-        var aDot   = document.getElementById('chatAvatarDot');
-        var sDot   = document.getElementById('chatStatusDot');
-        var status = document.getElementById('chatStatus');
-        if (aDot)   aDot.classList.add('dot-on');
-        if (sDot)   sDot.classList.add('dot-on');
-        if (status) status.classList.add('status-on');
-      }, 3000);
-
-      // 5s — Lily types and sends greeting
-      var GREETINGS = [
-        'Hi! I\'m Lily. Let me know if you have any questions.',
-        'Hi! I\'m Lily. I\'m here if you have any questions.',
-        'Hi! I\'m Lily. Happy to help with any questions.',
-        'Hi! I\'m Lily. I\'m here to help if you need anything.',
-      ];
-      setTimeout(function () {
-        var greeting = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
-        var typeDelay = greeting.trim().split(/\s+/).length * 500;
-        showTyping();
-        setTimeout(function () {
-          removeTyping();
-          addMsg(greeting, 'mgr');
-        }, typeDelay);
-      }, 5000);
-
-      scrollBottom();
-    })();
-
-    // ── Chat bot 2 ───────────────────────────────────────────────
-    (function () {
-      const msgs    = document.getElementById('chat2Msgs');
-      const input   = document.getElementById('chat2Input');
-      const sendBtn = document.getElementById('chat2Send');
-      const quick   = document.getElementById('chat2Quick');
-      if (!msgs || !input) return;
-
-      const RULES = [
-        { keys: ['color','colour','white','pink','burgundy','green','palette','shade'],
-          reply: 'We have four designs right now — Burgundy, White, Pink, and Green Real Touch. Each one photographs differently, so it really comes down to your colour scheme and venue. Which are you working with?' },
-        { keys: ['price','cost','how much','pricing','rate','fee','charge'],
-          reply: 'Pricing depends on rental duration and where you\'re based. If you send over your event date and city, I can put together an accurate quote for you.' },
-        { keys: ['size','dimension','big','large','small','ft','feet','11','14'],
-          reply: 'Three sizes: Classic 8x8 ft, Grand 11x8 ft, and XL 14x8 ft. For weddings the Grand or XL usually works better — more people fit in frame and the scale just looks right.' },
-        { keys: ['book','reserve','order','availability','available'],
-          reply: 'Happy to check availability for your date. What day are you thinking, and which area are you in?' },
-        { keys: ['deliver','setup','install','arrive','bring','transport'],
-          reply: 'We take care of full delivery and setup across Toronto and the GTA. The team gets everything ready before your guests arrive, so you don\'t need to worry about any of that.' },
-        { keys: ['real touch','artificial','fake','realistic','silk','plastic'],
-          reply: 'Real Touch flowers are made to replicate real petals — the texture is very convincing. People genuinely try to touch them at events. They also photograph much better than silk.' },
-        { keys: ['semi','circle','circular','curved','arc','shape','360'],
-          reply: 'Yes, we offer a semi-circular setup. It gives a lot more depth than a flat wall — wraps around people naturally and the photos come out looking completely different. Not something you\'ll find at many other companies here.' },
-        { keys: ['outdoor','outside','wind','uneven','slope','hill','terrain','grass'],
-          reply: 'No issue with outdoor setups. The walls have an adjustable leg system for uneven ground and the structure is built to handle wind. Just let us know the venue details when you book.' },
-        { keys: ['guarantee','contract','money back','refund','insurance','promise'],
-          reply: 'We have a financial guarantee in the contract — if we don\'t show up or fail to deliver, you get 3x the order value back. No other decor company in Canada offers that.' },
-        { keys: ['toronto','gta','mississauga','brampton','vaughan','markham','richmond','oakville'],
-          reply: 'We cover all of Toronto and the GTA. If you\'re outside that area, just let us know your location and we\'ll work something out.' },
-        { keys: ['unique','exclusive','canada','different','nobody','no one'],
-          reply: 'FLORINSKY was built to offer things you can\'t find elsewhere in Canada — Real Touch exclusivity, semi-circular setup, reinforced outdoor structures, and a financial delivery guarantee. It\'s a pretty different package.' },
-        { keys: ['photo','photograph','picture','camera','instagram','shot'],
-          reply: 'The walls are designed with photography in mind. The texture and depth make a real difference — images come out looking substantial, not flat like most backdrop alternatives.' },
-        { keys: ['hello','hi','hey','good morning','good afternoon','good evening'],
-          reply: 'Hey! What would you like to know about our flower walls?' },
-        { keys: ['thank','thanks','awesome','perfect','great','wonderful'],
-          reply: 'Of course! Anything else you\'d like to know?' },
-        { keys: ['wedding','bride','groom','ceremony','reception'],
-          reply: 'Weddings are what we do most. The wall tends to become the main spot people gather around all evening — it just naturally draws people in. What\'s your date?' },
-        { keys: ['birthday','party','corporate','baby shower','bridal shower','anniversary','event'],
-          reply: 'Flower walls work well for pretty much any event — weddings, birthdays, corporate, baby showers, all of it. What are you planning?' },
-      ];
-
-      function getBotReply(text) {
-        const t = text.toLowerCase();
-        for (const rule of RULES) {
-          if (rule.keys.some(k => t.includes(k))) return rule.reply;
-        }
-        return 'Good question — could you give me a bit more detail? Or feel free to fill out the inquiry form below and I\'ll get back to you shortly.';
-      }
-
-      function getTime() {
-        const d = new Date(), h = d.getHours(), m = d.getMinutes();
-        return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
-      }
-
-      function scrollBottom() { msgs.scrollTop = msgs.scrollHeight; }
-
-      function addMsg(text, type) {
-        const row = document.createElement('div');
-        row.className = 'cc-msg cc-msg--' + type;
-        if (type === 'mgr') {
-          row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
-            '<div class="cc-msg-bubble">' + text +
-            '<span class="cc-msg-time">' + getTime() + '</span></div>';
-        } else {
-          row.innerHTML = '<div class="cc-msg-bubble">' + escHtml(text) +
-            '<span class="cc-msg-time">' + getTime() + '</span></div>';
-        }
-        msgs.appendChild(row);
         scrollBottom();
       }
 
-      function showTyping() {
-        const t = document.createElement('div');
-        t.className = 'cc-typing';
-        t.id = 'ccTyping2';
-        t.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Lily"></div>' +
-          '<div class="cc-typing-bubble">' +
-          '<span class="cc-typing-dot"></span>' +
-          '<span class="cc-typing-dot"></span>' +
-          '<span class="cc-typing-dot"></span>' +
-          '</div>';
-        msgs.appendChild(t);
-        scrollBottom();
-      }
-
-      function removeTyping() {
-        const t = document.getElementById('ccTyping2');
-        if (t) t.remove();
-      }
-
-      function send(text) {
-        text = text.trim();
-        if (!text) return;
-        addMsg(text, 'user');
-        input.value = '';
-        quick.innerHTML = '';
-        const reply = getBotReply(text);
-        const readDelay  = 4000 + Math.random() * 2000;
-        const wordCount  = reply.trim().split(/\s+/).length;
-        const typeDelay  = wordCount * 500;
-        setTimeout(function () {
-          showTyping();
-          setTimeout(function () {
-            removeTyping();
-            addMsg(reply, 'mgr');
-          }, typeDelay);
-        }, readDelay);
-      }
-
-      sendBtn.addEventListener('click', function () { send(input.value); });
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
-      });
-      quick.addEventListener('click', function (e) {
-        const btn = e.target.closest('.cc-quick-btn');
-        if (btn) send(btn.dataset.msg || btn.textContent);
-      });
-
-      setTimeout(function () {
-        var aDot   = document.getElementById('chat2AvatarDot');
-        var sDot   = document.getElementById('chat2StatusDot');
-        var status = document.getElementById('chat2Status');
-        if (aDot)   aDot.classList.add('dot-on');
-        if (sDot)   sDot.classList.add('dot-on');
-        if (status) status.classList.add('status-on');
-      }, 3000);
-
-      var GREETINGS = [
-        'Hi! I\'m Lily. Let me know if you have any questions.',
-        'Hi! I\'m Lily. I\'m here if you have any questions.',
-        'Hi! I\'m Lily. Happy to help with any questions.',
-        'Hi! I\'m Lily. I\'m here to help if you need anything.',
-      ];
-      setTimeout(function () {
-        var greeting = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
-        var typeDelay = greeting.trim().split(/\s+/).length * 500;
-        showTyping();
-        setTimeout(function () {
-          removeTyping();
-          addMsg(greeting, 'mgr');
-        }, typeDelay);
-      }, 5000);
-
-      scrollBottom();
+      initChat({ msgs: 'chatMsgs',  input: 'chatInput',  send: 'chatSend',  quick: 'chatQuick',
+                 typing: 'ccTyping',  avatarDot: 'chatAvatarDot',  statusDot: 'chatStatusDot',  status: 'chatStatus' });
+      initChat({ msgs: 'chat2Msgs', input: 'chat2Input', send: 'chat2Send', quick: 'chat2Quick',
+                 typing: 'ccTyping2', avatarDot: 'chat2AvatarDot', statusDot: 'chat2StatusDot', status: 'chat2Status' });
     })();
 
     // ── Inquiry form ─────────────────────────────────────────────
