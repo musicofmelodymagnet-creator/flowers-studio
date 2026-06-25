@@ -1969,8 +1969,8 @@ body {
   /* Shell */
   .page-stack { padding: 0 20px 48px; gap: 48px; }
 
-  /* Hero: fills first viewport; space-between distributes space between elements, flush at bottom */
-  .hero { gap: 0; padding: 8px 0 0; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
+  /* Hero: fills first viewport; space-between distributes space between elements, 20px from bottom edge */
+  .hero { gap: 0; padding: 8px 0 20px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
   .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
@@ -1991,6 +1991,12 @@ body {
   .hero-plate img,
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
+
+  /* Hero mobile order: slogans → video → tagline → description */
+  .hero-phrases  { order: 1; }
+  .hero-plate    { order: 2; }
+  .hero-wordmark { order: 3; }
+  .hero-copy     { order: 4; }
 
   /* Section separator — 1:4 ratio (top=24px, bottom=96px) at gap:48px */
   .section-sep { margin: -24px auto 48px; }
@@ -2056,9 +2062,13 @@ body {
   .accordion-chevron { width: 32px; height: 32px; }
   .distinction-closing { font-size: 16px; }
 
-  /* Inquiry form — no bottom padding so section-sep gap is controlled by margin only */
-  .inquiry { padding: 44px 20px 0; border-radius: 32px; max-width: 100%; }
-  .cc-inquiry-wrap .inquiry { padding-bottom: 0; }
+  /* Inquiry form */
+  .inquiry { padding: 44px 20px 40px; border-radius: 32px; max-width: 100%; }
+  .cc-inquiry-wrap .inquiry { padding: 44px 20px 40px; }
+  /* Pull inquiry card up so sep→title gap matches other sections (card padding-top = 44px) */
+  .cc-inquiry-main { margin-top: -44px; }
+  /* Pull features up so sep→h3 gap matches other sections (card padding-top = 32px) */
+  .features--main { margin-top: -32px; }
   .inquiry-header h2 { font-size: 34px; }
   .form-row { grid-template-columns: 1fr; gap: 20px; }
   .form-body { gap: 20px; }
@@ -2126,7 +2136,8 @@ body {
   .accordion-body-inner { padding: 0 16px 16px 16px; }
   .accordion-body-text { font-size: 15px; }
 
-  .inquiry { padding: 32px 16px 0; }
+  .inquiry { padding: 32px 16px 40px; }
+  .cc-inquiry-main { margin-top: -32px; }
   .inquiry-header h2 { font-size: 22px; white-space: nowrap; }
   .inquiry-header p { font-size: 14px; }
   .form-field label { font-size: 14px; }
