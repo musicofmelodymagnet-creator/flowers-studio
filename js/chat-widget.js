@@ -8,12 +8,22 @@
   ───────────────────────────────────────────────────────────────── */
   if (!window._FLChat) {
     (function () {
-      var ACT_KEY = 'flChat_lastAct';
-      var TTL     = 5 * 3600 * 1000; // 5 hours
+      var ACT_KEY  = 'flChat_lastAct';
+      var HIST_KEY = 'flChat_hist';
+      var TTL      = 5 * 3600 * 1000; // 5 hours
 
       function now() { return Date.now(); }
-      function lsGet(k)   { try { return localStorage.getItem(k); }         catch (e) { return null; } }
-      function lsSet(k,v) { try { localStorage.setItem(k, String(v)); }     catch (e) {} }
+      function lsGet(k)    { try { return localStorage.getItem(k); }           catch (e) { return null; } }
+      function lsSet(k,v)  { try { localStorage.setItem(k, String(v)); }       catch (e) {} }
+      function ssGet(k)    { try { return sessionStorage.getItem(k); }         catch (e) { return null; } }
+      function ssSet(k,v)  { try { sessionStorage.setItem(k, String(v)); }     catch (e) {} }
+      function histSave()  { ssSet(HIST_KEY, JSON.stringify(window._FLChat.history)); }
+      function histLoad()  {
+        try {
+          var s = ssGet(HIST_KEY);
+          if (s) { var h = JSON.parse(s); if (Array.isArray(h)) window._FLChat.history = h; }
+        } catch (e) {}
+      }
 
       window._FLChat = {
         history:         [],
@@ -43,6 +53,7 @@
             self._pub({ type: 'typing-on' });
             setTimeout(function () {
               self.history.push({ role: 'assistant', content: msg });
+              histSave();
               self._pub({ type: 'typing-off' });
               self._pub({ type: 'bot', content: msg });
             }, typeMs);
@@ -57,6 +68,7 @@
           lsSet(ACT_KEY, now());
 
           this.history.push({ role: 'user', content: text });
+          histSave();
           this._pub({ type: 'user', content: text });
 
           var t0   = now();
@@ -89,6 +101,7 @@
             setTimeout(function () {
               self.history.push({ role: 'assistant', content: msg });
               lsSet(ACT_KEY, now());
+              histSave();
               self._pub({ type: 'typing-off' });
               self._pub({ type: 'bot', content: msg });
               setTimeout(function () { publishNext(parts, idx + 1); }, 500);
@@ -105,6 +118,9 @@
           });
         }
       };
+
+      // Restore conversation from this browser session
+      histLoad();
     })();
   }
 
@@ -148,7 +164,7 @@
     '.cw-msg-ava img{width:100%;height:100%;object-fit:cover;display:block;}',
     '.cw-msg-bubble{max-width:80%;padding:9px 12px;border-radius:14px;font:400 13px/1.5 var(--font-sans,"Inter",sans-serif);word-break:break-word;}',
     '.cw-msg--mgr .cw-msg-bubble{background:#F9F4F0;box-shadow:-5px -5px 12px rgba(255,255,255,.72),5px 5px 12px rgba(112,96,110,.30);color:#2a2020;border-bottom-left-radius:4px;}',
-    '.cw-msg--user .cw-msg-bubble{background:#EDEAE8;box-shadow:-4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22);color:#2a2020;border-bottom-right-radius:4px;}',
+    '.cw-msg--user .cw-msg-bubble{background:#edeae8!important;box-shadow:-4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22);color:#2a2020;border-bottom-right-radius:4px;}',
     '.cw-msg-time{display:block;font:400 10px/1 var(--font-sans,"Inter",sans-serif);margin-top:4px;}',
     '.cw-msg--mgr .cw-msg-time{color:#9e8e8e;}.cw-msg--user .cw-msg-time{color:#9e8e8e;text-align:right;}',
 
