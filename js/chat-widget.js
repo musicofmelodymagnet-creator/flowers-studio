@@ -58,7 +58,9 @@
     '.cw-input::placeholder{color:#9e8e8e;}',
     '.cw-send{width:38px;height:38px;border-radius:50%;border:none;background:linear-gradient(135deg,#cca8e4 0%,#A878D0 100%);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;box-shadow:0 3px 10px rgba(168,120,208,.35);transition:transform 150ms,box-shadow 150ms;}',
     '.cw-send:hover{transform:scale(1.07);box-shadow:0 5px 18px rgba(168,120,208,.55);}',
-    '.cw-send svg{width:16px;height:16px;stroke:#fff;stroke-width:2;fill:none;}'
+    '.cw-send svg{width:16px;height:16px;stroke:#fff;stroke-width:2;fill:none;}',
+    '.contact-widget{transition:opacity 220ms ease,transform 220ms ease;}',
+    '.contact-widget.cw-btn-hidden{opacity:0;pointer-events:none;transform:scale(0.75);}'
   ].join('');
   document.head.appendChild(st);
 
@@ -87,12 +89,6 @@
         '<button class="cw-close" id="cwClose" aria-label="Close chat">✕</button>' +
       '</div>' +
       '<div class="cw-msgs" id="cwMsgs"></div>' +
-      '<div class="cw-quick" id="cwQuick">' +
-        '<button class="cw-quick-btn" data-msg="What colors are available?">What colors are available?</button>' +
-        '<button class="cw-quick-btn" data-msg="What sizes do you offer?">What sizes do you offer?</button>' +
-        '<button class="cw-quick-btn" data-msg="How much does it cost?">Pricing info</button>' +
-        '<button class="cw-quick-btn" data-msg="How do I book?">How do I book?</button>' +
-      '</div>' +
       '<div class="cw-input-row">' +
         '<div class="cw-input-wrap">' +
           '<input class="cw-input" id="cwInput" type="text" placeholder="Type your message…" autocomplete="off" maxlength="300" />' +
@@ -108,7 +104,6 @@
   var msgs    = document.getElementById('cwMsgs');
   var input   = document.getElementById('cwInput');
   var sendBtn = document.getElementById('cwSend');
-  var quick   = document.getElementById('cwQuick');
 
   /* ── Chat helpers ───────────────────────────────────────────── */
   function getTime() {
@@ -152,7 +147,6 @@
 
     addMsg(text, 'user');
     input.value = '';
-    quick.innerHTML = '';
     cwHistory.push({ role: 'user', content: text });
 
     var t0 = Date.now();
@@ -195,10 +189,6 @@
   input.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
   });
-  quick.addEventListener('click', function(e) {
-    var btn = e.target.closest('.cw-quick-btn');
-    if (btn) send(btn.dataset.msg || btn.textContent);
-  });
   document.getElementById('cwClose').addEventListener('click', function() { closePopup(); });
 
   /* ── Toggle / open / close ──────────────────────────────────── */
@@ -208,6 +198,8 @@
   function openPopup() {
     isOpen = true;
     popup.classList.add('cw-open');
+    var cw = document.querySelector('.contact-widget');
+    if (cw) cw.classList.add('cw-btn-hidden');
     if (!greeted) {
       greeted = true;
       var GREETINGS = [
@@ -233,6 +225,8 @@
   function closePopup() {
     isOpen = false;
     popup.classList.remove('cw-open');
+    var cw = document.querySelector('.contact-widget');
+    if (cw) cw.classList.remove('cw-btn-hidden');
   }
 
   /* ── Wire the widget button on every page ───────────────────── */

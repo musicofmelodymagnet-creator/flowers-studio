@@ -1118,8 +1118,8 @@
           isSending = true;
 
           addMsg(text, 'user');
-          input.value   = '';
-          quick.innerHTML = '';
+          input.value = '';
+          if (quick) quick.innerHTML = '';
           history.push({ role: 'user', content: text });
 
           const t0 = Date.now();
@@ -1163,7 +1163,7 @@
         input.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
         });
-        quick.addEventListener('click', function (e) {
+        if (quick) quick.addEventListener('click', function (e) {
           const btn = e.target.closest('.cc-quick-btn');
           if (btn) send(btn.dataset.msg || btn.textContent);
         });
