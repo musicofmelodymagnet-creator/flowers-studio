@@ -116,12 +116,13 @@
     '.cw-popup{position:fixed;bottom:104px;right:32px;width:345px;z-index:298;opacity:0;pointer-events:none;transform:translateY(14px) scale(.97);transition:opacity 220ms ease-out,transform 220ms ease-out;}',
     '.cw-popup.cw-open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1);}',
 
-    '.cw-chat{border-radius:22px;overflow:hidden;box-shadow:-12px -12px 24px rgba(255,255,255,.72),12px 12px 24px rgba(112,96,110,.30);display:flex;flex-direction:column;height:430px;background:#EADCDB;}',
+    '.cw-chat{border-radius:22px;overflow:hidden;box-shadow:-12px -12px 24px rgba(255,255,255,.72),12px 12px 24px rgba(112,96,110,.30);display:flex;flex-direction:column;height:430px;background:#F9F4F0;}',
 
     '.cw-hdr{background:#685b5b;padding:12px 14px;display:flex;align-items:center;gap:11px;flex-shrink:0;}',
-    '.cw-hdr-avatar{position:relative;width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.32);flex-shrink:0;}',
+    '.cw-hdr-ava-wrap{position:relative;flex-shrink:0;}',
+    '.cw-hdr-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;}',
     '.cw-hdr-img{width:100%;height:100%;object-fit:cover;display:block;}',
-    '.cw-hdr-dot{position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:#4caf50;border:2px solid #685b5b;box-shadow:0 0 0 0 rgba(76,175,80,.55);opacity:0;transition:opacity 400ms ease;animation:cw-ava-pulse 2.2s ease-in-out infinite;}',
+    '.cw-hdr-dot{position:absolute;bottom:1px;right:1px;width:13px;height:13px;border-radius:50%;background:#4caf50;border:2px solid #685b5b;box-shadow:0 0 0 0 rgba(76,175,80,.55);opacity:0;transition:opacity 400ms ease;animation:cw-ava-pulse 2.2s ease-in-out infinite;}',
     '.cw-hdr-dot.cw-dot-on{opacity:1;}',
     '.cw-hdr-info{flex:1;}',
     '.cw-hdr-name{font:700 14px/1.2 var(--font-sans,"Inter",sans-serif);color:#fff;display:block;}',
@@ -169,8 +170,10 @@
   popup.innerHTML =
     '<div class="cw-chat">' +
       '<div class="cw-hdr">' +
-        '<div class="cw-hdr-avatar">' +
-          '<img class="cw-hdr-img" src="assets/ava-chat.jpg" alt="Olivia">' +
+        '<div class="cw-hdr-ava-wrap">' +
+          '<div class="cw-hdr-avatar">' +
+            '<img class="cw-hdr-img" src="assets/ava-chat.jpg" alt="Olivia">' +
+          '</div>' +
           '<span class="cw-hdr-dot" id="cwAvaDot"></span>' +
         '</div>' +
         '<div class="cw-hdr-info"><span class="cw-hdr-name">Olivia</span></div>' +
