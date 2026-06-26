@@ -1053,155 +1053,6 @@
       if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
     });
 
-    // ── Chat bots (shared API-powered initializer) ───────────────
-    (function () {
-      function initChat(ids) {
-        const msgs    = document.getElementById(ids.msgs);
-        const input   = document.getElementById(ids.input);
-        const sendBtn = document.getElementById(ids.send);
-        const quick   = document.getElementById(ids.quick);
-        if (!msgs || !input) return;
-
-        const history   = [];
-        let   isSending = false;
-
-        function getTime() {
-          const d = new Date(), h = d.getHours(), m = d.getMinutes();
-          return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
-        }
-
-        function scrollBottom() { msgs.scrollTop = msgs.scrollHeight; }
-
-        function fmtBot(s) {
-          return s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  .replace(/\n/g, '<br>');
-        }
-
-        function addMsg(text, type) {
-          const row = document.createElement('div');
-          row.className = 'cc-msg cc-msg--' + type;
-          if (type === 'mgr') {
-            row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
-              '<div class="cc-msg-bubble">' + fmtBot(text) +
-              '<span class="cc-msg-time">' + getTime() + '</span></div>';
-          } else {
-            row.innerHTML = '<div class="cc-msg-bubble">' + escHtml(text) +
-              '<span class="cc-msg-time">' + getTime() + '</span></div>';
-          }
-          msgs.appendChild(row);
-          scrollBottom();
-        }
-
-        function showTyping() {
-          if (document.getElementById(ids.typing)) return;
-          const t = document.createElement('div');
-          t.className = 'cc-typing';
-          t.id = ids.typing;
-          t.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
-            '<div class="cc-typing-bubble">' +
-            '<span class="cc-typing-dot"></span>' +
-            '<span class="cc-typing-dot"></span>' +
-            '<span class="cc-typing-dot"></span>' +
-            '</div>';
-          msgs.appendChild(t);
-          scrollBottom();
-        }
-
-        function removeTyping() {
-          const t = document.getElementById(ids.typing);
-          if (t) t.remove();
-        }
-
-        async function send(text) {
-          text = text.trim();
-          if (!text || isSending) return;
-          isSending = true;
-
-          addMsg(text, 'user');
-          input.value = '';
-          if (quick) quick.innerHTML = '';
-          history.push({ role: 'user', content: text });
-
-          const t0 = Date.now();
-          // Show typing indicator after 2 seconds (per spec)
-          const typingTimer = setTimeout(showTyping, 2000);
-
-          let reply = '';
-          try {
-            const res = await fetch('/api/chat.php', {
-              method:  'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body:    JSON.stringify({ messages: history.slice(-12) })
-            });
-            if (res.ok) {
-              const data = await res.json();
-              reply = (data.reply || '').trim();
-            }
-          } catch (e) { /* network error — fall through to fallback */ }
-
-          if (!reply) reply = "Give me just a sec — let me check that for you.";
-
-          // Per spec: typing shows at 2s mark; stays visible for wordCount÷2 seconds
-          clearTimeout(typingTimer);
-          const elapsed   = Date.now() - t0;
-          const wordCount = reply.trim().split(/\s+/).length;
-          const typeMs    = Math.max(1000, Math.round(wordCount / 2) * 1000);
-          const waitMs    = Math.max(0, 2000 - elapsed);
-
-          setTimeout(function () {
-            showTyping();
-            setTimeout(function () {
-              removeTyping();
-              history.push({ role: 'assistant', content: reply });
-              addMsg(reply, 'mgr');
-              isSending = false;
-            }, typeMs);
-          }, waitMs);
-        }
-
-        sendBtn.addEventListener('click', function () { send(input.value); });
-        input.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
-        });
-        if (quick) quick.addEventListener('click', function (e) {
-          const btn = e.target.closest('.cc-quick-btn');
-          if (btn) send(btn.dataset.msg || btn.textContent);
-        });
-
-        // 3s — green dot lights up
-        setTimeout(function () {
-          var aDot   = document.getElementById(ids.avatarDot);
-          var sDot   = document.getElementById(ids.statusDot);
-          var status = document.getElementById(ids.status);
-          if (aDot)   aDot.classList.add('dot-on');
-          if (sDot)   sDot.classList.add('dot-on');
-          if (status) status.classList.add('status-on');
-        }, 3000);
-
-        // 5s — Olivia sends greeting
-        var GREETINGS = [
-          'Hi! I\'m Olivia. Let me know if you have any questions.',
-          'Hi! I\'m Olivia. I\'m here if you have any questions.',
-          'Hi! I\'m Olivia. Happy to help with any questions.',
-          'Hi! I\'m Olivia. I\'m here to help if you need anything.',
-        ];
-        setTimeout(function () {
-          var greeting  = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
-          var typeDelay = greeting.trim().split(/\s+/).length * 500;
-          showTyping();
-          setTimeout(function () {
-            removeTyping();
-            addMsg(greeting, 'mgr');
-          }, typeDelay);
-        }, 5000);
-
-        scrollBottom();
-      }
-
-      initChat({ msgs: 'chatMsgs', input: 'chatInput', send: 'chatSend', quick: 'chatQuick',
-                 typing: 'ccTyping', avatarDot: 'chatAvatarDot', statusDot: 'chatStatusDot', status: 'chatStatus' });
-    })();
-
     // ── Inquiry form ─────────────────────────────────────────────
     const form = document.getElementById('inquiryForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -1261,7 +1112,92 @@
   /* mobile top bar: shadow + hide-on-scroll */
   (function(){var b=document.getElementById("mobileTop");if(!b)return;var l=0,t=false;function s(){var y=window.scrollY;if(y>0){b.classList.add("nav-shadow");}else{b.classList.remove("nav-shadow","nav-scrolled","nav-hidden");l=0;t=false;return;}if(y>8){b.classList.add("nav-scrolled");if(y>l+4)b.classList.add("nav-hidden");else if(y<l-4)b.classList.remove("nav-hidden");}else{b.classList.remove("nav-scrolled","nav-hidden");}l=y;t=false;}window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(s);t=true;}},{passive:true});})();
   </script>
-<script src="js/chat-widget.js?v=4"></script>
+<script src="js/chat-widget.js?v=5"></script>
+<script>
+(function () {
+  var msgs    = document.getElementById('chatMsgs');
+  var input   = document.getElementById('chatInput');
+  var sendBtn = document.getElementById('chatSend');
+  if (!msgs || !input || !window._FLChat) return;
+
+  var TYPING_ID = 'ccTyping';
+
+  function fmtBot(s) {
+    return s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  }
+  function escH(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function getTime() {
+    var d = new Date(), h = d.getHours(), m = d.getMinutes();
+    return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
+  }
+
+  function addMsg(text, type) {
+    var row = document.createElement('div');
+    row.className = 'cc-msg cc-msg--' + type;
+    if (type === 'mgr') {
+      row.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
+        '<div class="cc-msg-bubble">' + fmtBot(text) + '<span class="cc-msg-time">' + getTime() + '</span></div>';
+    } else {
+      row.innerHTML = '<div class="cc-msg-bubble">' + escH(text) +
+        '<span class="cc-msg-time">' + getTime() + '</span></div>';
+    }
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    if (document.getElementById(TYPING_ID)) return;
+    var t = document.createElement('div');
+    t.className = 'cc-typing'; t.id = TYPING_ID;
+    t.innerHTML = '<div class="cc-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
+      '<div class="cc-typing-bubble"><span class="cc-typing-dot"></span><span class="cc-typing-dot"></span><span class="cc-typing-dot"></span></div>';
+    msgs.appendChild(t);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+  function removeTyping() { var t = document.getElementById(TYPING_ID); if (t) t.remove(); }
+
+  window._FLChat.sub(function (ev) {
+    if (ev.type === 'user')       addMsg(ev.content, 'user');
+    if (ev.type === 'bot')        addMsg(ev.content, 'mgr');
+    if (ev.type === 'typing-on')  showTyping();
+    if (ev.type === 'typing-off') removeTyping();
+  });
+
+  sendBtn.addEventListener('click', function () {
+    var text = input.value; input.value = '';
+    window._FLChat.send(text);
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      var text = input.value; input.value = '';
+      window._FLChat.send(text);
+    }
+  });
+
+  // Green dot + online status after 3s
+  setTimeout(function () {
+    var aDot   = document.getElementById('chatAvatarDot');
+    var sDot   = document.getElementById('chatStatusDot');
+    var status = document.getElementById('chatStatus');
+    if (aDot)   aDot.classList.add('dot-on');
+    if (sDot)   sDot.classList.add('dot-on');
+    if (status) status.classList.add('status-on');
+  }, 3000);
+
+  // Render shared history if page was opened after some messages already exist
+  if (window._FLChat.history.length > 0) {
+    window._FLChat.renderHistory(addMsg);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  // Greet (shared state — only once per session / 5-hour rule)
+  window._FLChat.greet(
+    "Hi! Thanks for visiting. I'm happy to help if you have any questions.",
+    5000
+  );
+})();
+</script>
 <style>
   .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
   .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }

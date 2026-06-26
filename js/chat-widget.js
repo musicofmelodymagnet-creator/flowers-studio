@@ -1,7 +1,108 @@
 (function () {
   'use strict';
 
-  /* ── CSS injection ──────────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────────────────
+     Shared chat module — window._FLChat
+     One instance per page; both floating widget and big on-page chat
+     subscribe to it for full message sync.
+  ───────────────────────────────────────────────────────────────── */
+  if (!window._FLChat) {
+    (function () {
+      var ACT_KEY = 'flChat_lastAct';
+      var TTL     = 5 * 3600 * 1000; // 5 hours
+
+      function now() { return Date.now(); }
+      function lsGet(k)   { try { return localStorage.getItem(k); }         catch (e) { return null; } }
+      function lsSet(k,v) { try { localStorage.setItem(k, String(v)); }     catch (e) {} }
+
+      window._FLChat = {
+        history:         [],
+        isSending:       false,
+        _greetScheduled: false,
+        _subs:           [],
+
+        sub:  function (fn) { this._subs.push(fn); },
+        _pub: function (ev) { this._subs.forEach(function (fn) { try { fn(ev); } catch (e) {} }); },
+
+        /* Returns true if ≥5 hours since last activity */
+        shouldGreet: function () {
+          var t = parseInt(lsGet(ACT_KEY) || '0', 10);
+          return (now() - t) >= TTL;
+        },
+
+        /* Send a greeting message (skips if greeted recently or already scheduled) */
+        greet: function (msg, delayMs) {
+          if (this._greetScheduled) return;
+          this._greetScheduled = true;
+          if (!this.shouldGreet()) return;
+          lsSet(ACT_KEY, now()); // mark immediately to prevent re-entry
+          var self = this;
+          var d       = (delayMs == null) ? 1500 : delayMs;
+          var typeMs  = Math.max(1500, Math.round(msg.trim().split(/\s+/).length / 2) * 1000);
+          setTimeout(function () {
+            self._pub({ type: 'typing-on' });
+            setTimeout(function () {
+              self.history.push({ role: 'assistant', content: msg });
+              self._pub({ type: 'typing-off' });
+              self._pub({ type: 'bot', content: msg });
+            }, typeMs);
+          }, d);
+        },
+
+        /* Send a user message and fetch the bot reply */
+        send: async function (text) {
+          text = text.trim();
+          if (!text || this.isSending) return;
+          this.isSending = true;
+          lsSet(ACT_KEY, now());
+
+          this.history.push({ role: 'user', content: text });
+          this._pub({ type: 'user', content: text });
+
+          var t0   = now();
+          var self = this;
+          var typingTimer = setTimeout(function () { self._pub({ type: 'typing-on' }); }, 2000);
+
+          var reply = '';
+          try {
+            var res = await fetch('/api/chat.php', {
+              method:  'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body:    JSON.stringify({ messages: this.history.slice(-12) })
+            });
+            if (res.ok) { var data = await res.json(); reply = (data.reply || '').trim(); }
+          } catch (e) {}
+          if (!reply) reply = "Give me just a sec — let me check that for you.";
+
+          clearTimeout(typingTimer);
+          var elapsed   = now() - t0;
+          var wordCount = reply.trim().split(/\s+/).length;
+          var typeMs    = Math.max(1000, Math.round(wordCount / 2) * 1000);
+          var waitMs    = Math.max(0, 2000 - elapsed);
+
+          setTimeout(function () {
+            self._pub({ type: 'typing-on' });
+            setTimeout(function () {
+              self.history.push({ role: 'assistant', content: reply });
+              lsSet(ACT_KEY, now());
+              self._pub({ type: 'typing-off' });
+              self._pub({ type: 'bot', content: reply });
+              self.isSending = false;
+            }, typeMs);
+          }, waitMs);
+        },
+
+        /* Replay existing history into a widget (called on late open) */
+        renderHistory: function (addFn) {
+          this.history.forEach(function (m) {
+            addFn(m.content, m.role === 'user' ? 'user' : 'mgr');
+          });
+        }
+      };
+    })();
+  }
+
+  /* ── CSS injection ──────────────────────────────────────────────── */
   var st = document.createElement('style');
   st.textContent = [
     '@property --cw-rot{syntax:"<angle>";inherits:true;initial-value:0deg;}',
@@ -18,8 +119,8 @@
     '.cw-chat{border-radius:22px;overflow:hidden;box-shadow:-12px -12px 24px rgba(255,255,255,.72),12px 12px 24px rgba(112,96,110,.30);display:flex;flex-direction:column;height:430px;background:#EADCDB;}',
 
     '.cw-hdr{background:#685b5b;padding:12px 14px;display:flex;align-items:center;gap:11px;flex-shrink:0;}',
-    '.cw-hdr-avatar{position:relative;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.20);border:2px solid rgba(255,255,255,.32);display:flex;align-items:center;justify-content:center;flex-shrink:0;}',
-    '.cw-hdr-letter{font:600 16px/1 var(--font-display,"Cormorant Garamond",serif);color:#fff;}',
+    '.cw-hdr-avatar{position:relative;width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.32);flex-shrink:0;}',
+    '.cw-hdr-img{width:100%;height:100%;object-fit:cover;display:block;}',
     '.cw-hdr-dot{position:absolute;bottom:0;right:0;width:12px;height:12px;border-radius:50%;background:#4caf50;border:2px solid #685b5b;box-shadow:0 0 0 0 rgba(76,175,80,.55);opacity:0;transition:opacity 400ms ease;animation:cw-ava-pulse 2.2s ease-in-out infinite;}',
     '.cw-hdr-dot.cw-dot-on{opacity:1;}',
     '.cw-hdr-info{flex:1;}',
@@ -36,7 +137,8 @@
     '.cw-msgs::-webkit-scrollbar{width:3px;}.cw-msgs::-webkit-scrollbar-track{background:transparent;}.cw-msgs::-webkit-scrollbar-thumb{background:rgba(168,120,208,.28);border-radius:2px;}',
     '.cw-msg{display:flex;align-items:flex-end;gap:8px;animation:cw-in 240ms ease-out;}',
     '.cw-msg--user{justify-content:flex-end;}.cw-msg--mgr{justify-content:flex-start;}',
-    '.cw-msg-ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#cca8e4 0%,#A878D0 100%);display:flex;align-items:center;justify-content:center;font:600 12px/1 var(--font-display,"Cormorant Garamond",serif);color:#fff;flex-shrink:0;}',
+    '.cw-msg-ava{width:28px;height:28px;border-radius:50%;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#cca8e4 0%,#A878D0 100%);}',
+    '.cw-msg-ava img{width:100%;height:100%;object-fit:cover;display:block;}',
     '.cw-msg-bubble{max-width:80%;padding:9px 12px;border-radius:14px;font:400 13px/1.5 var(--font-sans,"Inter",sans-serif);word-break:break-word;}',
     '.cw-msg--mgr .cw-msg-bubble{background:#F9F4F0;box-shadow:-5px -5px 12px rgba(255,255,255,.72),5px 5px 12px rgba(112,96,110,.30);color:#2a2020;border-bottom-left-radius:4px;}',
     '.cw-msg--user .cw-msg-bubble{background:#EDEAE8;box-shadow:-4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22);color:#2a2020;border-bottom-right-radius:4px;}',
@@ -47,10 +149,6 @@
     '.cw-typing-bubble{background:#F9F4F0;border:1px solid rgba(255,255,255,.80);box-shadow:-5px -5px 12px rgba(255,255,255,.72),5px 5px 12px rgba(112,96,110,.30);border-radius:14px;border-bottom-left-radius:4px;padding:10px 14px;display:flex;gap:4px;align-items:center;}',
     '.cw-typing-dot{width:5px;height:5px;border-radius:50%;background:#9e8e8e;animation:cw-dot 1.2s ease-in-out infinite;}',
     '.cw-typing-dot:nth-child(2){animation-delay:.2s;}.cw-typing-dot:nth-child(3){animation-delay:.4s;}',
-
-    '.cw-quick{padding:8px 10px 4px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;background:#F8F4F2;}',
-    '.cw-quick-btn{border:1px solid rgba(168,120,208,.30);border-radius:20px;background:transparent;padding:5px 11px;font:400 11.5px/1.3 var(--font-sans,"Inter",sans-serif);color:#A878D0;cursor:pointer;transition:background 150ms,border-color 150ms;white-space:nowrap;}',
-    '.cw-quick-btn:hover{background:rgba(168,120,208,.08);border-color:rgba(168,120,208,.55);}',
 
     '.cw-input-row{padding:10px 12px 13px;display:flex;gap:8px;align-items:center;flex-shrink:0;background:#685b5b;border-top:1px solid rgba(168,120,208,.12);}',
     '.cw-input-wrap{--cw-grad:conic-gradient(from var(--cw-rot) at 50% 50%,#ff3355 0deg,#ff7700 42deg,#ffdd00 84deg,#33cc55 126deg,#00bbff 168deg,#3366ff 210deg,#9933ff 252deg,#ff33cc 294deg,#ff3355 360deg);animation:cw-spin 9s infinite linear;flex:1;position:relative;border-radius:20px;display:flex;align-items:center;border:1.5px solid transparent;background:linear-gradient(#F9F4F0,#F9F4F0) padding-box,var(--cw-grad) border-box;min-width:0;height:38px;}',
@@ -64,11 +162,7 @@
   ].join('');
   document.head.appendChild(st);
 
-  /* ── Conversation history ───────────────────────────────────── */
-  var cwHistory   = [];
-  var cwIsSending = false;
-
-  /* ── Popup HTML ─────────────────────────────────────────────── */
+  /* ── Popup HTML ─────────────────────────────────────────────────── */
   var popup = document.createElement('div');
   popup.className = 'cw-popup';
   popup.id = 'cwPopup';
@@ -76,7 +170,7 @@
     '<div class="cw-chat">' +
       '<div class="cw-hdr">' +
         '<div class="cw-hdr-avatar">' +
-          '<span class="cw-hdr-letter">O</span>' +
+          '<img class="cw-hdr-img" src="assets/ava-chat.jpg" alt="Olivia">' +
           '<span class="cw-hdr-dot" id="cwAvaDot"></span>' +
         '</div>' +
         '<div class="cw-hdr-info"><span class="cw-hdr-name">Olivia</span></div>' +
@@ -100,126 +194,91 @@
     '</div>';
   document.body.appendChild(popup);
 
-  /* ── Refs ───────────────────────────────────────────────────── */
+  /* ── Widget refs ────────────────────────────────────────────────── */
   var msgs    = document.getElementById('cwMsgs');
   var input   = document.getElementById('cwInput');
   var sendBtn = document.getElementById('cwSend');
+  var TYPING  = 'cwTyping';
 
-  /* ── Chat helpers ───────────────────────────────────────────── */
-  function getTime() {
-    var d = new Date(), h = d.getHours(), m = d.getMinutes();
-    return (h % 12 || 12) + ':' + String(m).padStart(2,'0') + ' ' + (h < 12 ? 'AM' : 'PM');
-  }
-  function scrollBottom() { msgs.scrollTop = msgs.scrollHeight; }
-
-  function fmtBot(s) {
-    return s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-  }
-
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  /* ── Helpers ────────────────────────────────────────────────────── */
+  function fmtBot(s)  { return s.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'); }
+  function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function getTime()  { var d=new Date(),h=d.getHours(),m=d.getMinutes(); return (h%12||12)+':'+String(m).padStart(2,'0')+' '+(h<12?'AM':'PM'); }
 
   function addMsg(text, type) {
     var row = document.createElement('div');
     row.className = 'cw-msg cw-msg--' + type;
     if (type === 'mgr') {
-      row.innerHTML = '<div class="cw-msg-ava">O</div><div class="cw-msg-bubble">' + fmtBot(text) + '<span class="cw-msg-time">' + getTime() + '</span></div>';
+      row.innerHTML = '<div class="cw-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
+        '<div class="cw-msg-bubble">' + fmtBot(text) + '<span class="cw-msg-time">' + getTime() + '</span></div>';
     } else {
       row.innerHTML = '<div class="cw-msg-bubble">' + escHtml(text) + '<span class="cw-msg-time">' + getTime() + '</span></div>';
     }
     msgs.appendChild(row);
-    scrollBottom();
+    msgs.scrollTop = msgs.scrollHeight;
   }
 
   function showTyping() {
+    if (document.getElementById(TYPING)) return;
     var t = document.createElement('div');
-    t.className = 'cw-typing'; t.id = 'cwTyping';
-    t.innerHTML = '<div class="cw-msg-ava">O</div><div class="cw-typing-bubble"><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span></div>';
-    msgs.appendChild(t); scrollBottom();
+    t.className = 'cw-typing'; t.id = TYPING;
+    t.innerHTML = '<div class="cw-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
+      '<div class="cw-typing-bubble"><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span></div>';
+    msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
   }
-  function removeTyping() { var t = document.getElementById('cwTyping'); if (t) t.remove(); }
+  function removeTyping() { var t = document.getElementById(TYPING); if (t) t.remove(); }
 
-  async function send(text) {
-    text = text.trim();
-    if (!text || cwIsSending) return;
-    cwIsSending = true;
-
-    addMsg(text, 'user');
-    input.value = '';
-    cwHistory.push({ role: 'user', content: text });
-
-    var t0 = Date.now();
-    var typingTimer = setTimeout(showTyping, 2000);
-
-    var reply = '';
-    try {
-      var res = await fetch('/api/chat.php', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ messages: cwHistory.slice(-12) })
-      });
-      if (res.ok) {
-        var data = await res.json();
-        reply = (data.reply || '').trim();
-      }
-    } catch (e) { /* network error */ }
-
-    if (!reply) reply = "Give me just a sec — let me check that for you.";
-
-    clearTimeout(typingTimer);
-    var elapsed   = Date.now() - t0;
-    var wordCount = reply.trim().split(/\s+/).length;
-    var typeMs    = Math.max(1000, Math.round(wordCount / 2) * 1000);
-    var waitMs    = Math.max(0, 2000 - elapsed);
-
-    setTimeout(function() {
-      showTyping();
-      setTimeout(function() {
-        removeTyping();
-        cwHistory.push({ role: 'assistant', content: reply });
-        addMsg(reply, 'mgr');
-        cwIsSending = false;
-      }, typeMs);
-    }, waitMs);
-  }
-
-  /* ── Event listeners ────────────────────────────────────────── */
-  sendBtn.addEventListener('click', function() { send(input.value); });
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
+  /* ── Subscribe widget to shared state ──────────────────────────── */
+  window._FLChat.sub(function (ev) {
+    if (ev.type === 'user')       addMsg(ev.content, 'user');
+    if (ev.type === 'bot')        addMsg(ev.content, 'mgr');
+    if (ev.type === 'typing-on')  showTyping();
+    if (ev.type === 'typing-off') removeTyping();
   });
-  document.getElementById('cwClose').addEventListener('click', function() { closePopup(); });
 
-  /* ── Toggle / open / close ──────────────────────────────────── */
-  var isOpen   = false;
-  var greeted  = false;
+  /* ── Input handling ─────────────────────────────────────────────── */
+  sendBtn.addEventListener('click', function () {
+    var text = input.value; input.value = '';
+    window._FLChat.send(text);
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      var text = input.value; input.value = '';
+      window._FLChat.send(text);
+    }
+  });
+  document.getElementById('cwClose').addEventListener('click', function () { closePopup(); });
+
+  /* ── Open / close ───────────────────────────────────────────────── */
+  var isOpen = false;
 
   function openPopup() {
     isOpen = true;
     popup.classList.add('cw-open');
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.add('cw-btn-hidden');
-    if (!greeted) {
-      greeted = true;
-      var GREETINGS = [
-        "Hi! I'm Olivia. Let me know if you have any questions.",
-        "Hi! I'm Olivia. Happy to help with any questions.",
-        "Hi! I'm Olivia. I'm here to help if you need anything."
-      ];
-      setTimeout(function() {
-        var g = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
-        showTyping();
-        setTimeout(function() { removeTyping(); addMsg(g, 'mgr'); }, g.split(/\s+/).length * 500);
-      }, 3000);
-    }
-    /* Activate online dots */
-    setTimeout(function() {
+    input.focus();
+
+    // Activate online dots
+    setTimeout(function () {
       var a = document.getElementById('cwAvaDot');
       var s = document.getElementById('cwStDot');
       if (a) a.classList.add('cw-dot-on');
       if (s) s.classList.add('cw-dot-on');
-    }, 3000);
+    }, 500);
+
+    // Render history if widget DOM is fresh but shared state has messages
+    if (!msgs.hasChildNodes() && window._FLChat.history.length > 0) {
+      window._FLChat.renderHistory(addMsg);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    // Greet (only if ≥5 hours since last activity)
+    window._FLChat.greet(
+      "Hi! Thanks for visiting. I'm happy to help if you have any questions.",
+      1000
+    );
   }
 
   function closePopup() {
@@ -229,13 +288,12 @@
     if (cw) cw.classList.remove('cw-btn-hidden');
   }
 
-  /* ── Wire the widget button on every page ───────────────────── */
+  /* ── Wire widget trigger button ─────────────────────────────────── */
   var widgetBtn = document.querySelector('.contact-widget-btn');
   if (widgetBtn) {
-    widgetBtn.onclick = function(e) {
+    widgetBtn.onclick = function (e) {
       e.preventDefault();
       isOpen ? closePopup() : openPopup();
     };
   }
-
 })();
