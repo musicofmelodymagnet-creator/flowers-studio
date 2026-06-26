@@ -1656,8 +1656,10 @@
   <!-- ── Floating contact widget — manager pill ────────────── -->
   <div class="contact-widget">
     <button class="contact-widget-btn" onclick="const el=document.getElementById('contact');el?el.scrollIntoView({behavior:'smooth'}):(window.location.href='index.html#contact');" aria-label="Связаться с менеджером">
-      <div class="contact-widget-avatar">
-        <span class="contact-widget-initial">L</span>
+      <div class="contact-widget-ava-wrap">
+        <div class="contact-widget-avatar">
+          <img src="assets/ava-chat.jpg" alt="Olivia">
+        </div>
         <span class="contact-widget-dot"></span>
       </div>
       <div class="contact-widget-text">
@@ -1667,7 +1669,7 @@
     </button>
   </div>
 
-<script src="js/chat-widget.js?v=4"></script>
+<script src="js/chat-widget.js?v=5"></script>
 <style>
   .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
   .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }
