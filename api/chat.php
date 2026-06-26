@@ -99,15 +99,18 @@ TONE & STYLE
 FORBIDDEN PHRASES — never use these:
 "I can help you" / "I'd be happy to" / "Great question!" / "Certainly!" / "Of course!" / "As an AI" / "Allow me to clarify" / "Absolutely!" / "Sure!" / "I understand your concern" / "Hey!" / "That's a great question" / "Totally!" / "For sure!" / "Of course!"
 
+ABSOLUTE RULE — ZERO QUESTIONS IN REPLIES:
+Never end any message with a question. Not "Does that help?", not "Want more info?", not "What's your event?", not "Make sense?" — nothing. Not a single question mark at the end of any reply, ever. The client asks questions. You answer them. Always end with a statement.
+
+ABSOLUTE RULE — MESSAGE LENGTH AND SPLITTING:
+Each message must be 3–4 sentences max. If your answer needs more than 4 sentences, split it into separate short messages using ||| as the separator (with a space on each side: " ||| "). Every part separated by ||| must itself be 3–4 sentences max. Short answers (1–4 sentences total) must NOT use ||| — send as one message.
+Example of correct splitting: "We've got three sizes: 8×8, 11×8, and 14×8 ft. The 11×8 is our most popular — great for weddings and larger groups." ||| "The 8×8 works well for intimate setups and portrait zones. The 14×8 is the XL option for big galas."
+
 RESPONSE STYLE
 - Don't sound robotic or military — no dry command-style answers that jump straight to the information with zero warmth
 - Start with 2–4 natural bridging words that ease into the answer — like "Yep, just submit...", "Easy —", "That's simple —", "So the way it works:", "Good news —", "Short answer:", "Honestly,". These should feel like something a real person would text, not a scripted opener
 - No fake enthusiasm: don't use "Hey!", "Great question!", "Of course!", "Absolutely!" etc.
-- Keep replies short: 1–3 sentences
-- Only ask a follow-up question when the answer to it would meaningfully change your response (e.g. "indoors or outdoors?" changes what you say about setup; "your event date" does not — you'll direct them to the inquiry form regardless)
 - Never ask for the event date — you cannot check availability yourself and will always redirect to the inquiry form, so asking the date gives no value
-- After answering a factual question (sizes, pricing, process, colors, features), STOP. Do not add a follow-up question at the end. The client will ask the next question themselves. Example of what NOT to do: client asks about sizes → you list sizes → then you add "What's your event looking like?" — this is wrong, end after the answer.
-- Never add abstract trailing questions ("What's your event looking like?", "What are you envisioning?", "What kind of event is it?") unless the answer to that question would change what you say next in the same reply.
 - End the message when your point is made — no filler sentences
 
 RULES
@@ -229,14 +232,21 @@ $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
-$reply = '';
+$rawReply = '';
 if ($response && $httpCode === 200) {
-    $parsed = json_decode($response, true);
-    $reply  = trim($parsed['content'][0]['text'] ?? '');
+    $parsed   = json_decode($response, true);
+    $rawReply = trim($parsed['content'][0]['text'] ?? '');
 }
-if (!$reply) {
-    $reply = "Give me just a sec — let me check that for you.";
+if (!$rawReply) {
+    $rawReply = "Give me just a sec — let me check that for you.";
 }
+
+// Split on ||| separator — model may send multiple short messages
+$parts = array_values(array_filter(
+    array_map('trim', explode('|||', $rawReply)),
+    fn($p) => $p !== ''
+));
+if (empty($parts)) $parts = [$rawReply];
 
 // ── Log conversation ──────────────────────────────────────────────────────────
 $logDir = __DIR__ . '/../chat-logs';
@@ -244,8 +254,8 @@ if (!is_dir($logDir)) @mkdir($logDir, 0750, true);
 $ipHash  = md5($ip);
 $logFile = $logDir . '/' . date('Y-m') . '-' . $ipHash . '.json';
 $log = file_exists($logFile) ? (json_decode(file_get_contents($logFile), true) ?: []) : [];
-$log[] = ['time' => date('Y-m-d H:i:s'), 'ip_hash' => $ipHash, 'user' => end($clean)['content'], 'reply' => $reply];
+$log[] = ['time' => date('Y-m-d H:i:s'), 'ip_hash' => $ipHash, 'user' => end($clean)['content'], 'replies' => $parts];
 if (count($log) > 200) $log = array_slice($log, -200);
 @file_put_contents($logFile, json_encode($log, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
 
-echo json_encode(['success' => true, 'reply' => $reply]);
+echo json_encode(['success' => true, 'reply' => $parts[0], 'replies' => $parts]);

@@ -63,33 +63,39 @@
           var self = this;
           var typingTimer = setTimeout(function () { self._pub({ type: 'typing-on' }); }, 2000);
 
-          var reply = '';
+          var replies = [];
           try {
             var res = await fetch('/api/chat.php', {
               method:  'POST',
               headers: { 'Content-Type': 'application/json' },
               body:    JSON.stringify({ messages: this.history.slice(-12) })
             });
-            if (res.ok) { var data = await res.json(); reply = (data.reply || '').trim(); }
+            if (res.ok) {
+              var data = await res.json();
+              replies = (data.replies || [data.reply || '']).map(function (r) { return r.trim(); }).filter(Boolean);
+            }
           } catch (e) {}
-          if (!reply) reply = "Give me just a sec — let me check that for you.";
+          if (!replies.length) replies = ["Give me just a sec — let me check that for you."];
 
           clearTimeout(typingTimer);
-          var elapsed   = now() - t0;
-          var wordCount = reply.trim().split(/\s+/).length;
-          var typeMs    = Math.max(1000, Math.round(wordCount / 2) * 1000);
-          var waitMs    = Math.max(0, 2000 - elapsed);
+          var elapsed = now() - t0;
+          var waitMs  = Math.max(0, 2000 - elapsed);
 
-          setTimeout(function () {
+          function publishNext(parts, idx) {
+            if (idx >= parts.length) { self.isSending = false; return; }
+            var msg      = parts[idx];
+            var typeMs   = Math.max(800, Math.round(msg.trim().split(/\s+/).length / 2) * 1000);
             self._pub({ type: 'typing-on' });
             setTimeout(function () {
-              self.history.push({ role: 'assistant', content: reply });
+              self.history.push({ role: 'assistant', content: msg });
               lsSet(ACT_KEY, now());
               self._pub({ type: 'typing-off' });
-              self._pub({ type: 'bot', content: reply });
-              self.isSending = false;
+              self._pub({ type: 'bot', content: msg });
+              setTimeout(function () { publishNext(parts, idx + 1); }, 500);
             }, typeMs);
-          }, waitMs);
+          }
+
+          setTimeout(function () { publishNext(replies, 0); }, waitMs);
         },
 
         /* Replay existing history into a widget (called on late open) */
