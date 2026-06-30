@@ -1589,7 +1589,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: -64px auto 128px;
+  margin: -37px auto;
   background: linear-gradient(
     to right,
     transparent,
@@ -1946,7 +1946,7 @@ body {
    ================================================================ */
 @media (max-width: 1024px) {
   .page-stack { padding: 0 40px 64px; gap: 58px; }
-  .section-sep { margin: -48px auto 96px; }
+  .section-sep { margin: -18px auto; }
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
   .hero-copy h1  { font-size: 48px; }
@@ -2009,8 +2009,7 @@ body {
   .hero-plate video,
   .hero-yt-wrap { border-radius: 16px; }
 
-  /* Section separator — 1:4 ratio (top=24px, bottom=96px) at gap:48px */
-  .section-sep { margin: -24px auto 48px; }
+  .section-sep { margin: -8px auto; }
 
   /* Hero: hide only the big FLORINSKY span (already in fixed bar); keep eyebrow tagline visible */
   .hero-wordmark .wordmark { display: none; }
@@ -3797,3 +3796,82 @@ body {
   .inq-tabs { gap: 4px; }
   .inq-tab  { padding: 9px 14px; font-size: 13px; }
 }
+
+
+/* ================================================================
+   HERO — FULL-BLEED VIDEO BACKGROUND (test variant)
+   Revert: remove class "hero--videobg" from <header> in index.html,
+   restore <div class="hero-plate"> wrapper, delete this CSS block.
+   ================================================================ */
+.hero--videobg {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  /* Pull hero to viewport top (negates page-stack padding-top: 80px) */
+  margin-top: -80px;
+  /* Push content below nav pill: 14px padding + 60px pill + ~22px gap */
+  padding-top: 96px;
+  padding-bottom: 80px;
+  justify-content: space-between;
+  /* Full-bleed: 100vw centered by flex align-items:center on page-stack */
+  width: 100vw;
+}
+
+@media (max-width: 768px) {
+  .hero--videobg {
+    margin-top: -64px; /* negate site-shell padding-top on mobile */
+    padding-top: 72px;
+    min-height: 100svh;
+  }
+}
+
+.hero--videobg .hero-yt-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
+  border-radius: 0 !important;
+  z-index: 0;
+}
+
+.hero--videobg .hero-yt-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, calc(100svh * 16 / 9));
+  height: max(100%, calc(100vw * 9 / 16));
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero--videobg .hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero--videobg .hero-yt-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 4, 14, 0.55) 0%,
+    rgba(8, 4, 14, 0.18) 40%,
+    rgba(8, 4, 14, 0.60) 100%
+  );
+}
+
+.hero--videobg .hero-wordmark,
+.hero--videobg .hero-phrases,
+.hero--videobg .hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero--videobg .tagline-rule            { background: rgba(255,255,255,0.60); width: 52px; }
+.hero--videobg .hero-wordmark .eyebrow  { color: rgba(255,255,255,0.96); opacity: 1; letter-spacing: 0.45em; }
+.hero--videobg .hero-copy p             { color: rgba(255,255,255,0.72); }
+.hero--videobg .hero-phrase             { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+

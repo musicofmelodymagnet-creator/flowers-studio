@@ -94,33 +94,26 @@ $recaptchaSecret = defined('RECAPTCHA_SECRET') ? RECAPTCHA_SECRET : '';
 $isLocalhost     = in_array($ip, ['127.0.0.1', '::1', 'unknown'], true)
                 || preg_match('/^127\./', $ip);
 
-if (!$isLocalhost) {
-    if (!$recaptchaToken) {
-        http_response_code(403);
-        echo json_encode(['success' => false, 'error' => 'Security check required.']);
-        exit;
-    }
-    if ($recaptchaSecret) {
-        $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => http_build_query([
-                'secret'   => $recaptchaSecret,
-                'response' => $recaptchaToken,
-                'remoteip' => $ip,
-            ]),
-            CURLOPT_TIMEOUT => 5,
-        ]);
-        $rcResponse = curl_exec($ch);
-        curl_close($ch);
+if (!$isLocalhost && $recaptchaSecret && $recaptchaToken) {
+    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query([
+            'secret'   => $recaptchaSecret,
+            'response' => $recaptchaToken,
+            'remoteip' => $ip,
+        ]),
+        CURLOPT_TIMEOUT => 5,
+    ]);
+    $rcResponse = curl_exec($ch);
+    curl_close($ch);
 
-        $rcData = $rcResponse ? json_decode($rcResponse, true) : null;
-        if (!$rcData || !($rcData['success'] ?? false) || ($rcData['score'] ?? 0) < 0.5) {
-            http_response_code(403);
-            echo json_encode(['success' => false, 'error' => 'Security check failed. Please try again.']);
-            exit;
-        }
+    $rcData = $rcResponse ? json_decode($rcResponse, true) : null;
+    if (!$rcData || !($rcData['success'] ?? false) || ($rcData['score'] ?? 0) < 0.5) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'Security check failed. Please try again.']);
+        exit;
     }
 }
 

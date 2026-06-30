@@ -28,14 +28,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=24" />
+  <link rel="stylesheet" href="css/styles.css?v=28" />
   <style>
     /* ── Client Care page ── */
     .cc-hero {
       text-align: center;
       max-width: 700px;
       margin: 0 auto;
-      padding: 60px 0 0;
+      padding: 20px 0 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -705,6 +705,7 @@
     .cc-social-icon svg { width: 41px; height: 41px; stroke-width: 1.5; }
 
     </style>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY" async defer></script>
 </head>
 <body>
 
@@ -818,7 +819,7 @@
             </svg>
           </div>
           <h3>Write to Us</h3>
-          <a href="mailto:hello@florinsky.ca" class="cc-card-value">hello@florinsky.ca</a>
+          <a href="mailto:info@florinsky.ca" class="cc-card-value">info@florinsky.ca</a>
           <p class="cc-card-note">Response within a few hours</p>
         </div>
 
@@ -845,44 +846,28 @@
       <div class="cc-inquiry-wrap">
         <section class="inquiry" id="contact" aria-label="Inquiry form">
 
-          <div class="inq-tabs" role="tablist">
-            <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Send an Inquiry</button>
-            <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
-          </div>
-
           <div class="inquiry-header">
-            <h2 id="inqTitle">Send an Inquiry</h2>
+            <h2>Send an Inquiry</h2>
             <p>Fill out the form and our manager will get back to you within 2 hours.</p>
           </div>
 
           <form class="form-body" id="inquiryForm" novalidate>
             <div class="form-row">
               <div class="form-field">
-                <label for="field-name">First Name</label>
-                <input id="field-name" class="form-input" type="text" placeholder="First name" autocomplete="given-name" />
+                <label for="field-name">Name</label>
+                <input id="field-name" class="form-input" type="text" placeholder="Your name" autocomplete="name" />
               </div>
-              <div class="form-field">
-                <label for="field-lastname">Last Name</label>
-                <input id="field-lastname" class="form-input" type="text" placeholder="Last name" autocomplete="family-name" />
-              </div>
-            </div>
-
-            <div class="form-row">
               <div class="form-field">
                 <label for="field-email">Email</label>
                 <input id="field-email" class="form-input" type="email" placeholder="example@mail.com" autocomplete="email" />
-              </div>
-              <div class="form-field">
-                <label for="field-phone">Phone</label>
-                <input id="field-phone" class="form-input" type="tel" placeholder="+1 (000) 000-0000" autocomplete="tel" />
               </div>
             </div>
 
             <div class="form-field">
               <label for="field-date">Event Date</label>
-              <div class="form-date-wrap" id="fieldDateWrap">
+              <div class="form-date-wrap">
                 <input id="field-date" class="form-input" type="text" placeholder="mm/dd/yyyy" />
-                <span class="form-date-icon" id="fieldDateIcon">
+                <span class="form-date-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                     <line x1="16" y1="2" x2="16" y2="6"/>
@@ -894,29 +879,14 @@
             </div>
 
             <div class="form-field">
-              <label for="field-location">Event Location</label>
-              <input id="field-location" class="form-input" type="text" placeholder="Venue or city" />
-            </div>
-
-            <div class="form-field">
-              <label for="field-event-type">Type of Event</label>
-              <select id="field-event-type" class="form-select">
-                <option value="" disabled selected>Select event type</option>
-                <option value="Wedding">Wedding</option>
-                <option value="Corporate Event">Corporate Event</option>
-                <option value="Birthday Celebration">Birthday Celebration</option>
-                <option value="Anniversary">Anniversary</option>
-                <option value="Engagement Party">Engagement Party</option>
-                <option value="Baby Shower">Baby Shower</option>
-                <option value="Bridal Shower">Bridal Shower</option>
-                <option value="Sweet 16 / Quinceañera">Sweet 16 / Quinceañera</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div class="form-field">
               <label for="field-message">Message</label>
               <textarea id="field-message" class="form-textarea" rows="4" placeholder="Describe your wishes..."></textarea>
+            </div>
+
+            <!-- HoneyPot: hidden from users, bots fill it → rejected server-side -->
+            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+              <label for="hp-website">Website</label>
+              <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
             </div>
 
             <div class="form-submit">
@@ -1095,24 +1065,38 @@
     const submitBtn = document.getElementById('submitBtn');
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const name      = document.getElementById('field-name').value.trim();
-      const lastName  = document.getElementById('field-lastname')?.value.trim() || '';
-      const email     = document.getElementById('field-email').value.trim();
-      const phone     = document.getElementById('field-phone')?.value.trim() || '';
-      const date      = document.getElementById('field-date')?.value.trim() || '';
-      const location  = document.getElementById('field-location')?.value.trim() || '';
-      const eventType = document.getElementById('field-event-type')?.value || '';
-      const message   = document.getElementById('field-message').value.trim();
+      const name    = document.getElementById('field-name').value.trim();
+      const email   = document.getElementById('field-email').value.trim();
+      const date    = document.getElementById('field-date')?.value.trim() || '';
+      const message = document.getElementById('field-message').value.trim();
+      const hp      = document.getElementById('hp-website').value;
+
+      if (hp) return;
 
       submitBtn.textContent   = 'Sending…';
       submitBtn.disabled      = true;
       submitBtn.style.opacity = '0.7';
 
+      let recaptchaToken = '';
+      try {
+        recaptchaToken = await new Promise((resolve) => {
+          const timer = setTimeout(() => resolve(''), 3000);
+          if (typeof grecaptcha === 'undefined') { clearTimeout(timer); resolve(''); return; }
+          grecaptcha.ready(() => {
+            try {
+              grecaptcha.execute('6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY', { action: 'contact' })
+                .then(t => { clearTimeout(timer); resolve(t); })
+                .catch(() => { clearTimeout(timer); resolve(''); });
+            } catch(e) { clearTimeout(timer); resolve(''); }
+          });
+        });
+      } catch(e) { recaptchaToken = ''; }
+
       try {
         const res  = await fetch('/api/contact.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, lastName, email, phone, date, location, eventType, message })
+          body: JSON.stringify({ name, email, date, message, recaptchaToken, hp })
         });
         const data = await res.json();
         if (data.success) {
@@ -1136,17 +1120,16 @@
 
   <!-- ── Floating contact widget — manager pill ────────────── -->
   <div class="contact-widget">
-    <button class="contact-widget-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});" aria-label="Связаться с менеджером">
+    <button class="contact-widget-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});" aria-label="Chat with Olivia">
       <div class="contact-widget-ava-wrap">
         <div class="contact-widget-avatar">
           <img src="assets/ava-chat.jpg" alt="Olivia">
         </div>
-        
-              <span class="contact-widget-dot"></span>
+        <span class="contact-widget-dot"></span>
       </div>
       <div class="contact-widget-text">
-        <span class="contact-widget-title">Manager</span>
-        <span class="contact-widget-online">online</span>
+        <span class="contact-widget-title">Olivia</span>
+        <span class="contact-widget-online">● online</span>
       </div>
     </button>
   </div>
@@ -1156,7 +1139,7 @@
   /* mobile top bar: shadow + hide-on-scroll */
   (function(){var b=document.getElementById("mobileTop");if(!b)return;var l=0,t=false;function s(){var y=window.scrollY;if(y>0){b.classList.add("nav-shadow");}else{b.classList.remove("nav-shadow","nav-scrolled","nav-hidden");l=0;t=false;return;}if(y>8){b.classList.add("nav-scrolled");if(y>l+4)b.classList.add("nav-hidden");else if(y<l-4)b.classList.remove("nav-hidden");}else{b.classList.remove("nav-scrolled","nav-hidden");}l=y;t=false;}window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(s);t=true;}},{passive:true});})();
   </script>
-<script src="js/chat-widget.js?v=5"></script>
+<script src="js/chat-widget.js?v=6"></script>
 <script>
 (function () {
   var msgs    = document.getElementById('chatMsgs');
@@ -1248,30 +1231,5 @@
   .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
   .cw-quick                     { background: #F8F4F2 !important; }
 </style>
-<script src="js/fl-calendar.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  if (window.FlCalendar) FlCalendar.init('field-date', 'fieldDateWrap', 'fieldDateIcon');
-
-  /* ── Inquiry tabs ─────────────────────────────── */
-  var TAB_DATA = {
-    inquiry: { title: 'Send an Inquiry', btn: 'Send Inquiry' },
-    reserve: { title: 'Reserve Your Wall', btn: 'Reserve Now' }
-  };
-  var tabs    = document.querySelectorAll('.inq-tab');
-  var title   = document.getElementById('inqTitle');
-  var submitB = document.getElementById('submitBtn');
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      tabs.forEach(function(t) { t.classList.remove('inq-tab--active'); t.setAttribute('aria-selected','false'); });
-      this.classList.add('inq-tab--active');
-      this.setAttribute('aria-selected','true');
-      var d = TAB_DATA[this.getAttribute('data-tab')];
-      if (title)   title.textContent   = d.title;
-      if (submitB) submitB.textContent = d.btn;
-    });
-  });
-});
-</script>
 </body>
 </html>
