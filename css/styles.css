@@ -3757,44 +3757,67 @@ body {
 }
 
 /* ================================================================
-   INQUIRY TABS (Send an Inquiry / Reserve Your Wall)
+   INQUIRY TABS (Quick Inquiry / Reserve Your Wall)
    ================================================================ */
+.inq-tabs-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .inq-tabs {
   display: flex;
-  gap: 8px;
-  padding: 5px;
-  background: rgba(0,0,0,0.06);
-  border-radius: var(--r-pill);
-  width: fit-content;
-  margin: 0 auto 8px;
+  gap: 4px;
+  align-items: flex-end;
+  width: 100%;
+  border-bottom: 2px solid rgba(112,96,110,0.14);
+  padding: 0;
+  margin: 0;
+  background: none;
 }
 
 .inq-tab {
-  padding: 10px 22px;
-  border-radius: var(--r-pill);
+  padding: 10px 26px 11px;
+  border-radius: 12px 12px 0 0;
   border: none;
-  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  background: rgba(112,96,110,0.07);
   font: 600 14px/1 var(--font-sans);
   color: var(--ink-soft);
   cursor: pointer;
-  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  transition: background 180ms ease, color 180ms ease, padding-top 180ms ease;
   white-space: nowrap;
 }
 
 .inq-tab--active {
-  background: var(--surface);
+  padding-top: 13px;
+  background: rgba(248,244,240,0.72);
   color: var(--ink);
-  box-shadow: 0 2px 8px rgba(112,96,110,0.18);
+  border-bottom-color: var(--surface-form);
+}
+
+.inq-tab[data-tab="reserve"].inq-tab--active {
+  background: rgba(168,120,208,0.14);
+  border-bottom-color: var(--surface-form);
 }
 
 .inq-tab:not(.inq-tab--active):hover {
+  background: rgba(112,96,110,0.13);
   color: var(--ink);
-  background: rgba(255,255,255,0.4);
+}
+
+.inq-tab-desc {
+  font: 400 13px/1.5 var(--font-sans);
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 0;
+  font-style: italic;
 }
 
 @media (max-width: 480px) {
-  .inq-tabs { gap: 4px; }
-  .inq-tab  { padding: 9px 14px; font-size: 13px; }
+  .inq-tab { padding: 8px 16px 9px; font-size: 13px; }
+  .inq-tab--active { padding-top: 11px; }
 }
 
 

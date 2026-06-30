@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=28" />
+  <link rel="stylesheet" href="css/styles.css?v=29" />
   <style>
     /* ── Client Care page ── */
     .cc-hero {
@@ -846,9 +846,12 @@
       <div class="cc-inquiry-wrap">
         <section class="inquiry" id="contact" aria-label="Inquiry form">
 
-          <div class="inq-tabs" role="tablist">
-            <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Send an Inquiry</button>
-            <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
+          <div class="inq-tabs-group">
+            <div class="inq-tabs" role="tablist">
+              <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Quick Inquiry</button>
+              <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
+            </div>
+            <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.</p>
           </div>
 
           <div class="inquiry-header">
@@ -1273,8 +1276,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   /* Inquiry tabs */
   var TAB_DATA = {
-    inquiry: { title: 'Send an Inquiry', btn: 'Send Inquiry' },
-    reserve: { title: 'Reserve Your Wall', btn: 'Reserve Now' }
+    inquiry: { title: 'Send an Inquiry', btn: 'Send Inquiry', desc: 'Perfect if you need pricing, availability, or have any questions.' },
+    reserve: { title: 'Reserve Your Wall', btn: 'Reserve Now',  desc: 'Ready to reserve your floral wall? Complete your booking request.' }
   };
   document.querySelectorAll('.inq-tab').forEach(function(tab) {
     tab.addEventListener('click', function() {
@@ -1285,8 +1288,10 @@ document.addEventListener('DOMContentLoaded', function() {
       var d = TAB_DATA[this.getAttribute('data-tab')];
       var title = document.getElementById('inqTitle');
       var btn   = document.getElementById('submitBtn');
+      var desc  = document.getElementById('inqDesc');
       if (title) title.textContent = d.title;
       if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
+      if (desc) desc.textContent = d.desc;
     });
   });
 });
