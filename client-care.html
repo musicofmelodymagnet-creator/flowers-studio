@@ -705,6 +705,7 @@
     .cc-social-icon svg { width: 41px; height: 41px; stroke-width: 1.5; }
 
     </style>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY" async defer></script>
 </head>
 <body>
 
@@ -818,7 +819,7 @@
             </svg>
           </div>
           <h3>Write to Us</h3>
-          <a href="mailto:hello@florinsky.ca" class="cc-card-value">hello@florinsky.ca</a>
+          <a href="mailto:info@florinsky.ca" class="cc-card-value">info@florinsky.ca</a>
           <p class="cc-card-note">Response within a few hours</p>
         </div>
 
@@ -880,6 +881,12 @@
             <div class="form-field">
               <label for="field-message">Message</label>
               <textarea id="field-message" class="form-textarea" rows="4" placeholder="Describe your wishes..."></textarea>
+            </div>
+
+            <!-- HoneyPot: hidden from users, bots fill it → rejected server-side -->
+            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+              <label for="hp-website">Website</label>
+              <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
             </div>
 
             <div class="form-submit">
@@ -1062,16 +1069,34 @@
       const email   = document.getElementById('field-email').value.trim();
       const date    = document.getElementById('field-date')?.value.trim() || '';
       const message = document.getElementById('field-message').value.trim();
+      const hp      = document.getElementById('hp-website').value;
+
+      if (hp) return;
 
       submitBtn.textContent   = 'Sending…';
       submitBtn.disabled      = true;
       submitBtn.style.opacity = '0.7';
 
+      let recaptchaToken = '';
+      try {
+        recaptchaToken = await new Promise((resolve) => {
+          const timer = setTimeout(() => resolve(''), 3000);
+          if (typeof grecaptcha === 'undefined') { clearTimeout(timer); resolve(''); return; }
+          grecaptcha.ready(() => {
+            try {
+              grecaptcha.execute('6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY', { action: 'contact' })
+                .then(t => { clearTimeout(timer); resolve(t); })
+                .catch(() => { clearTimeout(timer); resolve(''); });
+            } catch(e) { clearTimeout(timer); resolve(''); }
+          });
+        });
+      } catch(e) { recaptchaToken = ''; }
+
       try {
         const res  = await fetch('/api/contact.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, date, message })
+          body: JSON.stringify({ name, email, date, message, recaptchaToken, hp })
         });
         const data = await res.json();
         if (data.success) {
@@ -1095,7 +1120,7 @@
 
   <!-- ── Floating contact widget — manager pill ────────────── -->
   <div class="contact-widget">
-    <button class="contact-widget-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});" aria-label="Связаться с менеджером">
+    <button class="contact-widget-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});" aria-label="Chat with Olivia">
       <div class="contact-widget-ava-wrap">
         <div class="contact-widget-avatar">
           <img src="assets/ava-chat.jpg" alt="Olivia">
@@ -1103,8 +1128,8 @@
         <span class="contact-widget-dot"></span>
       </div>
       <div class="contact-widget-text">
-        <span class="contact-widget-title">Менеджер</span>
-        <span class="contact-widget-online">● онлайн</span>
+        <span class="contact-widget-title">Olivia</span>
+        <span class="contact-widget-online">● online</span>
       </div>
     </button>
   </div>
@@ -1114,7 +1139,7 @@
   /* mobile top bar: shadow + hide-on-scroll */
   (function(){var b=document.getElementById("mobileTop");if(!b)return;var l=0,t=false;function s(){var y=window.scrollY;if(y>0){b.classList.add("nav-shadow");}else{b.classList.remove("nav-shadow","nav-scrolled","nav-hidden");l=0;t=false;return;}if(y>8){b.classList.add("nav-scrolled");if(y>l+4)b.classList.add("nav-hidden");else if(y<l-4)b.classList.remove("nav-hidden");}else{b.classList.remove("nav-scrolled","nav-hidden");}l=y;t=false;}window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(s);t=true;}},{passive:true});})();
   </script>
-<script src="js/chat-widget.js?v=5"></script>
+<script src="js/chat-widget.js?v=6"></script>
 <script>
 (function () {
   var msgs    = document.getElementById('chatMsgs');

@@ -65,6 +65,7 @@
     }
   }
   </script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY" async defer></script>
 </head>
 <body>
 
@@ -437,6 +438,10 @@
           <div class="form-field">
             <label for="pi-message">Message</label>
             <textarea id="pi-message" class="form-textarea" rows="4" placeholder="Tell us about your event, venue, and any special requests..."></textarea>
+          </div>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+            <label for="hp-website-pi">Website</label>
+            <input type="text" id="hp-website-pi" name="website" tabindex="-1" autocomplete="off" />
           </div>
           <div class="form-submit">
             <button type="submit" class="neo-btn neo-btn--solid" id="productSubmitBtn">
@@ -1000,10 +1005,28 @@
 
     productForm.addEventListener('submit', async e => {
       e.preventDefault();
+      const hp = document.getElementById('hp-website-pi').value;
+      if (hp) return;
+
       const name    = document.getElementById('pi-name').value.trim();
       const email   = document.getElementById('pi-email').value.trim();
       const date    = document.getElementById('pi-date')?.value.trim() || '';
       const message = document.getElementById('pi-message').value.trim();
+
+      let recaptchaToken = '';
+      try {
+        recaptchaToken = await new Promise((resolve) => {
+          const timer = setTimeout(() => resolve(''), 3000);
+          if (typeof grecaptcha === 'undefined') { clearTimeout(timer); resolve(''); return; }
+          grecaptcha.ready(() => {
+            try {
+              grecaptcha.execute('6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY', { action: 'contact' })
+                .then(t => { clearTimeout(timer); resolve(t); })
+                .catch(() => { clearTimeout(timer); resolve(''); });
+            } catch(e) { clearTimeout(timer); resolve(''); }
+          });
+        });
+      } catch(e) { recaptchaToken = ''; }
 
       productSubmitBtn.textContent   = 'Sending…';
       productSubmitBtn.disabled      = true;
@@ -1013,7 +1036,7 @@
         const res  = await fetch('/api/contact.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, date, message })
+          body: JSON.stringify({ name, email, date, message, recaptchaToken, hp })
         });
         const data = await res.json();
         if (data.success) {
@@ -1235,7 +1258,7 @@
 
   <!-- ── Floating contact widget — manager pill ────────────── -->
   <div class="contact-widget">
-    <button class="contact-widget-btn" onclick="const el=document.getElementById('contact');el?el.scrollIntoView({behavior:'smooth'}):(window.location.href='index.html#contact');" aria-label="Связаться с менеджером">
+    <button class="contact-widget-btn" onclick="const el=document.getElementById('contact');el?el.scrollIntoView({behavior:'smooth'}):(window.location.href='index.html#contact');" aria-label="Chat with Olivia">
       <div class="contact-widget-ava-wrap">
         <div class="contact-widget-avatar">
           <img src="assets/ava-chat.jpg" alt="Olivia">
@@ -1243,8 +1266,8 @@
         <span class="contact-widget-dot"></span>
       </div>
       <div class="contact-widget-text">
-        <span class="contact-widget-title">Менеджер</span>
-        <span class="contact-widget-online">● онлайн</span>
+        <span class="contact-widget-title">Olivia</span>
+        <span class="contact-widget-online">● online</span>
       </div>
     </button>
   </div>
@@ -1254,7 +1277,7 @@
   /* mobile top bar: shadow + hide-on-scroll */
   (function(){var b=document.getElementById("mobileTop");if(!b)return;var l=0,t=false;function s(){var y=window.scrollY;if(y>0){b.classList.add("nav-shadow");}else{b.classList.remove("nav-shadow","nav-scrolled","nav-hidden");l=0;t=false;return;}if(y>8){b.classList.add("nav-scrolled");if(y>l+4)b.classList.add("nav-hidden");else if(y<l-4)b.classList.remove("nav-hidden");}else{b.classList.remove("nav-scrolled","nav-hidden");}l=y;t=false;}window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(s);t=true;}},{passive:true});})();
   </script>
-<script src="js/chat-widget.js?v=5"></script>
+<script src="js/chat-widget.js?v=6"></script>
 <style>
   .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
   .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }

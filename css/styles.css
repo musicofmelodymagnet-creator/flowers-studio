@@ -76,6 +76,7 @@ body {
   font-family: var(--font-sans);
   color: var(--ink-soft);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -112,7 +113,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 128px;
+  gap: clamp(48px, 8vw, 128px);
   padding: 80px 64px 64px;
 }
 
@@ -205,8 +206,8 @@ body {
 }
 
 .wordmark {
-  font: 400 61px/1 var(--font-display);
-  letter-spacing: 0.05em;
+  font: 400 88px/1 var(--font-display);
+  letter-spacing: 0.08em;
   color: var(--brand);
   display: inline-block;
   cursor: pointer;
@@ -1584,7 +1585,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: -64px auto 128px;
+  margin: calc(40px - clamp(48px, 8vw, 128px)) auto;
   background: linear-gradient(
     to right,
     transparent,
@@ -1940,8 +1941,8 @@ body {
    RESPONSIVE — large tablet (1025–1280)
    ================================================================ */
 @media (max-width: 1024px) {
-  .page-stack { padding: 0 40px 64px; gap: 96px; }
-  .section-sep { margin: -48px auto 96px; }
+  .page-stack { padding: 0 40px 64px; }
+  /* section-sep margin handled by clamp() in base styles */
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
   .hero-copy h1  { font-size: 48px; }
@@ -1979,11 +1980,11 @@ body {
   .site-shell { padding-top: 64px; }
 
   /* Shell */
-  .page-stack { padding: 0 20px 48px; gap: 48px; }
+  .page-stack { padding: 0 20px 48px; }
 
   /* Hero: fills first viewport; space-between distributes space between elements, 72px from bottom edge */
   .hero { gap: 0; padding: 8px 0 72px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
-  .wordmark { font-size: 40px; }
+  .wordmark { font-size: 56px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
   .hero-copy h1 {
@@ -2005,7 +2006,7 @@ body {
   .hero-yt-wrap { border-radius: 16px; }
 
   /* Section separator — 1:4 ratio (top=24px, bottom=96px) at gap:48px */
-  .section-sep { margin: -24px auto 48px; }
+  /* section-sep margin handled by clamp() in base styles */
 
   /* Hero: hide only the big FLORINSKY span (already in fixed bar); keep eyebrow tagline visible */
   .hero-wordmark .wordmark { display: none; }
@@ -2124,9 +2125,9 @@ body {
    RESPONSIVE — small mobile (max 480px)
    ================================================================ */
 @media (max-width: 480px) {
-  .page-stack { padding: 0 16px 40px; gap: 48px; }
+  .page-stack { padding: 0 16px 40px; }
 
-  .wordmark { font-size: 36px; }
+  .wordmark { font-size: 46px; }
   .hero-copy h1 { font-size: 30px; }
   .hero-copy p { font-size: 15px; }
   .hero-ctas { max-width: 100%; }
@@ -3614,3 +3615,80 @@ body {
 @media (max-width: 640px) {
   .loc-map-caption { display: none; }
 }
+
+/* ================================================================
+   HERO — FULL-BLEED VIDEO BACKGROUND (test variant)
+   Revert: remove class "hero--videobg" from <header> in index.html,
+   restore <div class="hero-plate"> wrapper, delete this CSS block.
+   ================================================================ */
+.hero--videobg {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  /* Pull hero to viewport top (negates page-stack padding-top: 80px) */
+  margin-top: -80px;
+  /* Push content below nav pill: 14px padding + 60px pill + ~22px gap */
+  padding-top: 96px;
+  padding-bottom: 80px;
+  justify-content: space-between;
+  /* Full-bleed: 100vw centered by flex align-items:center on page-stack */
+  width: 100vw;
+}
+
+@media (max-width: 768px) {
+  .hero--videobg {
+    margin-top: -64px; /* negate site-shell padding-top on mobile */
+    padding-top: 72px;
+    min-height: 100svh;
+  }
+}
+
+.hero--videobg .hero-yt-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
+  border-radius: 0 !important;
+  z-index: 0;
+}
+
+.hero--videobg .hero-yt-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, calc(100svh * 16 / 9));
+  height: max(100%, calc(100vw * 9 / 16));
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero--videobg .hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero--videobg .hero-yt-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 4, 14, 0.55) 0%,
+    rgba(8, 4, 14, 0.18) 40%,
+    rgba(8, 4, 14, 0.60) 100%
+  );
+}
+
+.hero--videobg .hero-wordmark,
+.hero--videobg .hero-phrases,
+.hero--videobg .hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero--videobg .tagline-rule            { background: rgba(255,255,255,0.60); width: 52px; }
+.hero--videobg .hero-wordmark .eyebrow  { color: rgba(255,255,255,0.96); opacity: 1; letter-spacing: 0.45em; }
+.hero--videobg .hero-copy p             { color: rgba(255,255,255,0.72); }
+.hero--videobg .hero-phrase             { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }

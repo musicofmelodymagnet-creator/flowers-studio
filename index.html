@@ -178,7 +178,8 @@
     @media (max-width: 768px) {
       .rv-card { flex: 0 0 75%; border-radius: var(--r-card); }
       .rv-track { gap: 16px; }
-      .rv-carousel-wrap { padding: 0; }
+      .rv-carousel-wrap { padding: 0; overflow: hidden; }
+      .rv-arrow { display: none; }
     }
   </style>
   <script type="application/ld+json">
@@ -194,7 +195,7 @@
         "logo": "https://florinsky.ca/assets/hero-flower-wall.jpg",
         "image": "https://florinsky.ca/assets/hero-flower-wall.jpg",
         "telephone": "",
-        "email": "",
+        "email": "info@florinsky.ca",
         "foundingDate": "",
         "areaServed": [
           "Toronto", "Mississauga", "Vaughan", "Markham",
@@ -275,6 +276,7 @@
     ]
   }
   </script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY" async defer></script>
 </head>
 <body>
 
@@ -323,7 +325,7 @@
     <main class="page-stack">
 
       <!-- ── HERO ─────────────────────────────────────────────── -->
-      <header class="hero" id="welcome">
+      <header class="hero hero--videobg" id="welcome">
 
         <div class="hero-wordmark">
           <a class="wordmark" href="index.html" style="text-decoration:none">FLORINSKY</a>
@@ -334,17 +336,17 @@
           </div>
         </div>
 
-        <div class="hero-plate">
-          <div class="hero-yt-wrap">
-            <iframe
-              class="hero-yt-frame"
-              src="https://www.youtube-nocookie.com/embed/uMQIQjANzXw?autoplay=1&mute=1&loop=1&playlist=uMQIQjANzXw&rel=0&playsinline=1&controls=0&disablekb=1&iv_load_policy=3&modestbranding=1&fs=0"
-              frameborder="0"
-              allow="autoplay; encrypted-media"
-              aria-label="FLORINSKY flower wall rental video"
-            ></iframe>
-            <div class="hero-yt-overlay" aria-hidden="true"></div>
-          </div>
+        <div class="hero-yt-wrap">
+          <video
+            class="hero-bg-video"
+            src="assets/product-video.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            aria-label="FLORINSKY flower wall rental video"
+          ></video>
+          <div class="hero-yt-overlay" aria-hidden="true"></div>
         </div>
 
         <!-- Rotating editorial phrases -->
@@ -902,6 +904,12 @@
             <textarea id="field-message" class="form-textarea" rows="4" placeholder="Describe your wishes..."></textarea>
           </div>
 
+          <!-- HoneyPot: hidden from users, bots fill it → rejected server-side -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+            <label for="hp-website">Website</label>
+            <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div class="form-submit">
             <button type="submit" class="neo-btn neo-btn--solid" id="submitBtn">
               Send Inquiry
@@ -1097,16 +1105,36 @@
       const email   = document.getElementById('field-email').value.trim();
       const date    = document.getElementById('field-date')?.value.trim() || '';
       const message = document.getElementById('field-message').value.trim();
+      const hp      = document.getElementById('hp-website').value;
+
+      // HoneyPot: bot filled the hidden field — silently do nothing
+      if (hp) return;
 
       submitBtn.textContent   = 'Sending…';
       submitBtn.disabled      = true;
       submitBtn.style.opacity = '0.7';
 
+      // reCAPTCHA v3 token
+      let recaptchaToken = '';
+      try {
+        recaptchaToken = await new Promise((resolve) => {
+          const timer = setTimeout(() => resolve(''), 3000);
+          if (typeof grecaptcha === 'undefined') { clearTimeout(timer); resolve(''); return; }
+          grecaptcha.ready(() => {
+            try {
+              grecaptcha.execute('6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY', { action: 'contact' })
+                .then(t => { clearTimeout(timer); resolve(t); })
+                .catch(() => { clearTimeout(timer); resolve(''); });
+            } catch(e) { clearTimeout(timer); resolve(''); }
+          });
+        });
+      } catch(e) { recaptchaToken = ''; }
+
       try {
         const res  = await fetch('/api/contact.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, date, message })
+          body: JSON.stringify({ name, email, date, message, recaptchaToken, hp })
         });
         const data = await res.json();
         if (data.success) {
@@ -1655,7 +1683,7 @@
 
   <!-- ── Floating contact widget — manager pill ────────────── -->
   <div class="contact-widget">
-    <button class="contact-widget-btn" onclick="const el=document.getElementById('contact');el?el.scrollIntoView({behavior:'smooth'}):(window.location.href='index.html#contact');" aria-label="Связаться с менеджером">
+    <button class="contact-widget-btn" onclick="const el=document.getElementById('contact');el?el.scrollIntoView({behavior:'smooth'}):(window.location.href='index.html#contact');" aria-label="Chat with Olivia">
       <div class="contact-widget-ava-wrap">
         <div class="contact-widget-avatar">
           <img src="assets/ava-chat.jpg" alt="Olivia">
@@ -1663,13 +1691,13 @@
         <span class="contact-widget-dot"></span>
       </div>
       <div class="contact-widget-text">
-        <span class="contact-widget-title">Менеджер</span>
-        <span class="contact-widget-online">● онлайн</span>
+        <span class="contact-widget-title">Olivia</span>
+        <span class="contact-widget-online">● online</span>
       </div>
     </button>
   </div>
 
-<script src="js/chat-widget.js?v=5"></script>
+<script src="js/chat-widget.js?v=6"></script>
 <style>
   .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
   .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }

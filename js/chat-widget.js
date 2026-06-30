@@ -226,7 +226,7 @@
   var TYPING  = 'cwTyping';
 
   /* ── Helpers ────────────────────────────────────────────────────── */
-  function fmtBot(s)  { return s.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'); }
+  function fmtBot(s)  { return escHtml(s).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'); }
   function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function getTime()  { var d=new Date(),h=d.getHours(),m=d.getMinutes(); return (h%12||12)+':'+String(m).padStart(2,'0')+' '+(h<12?'AM':'PM'); }
 
@@ -280,6 +280,7 @@
 
   function openPopup() {
     isOpen = true;
+    try { sessionStorage.setItem('flChat_open', '1'); } catch(e) {}
     popup.classList.add('cw-open');
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.add('cw-btn-hidden');
@@ -308,6 +309,7 @@
 
   function closePopup() {
     isOpen = false;
+    try { sessionStorage.setItem('flChat_open', '0'); } catch(e) {}
     popup.classList.remove('cw-open');
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.remove('cw-btn-hidden');
@@ -321,4 +323,9 @@
       isOpen ? closePopup() : openPopup();
     };
   }
+
+  /* ── Restore open state from previous page ──────────────────────── */
+  try {
+    if (sessionStorage.getItem('flChat_open') === '1') { openPopup(); }
+  } catch (e) {}
 })();
