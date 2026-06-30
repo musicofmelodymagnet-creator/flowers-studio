@@ -870,20 +870,36 @@
       <div class="cc-inquiry-wrap cc-inquiry-main">
       <section class="inquiry" id="contact" aria-label="Inquiry form">
 
+        <div class="inq-tabs" role="tablist">
+          <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Send an Inquiry</button>
+          <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
+        </div>
+
         <div class="inquiry-header">
-          <h2>Inquire about your Date</h2>
+          <h2 id="inqTitle">Inquire about your Date</h2>
           <p>Fill out the form below and we will get back to you within 4 hours.</p>
         </div>
 
         <form class="form-body" id="inquiryForm" novalidate>
           <div class="form-row">
             <div class="form-field">
-              <label for="field-name">Name</label>
-              <input id="field-name" class="form-input" type="text" placeholder="Your name" autocomplete="name" />
+              <label for="field-name">First Name</label>
+              <input id="field-name" class="form-input" type="text" placeholder="First name" autocomplete="given-name" />
             </div>
+            <div class="form-field">
+              <label for="field-lastname">Last Name</label>
+              <input id="field-lastname" class="form-input" type="text" placeholder="Last name" autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="form-row">
             <div class="form-field">
               <label for="field-email">Email</label>
               <input id="field-email" class="form-input" type="email" placeholder="example@mail.com" autocomplete="email" />
+            </div>
+            <div class="form-field">
+              <label for="field-phone">Phone</label>
+              <input id="field-phone" class="form-input" type="tel" placeholder="+1 (000) 000-0000" autocomplete="tel" />
             </div>
           </div>
 
@@ -897,6 +913,27 @@
                 </svg>
               </span>
             </div>
+          </div>
+
+          <div class="form-field">
+            <label for="field-location">Event Location</label>
+            <input id="field-location" class="form-input" type="text" placeholder="Venue or city" />
+          </div>
+
+          <div class="form-field">
+            <label for="field-event-type">Type of Event</label>
+            <select id="field-event-type" class="form-select">
+              <option value="" disabled selected>Select event type</option>
+              <option value="Wedding">Wedding</option>
+              <option value="Corporate Event">Corporate Event</option>
+              <option value="Birthday Celebration">Birthday Celebration</option>
+              <option value="Anniversary">Anniversary</option>
+              <option value="Engagement Party">Engagement Party</option>
+              <option value="Baby Shower">Baby Shower</option>
+              <option value="Bridal Shower">Bridal Shower</option>
+              <option value="Sweet 16 / Quinceañera">Sweet 16 / Quinceañera</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
 
           <div class="form-field">
@@ -1101,11 +1138,15 @@
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const name    = document.getElementById('field-name').value.trim();
-      const email   = document.getElementById('field-email').value.trim();
-      const date    = document.getElementById('field-date')?.value.trim() || '';
-      const message = document.getElementById('field-message').value.trim();
-      const hp      = document.getElementById('hp-website').value;
+      const name      = document.getElementById('field-name').value.trim();
+      const lastName  = document.getElementById('field-lastname')?.value.trim() || '';
+      const email     = document.getElementById('field-email').value.trim();
+      const phone     = document.getElementById('field-phone')?.value.trim() || '';
+      const date      = document.getElementById('field-date')?.value.trim() || '';
+      const location  = document.getElementById('field-location')?.value.trim() || '';
+      const eventType = document.getElementById('field-event-type')?.value || '';
+      const message   = document.getElementById('field-message').value.trim();
+      const hp        = document.getElementById('hp-website').value;
 
       // HoneyPot: bot filled the hidden field — silently do nothing
       if (hp) return;
@@ -1134,7 +1175,7 @@
         const res  = await fetch('/api/contact.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, date, message, recaptchaToken, hp })
+          body: JSON.stringify({ name, lastName, email, phone, date, location, eventType, message, recaptchaToken, hp })
         });
         const data = await res.json();
         if (data.success) {
@@ -1702,6 +1743,25 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   if (window.FlCalendar) FlCalendar.init('field-date', 'fieldDateWrap', 'fieldDateIcon');
+
+  /* Inquiry tabs */
+  var TAB_DATA = {
+    inquiry: { title: 'Inquire about your Date', btn: 'Send Inquiry' },
+    reserve: { title: 'Reserve Your Wall',        btn: 'Reserve Now'  }
+  };
+  document.querySelectorAll('.inq-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.inq-tab').forEach(function(t) {
+        t.classList.remove('inq-tab--active'); t.setAttribute('aria-selected', 'false');
+      });
+      this.classList.add('inq-tab--active'); this.setAttribute('aria-selected', 'true');
+      var d = TAB_DATA[this.getAttribute('data-tab')];
+      var title = document.getElementById('inqTitle');
+      var btn   = document.getElementById('submitBtn');
+      if (title) title.textContent = d.title;
+      if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
+    });
+  });
 });
 </script>
 <style>
