@@ -908,7 +908,7 @@ body {
 }
 .cc-inquiry-wrap .inquiry {
   width: 100%;
-  padding: 44px 44px 48px;
+  padding: 24px 44px 48px;
   gap: 26px;
   box-shadow: var(--elev-md);
 }
@@ -3759,10 +3759,8 @@ body {
 /* ================================================================
    INQUIRY TABS (Quick Inquiry / Reserve Your Wall)
    ================================================================ */
-.inq-tabs-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.cc-inquiry-wrap > .inq-tabs {
+  width: 100%;
 }
 
 .inq-tabs {

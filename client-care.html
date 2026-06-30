@@ -844,15 +844,13 @@
 
       <!-- ── INQUIRY FORM ───────────────────────────────────────── -->
       <div class="cc-inquiry-wrap">
+        <div class="inq-tabs" role="tablist">
+          <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Quick Inquiry</button>
+          <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
+        </div>
         <section class="inquiry" id="contact" aria-label="Inquiry form">
 
-          <div class="inq-tabs-group">
-            <div class="inq-tabs" role="tablist">
-              <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Quick Inquiry</button>
-              <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
-            </div>
-            <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.</p>
-          </div>
+          <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.</p>
 
           <div class="inquiry-header">
             <h2 id="inqTitle">Send an Inquiry</h2>
@@ -907,13 +905,10 @@
               <select id="field-event-type" class="form-select">
                 <option value="" disabled selected>Select event type</option>
                 <option value="Wedding">Wedding</option>
-                <option value="Corporate Event">Corporate Event</option>
-                <option value="Birthday Celebration">Birthday Celebration</option>
-                <option value="Anniversary">Anniversary</option>
-                <option value="Engagement Party">Engagement Party</option>
-                <option value="Baby Shower">Baby Shower</option>
                 <option value="Bridal Shower">Bridal Shower</option>
-                <option value="Sweet 16 / Quinceañera">Sweet 16 / Quinceañera</option>
+                <option value="Baby Shower">Baby Shower</option>
+                <option value="Birthday Party">Birthday Party</option>
+                <option value="Corporate Event">Corporate Event</option>
                 <option value="Other">Other</option>
               </select>
             </div>
