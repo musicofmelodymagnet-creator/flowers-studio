@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=22" />
+  <link rel="stylesheet" href="css/styles.css?v=24" />
 
   <style>
     /* ═══════════════════════════════════════════════
@@ -57,13 +57,14 @@
     }
     .faq-hero h1 {
       font: 700 56px/1.2 var(--font-sans);
-      color: var(--ink-soft);
+      color: var(--ink-mauve);
       margin: 0;
     }
     .faq-hero-sub {
       font: 400 18px/1.7 var(--font-sans);
       color: var(--ink-soft);
-      max-width: 700px;
+      max-width: 900px;
+      white-space: nowrap;
       margin: 0;
     }
     .faq-hero-rule {
@@ -329,7 +330,7 @@
     @media (max-width: 768px) {
       .faq-hero { padding: 32px 16px 28px; }
       .faq-hero h1 { font-size: 40px; }
-      .faq-hero-sub { font-size: 16px; }
+      .faq-hero-sub { font-size: 16px; white-space: normal; }
       .faq-wrap { padding: 0 0 60px; gap: 36px; }
       .faq-cta-card {
         flex-direction: column;
@@ -503,7 +504,7 @@
       <!-- ── Hero ──────────────────────────────────────── -->
       <section class="faq-hero">
         <h1>FAQ</h1>
-        <p class="faq-hero-sub">Everything you might wish to know —<br>carefully gathered</p>
+        <p class="faq-hero-sub">Everything you might wish to know — carefully gathered</p>
       </section>
 
       <!-- ── Accordion ─────────────────────────────────── -->
@@ -952,16 +953,17 @@
 
   <!-- ── Floating contact widget ──────────────────────────── -->
   <div class="contact-widget">
-    <button class="contact-widget-btn" onclick="window.location.href='client-care.html';" aria-label="Chat with Olivia">
+    <button class="contact-widget-btn" onclick="window.location.href='client-care.html';" aria-label="Связаться с менеджером">
       <div class="contact-widget-ava-wrap">
         <div class="contact-widget-avatar">
           <img src="assets/ava-chat.jpg" alt="Olivia">
         </div>
-        <span class="contact-widget-dot"></span>
+        
+              <span class="contact-widget-dot"></span>
       </div>
       <div class="contact-widget-text">
-        <span class="contact-widget-title">Olivia</span>
-        <span class="contact-widget-online">● online</span>
+        <span class="contact-widget-title">Manager</span>
+        <span class="contact-widget-online">online</span>
       </div>
     </button>
   </div>
@@ -971,7 +973,7 @@
   /* mobile top bar: shadow + hide-on-scroll */
   (function(){var b=document.getElementById("mobileTop");if(!b)return;var l=0,t=false;function s(){var y=window.scrollY;if(y>0){b.classList.add("nav-shadow");}else{b.classList.remove("nav-shadow","nav-scrolled","nav-hidden");l=0;t=false;return;}if(y>8){b.classList.add("nav-scrolled");if(y>l+4)b.classList.add("nav-hidden");else if(y<l-4)b.classList.remove("nav-hidden");}else{b.classList.remove("nav-scrolled","nav-hidden");}l=y;t=false;}window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(s);t=true;}},{passive:true});})();
   </script>
-<script src="js/chat-widget.js?v=6"></script>
+<script src="js/chat-widget.js?v=5"></script>
 <style>
   .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
   .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }

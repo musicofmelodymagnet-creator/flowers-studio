@@ -76,7 +76,6 @@ body {
   font-family: var(--font-sans);
   color: var(--ink-soft);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -113,7 +112,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(48px, 8vw, 128px);
+  gap: 77px;
   padding: 80px 64px 64px;
 }
 
@@ -206,8 +205,8 @@ body {
 }
 
 .wordmark {
-  font: 400 88px/1 var(--font-display);
-  letter-spacing: 0.08em;
+  font: 400 61px/1 var(--font-display);
+  letter-spacing: 0.05em;
   color: var(--brand);
   display: inline-block;
   cursor: pointer;
@@ -380,7 +379,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 6px;
   text-align: center;
 }
 
@@ -856,9 +855,15 @@ body {
   top: 50%;
   transform: translateY(-50%);
   color: var(--ink-muted);
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   display: flex;
+  transition: color 150ms;
 }
+.form-date-icon:hover { color: var(--brand); }
+#field-date::-webkit-calendar-picker-indicator { display: none; -webkit-appearance: none; }
+#field-date[type="date"] { color: var(--ink); }
+#field-date[type="date"]:not(:has(option:checked)):not([value]) { color: var(--ink-muted); }
 
 .form-date-icon svg { width: 20px; height: 20px; stroke-width: 1.75; }
 
@@ -866,7 +871,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 22px;
   padding-top: 26px;
 }
 
@@ -954,7 +959,7 @@ body {
 }
 .cc-inquiry-wrap .form-submit {
   padding-top: 16px;
-  gap: 8px;
+  gap: 18px;
 }
 .cc-inquiry-wrap .form-consent {
   font-size: 12px;
@@ -1227,7 +1232,7 @@ body {
   height: 12px;
   border-radius: 50%;
   background: #4caf50;
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 2.5px rgba(204, 168, 228, 0.7);
   pointer-events: none;
 }
 
@@ -1286,12 +1291,11 @@ body {
    ================================================================ */
 .about-page-header {
   width: 100%;
-  max-width: 1072px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 48px 0 0;
+  gap: 18px;
+  padding: 60px 0 0;
   text-align: center;
 }
 
@@ -1585,7 +1589,7 @@ body {
   width: 100%;
   max-width: 880px;
   height: 1px;
-  margin: calc(40px - clamp(48px, 8vw, 128px)) auto;
+  margin: -64px auto 128px;
   background: linear-gradient(
     to right,
     transparent,
@@ -1941,8 +1945,8 @@ body {
    RESPONSIVE — large tablet (1025–1280)
    ================================================================ */
 @media (max-width: 1024px) {
-  .page-stack { padding: 0 40px 64px; }
-  /* section-sep margin handled by clamp() in base styles */
+  .page-stack { padding: 0 40px 64px; gap: 58px; }
+  .section-sep { margin: -48px auto 96px; }
   .site-nav  { padding: 20px 40px; }
   .nav-pill  { gap: 28px; padding: 0 32px; }
   .hero-copy h1  { font-size: 48px; }
@@ -1980,11 +1984,11 @@ body {
   .site-shell { padding-top: 64px; }
 
   /* Shell */
-  .page-stack { padding: 0 20px 48px; }
+  .page-stack { padding: 0 20px 48px; gap: 48px; }
 
   /* Hero: fills first viewport; space-between distributes space between elements, 72px from bottom edge */
   .hero { gap: 0; padding: 8px 0 72px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
-  .wordmark { font-size: 56px; }
+  .wordmark { font-size: 40px; }
   .wordmark-tagline { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .eyebrow { text-align: center; }
   .hero-copy h1 {
@@ -2006,7 +2010,7 @@ body {
   .hero-yt-wrap { border-radius: 16px; }
 
   /* Section separator — 1:4 ratio (top=24px, bottom=96px) at gap:48px */
-  /* section-sep margin handled by clamp() in base styles */
+  .section-sep { margin: -24px auto 48px; }
 
   /* Hero: hide only the big FLORINSKY span (already in fixed bar); keep eyebrow tagline visible */
   .hero-wordmark .wordmark { display: none; }
@@ -2030,6 +2034,7 @@ body {
   /* Section titles */
   .section-title h2 { font-size: 38px; }
   .about-page-header h1 { font-size: 40px; }
+  .about-page-header { padding-top: 40px; }
 
   /* Features — 1 column */
   .features {
@@ -2125,15 +2130,17 @@ body {
    RESPONSIVE — small mobile (max 480px)
    ================================================================ */
 @media (max-width: 480px) {
-  .page-stack { padding: 0 16px 40px; }
+  .page-stack { padding: 0 16px 40px; gap: 48px; }
 
-  .wordmark { font-size: 46px; }
+  .wordmark { font-size: 36px; }
   .hero-copy h1 { font-size: 30px; }
   .hero-copy p { font-size: 15px; }
   .hero-ctas { max-width: 100%; }
 
   .section-title h2 { font-size: 30px; }
+  .section-title { gap: 14px; }
   .about-page-header h1 { font-size: 32px; }
+  .about-page-header { padding-top: 32px; }
 
   .feature-card h3 { font-size: 22px; }
   .feature-card p { font-size: 15px; }
@@ -3617,78 +3624,176 @@ body {
 }
 
 /* ================================================================
-   HERO — FULL-BLEED VIDEO BACKGROUND (test variant)
-   Revert: remove class "hero--videobg" from <header> in index.html,
-   restore <div class="hero-plate"> wrapper, delete this CSS block.
+   FORM SELECT
    ================================================================ */
-.hero--videobg {
-  position: relative;
-  overflow: hidden;
-  min-height: 100svh;
-  /* Pull hero to viewport top (negates page-stack padding-top: 80px) */
-  margin-top: -80px;
-  /* Push content below nav pill: 14px padding + 60px pill + ~22px gap */
-  padding-top: 96px;
-  padding-bottom: 80px;
-  justify-content: space-between;
-  /* Full-bleed: 100vw centered by flex align-items:center on page-stack */
-  width: 100vw;
-}
-
-@media (max-width: 768px) {
-  .hero--videobg {
-    margin-top: -64px; /* negate site-shell padding-top on mobile */
-    padding-top: 72px;
-    min-height: 100svh;
-  }
-}
-
-.hero--videobg .hero-yt-wrap {
-  position: absolute;
-  inset: 0;
+.form-select {
+  border: none;
+  outline: none;
   width: 100%;
-  height: 100%;
-  aspect-ratio: unset;
-  border-radius: 0 !important;
-  z-index: 0;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: var(--inset-md);
+  padding: 17px 48px 17px 24px;
+  font: 400 16px/1.5 var(--font-sans);
+  color: var(--ink);
+  transition: box-shadow var(--dur) var(--ease);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A7B7C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 18px;
+}
+.form-select:focus {
+  box-shadow: var(--glow-accent);
+}
+.form-select option {
+  color: var(--ink);
+  background: var(--bg);
 }
 
-.hero--videobg .hero-yt-frame {
+/* ================================================================
+   CUSTOM DATE PICKER CALENDAR
+   ================================================================ */
+.fl-cal {
   position: absolute;
-  top: 50%;
+  top: calc(100% + 8px);
   left: 50%;
-  width: max(100%, calc(100svh * 16 / 9));
-  height: max(100%, calc(100vw * 9 / 16));
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.hero--videobg .hero-bg-video {
-  position: absolute;
-  inset: 0;
+  min-width: 300px;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 340px;
+  background: var(--surface);
+  border-radius: 18px;
+  box-shadow: 0 12px 48px rgba(112,96,110,0.22), 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid var(--bg);
+  padding: 20px 16px 16px;
+  z-index: 500;
+  opacity: 0;
   pointer-events: none;
+  transform: translateX(-50%) translateY(-8px) scale(0.97);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.fl-cal.fl-cal-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+.fl-cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 0 2px;
+}
+.fl-cal-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 140ms, color 140ms;
+  padding: 0;
+}
+.fl-cal-nav-btn:hover {
+  background: rgba(168,120,208,0.12);
+  color: var(--brand);
+}
+.fl-cal-month {
+  font: 600 14px/1 var(--font-sans);
+  color: var(--ink);
+}
+.fl-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  gap: 3px;
+}
+.fl-cal-dow {
+  font: 600 10px/1 var(--font-sans);
+  color: var(--ink-muted);
+  text-align: center;
+  padding-bottom: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.fl-cal-day {
+  aspect-ratio: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 400 13px/1 var(--font-sans);
+  color: var(--ink-soft);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: background 120ms, color 120ms;
+  padding: 0;
+}
+.fl-cal-day:not([disabled]):hover {
+  background: rgba(168,120,208,0.12);
+  color: var(--brand);
+}
+.fl-cal-today {
+  color: var(--brand);
+  font-weight: 700;
+}
+.fl-cal-sel {
+  background: var(--brand) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+.fl-cal-past {
+  color: var(--ink-muted);
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
-.hero--videobg .hero-yt-overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(8, 4, 14, 0.55) 0%,
-    rgba(8, 4, 14, 0.18) 40%,
-    rgba(8, 4, 14, 0.60) 100%
-  );
+/* ================================================================
+   INQUIRY TABS (Send an Inquiry / Reserve Your Wall)
+   ================================================================ */
+.inq-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+  background: rgba(0,0,0,0.06);
+  border-radius: var(--r-pill);
+  width: fit-content;
+  margin: 0 auto 8px;
 }
 
-.hero--videobg .hero-wordmark,
-.hero--videobg .hero-phrases,
-.hero--videobg .hero-copy {
-  position: relative;
-  z-index: 2;
+.inq-tab {
+  padding: 10px 22px;
+  border-radius: var(--r-pill);
+  border: none;
+  background: none;
+  font: 600 14px/1 var(--font-sans);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  white-space: nowrap;
 }
 
-.hero--videobg .tagline-rule            { background: rgba(255,255,255,0.60); width: 52px; }
-.hero--videobg .hero-wordmark .eyebrow  { color: rgba(255,255,255,0.96); opacity: 1; letter-spacing: 0.45em; }
-.hero--videobg .hero-copy p             { color: rgba(255,255,255,0.72); }
-.hero--videobg .hero-phrase             { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+.inq-tab--active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgba(112,96,110,0.18);
+}
+
+.inq-tab:not(.inq-tab--active):hover {
+  color: var(--ink);
+  background: rgba(255,255,255,0.4);
+}
+
+@media (max-width: 480px) {
+  .inq-tabs { gap: 4px; }
+  .inq-tab  { padding: 9px 14px; font-size: 13px; }
+}

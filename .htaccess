@@ -22,7 +22,7 @@
 
     # Content Security Policy
     # Allows: self, inline styles (needed for neumorphic design), Google Fonts,
-    # Google Analytics, YouTube nocookie embeds.
+    # Google Analytics, reCAPTCHA, YouTube nocookie embeds.
     Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com https://www.google.com; connect-src 'self' https://www.google-analytics.com https://www.google.com https://api.resend.com; object-src 'none'; base-uri 'self';"
 
     # Remove Apache version from headers
