@@ -851,11 +851,9 @@
             <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
           </div>
 
-          <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.</p>
-
           <div class="inquiry-header">
             <h2 id="inqTitle">Send an Inquiry</h2>
-            <p>Fill out the form and our manager will get back to you within 2 hours.</p>
+            <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.</p>
           </div>
 
           <form class="form-body" id="inquiryForm" novalidate>
@@ -864,7 +862,7 @@
                 <label for="field-name">First Name</label>
                 <input id="field-name" class="form-input" type="text" placeholder="First name" autocomplete="given-name" />
               </div>
-              <div class="form-field">
+              <div class="form-field form-field--extended">
                 <label for="field-lastname">Last Name</label>
                 <input id="field-lastname" class="form-input" type="text" placeholder="Last name" autocomplete="family-name" />
               </div>
@@ -875,7 +873,7 @@
                 <label for="field-email">Email</label>
                 <input id="field-email" class="form-input" type="email" placeholder="example@mail.com" autocomplete="email" />
               </div>
-              <div class="form-field">
+              <div class="form-field form-field--extended">
                 <label for="field-phone">Phone</label>
                 <input id="field-phone" class="form-input" type="tel" placeholder="+1 (000) 000-0000" autocomplete="tel" />
               </div>
@@ -896,12 +894,12 @@
               </div>
             </div>
 
-            <div class="form-field">
+            <div class="form-field form-field--extended">
               <label for="field-location">Event Location</label>
               <input id="field-location" class="form-input" type="text" placeholder="Venue or city" />
             </div>
 
-            <div class="form-field">
+            <div class="form-field form-field--extended">
               <label for="field-event-type">Type of Event</label>
               <select id="field-event-type" class="form-select">
                 <option value="" disabled selected>Select event type</option>
