@@ -765,7 +765,7 @@ body {
   transition: background 300ms cubic-bezier(0.22,1,0.36,1);
 }
 .inquiry--reserve {
-  background: #D0C6E2;
+  background: #DCCDD2;
 }
 
 .inquiry-header {
@@ -3815,22 +3815,9 @@ body {
 
 /* Active tab 2: same color as reserve panel — seamless merge */
 .inq-tab[data-tab="reserve"].inq-tab--active {
-  background: #D0C6E2;
-  border-bottom-color: #D0C6E2;
+  background: #DCCDD2;
+  border-bottom-color: #DCCDD2;
   color: var(--ink);
-}
-
-/* Top accent line = the only active indicator */
-.inq-tab--active::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--brand);
-}
-
-.inq-tab[data-tab="reserve"].inq-tab--active::before {
-  background: var(--brand-deep);
 }
 
 .inq-tab:not(.inq-tab--active):hover {
@@ -3849,13 +3836,17 @@ body {
   margin: 0;
 }
 
-/* Quick Inquiry: hide extended fields */
-.form-field--extended {
+/* Quick Inquiry: hide extended fields/rows */
+.form-field--extended,
+.form-row--extended {
   display: none !important;
 }
 
 /* Reserve Your Wall: show all fields */
 .inquiry--reserve .form-field--extended {
+  display: flex !important;
+}
+.inquiry--reserve .form-row--extended {
   display: flex !important;
 }
 
