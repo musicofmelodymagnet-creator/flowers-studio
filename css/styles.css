@@ -3767,48 +3767,51 @@ body {
 
 .inq-tabs {
   display: flex;
-  gap: 4px;
+  gap: 5px;
   align-items: flex-end;
   width: 100%;
-  border-bottom: 2px solid rgba(112,96,110,0.14);
+  border-bottom: 2px solid rgba(112,96,110,0.16);
   padding: 0;
   margin: 0;
   background: none;
 }
 
 .inq-tab {
-  padding: 10px 26px 11px;
-  border-radius: 12px 12px 0 0;
+  flex: 1;
+  text-align: center;
+  padding: 14px 20px 15px;
+  border-radius: 14px 14px 0 0;
   border: none;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
-  background: rgba(112,96,110,0.07);
-  font: 600 14px/1 var(--font-sans);
+  background: rgba(112,96,110,0.08);
+  font: 600 16px/1 var(--font-sans);
   color: var(--ink-soft);
   cursor: pointer;
-  transition: background 180ms ease, color 180ms ease, padding-top 180ms ease;
+  outline: none;
+  transition: background 200ms ease, color 200ms ease, padding-top 200ms ease;
   white-space: nowrap;
 }
 
 .inq-tab--active {
-  padding-top: 13px;
-  background: rgba(248,244,240,0.72);
+  padding-top: 17px;
+  background: #EDE8E2;
   color: var(--ink);
   border-bottom-color: var(--surface-form);
 }
 
 .inq-tab[data-tab="reserve"].inq-tab--active {
-  background: rgba(168,120,208,0.14);
+  background: #D4CCDF;
   border-bottom-color: var(--surface-form);
 }
 
 .inq-tab:not(.inq-tab--active):hover {
-  background: rgba(112,96,110,0.13);
+  background: rgba(112,96,110,0.14);
   color: var(--ink);
 }
 
 .inq-tab-desc {
-  font: 400 13px/1.5 var(--font-sans);
+  font: 400 14px/1.5 var(--font-sans);
   color: var(--ink-soft);
   text-align: center;
   margin: 0;
@@ -3816,8 +3819,8 @@ body {
 }
 
 @media (max-width: 480px) {
-  .inq-tab { padding: 8px 16px 9px; font-size: 13px; }
-  .inq-tab--active { padding-top: 11px; }
+  .inq-tab { padding: 11px 12px 12px; font-size: 14px; }
+  .inq-tab--active { padding-top: 14px; }
 }
 
 
