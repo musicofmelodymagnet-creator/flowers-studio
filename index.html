@@ -868,11 +868,12 @@
 
       <!-- ── INQUIRY FORM ──────────────────────────────────────── -->
       <div class="cc-inquiry-wrap cc-inquiry-main">
+      <section class="inquiry" id="contact" aria-label="Inquiry form">
+
         <div class="inq-tabs" role="tablist">
           <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Quick Inquiry</button>
           <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
         </div>
-      <section class="inquiry" id="contact" aria-label="Inquiry form">
 
         <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.</p>
 
@@ -1754,12 +1755,14 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       this.classList.add('inq-tab--active'); this.setAttribute('aria-selected', 'true');
       var d = TAB_DATA[this.getAttribute('data-tab')];
-      var title = document.getElementById('inqTitle');
-      var btn   = document.getElementById('submitBtn');
-      var desc  = document.getElementById('inqDesc');
+      var title   = document.getElementById('inqTitle');
+      var btn     = document.getElementById('submitBtn');
+      var desc    = document.getElementById('inqDesc');
+      var panel   = document.getElementById('contact');
       if (title) title.textContent = d.title;
       if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
       if (desc) desc.textContent = d.desc;
+      if (panel) panel.classList.toggle('inquiry--reserve', this.getAttribute('data-tab') === 'reserve');
     });
   });
 });
