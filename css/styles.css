@@ -797,8 +797,7 @@ body {
 }
 
 .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 26px;
 }
 
@@ -806,6 +805,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  flex: 1;
+  min-width: 0;
 }
 
 .form-field label {
@@ -2086,7 +2087,7 @@ body {
   /* Pull features up so sep→h3 gap matches other sections (card padding-top = 32px) */
   .features--main { margin-top: -32px; }
   .inquiry-header h2 { font-size: 34px; }
-  .form-row { grid-template-columns: 1fr; gap: 20px; }
+  .form-row { flex-direction: column; gap: 20px; }
   .form-body { gap: 20px; }
   .form-submit { padding-top: 20px; }
   .neo-btn--solid { width: 100%; }
@@ -3650,7 +3651,7 @@ body {
   background-size: 18px;
 }
 .form-select:focus {
-  box-shadow: var(--glow-accent);
+  box-shadow: var(--inset-md);
 }
 .form-select option {
   color: var(--ink);
@@ -3774,7 +3775,7 @@ body {
   gap: 0;
   align-items: stretch;
   padding: 0;
-  background: rgba(112,96,110,0.07);
+  background: #CDCED3;
   border-bottom: 1px solid rgba(112,96,110,0.14);
 }
 
@@ -3785,7 +3786,7 @@ body {
   border: none;
   border-bottom: 1px solid transparent;
   margin-bottom: -1px;
-  background: transparent;
+  background: #CDCED3;
   font: 600 15px/1 var(--font-sans);
   letter-spacing: 0.01em;
   color: var(--ink-soft);
@@ -3798,7 +3799,7 @@ body {
 
 /* Tab 2 always has a hint of its color even when inactive */
 .inq-tab[data-tab="reserve"] {
-  background: rgba(168,120,208,0.10);
+  background: #C9C5D3;
 }
 
 .inq-tab + .inq-tab {
