@@ -910,6 +910,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: var(--r-panel);
+  box-shadow: var(--elev-md);
 }
 .cc-inquiry-wrap > .inq-tabs {
   width: 100%;
@@ -918,7 +920,6 @@ body {
   width: 100%;
   padding: 36px 40px 48px;
   gap: 26px;
-  box-shadow: var(--elev-md);
 }
 .cc-inquiry-wrap .neo-btn {
   padding: 13px 26px;
@@ -2084,6 +2085,7 @@ body {
   /* Inquiry form */
   .inquiry { padding: 44px 20px 40px; border-radius: 0 0 32px 32px; max-width: 100%; }
   .inq-tabs { border-radius: 32px 32px 0 0; }
+  .cc-inquiry-wrap { border-radius: 32px; }
   .cc-inquiry-wrap .inquiry { padding: 44px 20px 40px; }
   /* Pull inquiry card up so sep→title gap matches other sections (card padding-top = 44px) */
   .cc-inquiry-main { margin-top: -44px; }
@@ -3775,7 +3777,6 @@ body {
   align-items: stretch;
   padding: 0;
   background: #CDCED3;
-  border-bottom: 1px solid rgba(112,96,110,0.14);
   border-radius: var(--r-panel) var(--r-panel) 0 0;
   position: relative;
   z-index: 2;
@@ -3786,8 +3787,6 @@ body {
   text-align: center;
   padding: 20px 16px;
   border: none;
-  border-bottom: 1px solid transparent;
-  margin-bottom: -1px;
   background: #CDCED3;
   font: 600 15px/1 var(--font-sans);
   letter-spacing: 0.01em;
@@ -3798,8 +3797,8 @@ body {
   position: relative;
   /* lift: instant; lower: 1 s delay after mouse leaves */
   transition: background 220ms ease, color 220ms ease,
-              transform 220ms ease-in-out 1000ms,
-              box-shadow 220ms ease-in-out 1000ms;
+              transform 300ms ease-in-out 1000ms,
+              box-shadow 300ms ease-in-out 1000ms;
 }
 .inq-tab:first-child { border-top-left-radius: var(--r-panel); }
 .inq-tab:last-child  { border-top-right-radius: var(--r-panel); }
@@ -3813,18 +3812,16 @@ body {
   border-left: 1px solid rgba(112,96,110,0.12);
 }
 
-/* Active tab 1: same color as panel — seamless merge, line disappears */
+/* Active tab 1: same color as panel — seamless merge */
 .inq-tab--active {
   background: var(--surface-form);
   color: var(--ink);
-  border-bottom-color: var(--surface-form);
   z-index: 1;
 }
 
 /* Active tab 2: same color as reserve panel — seamless merge */
 .inq-tab[data-tab="reserve"].inq-tab--active {
   background: #c4b6b5;
-  border-bottom-color: #c4b6b5;
   color: var(--ink);
 }
 
@@ -3834,8 +3831,8 @@ body {
   color: var(--ink);
   transform: translateY(-8px);
   transition: background 220ms ease, color 220ms ease,
-              transform 220ms ease-in-out,
-              box-shadow 220ms ease-in-out;
+              transform 300ms ease-in-out,
+              box-shadow 300ms ease-in-out;
 }
 
 /* Reserve tab hover: lift + extend color downward to cover tab-bar peek */
@@ -3845,8 +3842,8 @@ body {
   transform: translateY(-8px);
   box-shadow: 0 8px 0 0 #c4b6b5;
   transition: background 220ms ease, color 220ms ease,
-              transform 220ms ease-in-out,
-              box-shadow 220ms ease-in-out;
+              transform 300ms ease-in-out,
+              box-shadow 300ms ease-in-out;
 }
 
 /* Description sits inside inquiry-header, inherits its p styles */
