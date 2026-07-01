@@ -764,7 +764,7 @@ body {
   transition: background 300ms cubic-bezier(0.22,1,0.36,1);
 }
 .inquiry--reserve {
-  background: #b3a3a1;
+  background: #c4b6b5;
 }
 
 .inquiry-header {
@@ -910,6 +910,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.cc-inquiry-wrap > .inq-tabs {
+  width: 100%;
 }
 .cc-inquiry-wrap .inquiry {
   width: 100%;
@@ -3817,8 +3820,8 @@ body {
 
 /* Active tab 2: same color as reserve panel — seamless merge */
 .inq-tab[data-tab="reserve"].inq-tab--active {
-  background: #b3a3a1;
-  border-bottom-color: #b3a3a1;
+  background: #c4b6b5;
+  border-bottom-color: #c4b6b5;
   color: var(--ink);
 }
 
@@ -3837,15 +3840,13 @@ body {
 
 /* Description sits inside inquiry-header, inherits its p styles */
 .inq-tab-desc {
-  font-style: italic;
+  font-style: normal;
   margin: 0;
   line-height: 1.65;
 }
 .inq-tab-desc-note {
   display: block;
   font-style: normal;
-  font-size: 13px;
-  color: var(--ink-muted);
   margin-top: 5px;
 }
 
