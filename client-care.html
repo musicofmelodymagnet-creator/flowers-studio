@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=31" />
+  <link rel="stylesheet" href="css/styles.css?v=32" />
   <style>
     /* ── Client Care page ── */
     .cc-hero {
@@ -853,8 +853,7 @@
 
           <div class="inquiry-header">
             <h2 id="inqTitle">Send an Inquiry</h2>
-            <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.</p>
-            <p class="inq-tab-desc2" id="inqDesc2">We'll review your request and contact you to confirm availability and go over your event details.</p>
+            <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.<span class="inq-tab-desc-note">We'll review your request and contact you to confirm availability and go over your event details.</span></p>
           </div>
 
           <form class="form-body" id="inquiryForm" novalidate>
@@ -900,28 +899,29 @@
               <input id="field-location" class="form-input" type="text" placeholder="Venue name and address" />
             </div>
 
-            <div class="form-field form-field--extended">
-              <label for="field-event-type">Type of Event</label>
-              <select id="field-event-type" class="form-select">
-                <option value="" disabled selected>Select an event</option>
-                <option value="Wedding">Wedding</option>
-                <option value="Bridal Shower">Bridal Shower</option>
-                <option value="Baby Shower">Baby Shower</option>
-                <option value="Birthday Party">Birthday Party</option>
-                <option value="Corporate Event">Corporate Event</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div class="form-field form-field--extended">
-              <label for="field-wall-color">Wall Color</label>
-              <select id="field-wall-color" class="form-select">
-                <option value="" disabled selected>Select wall color</option>
-                <option value="White">White</option>
-                <option value="Burgundy">Burgundy</option>
-                <option value="Pink">Pink</option>
-                <option value="Green">Green</option>
-              </select>
+            <div class="form-row form-row--extended">
+              <div class="form-field">
+                <label for="field-event-type">Type of Event</label>
+                <select id="field-event-type" class="form-select">
+                  <option value="" disabled selected>Select an event</option>
+                  <option value="Wedding">Wedding</option>
+                  <option value="Bridal Shower">Bridal Shower</option>
+                  <option value="Baby Shower">Baby Shower</option>
+                  <option value="Birthday Party">Birthday Party</option>
+                  <option value="Corporate Event">Corporate Event</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="field-wall-color">Wall Color</label>
+                <select id="field-wall-color" class="form-select">
+                  <option value="" disabled selected>Select wall color</option>
+                  <option value="White">White</option>
+                  <option value="Burgundy">Burgundy</option>
+                  <option value="Pink">Pink</option>
+                  <option value="Green">Green</option>
+                </select>
+              </div>
             </div>
 
             <div class="form-field">
@@ -1285,16 +1285,14 @@ document.addEventListener('DOMContentLoaded', function() {
     inquiry: {
       title: 'Send an Inquiry',
       btn: 'Send Inquiry',
-      desc: 'Perfect if you need pricing, availability, or have any questions.',
-      desc2: 'We’ll review your request and contact you to confirm availability and go over your event details.',
-      consent: 'By submitting this inquiry, you confirm that you have read and agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
+      desc: 'Perfect if you need pricing, availability, or have any questions.<span class=\"inq-tab-desc-note\">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
+      consent: 'By submitting, you agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
     },
     reserve: {
       title: 'Reserve Your Wall',
       btn: 'Request Reservation',
-      desc: 'Share your event details to begin your reservation.',
-      desc2: 'We’ll review your request and contact you to confirm availability and go over your event details.',
-      consent: 'By submitting this reservation request, you confirm that you have read and agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
+      desc: 'Share your event details to begin your reservation.<span class=\"inq-tab-desc-note\">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
+      consent: 'By submitting this request, you agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
     }
   };
   document.querySelectorAll('.inq-tab').forEach(function(tab) {
@@ -1302,6 +1300,20 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.inq-tab').forEach(function(t) {
         t.classList.remove('inq-tab--active'); t.setAttribute('aria-selected', 'false');
       });
+      this.classList.add('inq-tab--active'); this.setAttribute('aria-selected', 'true');
+      var d = TAB_DATA[this.getAttribute('data-tab')];
+      var title   = document.getElementById('inqTitle');
+      var btn     = document.getElementById('submitBtn');
+      var desc    = document.getElementById('inqDesc');
+      var consent = document.getElementById('inqConsent');
+      var panel   = document.getElementById('contact');
+      if (title) title.textContent = d.title;
+      if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
+      if (desc) desc.innerHTML = d.desc;
+      if (consent) consent.innerHTML = d.consent;
+      if (panel) panel.classList.toggle('inquiry--reserve', this.getAttribute('data-tab') === 'reserve');
+    });
+  });
       this.classList.add('inq-tab--active'); this.setAttribute('aria-selected', 'true');
       var d = TAB_DATA[this.getAttribute('data-tab')];
       var title   = document.getElementById('inqTitle');
