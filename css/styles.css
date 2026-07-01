@@ -905,7 +905,7 @@ body {
    ================================================================ */
 .cc-inquiry-wrap {
   width: 100%;
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -916,7 +916,7 @@ body {
 }
 .cc-inquiry-wrap .inquiry {
   width: 100%;
-  padding: 36px 44px 48px;
+  padding: 36px 40px 48px;
   gap: 26px;
   box-shadow: var(--elev-md);
 }
@@ -933,8 +933,8 @@ body {
   line-height: 1.25;
 }
 .cc-inquiry-wrap .inquiry-header p {
-  font-size: 14px;
-  line-height: 1.45;
+  font-size: 13px;
+  line-height: 1.5;
 }
 .cc-inquiry-wrap .form-body {
   gap: 16px;
