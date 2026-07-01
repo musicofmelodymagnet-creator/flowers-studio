@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=32" />
+  <link rel="stylesheet" href="css/styles.css?v=33" />
 
   <style>
     /* ── Reviews carousel ──────────────────────────────────────── */
@@ -868,12 +868,12 @@
 
       <!-- ── INQUIRY FORM ──────────────────────────────────────── -->
       <div class="cc-inquiry-wrap cc-inquiry-main">
-      <section class="inquiry" id="contact" aria-label="Inquiry form">
+      <div class="inq-tabs" role="tablist">
+                <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Quick Inquiry</button>
+                <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
+              </div>
 
-        <div class="inq-tabs" role="tablist">
-          <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Quick Inquiry</button>
-          <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
-        </div>
+      <section class="inquiry" id="contact" aria-label="Inquiry form">
 
         <div class="inquiry-header">
           <h2 id="inqTitle">Inquire about your Date</h2>
@@ -1754,17 +1754,17 @@ document.addEventListener('DOMContentLoaded', function() {
   if (window.FlCalendar) FlCalendar.init('field-date', 'fieldDateWrap', 'fieldDateIcon');
 
   /* Inquiry tabs */
-  var TAB_DATA = {
+var TAB_DATA = {
     inquiry: {
       title: 'Inquire about your Date',
       btn: 'Send Inquiry',
-      desc: 'Perfect if you need pricing, availability, or have any questions.<span class=\"inq-tab-desc-note\">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
+      desc: 'Perfect if you need pricing, availability, or have any questions.<span class="inq-tab-desc-note">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
       consent: 'By submitting, you agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
     },
     reserve: {
       title: 'Reserve Your Wall',
       btn: 'Request Reservation',
-      desc: 'Share your event details to begin your reservation.<span class=\"inq-tab-desc-note\">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
+      desc: 'Share your event details to begin your reservation.<span class="inq-tab-desc-note">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
       consent: 'By submitting this request, you agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
     }
   };
@@ -1783,22 +1783,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (title) title.textContent = d.title;
       if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
       if (desc) desc.innerHTML = d.desc;
-      if (consent) consent.innerHTML = d.consent;
-      if (panel) panel.classList.toggle('inquiry--reserve', this.getAttribute('data-tab') === 'reserve');
-    });
-  });
-      this.classList.add('inq-tab--active'); this.setAttribute('aria-selected', 'true');
-      var d = TAB_DATA[this.getAttribute('data-tab')];
-      var title   = document.getElementById('inqTitle');
-      var btn     = document.getElementById('submitBtn');
-      var desc    = document.getElementById('inqDesc');
-      var desc2   = document.getElementById('inqDesc2');
-      var consent = document.getElementById('inqConsent');
-      var panel   = document.getElementById('contact');
-      if (title) title.textContent = d.title;
-      if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
-      if (desc) desc.textContent = d.desc;
-      if (desc2) desc2.textContent = d.desc2;
       if (consent) consent.innerHTML = d.consent;
       if (panel) panel.classList.toggle('inquiry--reserve', this.getAttribute('data-tab') === 'reserve');
     });

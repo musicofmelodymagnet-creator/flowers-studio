@@ -754,14 +754,13 @@ body {
 .inquiry {
   width: 100%;
   max-width: 717px;
-  border-radius: var(--r-panel);
+  border-radius: 0 0 var(--r-panel) var(--r-panel);
   background: var(--surface-form);
   box-shadow: var(--inset-lg);
   padding: 70px 70px 74px;
   display: flex;
   flex-direction: column;
   gap: 45px;
-  overflow: hidden;
   transition: background 300ms cubic-bezier(0.22,1,0.36,1);
 }
 .inquiry--reserve {
@@ -914,7 +913,7 @@ body {
 }
 .cc-inquiry-wrap .inquiry {
   width: 100%;
-  padding: 0 44px 48px;
+  padding: 36px 44px 48px;
   gap: 26px;
   box-shadow: var(--elev-md);
 }
@@ -2080,7 +2079,8 @@ body {
   .distinction-closing { font-size: 16px; }
 
   /* Inquiry form */
-  .inquiry { padding: 44px 20px 40px; border-radius: 32px; max-width: 100%; }
+  .inquiry { padding: 44px 20px 40px; border-radius: 0 0 32px 32px; max-width: 100%; }
+  .inq-tabs { border-radius: 32px 32px 0 0; }
   .cc-inquiry-wrap .inquiry { padding: 44px 20px 40px; }
   /* Pull inquiry card up so sep→title gap matches other sections (card padding-top = 44px) */
   .cc-inquiry-main { margin-top: -44px; }
@@ -3766,10 +3766,6 @@ body {
    INQUIRY TABS (Quick Inquiry / Reserve Your Wall)
    ================================================================ */
 
-/* Tabs bleed edge-to-edge, clipped by panel's border-radius */
-.inquiry > .inq-tabs                  { margin: 0 -70px; width: calc(100% + 140px); }
-.cc-inquiry-wrap .inquiry > .inq-tabs { margin: 0 -44px; width: calc(100% + 88px);  }
-
 .inq-tabs {
   display: flex;
   gap: 0;
@@ -3777,6 +3773,9 @@ body {
   padding: 0;
   background: #CDCED3;
   border-bottom: 1px solid rgba(112,96,110,0.14);
+  border-radius: var(--r-panel) var(--r-panel) 0 0;
+  position: relative;
+  z-index: 2;
 }
 
 .inq-tab {
@@ -3796,6 +3795,8 @@ body {
   position: relative;
   transition: background 220ms ease, color 220ms ease, transform 220ms ease-in-out;
 }
+.inq-tab:first-child { border-top-left-radius: var(--r-panel); }
+.inq-tab:last-child  { border-top-right-radius: var(--r-panel); }
 
 /* Tab 2 inactive — warm tint matching active reserve color */
 .inq-tab[data-tab="reserve"] {
@@ -3821,17 +3822,17 @@ body {
   color: var(--ink);
 }
 
-/* Hover: no color change — only subtle lift */
+/* Hover: no color change — tabs lift 30% of height above the panel */
 .inq-tab:not(.inq-tab--active):hover {
   background: #CDCED3;
   color: var(--ink);
-  transform: translateY(-2px);
+  transform: translateY(-17px);
 }
 
 .inq-tab[data-tab="reserve"]:not(.inq-tab--active):hover {
   background: #C5BCBB;
   color: var(--ink);
-  transform: translateY(-2px);
+  transform: translateY(-17px);
 }
 
 /* Description sits inside inquiry-header, inherits its p styles */
