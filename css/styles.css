@@ -3836,6 +3836,16 @@ body {
   font-style: italic;
   margin: 0;
 }
+.inq-tab-desc2 {
+  margin: 4px 0 0;
+  font: 400 14px/1.6 var(--font-sans);
+  color: var(--ink-muted);
+}
+
+/* Form submit button — larger than default neo-btn--solid */
+.form-submit .neo-btn--solid {
+  padding: 23px 70px;
+}
 
 /* Quick Inquiry: hide extended fields/rows */
 .form-field--extended,
