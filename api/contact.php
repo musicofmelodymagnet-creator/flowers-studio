@@ -11,7 +11,7 @@ if (file_exists($configFile)) require_once $configFile;
 
 // ── CORS / Origin check ───────────────────────────────────────────────────────
 $origin  = $_SERVER['HTTP_ORIGIN'] ?? '';
-$allowed = ['https://florinsky.ca', 'http://localhost', 'http://127.0.0.1'];
+$allowed = ['https://florinsky.ca', 'https://www.florinsky.ca', 'http://localhost', 'http://127.0.0.1'];
 
 if (preg_match('/^https?:\/\/localhost(:\d+)?$/', $origin) ||
     preg_match('/^https?:\/\/127\.0\.0\.1(:\d+)?$/', $origin)) {

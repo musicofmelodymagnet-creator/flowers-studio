@@ -1,3 +1,10 @@
+# ── www → non-www canonical redirect ─────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^www\.florinsky\.ca [NC]
+    RewriteRule ^(.*)$ https://florinsky.ca/$1 [R=301,L]
+</IfModule>
+
 # ── Block access to sensitive files (all directories, not just root) ──────────
 <FilesMatch "(config\.php|config\.example\.php|\.env|\.env\.example|docker-compose\.yml|Dockerfile|\.gitignore)$">
     Require all denied
