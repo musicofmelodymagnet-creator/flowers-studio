@@ -3796,14 +3796,17 @@ body {
   outline: none;
   white-space: nowrap;
   position: relative;
-  transition: background 220ms ease, color 220ms ease, transform 220ms ease-in-out;
+  /* lift: instant; lower: 1 s delay after mouse leaves */
+  transition: background 220ms ease, color 220ms ease,
+              transform 220ms ease-in-out 1000ms,
+              box-shadow 220ms ease-in-out 1000ms;
 }
 .inq-tab:first-child { border-top-left-radius: var(--r-panel); }
 .inq-tab:last-child  { border-top-right-radius: var(--r-panel); }
 
-/* Tab 2 inactive — warm tint matching active reserve color */
+/* Tab 2 inactive — exact panel color so lifted bottom matches */
 .inq-tab[data-tab="reserve"] {
-  background: #C5BCBB;
+  background: #c4b6b5;
 }
 
 .inq-tab + .inq-tab {
@@ -3825,17 +3828,25 @@ body {
   color: var(--ink);
 }
 
-/* Hover: no color change — tabs lift 30% of height above the panel */
+/* Hover: lift immediately (no delay), lower with 1 s delay (from base transition) */
 .inq-tab:not(.inq-tab--active):hover {
   background: #CDCED3;
   color: var(--ink);
-  transform: translateY(-17px);
+  transform: translateY(-8px);
+  transition: background 220ms ease, color 220ms ease,
+              transform 220ms ease-in-out,
+              box-shadow 220ms ease-in-out;
 }
 
+/* Reserve tab hover: lift + extend color downward to cover tab-bar peek */
 .inq-tab[data-tab="reserve"]:not(.inq-tab--active):hover {
-  background: #C5BCBB;
+  background: #c4b6b5;
   color: var(--ink);
-  transform: translateY(-17px);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 0 0 #c4b6b5;
+  transition: background 220ms ease, color 220ms ease,
+              transform 220ms ease-in-out,
+              box-shadow 220ms ease-in-out;
 }
 
 /* Description sits inside inquiry-header, inherits its p styles */
@@ -3847,7 +3858,7 @@ body {
 .inq-tab-desc-note {
   display: block;
   font-style: normal;
-  margin-top: 5px;
+  margin-top: 12px;
 }
 
 /* Form submit button — larger, ease-in-out hover lift */
