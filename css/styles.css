@@ -950,21 +950,50 @@ body {
   font-size: 14px;
 }
 .cc-inquiry-wrap .form-input,
-.cc-inquiry-wrap .form-textarea {
+.cc-inquiry-wrap .form-textarea,
+.cc-inquiry-wrap .form-select {
   padding: 13px 20px;
   font-size: 16px;
-  box-shadow: 0 0 0 0 transparent,
-              inset -8px -8px 16px rgba(255,255,255,0.72),
-              inset  8px  8px 16px rgba(112,96,110,0.30) !important;
-  transition-property: box-shadow !important;
-  transition-duration: 700ms !important;
-  transition-timing-function: ease-in-out !important;
+  box-shadow: none !important;
 }
 .cc-inquiry-wrap .form-input:focus,
-.cc-inquiry-wrap .form-textarea:focus {
-  box-shadow: 0 0 0 0 transparent,
-              inset -3px -3px 5px rgba(255,255,255,1.0),
-              inset  3px  3px 5px rgba(112,96,110,0.60) !important;
+.cc-inquiry-wrap .form-textarea:focus,
+.cc-inquiry-wrap .form-select:focus {
+  box-shadow: none !important;
+  outline: 2px solid rgba(112,96,110,0.22);
+  outline-offset: 2px;
+}
+
+/* Date field: Not sure yet checkbox */
+.form-date-unsure {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  cursor: pointer;
+  font: 400 13px/1 var(--font-sans);
+  color: var(--ink-soft);
+  user-select: none;
+}
+.form-date-unsure input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--brand);
+}
+.form-date-wrap--disabled {
+  pointer-events: none;
+  opacity: 0.38;
+}
+
+/* Privacy note above submit button */
+.form-privacy-note {
+  font: 400 12px/1.5 var(--font-sans);
+  color: var(--ink-muted);
+  text-align: center;
+  margin-bottom: 4px;
 }
 .cc-inquiry-wrap .form-submit {
   padding-top: 16px;

@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=37" />
+  <link rel="stylesheet" href="css/styles.css?v=38" />
   <style>
     /* ── Client Care page ── */
     .cc-hero {
@@ -853,29 +853,29 @@
 
           <div class="inquiry-header">
             <h2 id="inqTitle">Send an Inquiry</h2>
-            <p class="inq-tab-desc" id="inqDesc">Perfect if you need pricing, availability, or have any questions.<span class="inq-tab-desc-note">We'll review your request and contact you to confirm availability and go over your event details.</span></p>
+            <p class="inq-tab-desc" id="inqDesc">We'll review your request and contact you to confirm availability and go over your event details.<span class="inq-tab-desc-note">Perfect if you need pricing, availability, or have any questions.</span></p>
           </div>
 
           <form class="form-body" id="inquiryForm" novalidate>
             <div class="form-row">
               <div class="form-field">
                 <label for="field-name">Name</label>
-                <input id="field-name" class="form-input" type="text" placeholder="Your name" autocomplete="given-name" />
+                <input id="field-name" class="form-input" type="text" autocomplete="given-name" />
               </div>
-              <div class="form-field">
-                <label for="field-email">Email</label>
-                <input id="field-email" class="form-input" type="email" placeholder="example@mail.com" autocomplete="email" />
+              <div class="form-field form-field--extended">
+                <label for="field-lastname">Last Name</label>
+                <input id="field-lastname" class="form-input" type="text" autocomplete="family-name" />
               </div>
             </div>
 
-            <div class="form-row form-row--extended">
+            <div class="form-row">
               <div class="form-field">
-                <label for="field-lastname">Last Name</label>
-                <input id="field-lastname" class="form-input" type="text" placeholder="Last name" autocomplete="family-name" />
+                <label for="field-email">Email</label>
+                <input id="field-email" class="form-input" type="email" autocomplete="email" />
               </div>
-              <div class="form-field">
+              <div class="form-field form-field--extended">
                 <label for="field-phone">Phone</label>
-                <input id="field-phone" class="form-input" type="tel" placeholder="+1 (000) 000-0000" autocomplete="tel" />
+                <input id="field-phone" class="form-input" type="tel" autocomplete="tel" />
               </div>
             </div>
 
@@ -892,6 +892,10 @@
                   </svg>
                 </span>
               </div>
+              <label class="form-date-unsure" for="field-date-unsure">
+                <input type="checkbox" id="field-date-unsure" />
+                <span>Not sure yet</span>
+              </label>
             </div>
 
             <div class="form-field form-field--extended">
@@ -903,7 +907,7 @@
               <div class="form-field">
                 <label for="field-event-type">Type of Event</label>
                 <select id="field-event-type" class="form-select">
-                  <option value="" disabled selected>Select an event</option>
+                  <option value="" disabled selected></option>
                   <option value="Wedding">Wedding</option>
                   <option value="Bridal Shower">Bridal Shower</option>
                   <option value="Baby Shower">Baby Shower</option>
@@ -915,7 +919,7 @@
               <div class="form-field">
                 <label for="field-wall-color">Wall Color</label>
                 <select id="field-wall-color" class="form-select">
-                  <option value="" disabled selected>Select wall color</option>
+                  <option value="" disabled selected></option>
                   <option value="White">White</option>
                   <option value="Burgundy">Burgundy</option>
                   <option value="Pink">Pink</option>
@@ -936,6 +940,7 @@
             </div>
 
             <div class="form-submit">
+              <p class="form-privacy-note">We'll only use your information to respond to your request.</p>
               <button type="submit" class="neo-btn neo-btn--solid" id="submitBtn">
                 Send Inquiry
               </button>
@@ -1280,18 +1285,32 @@
 document.addEventListener('DOMContentLoaded', function() {
   if (window.FlCalendar) FlCalendar.init('field-date', 'fieldDateWrap', 'fieldDateIcon');
 
+  /* "Not sure yet" checkbox for Event Date */
+  var dateUnsureCb = document.getElementById('field-date-unsure');
+  if (dateUnsureCb) {
+    dateUnsureCb.addEventListener('change', function() {
+      var wrap = document.getElementById('fieldDateWrap');
+      if (this.checked) {
+        document.getElementById('field-date').value = '';
+        wrap.classList.add('form-date-wrap--disabled');
+      } else {
+        wrap.classList.remove('form-date-wrap--disabled');
+      }
+    });
+  }
+
   /* Inquiry tabs */
 var TAB_DATA = {
     inquiry: {
       title: 'Send an Inquiry',
       btn: 'Send Inquiry',
-      desc: 'Perfect if you need pricing, availability, or have any questions.<span class="inq-tab-desc-note">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
+      desc: 'We’ll review your request and contact you to confirm availability and go over your event details.<span class="inq-tab-desc-note">Perfect if you need pricing, availability, or have any questions.</span>',
       consent: 'By submitting, you agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
     },
     reserve: {
       title: 'Reserve Your Wall',
       btn: 'Request Reservation',
-      desc: 'Share your event details to begin your reservation.<span class="inq-tab-desc-note">We’ll review your request and contact you to confirm availability and go over your event details.</span>',
+      desc: 'We’ll review your request and contact you to confirm availability and go over your event details.<span class="inq-tab-desc-note">Share your event details to begin your reservation.</span>',
       consent: 'By submitting this request, you agree to our <a href="privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
     }
   };
