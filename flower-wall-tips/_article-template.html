@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--
+  ARTICLE TEMPLATE — FLORINSKY Flower Wall Tips
+  ================================================
+  Usage: Copy this file to /flower-wall-tips/[article-slug]/index.html
+  All paths use ../../ because articles live two levels below root.
+  Replace every {{PLACEHOLDER}} before publishing.
+
+  Required replacements:
+    {{TITLE}}            — <title> tag text, e.g. "How to Choose a Flower Wall Size | FLORINSKY"
+    {{META_DESCRIPTION}} — 140-160 char page description
+    {{CANONICAL}}        — Full URL, e.g. https://florinsky.ca/flower-wall-tips/flower-wall-size-guide/
+    {{H1}}               — Page heading, matches article title
+    {{PUBLISH_DATE}}     — ISO date, e.g. 2026-07-17
+    {{PUBLISH_DATE_FMT}} — Human-readable, e.g. July 17, 2026
+    {{HERO_IMAGE}}       — Path to hero image, e.g. cover.jpg (relative to the article folder)
+    {{HERO_ALT}}         — Alt text for the hero image
+    {{ARTICLE_BODY}}     — Full article HTML (h2/h3/p/ul/table — see tips.css for styles)
+    {{FAQ_JSONLD}}       — FAQPage JSON-LD block (paste full <script type="application/ld+json">...</script>)
+    {{ARTICLE_JSONLD}}   — Article JSON-LD block (paste full <script type="application/ld+json">...</script>)
+
+  Breadcrumb JSON-LD: fill in "name" and "item" for position 3 (the article itself).
+  Related cards: replace the 3 stub cards below the article body with real article links.
+-->
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ6NXY94JC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GQ6NXY94JC');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <link rel="canonical" href="{{CANONICAL}}" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+  <meta property="og:title" content="{{TITLE}}" />
+  <meta property="og:description" content="{{META_DESCRIPTION}}" />
+  <meta property="og:image" content="https://florinsky.ca/assets/hero-flower-wall.jpg" />
+  <meta property="og:url" content="{{CANONICAL}}" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{TITLE}}" />
+  <meta name="twitter:description" content="{{META_DESCRIPTION}}" />
+  <meta name="twitter:image" content="https://florinsky.ca/assets/hero-flower-wall.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/styles.css?v=39" />
+  <link rel="stylesheet" href="../tips.css" />
+
+  <!-- BreadcrumbList JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://florinsky.ca/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Flower Wall Tips",
+        "item": "https://florinsky.ca/flower-wall-tips/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{H1}}",
+        "item": "{{CANONICAL}}"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Article JSON-LD — replace this entire block -->
+  {{ARTICLE_JSONLD}}
+
+  <!-- FAQ JSON-LD — replace or remove if no FAQ section -->
+  {{FAQ_JSONLD}}
+
+</head>
+<body>
+
+  <!-- ============================================================
+       MOBILE TOP BAR
+       ============================================================ -->
+  <div class="mobile-top" id="mobileTop">
+    <a class="mobile-wordmark" href="../../index.html" style="text-decoration:none">FLORINSKY</a>
+    <button class="mobile-burger" id="mobileBurger" aria-label="Open navigation" aria-expanded="false">
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+      <span class="burger-bar"></span>
+    </button>
+  </div>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav-overlay" id="mobileOverlay" aria-hidden="true">
+    <a href="../../index.html"         class="mobile-nav-link">Welcome</a>
+    <a href="../../gallery.html"       class="mobile-nav-link">Flower Walls</a>
+    <a href="../../advantages.html"    class="mobile-nav-link">Our Uniqueness</a>
+    <a href="../../kind-words.html"    class="mobile-nav-link">Kind Words</a>
+    <a href="../../about.html"         class="mobile-nav-link">Our Story</a>
+    <a href="../../faq.html"           class="mobile-nav-link">FAQ</a>
+    <a href="../"                      class="mobile-nav-link" style="color:var(--brand)">Flower Wall Tips</a>
+    <a href="../../client-care.html"   class="mobile-nav-link">Contacts</a>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+       ============================================================ -->
+  <div class="site-shell">
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-pill">
+        <a href="../../index.html"       class="nav-link">Welcome</a>
+        <a href="../../gallery.html"     class="nav-link">Flower Walls</a>
+        <a href="../../advantages.html"  class="nav-link">Our Uniqueness</a>
+        <a href="../../kind-words.html"  class="nav-link">Kind Words</a>
+        <a href="../../about.html"       class="nav-link">Our Story</a>
+        <a href="../../faq.html"         class="nav-link">FAQ</a>
+        <a href="../"                    class="nav-link active">Flower Wall Tips</a>
+        <a href="../../client-care.html" class="nav-link">Contacts</a>
+      </div>
+    </nav>
+
+    <main class="page-stack" style="gap: 0">
+
+      <!-- ── Breadcrumb ──────────────────────────────────────── -->
+      <nav class="tips-breadcrumb" aria-label="Breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span class="tips-breadcrumb-sep" aria-hidden="true">›</span>
+        <a href="../">Flower Wall Tips</a>
+        <span class="tips-breadcrumb-sep" aria-hidden="true">›</span>
+        <span class="tips-breadcrumb-current">{{H1}}</span>
+      </nav>
+
+      <!-- ── Article ─────────────────────────────────────────── -->
+      <div class="article-wrap">
+
+        <!-- Hero image -->
+        <img
+          class="article-hero-img"
+          src="{{HERO_IMAGE}}"
+          alt="{{HERO_ALT}}"
+          width="1200"
+          height="525"
+          loading="eager"
+        />
+
+        <header class="article-header">
+          <h1>{{H1}}</h1>
+          <time class="article-date" datetime="{{PUBLISH_DATE}}">{{PUBLISH_DATE_FMT}}</time>
+        </header>
+
+        <div class="article-body">
+          {{ARTICLE_BODY}}
+        </div>
+
+      </div><!-- /article-wrap -->
+
+      <!-- ── More Flower Wall Tips ────────────────────────────── -->
+      <section class="article-related" aria-label="More Flower Wall Tips">
+        <h2 class="article-related-title">More Flower Wall Tips</h2>
+        <div class="article-related-grid">
+
+          <!-- ARTICLE CARD -->
+          <article class="tips-card">
+            <div class="tips-card-img-wrap">
+              <!-- Replace src with actual article cover -->
+              <img class="tips-card-img" src="../../assets/cover-1.jpg" alt="Related article" loading="lazy" />
+            </div>
+            <div class="tips-card-body">
+              <span class="tips-card-meta">Category · Month Year</span>
+              <a href="../related-article-slug/" class="tips-card-title">Related Article Title</a>
+              <p class="tips-card-desc">One or two sentences describing what this article covers.</p>
+              <a href="../related-article-slug/" class="tips-card-link">
+                Read more
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </article>
+          <!-- /ARTICLE CARD -->
+
+          <!-- ARTICLE CARD -->
+          <article class="tips-card">
+            <div class="tips-card-img-wrap">
+              <!-- Replace src with actual article cover -->
+              <img class="tips-card-img" src="../../assets/cover-2.jpg" alt="Related article" loading="lazy" />
+            </div>
+            <div class="tips-card-body">
+              <span class="tips-card-meta">Category · Month Year</span>
+              <a href="../related-article-slug-2/" class="tips-card-title">Related Article Title 2</a>
+              <p class="tips-card-desc">One or two sentences describing what this article covers.</p>
+              <a href="../related-article-slug-2/" class="tips-card-link">
+                Read more
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </article>
+          <!-- /ARTICLE CARD -->
+
+          <!-- ARTICLE CARD -->
+          <article class="tips-card">
+            <div class="tips-card-img-wrap">
+              <!-- Replace src with actual article cover -->
+              <img class="tips-card-img" src="../../assets/cover-3.png" alt="Related article" loading="lazy" />
+            </div>
+            <div class="tips-card-body">
+              <span class="tips-card-meta">Category · Month Year</span>
+              <a href="../related-article-slug-3/" class="tips-card-title">Related Article Title 3</a>
+              <p class="tips-card-desc">One or two sentences describing what this article covers.</p>
+              <a href="../related-article-slug-3/" class="tips-card-link">
+                Read more
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </article>
+          <!-- /ARTICLE CARD -->
+
+        </div>
+      </section>
+
+      <!-- ── CTA block ────────────────────────────────────────── -->
+      <div class="tips-cta">
+        <div class="tips-cta-card">
+          <div class="tips-cta-text">
+            <h2>Planning an Event in the GTA?</h2>
+            <p>Tell us your date and we'll confirm availability within minutes. No commitment required.</p>
+          </div>
+          <a href="../../index.html#contact" class="neo-btn neo-btn--solid" style="text-decoration:none; flex-shrink:0">
+            Check Your Date
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /.site-shell -->
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="../../index.html" class="footer-wordmark" style="text-decoration:none">FLORINSKY</a>
+        <span class="footer-copy">© 2026 FLORINSKY<br>All rights reserved</span>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Real Touch Flower Walls</span>
+        <ul class="footer-col-list">
+          <li><a href="../../product.html" class="footer-col-link">Burgundy Real Touch Flower Wall</a></li>
+          <li><a href="../../product.html" class="footer-col-link">White Real Touch Flower Wall</a></li>
+          <li><a href="../../product.html" class="footer-col-link">Pink Real Touch Flower Wall</a></li>
+          <li><a href="../../product.html" class="footer-col-link">Green Real Touch Flower Wall</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-title">Event Rentals</span>
+        <ul class="footer-col-list">
+          <li><a href="../../index.html#contact" class="footer-col-link">Wedding Flower Wall Rental</a></li>
+          <li><a href="../../index.html#contact" class="footer-col-link">Birthday Party Flower Wall Rental</a></li>
+          <li><a href="../../index.html#contact" class="footer-col-link">Corporate Event Flower Wall Rental</a></li>
+          <li><a href="../../index.html#contact" class="footer-col-link">Baby Shower Flower Wall Rental</a></li>
+          <li><a href="../../index.html#contact" class="footer-col-link">Bridal Shower Flower Wall Rental</a></li>
+          <li><a href="../../index.html#contact" class="footer-col-link">Anniversary Party Flower Wall Rental</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <a href="../../terms-of-use.html" class="footer-link">Terms of Use</a>
+        <a href="../../privacy-policy.html" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Wind Policy</a>
+        <a href="../../faq.html" class="footer-link">FAQ</a>
+        <a href="../" class="footer-link">Flower Wall Tips</a>
+        <div class="footer-social">
+          <span class="footer-social-label">Follow Our Journey</span>
+          <div class="footer-social-icons">
+            <a href="#" class="footer-social-icon" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/@FlorinskyAtelier/videos" class="footer-social-icon" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social-icon" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-locations">
+        <a href="../../locations.html" class="footer-locations-title" style="text-decoration:none">Locations We Serve</a>
+        <p class="footer-locations-list">Toronto · Mississauga · Brampton · Vaughan · Markham · Richmond Hill · Oakville · Burlington · Pickering · Ajax · Whitby · Oshawa · Milton · Georgetown · Newmarket · Aurora · King City · Stouffville · Scarborough · North York · Etobicoke · East York · Hamilton · Barrie · Guelph · Thornhill · Woodbridge · Bolton · Bradford · Orangeville · + more!</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Sticky nav ──────────────────────────────────────────────
+    (function () {
+      const nav = document.querySelector('.site-nav');
+      if (!nav) return;
+      let lastY = window.scrollY, ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          const y = window.scrollY;
+          if (y > lastY + 5)      nav.classList.add('nav--hidden');
+          else if (y < lastY - 5) nav.classList.remove('nav--hidden');
+          lastY = y; ticking = false;
+        });
+      }, { passive: true });
+    })();
+
+    // ── Mobile hamburger ────────────────────────────────────────
+    const mobileBurger  = document.getElementById('mobileBurger');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    function toggleMenu(close) {
+      const open = mobileOverlay.classList.contains('open') || close;
+      mobileOverlay.classList.toggle('open', !open);
+      mobileBurger.classList.toggle('open', !open);
+      mobileBurger.setAttribute('aria-expanded', String(!open));
+      mobileOverlay.setAttribute('aria-hidden', String(open));
+      const mobileTopBar = document.getElementById('mobileTop');
+      if (mobileTopBar) { mobileTopBar.classList.toggle('menu-open', !open); if (!open) mobileTopBar.classList.remove('nav-hidden'); }
+      var scrollY = open ? parseInt(document.body.dataset.scrollY || '0') : window.scrollY;
+      if (!open) {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + scrollY + 'px';
+        document.body.style.width = '100%';
+        document.body.dataset.scrollY = scrollY;
+      } else {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+      }
+    }
+    mobileBurger.addEventListener('click', () => toggleMenu(false));
+    mobileOverlay.querySelectorAll('.mobile-nav-link').forEach(l =>
+      l.addEventListener('click', () => toggleMenu(true))
+    );
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay.classList.contains('open')) toggleMenu(true);
+    });
+
+    // ── Mobile nav: shadow + hide-on-scroll ─────────────────────
+    (function(){
+      var b = document.getElementById('mobileTop');
+      if (!b) return;
+      var l = 0, t = false;
+      function s() {
+        var y = window.scrollY;
+        if (y > 0) { b.classList.add('nav-shadow'); } else { b.classList.remove('nav-shadow','nav-scrolled','nav-hidden'); l = 0; t = false; return; }
+        if (y > 8) { b.classList.add('nav-scrolled'); if (y > l + 4) b.classList.add('nav-hidden'); else if (y < l - 4) b.classList.remove('nav-hidden'); } else { b.classList.remove('nav-scrolled','nav-hidden'); }
+        l = y; t = false;
+      }
+      window.addEventListener('scroll', function(){ if (!t) { requestAnimationFrame(s); t = true; } }, { passive: true });
+    })();
+  </script>
+
+  <!-- ── Floating contact widget ──────────────────────────────── -->
+  <div class="contact-widget">
+    <button class="contact-widget-btn" onclick="window.location.href='../../index.html#contact';" aria-label="Chat with Olivia">
+      <div class="contact-widget-ava-wrap">
+        <div class="contact-widget-avatar">
+          <img src="../../assets/ava-chat.jpg" alt="Olivia">
+        </div>
+        <span class="contact-widget-dot"></span>
+      </div>
+      <div class="contact-widget-text">
+        <span class="contact-widget-title">Olivia</span>
+        <span class="contact-widget-online">● online</span>
+      </div>
+    </button>
+  </div>
+
+  <script src="../../js/chat-widget.js?v=6"></script>
+  <style>
+    .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
+    .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }
+    .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
+    .cw-quick                     { background: #F8F4F2 !important; }
+  </style>
+</body>
+</html>
