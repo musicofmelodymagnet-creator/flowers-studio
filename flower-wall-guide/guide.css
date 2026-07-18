@@ -441,7 +441,7 @@
   border-radius: var(--r-card);
   width: 100%;
   height: 100%;
-  box-shadow: var(--elev-md);
+  box-shadow: 0 3px 14px rgba(0,0,0,0.09);
 }
 .fwg-wall-inner img {
   width: 100%;
@@ -482,7 +482,7 @@
 /* ── Article inquiry wrapper ────────────────────────────────────── */
 .fwg-inquiry-wrap {
   width: 100%;
-  padding: 78px 24px 80px;
+  padding: 104px 24px 80px;
 }
 
 /* ── Responsive ────────────────────────────────────────────────── */
@@ -500,7 +500,7 @@
   .article-body h2 { font-size: 22px; }
   .article-body h3 { font-size: 17px; }
   .article-wrap { padding: 0 16px; }
-  .fwg-inquiry-wrap { padding: 78px 16px 60px; }
+  .fwg-inquiry-wrap { padding: 104px 16px 60px; }
   .ac-carousel-section { max-width: 100%; }
   .ac-section-title { padding: 0 20px; }
   .ac-carousel-wrap { padding: 0 20px; }
