@@ -1,3 +1,7 @@
+# ── Section rename: /flower-wall-tips/ → /flower-wall-guide/ (301 SEO redirect) ─
+Redirect 301 /flower-wall-tips/ https://florinsky.ca/flower-wall-guide/
+Redirect 301 /flower-wall-tips/real-touch-vs-silk-flower-wall/ https://florinsky.ca/flower-wall-guide/real-touch-vs-silk-flower-wall/
+
 # ── www → non-www canonical redirect ─────────────────────────────────────────
 <IfModule mod_rewrite.c>
     RewriteEngine On
