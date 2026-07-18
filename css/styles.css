@@ -953,14 +953,19 @@ body {
 .cc-inquiry-wrap .form-select {
   padding: 13px 20px;
   font-size: 16px;
-  box-shadow: none !important;
+  box-shadow: 0 0 0 0 transparent,
+              inset -8px -8px 16px rgba(255,255,255,0.72),
+              inset  8px  8px 16px rgba(112,96,110,0.30) !important;
+  transition-property: box-shadow !important;
+  transition-duration: 700ms !important;
+  transition-timing-function: ease-in-out !important;
 }
 .cc-inquiry-wrap .form-input:focus,
 .cc-inquiry-wrap .form-textarea:focus,
 .cc-inquiry-wrap .form-select:focus {
-  box-shadow: none !important;
-  outline: 2px solid rgba(112,96,110,0.22);
-  outline-offset: 2px;
+  box-shadow: 0 0 0 0 transparent,
+              inset -3px -3px 5px rgba(255,255,255,1.0),
+              inset  3px  3px 5px rgba(112,96,110,0.60) !important;
 }
 
 /* Date field: Not sure yet checkbox */
