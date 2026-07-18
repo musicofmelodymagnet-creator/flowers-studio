@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css?v=39" />
-  <link rel="stylesheet" href="guide.css" />
+  <link rel="stylesheet" href="guide.css?v=2" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -363,6 +363,45 @@
         l = y; t = false;
       }
       window.addEventListener('scroll', function(){ if (!t) { requestAnimationFrame(s); t = true; } }, { passive: true });
+    })();
+
+    // ── Article cards: kind-words hover animation + full-card click ─
+    (function () {
+      var HOVER_IN  = 420;
+      var HOVER_OUT = 1500;
+      document.querySelectorAll('.tips-card').forEach(function (card) {
+        var titleLink = card.querySelector('a.tips-card-title');
+        var href = titleLink ? titleLink.getAttribute('href') : null;
+        var img  = card.querySelector('.tips-card-img');
+
+        if (href) {
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', function (e) {
+            if (e.target.closest('a')) return;
+            window.location.href = href;
+          });
+        }
+
+        card.addEventListener('mouseenter', function () {
+          card.style.transition = 'transform ' + HOVER_IN + 'ms ease-out, box-shadow ' + HOVER_IN + 'ms ease-out';
+          card.style.transform  = 'translateY(-4px)';
+          card.style.boxShadow  = 'var(--elev-hover)';
+          if (img) {
+            img.style.transition = 'transform ' + HOVER_IN + 'ms ease-out';
+            img.style.transform  = 'scale(1.025)';
+          }
+        });
+
+        card.addEventListener('mouseleave', function () {
+          card.style.transition = 'transform ' + HOVER_OUT + 'ms ease-in-out, box-shadow ' + HOVER_OUT + 'ms ease-in-out';
+          card.style.transform  = 'translateY(0)';
+          card.style.boxShadow  = '';
+          if (img) {
+            img.style.transition = 'transform ' + HOVER_OUT + 'ms ease-in-out';
+            img.style.transform  = 'scale(1)';
+          }
+        });
+      });
     })();
   </script>
 
