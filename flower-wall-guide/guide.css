@@ -149,11 +149,12 @@
 /* Hero image */
 .article-hero-img {
   width: 100%;
-  aspect-ratio: 16 / 7;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: var(--r-card);
   display: block;
   margin: 24px 0 36px;
+  box-shadow: var(--elev-md);
 }
 
 /* Article header */
