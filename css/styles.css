@@ -880,7 +880,7 @@ body {
 }
 
 .form-consent {
-  font: 400 11.5px/1.65 var(--font-sans);
+  font: 400 12px/1.65 var(--font-sans);
   color: var(--ink-muted);
   text-align: center;
   margin: 0;
@@ -910,7 +910,7 @@ body {
   flex-direction: column;
   align-items: center;
   border-radius: var(--r-panel);
-  box-shadow: var(--elev-md);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.09);
 }
 .cc-inquiry-wrap > .inq-tabs {
   width: 100%;
@@ -969,15 +969,25 @@ body {
 }
 
 /* Date field: Not sure yet checkbox */
+.form-date-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.form-date-row .form-date-wrap {
+  flex: 1;
+  min-width: 0;
+}
 .form-date-unsure {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  margin-top: 10px;
+  flex-shrink: 0;
   cursor: pointer;
   font: 400 13px/1 var(--font-sans);
   color: var(--ink-soft);
   user-select: none;
+  white-space: nowrap;
 }
 .form-date-unsure input[type="checkbox"] {
   width: 15px;
