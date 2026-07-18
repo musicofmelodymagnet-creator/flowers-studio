@@ -150,7 +150,7 @@
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-  padding: 0 24px 80px;
+  padding: 0 24px;
 }
 
 /* Hero image */
@@ -499,7 +499,7 @@
   .article-header h1 { font-size: 28px; }
   .article-body h2 { font-size: 22px; }
   .article-body h3 { font-size: 17px; }
-  .article-wrap { padding: 0 16px 60px; }
+  .article-wrap { padding: 0 16px; }
   .fwg-inquiry-wrap { padding: 78px 16px 60px; }
   .ac-carousel-section { max-width: 100%; }
   .ac-section-title { padding: 0 20px; }
