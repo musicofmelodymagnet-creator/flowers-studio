@@ -756,7 +756,6 @@ body {
   max-width: 717px;
   border-radius: 0 0 var(--r-panel) var(--r-panel);
   background: var(--surface-form);
-  box-shadow: var(--inset-lg);
   padding: 70px 70px 74px;
   display: flex;
   flex-direction: column;
