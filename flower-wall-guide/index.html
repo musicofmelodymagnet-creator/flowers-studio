@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css?v=39" />
-  <link rel="stylesheet" href="guide.css?v=2" />
+  <link rel="stylesheet" href="guide.css?v=5" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -373,6 +373,7 @@
         var titleLink = card.querySelector('a.tips-card-title');
         var href = titleLink ? titleLink.getAttribute('href') : null;
         var img  = card.querySelector('.tips-card-img');
+        var wrap = card.querySelector('.tips-card-img-wrap');
 
         if (href) {
           card.style.cursor = 'pointer';
@@ -401,6 +402,23 @@
             img.style.transform  = 'scale(1)';
           }
         });
+
+        // Sheen: diagonal light sweep fires 1.5s after photo mouseenter
+        if (wrap) {
+          wrap.addEventListener('mouseenter', function () {
+            if (card._sheenPending) return;
+            card._sheenPending = true;
+            setTimeout(function () {
+              wrap.classList.remove('tips-sheen');
+              void wrap.offsetWidth;
+              wrap.classList.add('tips-sheen');
+              setTimeout(function () {
+                wrap.classList.remove('tips-sheen');
+                card._sheenPending = false;
+              }, 1560);
+            }, 1500);
+          });
+        }
       });
     })();
   </script>
