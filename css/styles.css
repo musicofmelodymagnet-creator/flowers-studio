@@ -904,11 +904,11 @@ body {
    ================================================================ */
 .cc-inquiry-wrap {
   width: 100%;
-  max-width: 720px;
+  max-width: 576px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   border-radius: var(--r-panel);
   box-shadow: 0 8px 24px -8px rgba(0,0,0,0.15);
 }
@@ -917,8 +917,9 @@ body {
 }
 .cc-inquiry-wrap .inquiry {
   width: 100%;
-  padding: 36px 40px 48px;
-  gap: 26px;
+  max-width: none;
+  padding: 24px 32px 36px;
+  gap: 20px;
 }
 .cc-inquiry-wrap .neo-btn {
   padding: 13px 26px;
@@ -968,7 +969,13 @@ body {
               inset  3px  3px 5px rgba(112,96,110,0.60) !important;
 }
 
-/* Date field: Not sure yet checkbox */
+/* Date field header: label + "Not sure yet" checkbox on one line */
+.form-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/* Legacy: kept for reference, no longer used in markup */
 .form-date-row {
   display: flex;
   align-items: center;
@@ -3828,7 +3835,7 @@ body {
 .inq-tab {
   flex: 1;
   text-align: center;
-  padding: 20px 16px;
+  padding: 16px 16px;
   border: none;
   background: #CDCED3;
   font: 600 15px/1 var(--font-sans);
