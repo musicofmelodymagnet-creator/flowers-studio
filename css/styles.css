@@ -813,6 +813,11 @@ body {
   padding-left: 16px;
 }
 
+.form-req {
+  color: var(--brand);
+  margin-left: 2px;
+}
+
 .form-input,
 .form-textarea {
   border: none;
@@ -918,8 +923,8 @@ body {
 .cc-inquiry-wrap .inquiry {
   width: 100%;
   max-width: none;
-  padding: 24px 32px 36px;
-  gap: 20px;
+  padding: 20px 32px 28px;
+  gap: 16px;
 }
 .cc-inquiry-wrap .neo-btn {
   padding: 13px 26px;
@@ -1024,6 +1029,7 @@ body {
   font-size: 12px;
   max-width: none;
   white-space: normal;
+  margin-top: -5px;
 }
 
 @media (max-width: 768px) {
@@ -3720,14 +3726,14 @@ body {
   position: absolute;
   top: calc(100% + 8px);
   left: 50%;
-  min-width: 300px;
+  min-width: 360px;
   width: 100%;
-  max-width: 340px;
+  max-width: 408px;
   background: var(--surface);
   border-radius: 18px;
   box-shadow: 0 12px 48px rgba(112,96,110,0.22), 0 2px 8px rgba(0,0,0,0.06);
   border: 1px solid var(--bg);
-  padding: 20px 16px 16px;
+  padding: 24px 20px 20px;
   z-index: 500;
   opacity: 0;
   pointer-events: none;

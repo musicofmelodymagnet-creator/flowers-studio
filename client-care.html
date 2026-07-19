@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=44" />
+  <link rel="stylesheet" href="css/styles.css?v=45" />
   <style>
     /* ── Client Care page ── */
     .cc-hero {
@@ -59,7 +59,7 @@
       max-width: 800px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       background: var(--surface);
       border-radius: 20px;
       box-shadow: var(--elev-md);
@@ -816,18 +816,6 @@
         <div class="cc-card">
           <div class="cc-card-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </div>
-          <h3>Write to Us</h3>
-          <a href="mailto:info@florinsky.ca" class="cc-card-value">info@florinsky.ca</a>
-          <p class="cc-card-note">Response within a few hours</p>
-        </div>
-
-        <div class="cc-card">
-          <div class="cc-card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
             </svg>
           </div>
@@ -860,29 +848,29 @@
           <form class="form-body" id="inquiryForm" novalidate>
             <div class="form-row">
               <div class="form-field">
-                <label for="field-name">Name</label>
+                <label for="field-name">Name<span class="form-req">*</span></label>
                 <input id="field-name" class="form-input" type="text" autocomplete="given-name" />
               </div>
               <div class="form-field form-field--extended">
-                <label for="field-lastname">Last Name</label>
+                <label for="field-lastname">Last Name<span class="form-req">*</span></label>
                 <input id="field-lastname" class="form-input" type="text" autocomplete="family-name" />
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-field">
-                <label for="field-email">Email</label>
+                <label for="field-email">Email<span class="form-req">*</span></label>
                 <input id="field-email" class="form-input" type="email" autocomplete="email" />
               </div>
               <div class="form-field form-field--extended">
-                <label for="field-phone">Phone</label>
+                <label for="field-phone">Phone<span class="form-req">*</span></label>
                 <input id="field-phone" class="form-input" type="tel" autocomplete="tel" />
               </div>
             </div>
 
             <div class="form-field">
               <div class="form-date-header">
-                <label for="field-date">Event Date</label>
+                <label for="field-date">Event Date<span class="form-req">*</span></label>
                 <label class="form-date-unsure" for="field-date-unsure">
                   <input type="checkbox" id="field-date-unsure" />
                   <span>Not sure yet</span>
@@ -902,13 +890,13 @@
             </div>
 
             <div class="form-field form-field--extended">
-              <label for="field-location">Event Location</label>
+              <label for="field-location">Event Location<span class="form-req">*</span></label>
               <input id="field-location" class="form-input" type="text" placeholder="Venue name and address" />
             </div>
 
             <div class="form-row form-row--extended">
               <div class="form-field">
-                <label for="field-event-type">Type of Event</label>
+                <label for="field-event-type">Type of Event<span class="form-req">*</span></label>
                 <select id="field-event-type" class="form-select">
                   <option value="" disabled selected></option>
                   <option value="Wedding">Wedding</option>
@@ -920,7 +908,7 @@
                 </select>
               </div>
               <div class="form-field">
-                <label for="field-wall-color">Wall Color</label>
+                <label for="field-wall-color">Wall Color<span class="form-req">*</span></label>
                 <select id="field-wall-color" class="form-select">
                   <option value="" disabled selected></option>
                   <option value="White">White</option>
@@ -932,7 +920,7 @@
             </div>
 
             <div class="form-field">
-              <label for="field-message">Message</label>
+              <label for="field-message">Message<span class="form-req">*</span></label>
               <textarea id="field-message" class="form-textarea" rows="4" placeholder="Tell us about your event"></textarea>
             </div>
 
