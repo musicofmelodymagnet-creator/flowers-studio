@@ -11,16 +11,20 @@
     {{META_DESCRIPTION}} — 140-160 char page description
     {{CANONICAL}}        — Full URL, e.g. https://florinsky.ca/flower-wall-guide/flower-wall-size-guide/
     {{H1}}               — Page heading, matches article title
-    {{PUBLISH_DATE}}     — ISO date, e.g. 2026-07-17
-    {{PUBLISH_DATE_FMT}} — Human-readable, e.g. July 17, 2026
     {{HERO_IMAGE}}       — Path to hero image, e.g. cover.jpg (relative to the article folder)
     {{HERO_ALT}}         — Alt text for the hero image
-    {{ARTICLE_BODY}}     — Full article HTML (h2/h3/p/ul/table — see tips.css for styles)
-    {{FAQ_JSONLD}}       — FAQPage JSON-LD block (paste full <script type="application/ld+json">...</script>)
+    {{ARTICLE_BODY}}     — Full article HTML (h2/h3/p/ul/table — see guide.css for styles)
+    {{FAQ_JSONLD}}        — FAQPage JSON-LD block (paste full <script type="application/ld+json">...</script>)
     {{ARTICLE_JSONLD}}   — Article JSON-LD block (paste full <script type="application/ld+json">...</script>)
 
+  Optional replacements:
+    {{PUBLISH_DATE}}     — ISO date for JSON-LD, e.g. 2026-07-17
+    {{PUBLISH_DATE_FMT}} — Human-readable, e.g. July 17, 2026 (not shown in page UI)
+
   Breadcrumb JSON-LD: fill in "name" and "item" for position 3 (the article itself).
-  Related cards: replace the 3 stub cards below the article body with real article links.
+  Related cards: replace the 3 stub cards in the carousel with real article links.
+
+  Hero image: use 16:9 ratio (1200×675). Apply neumorphic box-shadow var(--elev-md) via CSS.
 -->
 <html lang="en">
 <head>
@@ -51,7 +55,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../css/styles.css?v=45" />
-  <link rel="stylesheet" href="../guide.css" />
+  <link rel="stylesheet" href="../guide.css?v=9" />
+  <script async src="https://www.google.com/recaptcha/enterprise.js?render=6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY"></script>
 
   <!-- BreadcrumbList JSON-LD -->
   <script type="application/ld+json">
@@ -126,7 +131,7 @@
         <a href="../../kind-words.html"  class="nav-link">Kind Words</a>
         <a href="../../about.html"       class="nav-link">Our Story</a>
         <a href="../../faq.html"         class="nav-link">FAQ</a>
-        <a href="../"                    class="nav-link active">Flower Wall Guide</a>
+        <a href="../"                    class="nav-link active" style="color:var(--brand)">Flower Wall Guide</a>
         <a href="../../client-care.html" class="nav-link">Contacts</a>
       </div>
     </nav>
@@ -145,19 +150,18 @@
       <!-- ── Article ─────────────────────────────────────────── -->
       <div class="article-wrap">
 
-        <!-- Hero image -->
+        <!-- Hero image — 16:9 (1200×675), neumorphic shadow applied via .article-hero-img in guide.css -->
         <img
           class="article-hero-img"
           src="{{HERO_IMAGE}}"
           alt="{{HERO_ALT}}"
           width="1200"
-          height="525"
+          height="675"
           loading="eager"
         />
 
         <header class="article-header">
           <h1>{{H1}}</h1>
-          <time class="article-date" datetime="{{PUBLISH_DATE}}">{{PUBLISH_DATE_FMT}}</time>
         </header>
 
         <div class="article-body">
@@ -167,77 +171,243 @@
       </div><!-- /article-wrap -->
 
       <!-- ── More Flower Wall Guide ────────────────────────────── -->
-      <section class="article-related" aria-label="More Flower Wall Guide">
-        <h2 class="article-related-title">More Flower Wall Guide</h2>
-        <div class="article-related-grid">
+      <section class="ac-carousel-section" aria-label="More Flower Wall Guide">
+        <h2 class="ac-section-title">More Flower Wall Guide</h2>
+        <div class="ac-carousel-wrap">
+          <div class="ac-viewport">
+            <div class="ac-track" id="acTrack">
 
-          <!-- ARTICLE CARD -->
-          <article class="tips-card">
-            <div class="tips-card-img-wrap">
-              <!-- Replace src with actual article cover -->
-              <img class="tips-card-img" src="../../assets/cover-1.jpg" alt="Related article" loading="lazy" />
-            </div>
-            <div class="tips-card-body">
-              <span class="tips-card-meta">Category · Month Year</span>
-              <a href="../related-article-slug/" class="tips-card-title">Related Article Title</a>
-              <p class="tips-card-desc">One or two sentences describing what this article covers.</p>
-              <a href="../related-article-slug/" class="tips-card-link">
-                Read more
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </article>
-          <!-- /ARTICLE CARD -->
+              <!-- RELATED CARD 1 — replace with actual article -->
+              <article class="ac-card">
+                <div class="ac-photo-wrap">
+                  <img class="ac-card-photo" src="../../assets/cover-2.jpg" alt="Related article" loading="lazy" />
+                </div>
+                <div class="ac-card-body">
+                  <span class="ac-card-meta">Category · Month Year</span>
+                  <a href="../related-article-slug-1/" class="ac-card-title">Related Article Title 1</a>
+                  <p class="ac-card-desc">One or two sentences describing what this article covers.</p>
+                  <a href="../related-article-slug-1/" class="ac-card-link">
+                    Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                </div>
+              </article>
 
-          <!-- ARTICLE CARD -->
-          <article class="tips-card">
-            <div class="tips-card-img-wrap">
-              <!-- Replace src with actual article cover -->
-              <img class="tips-card-img" src="../../assets/cover-2.jpg" alt="Related article" loading="lazy" />
-            </div>
-            <div class="tips-card-body">
-              <span class="tips-card-meta">Category · Month Year</span>
-              <a href="../related-article-slug-2/" class="tips-card-title">Related Article Title 2</a>
-              <p class="tips-card-desc">One or two sentences describing what this article covers.</p>
-              <a href="../related-article-slug-2/" class="tips-card-link">
-                Read more
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </article>
-          <!-- /ARTICLE CARD -->
+              <!-- RELATED CARD 2 — replace with actual article -->
+              <article class="ac-card">
+                <div class="ac-photo-wrap">
+                  <img class="ac-card-photo" src="../../assets/cover-3.png" alt="Related article" loading="lazy" />
+                </div>
+                <div class="ac-card-body">
+                  <span class="ac-card-meta">Category · Month Year</span>
+                  <a href="../related-article-slug-2/" class="ac-card-title">Related Article Title 2</a>
+                  <p class="ac-card-desc">One or two sentences describing what this article covers.</p>
+                  <a href="../related-article-slug-2/" class="ac-card-link">
+                    Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                </div>
+              </article>
 
-          <!-- ARTICLE CARD -->
-          <article class="tips-card">
-            <div class="tips-card-img-wrap">
-              <!-- Replace src with actual article cover -->
-              <img class="tips-card-img" src="../../assets/cover-3.png" alt="Related article" loading="lazy" />
-            </div>
-            <div class="tips-card-body">
-              <span class="tips-card-meta">Category · Month Year</span>
-              <a href="../related-article-slug-3/" class="tips-card-title">Related Article Title 3</a>
-              <p class="tips-card-desc">One or two sentences describing what this article covers.</p>
-              <a href="../related-article-slug-3/" class="tips-card-link">
-                Read more
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </article>
-          <!-- /ARTICLE CARD -->
+              <!-- RELATED CARD 3 — replace with actual article -->
+              <article class="ac-card">
+                <div class="ac-photo-wrap">
+                  <img class="ac-card-photo" src="../../assets/reviews/review-1.jpg" alt="Related article" loading="lazy" />
+                </div>
+                <div class="ac-card-body">
+                  <span class="ac-card-meta">Category · Month Year</span>
+                  <a href="../related-article-slug-3/" class="ac-card-title">Related Article Title 3</a>
+                  <p class="ac-card-desc">One or two sentences describing what this article covers.</p>
+                  <a href="../related-article-slug-3/" class="ac-card-link">
+                    Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                </div>
+              </article>
 
+            </div>
+          </div>
+          <button class="ac-arrow ac-arrow--prev" id="acPrev" aria-label="Previous article">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="ac-arrow ac-arrow--next" id="acNext" aria-label="Next article">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
         </div>
       </section>
 
-      <!-- ── CTA block ────────────────────────────────────────── -->
-      <div class="tips-cta">
-        <div class="tips-cta-card">
-          <div class="tips-cta-text">
-            <h2>Planning an Event in the GTA?</h2>
-            <p>Tell us your date and we'll confirm availability within minutes. No commitment required.</p>
+      <!-- ── Our Flower Walls ──────────────────────────────────── -->
+      <section class="fwg-walls" aria-label="Our Flower Walls">
+        <h2 class="fwg-walls-title">Our Flower Walls</h2>
+        <div class="fw-carousel-wrap">
+          <div class="fw-viewport">
+            <div class="fw-track" id="fwTrack">
+
+              <a href="../../product.html" class="fwg-wall-card">
+                <div class="fwg-wall-inner">
+                  <img src="../../assets/cover-1.jpg" alt="Ivory Bloom Real Touch flower wall" loading="lazy" />
+                  <div class="fwg-wall-caption">
+                    <span class="fwg-wall-name">Ivory Bloom</span>
+                    <span class="fwg-wall-link-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              <a href="../../product.html" class="fwg-wall-card">
+                <div class="fwg-wall-inner">
+                  <img src="../../assets/cover-2.jpg" alt="Blush Romance Real Touch flower wall" loading="lazy" />
+                  <div class="fwg-wall-caption">
+                    <span class="fwg-wall-name">Blush Romance</span>
+                    <span class="fwg-wall-link-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              <a href="../../product.html" class="fwg-wall-card">
+                <div class="fwg-wall-inner">
+                  <img src="../../assets/cover-3.png" alt="Garden Pearl Real Touch flower wall" loading="lazy" />
+                  <div class="fwg-wall-caption">
+                    <span class="fwg-wall-name">Garden Pearl</span>
+                    <span class="fwg-wall-link-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              <a href="../../product.html" class="fwg-wall-card">
+                <div class="fwg-wall-inner">
+                  <img src="../../assets/cover-4.png" alt="Velvet Rose Real Touch flower wall" loading="lazy" />
+                  <div class="fwg-wall-caption">
+                    <span class="fwg-wall-name">Velvet Rose</span>
+                    <span class="fwg-wall-link-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+            </div>
           </div>
-          <a href="../../index.html#contact" class="neo-btn neo-btn--solid" style="text-decoration:none; flex-shrink:0">
-            Check Your Date
-          </a>
+          <button class="ac-arrow ac-arrow--prev" id="fwPrev" aria-label="Previous wall">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="ac-arrow ac-arrow--next" id="fwNext" aria-label="Next wall">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ── Inquiry form ───────────────────────────────────────── -->
+      <div class="fwg-inquiry-wrap">
+        <div class="cc-inquiry-wrap cc-inquiry-main">
+          <div class="inq-tabs" role="tablist">
+            <button class="inq-tab inq-tab--active" role="tab" data-tab="inquiry" aria-selected="true">Quick Inquiry</button>
+            <button class="inq-tab" role="tab" data-tab="reserve" aria-selected="false">Reserve Your Wall</button>
+          </div>
+
+          <section class="inquiry" id="contact" aria-label="Inquiry form">
+            <div class="inquiry-header">
+              <h2 id="inqTitle">Inquire about your Date</h2>
+            </div>
+
+            <form class="form-body" id="inquiryForm" novalidate>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="field-name">Name<span class="form-req">*</span></label>
+                  <input id="field-name" class="form-input" type="text" autocomplete="given-name" />
+                </div>
+                <div class="form-field form-field--extended">
+                  <label for="field-lastname">Last Name<span class="form-req">*</span></label>
+                  <input id="field-lastname" class="form-input" type="text" autocomplete="family-name" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="field-email">Email<span class="form-req">*</span></label>
+                  <input id="field-email" class="form-input" type="email" autocomplete="email" />
+                </div>
+                <div class="form-field form-field--extended">
+                  <label for="field-phone">Phone<span class="form-req">*</span></label>
+                  <input id="field-phone" class="form-input" type="tel" autocomplete="tel" />
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="form-date-header">
+                  <label for="field-date">Event Date<span class="form-req">*</span></label>
+                  <label class="form-date-unsure" for="field-date-unsure">
+                    <input type="checkbox" id="field-date-unsure" />
+                    <span>Not sure yet</span>
+                  </label>
+                </div>
+                <div class="form-date-wrap" id="fieldDateWrap">
+                  <input id="field-date" class="form-input" type="text" placeholder="mm/dd/yyyy" />
+                  <span class="form-date-icon" id="fieldDateIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-field form-field--extended">
+                <label for="field-location">Event Location<span class="form-req">*</span></label>
+                <input id="field-location" class="form-input" type="text" placeholder="Venue name and address" />
+              </div>
+
+              <div class="form-row form-row--extended">
+                <div class="form-field">
+                  <label for="field-event-type">Type of Event<span class="form-req">*</span></label>
+                  <select id="field-event-type" class="form-select">
+                    <option value="" disabled selected></option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Bridal Shower">Bridal Shower</option>
+                    <option value="Baby Shower">Baby Shower</option>
+                    <option value="Birthday Party">Birthday Party</option>
+                    <option value="Corporate Event">Corporate Event</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="field-wall-color">Wall Color<span class="form-req">*</span></label>
+                  <select id="field-wall-color" class="form-select">
+                    <option value="" disabled selected></option>
+                    <option value="White">White</option>
+                    <option value="Burgundy">Burgundy</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Green">Green</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="field-message">Message<span class="form-req">*</span></label>
+                <textarea id="field-message" class="form-textarea" rows="4" placeholder="Tell us about your event"></textarea>
+              </div>
+
+              <!-- HoneyPot: hidden from users, bots fill it → rejected server-side -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+                <label for="hp-website">Website</label>
+                <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <div class="form-submit">
+                <button type="submit" class="neo-btn neo-btn--solid" id="submitBtn">
+                  Send Inquiry
+                </button>
+                <p class="form-privacy-note">We'll only use your information to respond to your request.</p>
+                <p class="form-consent" id="inqConsent">
+                  By submitting this inquiry, you confirm that you have read and agree to our&nbsp;<a href="../../privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                </p>
+              </div>
+            </form>
+          </section>
         </div>
       </div>
 
@@ -377,6 +547,361 @@
       }
       window.addEventListener('scroll', function(){ if (!t) { requestAnimationFrame(s); t = true; } }, { passive: true });
     })();
+  </script>
+
+  <script src="../../js/fl-calendar.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.FlCalendar) FlCalendar.init('field-date', 'fieldDateWrap', 'fieldDateIcon');
+
+    var dateUnsureCb = document.getElementById('field-date-unsure');
+    if (dateUnsureCb) {
+      dateUnsureCb.addEventListener('change', function () {
+        var wrap = document.getElementById('fieldDateWrap');
+        if (this.checked) {
+          document.getElementById('field-date').value = '';
+          wrap.classList.add('form-date-wrap--disabled');
+        } else {
+          wrap.classList.remove('form-date-wrap--disabled');
+        }
+      });
+    }
+
+    var TAB_DATA = {
+      inquiry: {
+        title: 'Inquire about your Date',
+        btn: 'Send Inquiry',
+        desc: 'We’ll review your request and contact you to confirm availability and go over your event details.<span class="inq-tab-desc-note">Perfect if you need pricing, availability, or have any questions.</span>',
+        consent: 'By submitting this inquiry, you confirm that you have read and agree to our <a href="../../privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
+      },
+      reserve: {
+        title: 'Reserve Your Wall',
+        btn: 'Request Reservation',
+        desc: 'We’ll review your request and contact you to confirm availability and go over your event details.<span class="inq-tab-desc-note">Share your event details to begin your reservation.</span>',
+        consent: 'By submitting this request, you agree to our <a href="../../privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
+      }
+    };
+    document.querySelectorAll('.inq-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.inq-tab').forEach(function (t) {
+          t.classList.remove('inq-tab--active'); t.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('inq-tab--active'); this.setAttribute('aria-selected', 'true');
+        var d       = TAB_DATA[this.getAttribute('data-tab')];
+        var title   = document.getElementById('inqTitle');
+        var btn     = document.getElementById('submitBtn');
+        var desc    = document.getElementById('inqDesc');
+        var consent = document.getElementById('inqConsent');
+        var panel   = document.getElementById('contact');
+        if (title) title.textContent = d.title;
+        if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
+        if (desc) desc.innerHTML = d.desc;
+        if (consent) consent.innerHTML = d.consent;
+        if (panel) panel.classList.toggle('inquiry--reserve', this.getAttribute('data-tab') === 'reserve');
+      });
+    });
+  });
+
+  // ── Form submit ────────────────────────────────────────────────
+  (function () {
+    var form      = document.getElementById('inquiryForm');
+    var submitBtn = document.getElementById('submitBtn');
+    if (!form || !submitBtn) return;
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var name      = document.getElementById('field-name').value.trim();
+      var lastName  = (document.getElementById('field-lastname') || {value:''}).value.trim();
+      var email     = document.getElementById('field-email').value.trim();
+      var phone     = (document.getElementById('field-phone') || {value:''}).value.trim();
+      var date      = (document.getElementById('field-date') || {value:''}).value.trim();
+      var location  = (document.getElementById('field-location') || {value:''}).value.trim();
+      var eventType = (document.getElementById('field-event-type') || {value:''}).value;
+      var message   = document.getElementById('field-message').value.trim();
+      var hp        = document.getElementById('hp-website').value;
+      if (hp) return;
+
+      submitBtn.textContent   = 'Sending…';
+      submitBtn.disabled      = true;
+      submitBtn.style.opacity = '0.7';
+
+      var recaptchaToken = '';
+      try {
+        recaptchaToken = await new Promise(function (resolve) {
+          var timer = setTimeout(function () { resolve(''); }, 3000);
+          if (typeof grecaptcha === 'undefined') { clearTimeout(timer); resolve(''); return; }
+          grecaptcha.enterprise.ready(async function () {
+            try {
+              var t = await grecaptcha.enterprise.execute('6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY', { action: 'submit' });
+              clearTimeout(timer); resolve(t);
+            } catch (err) { clearTimeout(timer); resolve(''); }
+          });
+        });
+      } catch (err) { recaptchaToken = ''; }
+
+      try {
+        var res  = await fetch('/api/contact.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, lastName, email, phone, date, location, eventType, message, recaptchaToken, hp })
+        });
+        var data = await res.json();
+        if (data.success) {
+          submitBtn.textContent = 'Sent ✓';
+          var note = document.createElement('p');
+          note.style.cssText = 'margin-top:16px;font-size:14px;color:var(--ink-soft);text-align:center;line-height:1.6';
+          note.textContent = data.message;
+          form.appendChild(note);
+        } else {
+          submitBtn.textContent   = 'Try again';
+          submitBtn.disabled      = false;
+          submitBtn.style.opacity = '1';
+        }
+      } catch (err) {
+        submitBtn.textContent   = 'Try again';
+        submitBtn.disabled      = false;
+        submitBtn.style.opacity = '1';
+      }
+    });
+  })();
+  </script>
+  <script>
+  // ── Article carousel — infinite loop with shuffle ───────────────
+  (function () {
+    var track   = document.getElementById('acTrack');
+    var prevBtn = document.getElementById('acPrev');
+    var nextBtn = document.getElementById('acNext');
+    if (!track || !prevBtn || !nextBtn) return;
+
+    // Fisher-Yates shuffle before cloning
+    var cards = Array.from(track.querySelectorAll('.ac-card'));
+    for (var i = cards.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      if (i !== j) track.insertBefore(cards[j], cards[i].nextSibling);
+    }
+    cards = Array.from(track.querySelectorAll('.ac-card'));
+    var N = cards.length; // 3
+
+    // Clone: prepend N left clones + append N right clones → 3N total
+    var leftFrag  = document.createDocumentFragment();
+    var rightFrag = document.createDocumentFragment();
+    cards.forEach(function (c) { rightFrag.appendChild(c.cloneNode(true)); });
+    cards.forEach(function (c) { leftFrag.appendChild(c.cloneNode(true)); });
+    track.appendChild(rightFrag);
+    track.insertBefore(leftFrag, track.firstChild);
+
+    var allCards  = Array.from(track.querySelectorAll('.ac-card'));
+    var idx       = N; // start at first real card
+    var animating = false;
+    var peeked    = false;
+    var wasDragged = false;
+
+    function isMobile()  { return window.innerWidth <= 768; }
+    function getGap()    { return isMobile() ? 16 : 20; }
+    function getPeek()   { return isMobile() ? 0 : 80; }
+    function cardWidth() { return allCards[0] ? allCards[0].offsetWidth : 0; }
+    function getOffset(i) {
+      var step = cardWidth() + getGap();
+      if (!peeked && i === N) return N * step;
+      return i * step - getPeek();
+    }
+    function applyTransform(animated) {
+      if (!animated) {
+        track.style.transition = 'none';
+        track.offsetWidth; // force reflow
+      }
+      track.style.transform = 'translateX(-' + getOffset(idx) + 'px)';
+      if (!animated) {
+        track.offsetWidth;
+        track.style.transition = '';
+      }
+    }
+    track.addEventListener('transitionend', function () {
+      var jumped = false;
+      if (idx >= 2 * N) { idx -= N; jumped = true; }
+      else if (idx < N)  { idx += N; jumped = true; }
+      if (jumped) applyTransform(false);
+      animating = false;
+    });
+    function go(delta) {
+      if (animating) return;
+      peeked    = true;
+      animating = true;
+      idx      += delta;
+      applyTransform(true);
+    }
+    prevBtn.addEventListener('click', function () { go(-1); });
+    nextBtn.addEventListener('click', function () { go(1); });
+
+    // Touch drag
+    var touchStartX = 0, touchStartY = 0, touchDeltaX = 0, touchActive = false;
+    track.addEventListener('touchstart', function (e) {
+      if (animating) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchDeltaX = 0;
+      touchActive = true;
+      wasDragged  = false;
+    }, { passive: true });
+    track.addEventListener('touchmove', function (e) {
+      if (!touchActive) return;
+      touchDeltaX = e.touches[0].clientX - touchStartX;
+      var dy = Math.abs(e.touches[0].clientY - touchStartY);
+      if (Math.abs(touchDeltaX) > dy + 4) e.preventDefault();
+    }, { passive: false });
+    function endDrag() {
+      if (!touchActive) return;
+      touchActive = false;
+      if (Math.abs(touchDeltaX) > 40) {
+        wasDragged = true;
+        go(touchDeltaX < 0 ? 1 : -1);
+      }
+    }
+    track.addEventListener('touchend',    endDrag, { passive: true });
+    track.addEventListener('touchcancel', endDrag, { passive: true });
+
+    // Hover photo scale + sheen on all card instances (incl. clones)
+    allCards.forEach(function (card, ci) {
+      var photo = card.querySelector('.ac-card-photo');
+      var wrap  = card.querySelector('.ac-photo-wrap');
+
+      card.addEventListener('click', function () {
+        if (wasDragged) { wasDragged = false; return; }
+        if (ci > idx)      go(1);
+        else if (ci < idx) go(-1);
+      });
+
+      card.addEventListener('mouseenter', function () {
+        if (photo) {
+          photo.style.transition = 'transform 420ms ease-out';
+          photo.style.transform  = 'scale(1.025)';
+        }
+      });
+      card.addEventListener('mouseleave', function () {
+        if (photo) {
+          photo.style.transition = 'transform 1500ms ease-in-out';
+          photo.style.transform  = 'scale(1)';
+        }
+      });
+
+      if (wrap) {
+        wrap.addEventListener('mouseenter', function () {
+          if (card._acSheenPending) return;
+          card._acSheenPending = true;
+          setTimeout(function () {
+            wrap.classList.remove('ac-sheen');
+            void wrap.offsetWidth;
+            wrap.classList.add('ac-sheen');
+            setTimeout(function () {
+              wrap.classList.remove('ac-sheen');
+              card._acSheenPending = false;
+            }, 1560);
+          }, 1500);
+        });
+      }
+    });
+
+    window.addEventListener('resize', function () { applyTransform(false); }, { passive: true });
+    applyTransform(false);
+  })();
+
+  // ── Flower walls carousel — infinite loop ──────────────────────
+  (function () {
+    var track   = document.getElementById('fwTrack');
+    var prevBtn = document.getElementById('fwPrev');
+    var nextBtn = document.getElementById('fwNext');
+    if (!track || !prevBtn || !nextBtn) return;
+
+    var cards = Array.from(track.querySelectorAll('.fwg-wall-card'));
+    var N = cards.length; // 4
+
+    // Clone: prepend N left clones + append N right clones
+    var leftFrag  = document.createDocumentFragment();
+    var rightFrag = document.createDocumentFragment();
+    cards.forEach(function (c) { rightFrag.appendChild(c.cloneNode(true)); });
+    cards.forEach(function (c) { leftFrag.appendChild(c.cloneNode(true)); });
+    track.appendChild(rightFrag);
+    track.insertBefore(leftFrag, track.firstChild);
+
+    var allCards   = Array.from(track.querySelectorAll('.fwg-wall-card'));
+    var idx        = N;
+    var animating  = false;
+    var wasDragged = false;
+
+    function isMobile()  { return window.innerWidth <= 768; }
+    function getGap()    { return isMobile() ? 12 : 16; }
+    function getPeek()   { return isMobile() ? 40 : 60; }
+    function cardWidth() { return allCards[0] ? allCards[0].offsetWidth : 0; }
+    function getOffset(i) {
+      var step = cardWidth() + getGap();
+      return i * step - getPeek();
+    }
+    function applyTransform(animated) {
+      if (!animated) {
+        track.style.transition = 'none';
+        track.offsetWidth;
+      }
+      track.style.transform = 'translateX(-' + getOffset(idx) + 'px)';
+      if (!animated) {
+        track.offsetWidth;
+        track.style.transition = '';
+      }
+    }
+    track.addEventListener('transitionend', function () {
+      var jumped = false;
+      if (idx >= 2 * N) { idx -= N; jumped = true; }
+      else if (idx < N)  { idx += N; jumped = true; }
+      if (jumped) applyTransform(false);
+      animating = false;
+    });
+    function go(delta) {
+      if (animating) return;
+      animating = true;
+      idx      += delta;
+      applyTransform(true);
+    }
+    prevBtn.addEventListener('click', function () { go(-1); });
+    nextBtn.addEventListener('click', function () { go(1); });
+
+    // Touch drag
+    var touchStartX = 0, touchStartY = 0, touchDeltaX = 0, touchActive = false;
+    track.addEventListener('touchstart', function (e) {
+      if (animating) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchDeltaX = 0;
+      touchActive = true;
+      wasDragged  = false;
+    }, { passive: true });
+    track.addEventListener('touchmove', function (e) {
+      if (!touchActive) return;
+      touchDeltaX = e.touches[0].clientX - touchStartX;
+      var dy = Math.abs(e.touches[0].clientY - touchStartY);
+      if (Math.abs(touchDeltaX) > dy + 4) e.preventDefault();
+    }, { passive: false });
+    function endFwDrag() {
+      if (!touchActive) return;
+      touchActive = false;
+      if (Math.abs(touchDeltaX) > 40) {
+        wasDragged = true;
+        go(touchDeltaX < 0 ? 1 : -1);
+      }
+    }
+    track.addEventListener('touchend',    endFwDrag, { passive: true });
+    track.addEventListener('touchcancel', endFwDrag, { passive: true });
+
+    // Click side cards to navigate
+    allCards.forEach(function (card, ci) {
+      card.addEventListener('click', function (e) {
+        if (wasDragged) { wasDragged = false; e.preventDefault(); return; }
+        if (ci > idx)      go(1);
+        else if (ci < idx) go(-1);
+      });
+    });
+
+    window.addEventListener('resize', function () { applyTransform(false); }, { passive: true });
+    applyTransform(false);
+  })();
   </script>
 
   <!-- ── Floating contact widget ──────────────────────────────── -->
