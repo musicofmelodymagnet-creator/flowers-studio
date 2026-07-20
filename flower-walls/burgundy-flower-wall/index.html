@@ -61,7 +61,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://florinsky.ca/" },
       { "@type": "ListItem", "position": 2, "name": "Flower Walls", "item": "https://florinsky.ca/gallery.html" },
-      { "@type": "ListItem", "position": 3, "name": "Midnight Bloom", "item": "https://florinsky.ca/flower-walls/burgundy-flower-wall/" }
+      { "@type": "ListItem", "position": 3, "name": "Midnight Bloom — Dark Moody Burgundy", "item": "https://florinsky.ca/flower-walls/burgundy-flower-wall/" }
     ]
   }
   </script>
@@ -135,7 +135,7 @@
     }
     @media (max-width: 600px) { .pdesc-spec { grid-template-columns: 1fr; } }
 
-    /* ── FAQ ─────────────────────────────────────────────── */
+    /* ── FAQ accordion (JS-driven, matches faq.html style) ──────── */
     .pfaq {
       max-width: 780px;
       margin: 0 auto;
@@ -145,39 +145,73 @@
       font: 600 30px/1.2 var(--font-serif);
       color: var(--ink-mauve);
       letter-spacing: -0.02em;
-      margin: 0 0 24px;
+      margin: 0 0 20px;
     }
-    details.pfaq-item { border-top: 1px solid var(--stroke-soft, rgba(0,0,0,.10)); }
-    details.pfaq-item:last-of-type { border-bottom: 1px solid var(--stroke-soft, rgba(0,0,0,.10)); }
-    details.pfaq-item summary {
-      list-style: none;
-      cursor: pointer;
+    .pfaq-list {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .pfaq-item {
+      background: var(--surface);
+      border-radius: 18px;
+      box-shadow: var(--elev-sm), inset 3px 0 0 transparent;
+      position: relative;
+      transition: box-shadow 320ms var(--ease);
+    }
+    .pfaq-item.open {
+      box-shadow: var(--elev-hover), inset 3px 0 0 var(--brand);
+    }
+    .pfaq-q {
+      width: 100%;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
-      padding: 18px 0;
+      padding: 18px 22px;
+      background: none;
+      border: none;
+      border-radius: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: background 220ms;
+    }
+    .pfaq-q:hover { background: rgba(168,120,208,0.04); }
+    .pfaq-item.open .pfaq-q {
+      background: rgba(168,120,208,0.04);
+      border-radius: 16px 16px 0 0;
+    }
+    .pfaq-q-text {
       font: 500 16px/1.4 var(--font-sans);
       color: var(--ink-mauve);
-      user-select: none;
-      -webkit-user-select: none;
+      transition: color 220ms;
     }
-    details.pfaq-item summary::-webkit-details-marker { display: none; }
+    .pfaq-item.open .pfaq-q-text { color: var(--brand-deep, var(--brand)); }
     .pfaq-icon {
       flex-shrink: 0;
-      width: 22px; height: 22px;
+      width: 28px; height: 28px;
       border-radius: 50%;
-      border: 1.5px solid var(--ink-soft);
+      background: var(--brand);
       display: flex; align-items: center; justify-content: center;
-      transition: transform 0.25s ease, border-color 0.2s;
+      transition: background 260ms, transform 340ms var(--ease);
     }
-    .pfaq-icon svg { width: 10px; height: 10px; }
-    details.pfaq-item[open] summary { color: var(--brand); }
-    details.pfaq-item[open] .pfaq-icon { transform: rotate(45deg); border-color: var(--brand); }
-    .pfaq-answer {
-      padding: 0 0 20px;
+    .pfaq-icon svg { width: 14px; height: 14px; }
+    .pfaq-icon svg polyline { stroke: #fff !important; }
+    .pfaq-item.open .pfaq-icon { transform: rotate(180deg); }
+    .pfaq-item.read:not(.open) .pfaq-icon {
+      background: rgba(168,120,208,0.08);
+    }
+    .pfaq-item.read:not(.open) .pfaq-icon svg polyline { stroke: #60545b !important; }
+    .pfaq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 440ms var(--ease);
+    }
+    .pfaq-a-inner {
+      padding: 18px 22px 20px 25px;
       font: 400 15px/1.7 var(--font-sans);
       color: var(--ink-body);
+      border-top: 1px solid rgba(168,120,208,0.1);
       max-width: 66ch;
     }
 
@@ -288,19 +322,13 @@
 
     <main class="page-stack">
 
-      <!-- Back arrow -->
-      <div class="product-breadcrumb">
-        <a href="../../gallery.html">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" style="width:14px;height:14px;vertical-align:-2px;margin-right:4px"><path d="m15 18-6-6 6-6"/></svg>Gallery
-        </a>
-      </div>
-      <!-- SEO breadcrumb -->
+      <!-- Breadcrumb -->
       <nav class="pbcr" aria-label="Breadcrumb">
         <a href="../../index.html">Home</a>
         <span class="pbcr-sep">›</span>
         <a href="../../gallery.html">Flower Walls</a>
         <span class="pbcr-sep">›</span>
-        <span class="pbcr-current">Midnight Bloom</span>
+        <span class="pbcr-current">Midnight Bloom — Dark Moody Burgundy</span>
       </nav>
 
       <!-- ============================================================
@@ -312,7 +340,6 @@
         <div class="pv2-header">
           <div class="pv2-header-top">
             <div class="pv2-header-left">
-              <span class="product-eyebrow">Flower Wall Collection</span>
               <h1 class="pv2-name">Midnight Bloom — Dark Moody Burgundy Real Touch Flower Wall</h1>
               <p class="pv2-product-subtitle">A deep burgundy, plum, and gold backdrop for weddings, birthdays, engagement parties, and corporate events across Toronto &amp; the GTA.</p>
             </div>
@@ -610,61 +637,75 @@
       <section class="pfaq" aria-label="Frequently asked questions">
         <h2>Frequently Asked Questions</h2>
 
-        <details class="pfaq-item">
-          <summary>
-            How much does it cost to rent a burgundy flower wall in Toronto?
-            <span class="pfaq-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-          </summary>
-          <p class="pfaq-answer">
-            Most GTA flower wall rentals fall between $300 and $800 depending on size and date. FLORINSKY quotes are
-            all-inclusive — delivery, professional setup, and takedown — with the final price fixed in your contract,
-            no add-ons later.
-          </p>
-        </details>
+        <div class="pfaq-list">
 
-        <details class="pfaq-item">
-          <summary>
-            What colours go with a burgundy flower wall?
-            <span class="pfaq-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-          </summary>
-          <p class="pfaq-answer">
-            Gold, black, blush, and emerald styling all work — burgundy pairs naturally with fall and winter palettes,
-            and gold lettering or candlelight makes the wine tones look richer.
-          </p>
-        </details>
+          <div class="pfaq-item">
+            <button class="pfaq-q" aria-expanded="false">
+              <span class="pfaq-q-text">How much does it cost to rent a burgundy flower wall in Toronto?</span>
+              <span class="pfaq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="pfaq-a" role="region">
+              <div class="pfaq-a-inner">
+                Most GTA flower wall rentals fall between $300 and $800 depending on size and date. FLORINSKY quotes are
+                all-inclusive — delivery, professional setup, and takedown — with the final price fixed in your contract,
+                no add-ons later.
+              </div>
+            </div>
+          </div>
 
-        <details class="pfaq-item">
-          <summary>
-            Is a dark flower wall too dark for photos?
-            <span class="pfaq-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-          </summary>
-          <p class="pfaq-answer">
-            No — with warm uplighting the burgundy, plum, and gold read rich rather than black. It is actually a
-            favourite for evening receptions, where lighter walls tend to wash out.
-          </p>
-        </details>
+          <div class="pfaq-item">
+            <button class="pfaq-q" aria-expanded="false">
+              <span class="pfaq-q-text">What colours go with a burgundy flower wall?</span>
+              <span class="pfaq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="pfaq-a" role="region">
+              <div class="pfaq-a-inner">
+                Gold, black, blush, and emerald styling all work — burgundy pairs naturally with fall and winter palettes,
+                and gold lettering or candlelight makes the wine tones look richer.
+              </div>
+            </div>
+          </div>
 
-        <details class="pfaq-item">
-          <summary>
-            How many people fit in a photo in front of the wall?
-            <span class="pfaq-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-          </summary>
-          <p class="pfaq-answer">
-            The standard 8×8 ft wall comfortably frames 8–10 people; the extended 11×8 ft version keeps larger groups
-            fully inside the flowers instead of spilling onto the bare venue wall.
-          </p>
-        </details>
+          <div class="pfaq-item">
+            <button class="pfaq-q" aria-expanded="false">
+              <span class="pfaq-q-text">Is a dark flower wall too dark for photos?</span>
+              <span class="pfaq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="pfaq-a" role="region">
+              <div class="pfaq-a-inner">
+                No — with warm uplighting the burgundy, plum, and gold read rich rather than black. It is actually a
+                favourite for evening receptions, where lighter walls tend to wash out.
+              </div>
+            </div>
+          </div>
 
-        <details class="pfaq-item">
-          <summary>
-            How far in advance should I book?
-            <span class="pfaq-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-          </summary>
-          <p class="pfaq-answer">
-            4–6 weeks is usually safe, but peak dates from May to October book out earlier. If your date is close,
-            ask anyway — we confirm availability the same day.
-          </p>
-        </details>
+          <div class="pfaq-item">
+            <button class="pfaq-q" aria-expanded="false">
+              <span class="pfaq-q-text">How many people fit in a photo in front of the wall?</span>
+              <span class="pfaq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="pfaq-a" role="region">
+              <div class="pfaq-a-inner">
+                The standard 8×8 ft wall comfortably frames 8–10 people; the extended 11×8 ft version keeps larger groups
+                fully inside the flowers instead of spilling onto the bare venue wall.
+              </div>
+            </div>
+          </div>
+
+          <div class="pfaq-item">
+            <button class="pfaq-q" aria-expanded="false">
+              <span class="pfaq-q-text">How far in advance should I book?</span>
+              <span class="pfaq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </button>
+            <div class="pfaq-a" role="region">
+              <div class="pfaq-a-inner">
+                4–6 weeks is usually safe, but peak dates from May to October book out earlier. If your date is close,
+                ask anyway — we confirm availability the same day.
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <!-- FAQPage schema — near FAQ content -->
@@ -1046,6 +1087,32 @@
         }, 150);
       });
     });
+
+    // ── FAQ accordion ─────────────────────────────────────────────
+    (function () {
+      function pfaqToggle(item) {
+        var btn   = item.querySelector('.pfaq-q');
+        var panel = item.querySelector('.pfaq-a');
+        var inner = item.querySelector('.pfaq-a-inner');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.pfaq-item.open').forEach(function (o) {
+          o.classList.remove('open');
+          o.querySelector('.pfaq-q').setAttribute('aria-expanded', 'false');
+          o.querySelector('.pfaq-a').style.maxHeight = '0';
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          item.classList.add('read');
+          btn.setAttribute('aria-expanded', 'true');
+          panel.style.maxHeight = inner.scrollHeight + 'px';
+        }
+      }
+      document.querySelectorAll('.pfaq-item').forEach(function (item) {
+        item.querySelector('.pfaq-q').addEventListener('click', function () {
+          pfaqToggle(item);
+        });
+      });
+    })();
 
     // ── Size help popup ───────────────────────────────────────────
     const pv2SizeHelp  = document.getElementById('pv2SizeHelp');
