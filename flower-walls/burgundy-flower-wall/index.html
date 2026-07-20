@@ -298,6 +298,107 @@
       max-width: 46ch;
       text-wrap: pretty;
     }
+
+    /* ── Task 2: Breadcrumb — clear fixed nav + tighten gap to h1 ── */
+    /* Desktop: nav = 14px pad + 60px pill + 14px pad = 88px.
+       Push page-stack top by 14px more, and collapse the 77px
+       flexbox gap between breadcrumb and pv2-wrap down to 20px.    */
+    .page-stack { padding-top: 102px; }
+    .pbcr        { padding-top: 0; margin-bottom: -57px; }
+
+    @media (max-width: 1024px) {
+      /* Tablet: nav padding becomes 20px → nav height ≈ 100px */
+      .page-stack { padding-top: 116px; }
+      .pbcr        { margin-bottom: -38px; } /* 58px gap − 38 = 20px */
+    }
+    @media (max-width: 768px) {
+      /* Mobile: site-nav hidden; site-shell already adds 64px */
+      .page-stack { padding-top: 0; }
+      .pbcr        { margin-bottom: -28px; } /* 48px gap − 28 = 20px */
+    }
+
+    /* ── Task 1: Expandable CTA section ─────────────────────────── */
+    .pcta-section {
+      width: 100%;
+      max-width: 1072px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pcta-btn-wrap {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .pcta-open-btn {
+      padding: 18px 44px;
+      font-size: 15px;
+      letter-spacing: 0.09em;
+      background: var(--brand);
+      color: rgba(255,255,255,0.97);
+      box-shadow: 0 4px 22px rgba(168,120,208,0.38);
+    }
+    .pcta-open-btn:hover {
+      background: var(--brand-deep);
+      color: #fff;
+      box-shadow: 0 6px 28px rgba(142,95,182,0.48);
+      transform: translateY(-3px);
+    }
+    .pcta-open-btn:active {
+      background: var(--brand);
+      transform: scale(0.97) translateY(0);
+    }
+    .pcta-form-wrap {
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        max-height 640ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity    320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .pcta-form-wrap.open {
+      max-height: 2400px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .pcta-form-inner {
+      padding-top: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+    }
+    .pcta-collapse-row {
+      display: flex;
+      justify-content: center;
+      padding: 28px 0 0;
+    }
+    .pcta-collapse-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: 500 14px/1 var(--font-sans);
+      color: var(--ink-muted);
+      border-radius: var(--r-pill);
+      box-shadow: var(--elev-sm);
+      transition: color 200ms, box-shadow 220ms, transform 220ms var(--ease);
+    }
+    .pcta-collapse-btn:hover {
+      color: var(--ink-mauve);
+      box-shadow: var(--elev-hover);
+      transform: translateY(-2px);
+    }
+    .pcta-collapse-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    @media (max-width: 768px) {
+      .pcta-form-inner { padding-top: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -548,7 +649,7 @@
                   </div>
                   <p class="size-desc" id="pv2SizeDesc">Our most requested size. Created for grand entrances, large wedding parties, and group photography. Delivers maximum visual impact.</p>
                 </div>
-                <a href="../../client-care.html#contact" class="neo-btn product-cta">Check availability for your date</a>
+                <button type="button" class="neo-btn product-cta">Check availability for your date</button>
               </div>
             </div>
           </div>
@@ -581,7 +682,7 @@
                 </div>
               </div>
               <div class="pv2-info-right">
-                <a href="../../client-care.html#contact" class="neo-btn product-cta">Check availability for your date</a>
+                <button type="button" class="neo-btn product-cta">Check availability for your date</button>
               </div>
             </div>
           </div>
@@ -605,7 +706,7 @@
                 </div>
               </div>
               <div class="pv2-info-right">
-                <a href="../../client-care.html#contact" class="neo-btn product-cta">Check availability for your date</a>
+                <button type="button" class="neo-btn product-cta">Check availability for your date</button>
               </div>
             </div>
           </div>
@@ -615,6 +716,137 @@
 
       </div>
       <!-- /pv2-wrap -->
+
+      <!-- ============================================================
+           EXPANDABLE CTA — Check availability for your date
+           ============================================================ -->
+      <div class="pcta-section" id="pctaSection">
+
+        <!-- Collapsed state: centred button only -->
+        <div class="pcta-btn-wrap" id="pctaBtnWrap">
+          <button type="button" class="neo-btn pcta-open-btn" id="pctaOpenBtn"
+                  aria-expanded="false" aria-controls="pctaFormWrap">
+            Check availability for your date
+          </button>
+        </div>
+
+        <!-- Expanded state: full inquiry form -->
+        <div class="pcta-form-wrap" id="pctaFormWrap" aria-hidden="true">
+          <div class="pcta-form-inner">
+
+            <div class="cc-inquiry-wrap" style="max-width:576px;width:100%">
+              <div class="inq-tabs" role="tablist">
+                <button class="inq-tab inq-tab--active" role="tab" data-pctaTab="inquiry" aria-selected="true">Quick Inquiry</button>
+                <button class="inq-tab" role="tab" data-pctaTab="reserve" aria-selected="false">Reserve Your Wall</button>
+              </div>
+              <section class="inquiry" id="pctaInquiry" aria-label="Inquiry form">
+                <div class="inquiry-header">
+                  <h2 id="pctaInqTitle">Send an Inquiry</h2>
+                </div>
+                <form class="form-body" id="pctaForm" novalidate>
+                  <div class="form-row">
+                    <div class="form-field">
+                      <label for="pcta-name">Name<span class="form-req">*</span></label>
+                      <input id="pcta-name" class="form-input" type="text" autocomplete="given-name" />
+                    </div>
+                    <div class="form-field form-field--extended">
+                      <label for="pcta-lastname">Last Name<span class="form-req">*</span></label>
+                      <input id="pcta-lastname" class="form-input" type="text" autocomplete="family-name" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-field">
+                      <label for="pcta-email">Email<span class="form-req">*</span></label>
+                      <input id="pcta-email" class="form-input" type="email" autocomplete="email" />
+                    </div>
+                    <div class="form-field form-field--extended">
+                      <label for="pcta-phone">Phone<span class="form-req">*</span></label>
+                      <input id="pcta-phone" class="form-input" type="tel" autocomplete="tel" />
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <div class="form-date-header">
+                      <label for="pcta-date">Event Date<span class="form-req">*</span></label>
+                      <label class="form-date-unsure" for="pcta-date-unsure">
+                        <input type="checkbox" id="pcta-date-unsure" />
+                        <span>Not sure yet</span>
+                      </label>
+                    </div>
+                    <div class="form-date-wrap" id="pctaDateWrap">
+                      <input id="pcta-date" class="form-input" type="text" placeholder="mm/dd/yyyy" />
+                      <span class="form-date-icon" id="pctaDateIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                          <line x1="16" y1="2" x2="16" y2="6"/>
+                          <line x1="8" y1="2" x2="8" y2="6"/>
+                          <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-field form-field--extended">
+                    <label for="pcta-location">Event Location<span class="form-req">*</span></label>
+                    <input id="pcta-location" class="form-input" type="text" placeholder="Venue name and address" />
+                  </div>
+                  <div class="form-row form-row--extended">
+                    <div class="form-field">
+                      <label for="pcta-event-type">Type of Event<span class="form-req">*</span></label>
+                      <select id="pcta-event-type" class="form-select">
+                        <option value="" disabled selected></option>
+                        <option value="Wedding">Wedding</option>
+                        <option value="Bridal Shower">Bridal Shower</option>
+                        <option value="Baby Shower">Baby Shower</option>
+                        <option value="Birthday Party">Birthday Party</option>
+                        <option value="Corporate Event">Corporate Event</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label for="pcta-wall-color">Wall Color<span class="form-req">*</span></label>
+                      <select id="pcta-wall-color" class="form-select">
+                        <option value="" disabled selected></option>
+                        <option value="White">White</option>
+                        <option value="Burgundy" selected>Burgundy</option>
+                        <option value="Pink">Pink</option>
+                        <option value="Green">Green</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                    <label for="pcta-message">Message<span class="form-req">*</span></label>
+                    <textarea id="pcta-message" class="form-textarea" rows="4" placeholder="Tell us about your event"></textarea>
+                  </div>
+                  <!-- HoneyPot: hidden from users, bots fill it → rejected server-side -->
+                  <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+                    <label for="pcta-hp">Website</label>
+                    <input type="text" id="pcta-hp" name="website" tabindex="-1" autocomplete="off" />
+                  </div>
+                  <div class="form-submit">
+                    <button type="submit" class="neo-btn neo-btn--solid" id="pctaSubmitBtn">Send Inquiry</button>
+                    <p class="form-privacy-note">We'll only use your information to respond to your request.</p>
+                    <p class="form-consent" id="pctaConsent">
+                      By submitting this inquiry, you confirm that you have read and agree to our&nbsp;<a href="../../privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                    </p>
+                  </div>
+                </form>
+              </section>
+            </div>
+
+            <!-- Collapse button -->
+            <div class="pcta-collapse-row">
+              <button type="button" class="pcta-collapse-btn" id="pctaCollapseBtn" aria-label="Collapse inquiry form">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="18 15 12 9 6 15"/>
+                </svg>
+                Collapse
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- /pcta-section -->
 
       <!-- ============================================================
            DESCRIPTION
@@ -815,7 +1047,7 @@
       <div class="product-cta-band">
         <h2>Ready to Book Midnight Bloom?</h2>
         <p>Check your date and get a 3D preview of the wall at your venue dimensions before you commit.</p>
-        <a href="../../client-care.html#contact" class="neo-btn">Check availability for your date</a>
+        <button type="button" class="neo-btn product-cta">Check availability for your date</button>
       </div>
 
     </main>
@@ -1110,6 +1342,112 @@
       });
     });
 
+    // ── Expandable CTA ────────────────────────────────────────────
+    (function () {
+      var pctaOpenBtn     = document.getElementById('pctaOpenBtn');
+      var pctaBtnWrap     = document.getElementById('pctaBtnWrap');
+      var pctaFormWrap    = document.getElementById('pctaFormWrap');
+      var pctaCollapseBtn = document.getElementById('pctaCollapseBtn');
+
+      function pctaOpen() {
+        pctaBtnWrap.style.display = 'none';
+        pctaFormWrap.classList.add('open');
+        pctaFormWrap.setAttribute('aria-hidden', 'false');
+        pctaOpenBtn.setAttribute('aria-expanded', 'true');
+        setTimeout(function () {
+          var inq = document.getElementById('pctaInquiry');
+          if (inq) inq.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      }
+
+      function pctaClose() {
+        pctaFormWrap.classList.remove('open');
+        pctaFormWrap.setAttribute('aria-hidden', 'true');
+        pctaOpenBtn.setAttribute('aria-expanded', 'false');
+        setTimeout(function () {
+          pctaBtnWrap.style.display = '';
+          var sec = document.getElementById('pctaSection');
+          if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 440);
+      }
+
+      pctaOpenBtn.addEventListener('click', pctaOpen);
+      pctaCollapseBtn.addEventListener('click', pctaClose);
+
+      // All in-page product-cta buttons scroll to and open the form
+      document.querySelectorAll('.product-cta').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          pctaOpen();
+        });
+      });
+    })();
+
+    // ── PCTA form submission ──────────────────────────────────────
+    (function () {
+      var form      = document.getElementById('pctaForm');
+      var submitBtn = document.getElementById('pctaSubmitBtn');
+      if (!form) return;
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var name      = document.getElementById('pcta-name').value.trim();
+        var lastName  = (document.getElementById('pcta-lastname') || {}).value?.trim() || '';
+        var email     = document.getElementById('pcta-email').value.trim();
+        var phone     = (document.getElementById('pcta-phone') || {}).value?.trim() || '';
+        var date      = (document.getElementById('pcta-date') || {}).value?.trim() || '';
+        var location  = (document.getElementById('pcta-location') || {}).value?.trim() || '';
+        var eventType = (document.getElementById('pcta-event-type') || {}).value || '';
+        var wallColor = (document.getElementById('pcta-wall-color') || {}).value || '';
+        var message   = document.getElementById('pcta-message').value.trim();
+        var hp        = document.getElementById('pcta-hp').value;
+
+        if (hp) return;
+
+        submitBtn.textContent   = 'Sending…';
+        submitBtn.disabled      = true;
+        submitBtn.style.opacity = '0.7';
+
+        var recaptchaToken = '';
+        try {
+          recaptchaToken = await new Promise(function (resolve) {
+            var timer = setTimeout(function () { resolve(''); }, 3000);
+            if (typeof grecaptcha === 'undefined') { clearTimeout(timer); resolve(''); return; }
+            grecaptcha.enterprise.ready(async function () {
+              try {
+                var t = await grecaptcha.enterprise.execute('6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY', { action: 'submit' });
+                clearTimeout(timer); resolve(t);
+              } catch (err) { clearTimeout(timer); resolve(''); }
+            });
+          });
+        } catch (err) { recaptchaToken = ''; }
+
+        try {
+          var res  = await fetch('../../api/contact.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, lastName, email, phone, date, location, eventType, wallColor, message, recaptchaToken, hp })
+          });
+          var data = await res.json();
+          if (data.success) {
+            submitBtn.textContent = 'Sent ✓';
+            var note = document.createElement('p');
+            note.style.cssText = 'margin-top:16px;font-size:14px;color:var(--ink-soft);text-align:center;line-height:1.6';
+            note.textContent = data.message;
+            form.appendChild(note);
+          } else {
+            submitBtn.textContent   = 'Try again';
+            submitBtn.disabled      = false;
+            submitBtn.style.opacity = '1';
+          }
+        } catch (err) {
+          submitBtn.textContent   = 'Try again';
+          submitBtn.disabled      = false;
+          submitBtn.style.opacity = '1';
+        }
+      });
+    })();
+
     // ── FAQ accordion ─────────────────────────────────────────────
     (function () {
       function pfaqToggle(item) {
@@ -1187,5 +1525,49 @@
     .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
     .cw-quick                     { background: #F8F4F2 !important; }
   </style>
+  <script src="../../js/fl-calendar.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Date picker for inline CTA form
+    if (window.FlCalendar) FlCalendar.init('pcta-date', 'pctaDateWrap', 'pctaDateIcon');
+
+    // "Not sure yet" checkbox
+    var pctaDateUnsure = document.getElementById('pcta-date-unsure');
+    if (pctaDateUnsure) {
+      pctaDateUnsure.addEventListener('change', function () {
+        var wrap = document.getElementById('pctaDateWrap');
+        if (this.checked) {
+          document.getElementById('pcta-date').value = '';
+          wrap.classList.add('form-date-wrap--disabled');
+        } else {
+          wrap.classList.remove('form-date-wrap--disabled');
+        }
+      });
+    }
+
+    // Inquiry tabs inside the CTA form
+    var PCTA_TAB_DATA = {
+      inquiry: { title: 'Send an Inquiry',    btn: 'Send Inquiry' },
+      reserve: { title: 'Reserve Your Wall',  btn: 'Request Reservation' }
+    };
+    document.querySelectorAll('.pcta-form-wrap .inq-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.pcta-form-wrap .inq-tab').forEach(function (t) {
+          t.classList.remove('inq-tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('inq-tab--active');
+        this.setAttribute('aria-selected', 'true');
+        var d       = PCTA_TAB_DATA[this.dataset.pctaTab];
+        var title   = document.getElementById('pctaInqTitle');
+        var btn     = document.getElementById('pctaSubmitBtn');
+        var panel   = document.getElementById('pctaInquiry');
+        if (title) title.textContent = d.title;
+        if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
+        if (panel) panel.classList.toggle('inquiry--reserve', this.dataset.pctaTab === 'reserve');
+      });
+    });
+  });
+  </script>
 </body>
 </html>
