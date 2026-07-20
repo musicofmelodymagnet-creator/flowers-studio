@@ -2,6 +2,9 @@
 Redirect 301 /flower-wall-tips/ https://florinsky.ca/flower-wall-guide/
 Redirect 301 /flower-wall-tips/real-touch-vs-silk-flower-wall/ https://florinsky.ca/flower-wall-guide/real-touch-vs-silk-flower-wall/
 
+# ── Renamed product URL: midnight-bloom-burgundy → burgundy-flower-wall ────────
+Redirect 301 /flower-walls/midnight-bloom-burgundy/ https://florinsky.ca/flower-walls/burgundy-flower-wall/
+
 # ── www → non-www canonical redirect ─────────────────────────────────────────
 <IfModule mod_rewrite.c>
     RewriteEngine On
