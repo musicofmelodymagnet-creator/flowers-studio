@@ -330,24 +330,47 @@
       left: auto;
     }
 
-    /* ── Price display ────────────────────────────────────────── */
-    .pv2-price-display {
-      padding: 20px 0 4px;
+    /* ── Price anchor (between product tabs and CTA) ────────────── */
+    .ppa-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 44px 24px 16px;
+      width: 100%;
+      max-width: 1072px;
+      margin: 0 auto;
+      text-align: center;
     }
-    .pv2-price-pill {
+    .ppa-size-label {
+      font: 500 12px/1 var(--font-sans);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .ppa-pill {
       display: inline-flex;
       align-items: baseline;
       background: rgba(168, 120, 208, 0.11);
-      border: 1.5px solid rgba(168, 120, 208, 0.24);
-      border-radius: 16px;
-      padding: 14px 26px 16px;
+      border: 2px solid rgba(168, 120, 208, 0.26);
+      border-radius: 22px;
+      padding: 20px 48px 26px;
     }
-    .pv2-price-val {
-      display: block;
-      font: 700 72px/1 var(--font-serif);
+    .ppa-val {
+      font: 700 96px/1 var(--font-serif);
       color: var(--brand);
       letter-spacing: -0.03em;
       transition: opacity 150ms ease;
+    }
+    .ppa-note {
+      font: 400 13px/1.4 var(--font-sans);
+      color: var(--ink-muted);
+      margin: 0;
+    }
+    @media (max-width: 768px) {
+      .ppa-block { padding: 36px 16px 12px; }
+      .ppa-val   { font-size: 72px; }
+      .ppa-pill  { padding: 16px 36px 20px; }
     }
 
     /* ── Expandable CTA card ─────────────────────────────────── */
@@ -374,7 +397,7 @@
       justify-content: center;
       gap: 14px;
       padding: 22px 28px;
-      background: #CDCED3;
+      background: var(--surface-form);
       border: none;
       cursor: pointer;
       font: 600 13px/1 var(--font-sans);
@@ -383,7 +406,7 @@
       color: var(--ink);
       transition: color 200ms, background 200ms;
     }
-    .pcta-card-hd:hover { color: var(--ink); background: #C0C1C7; }
+    .pcta-card-hd:hover { color: var(--ink); background: #C8CACF; }
     .pcta-card-hd-icon {
       display: flex;
       align-items: center;
@@ -675,11 +698,6 @@
                     <button class="size-btn"        data-pv2size="14x8" aria-pressed="false">14 × 8 ft</button>
                   </div>
                   <p class="size-desc" id="pv2SizeDesc">Our most requested size. Created for grand entrances, large wedding parties, and group photography. Delivers maximum visual impact.</p>
-                  <div class="pv2-price-display" id="pv2PriceDisplay">
-                    <div class="pv2-price-pill">
-                      <span class="pv2-price-val" id="pv2PriceVal">$690</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -741,6 +759,17 @@
 
       </div>
       <!-- /pv2-wrap -->
+
+      <!-- ============================================================
+           PRICE ANCHOR — shown above CTA for maximum conversion
+           ============================================================ -->
+      <div class="ppa-block">
+        <span class="ppa-size-label" id="pv2PriceSizeLabel">11 × 8 ft</span>
+        <div class="ppa-pill">
+          <span class="ppa-val" id="pv2PriceVal">$690</span>
+        </div>
+        <p class="ppa-note">per event &middot; delivery &amp; setup included</p>
+      </div>
 
       <!-- ============================================================
            EXPANDABLE CTA — Check availability for your date
@@ -1350,8 +1379,10 @@
         btn.classList.add('active');
         btn.setAttribute('aria-pressed', 'true');
         pv2SizeDescEl.style.opacity = '0';
-        const priceEl = document.getElementById('pv2PriceVal');
+        const priceEl     = document.getElementById('pv2PriceVal');
+        const sizeLabelEl = document.getElementById('pv2PriceSizeLabel');
         if (priceEl) priceEl.style.opacity = '0';
+        const SIZE_LABELS = { '8x8': '8 × 8 ft', '11x8': '11 × 8 ft', '14x8': '14 × 8 ft' };
         setTimeout(() => {
           pv2SizeDescEl.textContent = PV2_SIZES[btn.dataset.pv2size];
           pv2SizeDescEl.style.opacity = '1';
@@ -1359,6 +1390,7 @@
             priceEl.textContent = PV2_PRICES[btn.dataset.pv2size];
             priceEl.style.opacity = '1';
           }
+          if (sizeLabelEl) sizeLabelEl.textContent = SIZE_LABELS[btn.dataset.pv2size] || '';
         }, 150);
       });
     });
