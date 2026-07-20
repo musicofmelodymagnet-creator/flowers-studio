@@ -332,11 +332,19 @@
 
     /* ── Price display ────────────────────────────────────────── */
     .pv2-price-display {
-      padding: 12px 0 0;
+      padding: 20px 0 4px;
+    }
+    .pv2-price-pill {
+      display: inline-flex;
+      align-items: baseline;
+      background: rgba(168, 120, 208, 0.11);
+      border: 1.5px solid rgba(168, 120, 208, 0.24);
+      border-radius: 16px;
+      padding: 14px 26px 16px;
     }
     .pv2-price-val {
       display: block;
-      font: 700 52px/1 var(--font-serif);
+      font: 700 72px/1 var(--font-serif);
       color: var(--brand);
       letter-spacing: -0.03em;
       transition: opacity 150ms ease;
@@ -355,27 +363,9 @@
       width: 100%;
       max-width: 576px;
       background: var(--surface);
-      border-radius: 20px;
+      border-radius: var(--r-panel);
       box-shadow: var(--elev-md);
-      position: relative;
       overflow: hidden;
-    }
-    .pcta-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      border: 1.5px solid rgba(255,255,255,0.82);
-      -webkit-mask-image:
-        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
-        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
-      -webkit-mask-composite: source-in;
-      mask-image:
-        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
-        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
-      mask-composite: intersect;
-      pointer-events: none;
-      z-index: 1;
     }
     .pcta-card-hd {
       width: 100%;
@@ -384,16 +374,16 @@
       justify-content: center;
       gap: 14px;
       padding: 22px 28px;
-      background: none;
+      background: #CDCED3;
       border: none;
       cursor: pointer;
       font: 600 13px/1 var(--font-sans);
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--ink-mauve);
+      color: var(--ink);
       transition: color 200ms, background 200ms;
     }
-    .pcta-card-hd:hover { color: var(--brand); background: rgba(168,120,208,0.05); }
+    .pcta-card-hd:hover { color: var(--ink); background: #C0C1C7; }
     .pcta-card-hd-icon {
       display: flex;
       align-items: center;
@@ -426,12 +416,12 @@
     .pcta-form-inner {
       overflow: hidden;
       min-height: 0;
-      border-top: 1px solid rgba(168,120,208,0.14);
     }
     /* neutralise cc-inquiry-wrap card styling — pcta-card is the container */
     .pcta-card .cc-inquiry-wrap {
       background: transparent !important;
       box-shadow: none !important;
+      border-radius: 0 !important;
     }
     @media (max-width: 768px) {
       .pcta-section { padding: 0 16px; }
@@ -682,7 +672,9 @@
                   </div>
                   <p class="size-desc" id="pv2SizeDesc">Our most requested size. Created for grand entrances, large wedding parties, and group photography. Delivers maximum visual impact.</p>
                   <div class="pv2-price-display" id="pv2PriceDisplay">
-                    <span class="pv2-price-val" id="pv2PriceVal">$690</span>
+                    <div class="pv2-price-pill">
+                      <span class="pv2-price-val" id="pv2PriceVal">$690</span>
+                    </div>
                   </div>
                 </div>
               </div>
