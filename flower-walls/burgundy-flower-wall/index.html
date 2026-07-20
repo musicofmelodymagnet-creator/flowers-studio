@@ -423,6 +423,10 @@
       box-shadow: none !important;
       border-radius: 0 !important;
     }
+    /* strip inner rounding — pcta-card overflow:hidden + 48px radius does the job */
+    .pcta-card .inquiry {
+      border-radius: 0 !important;
+    }
     @media (max-width: 768px) {
       .pcta-section { padding: 0 16px; }
     }
@@ -758,10 +762,6 @@
             <div class="pcta-form-inner">
 
             <div class="cc-inquiry-wrap" style="max-width:576px;width:100%">
-              <div class="inq-tabs" role="tablist">
-                <button class="inq-tab inq-tab--active" role="tab" data-pctaTab="inquiry" aria-selected="true">Quick Inquiry</button>
-                <button class="inq-tab" role="tab" data-pctaTab="reserve" aria-selected="false">Reserve Your Wall</button>
-              </div>
               <section class="inquiry" id="pctaInquiry" aria-label="Inquiry form">
                 <div class="inquiry-header">
                   <h2 id="pctaInqTitle">Send an Inquiry</h2>
@@ -1561,28 +1561,7 @@
       });
     }
 
-    // Inquiry tabs inside the CTA form
-    var PCTA_TAB_DATA = {
-      inquiry: { title: 'Send an Inquiry',    btn: 'Send Inquiry' },
-      reserve: { title: 'Reserve Your Wall',  btn: 'Request Reservation' }
-    };
-    document.querySelectorAll('.pcta-form-wrap .inq-tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        document.querySelectorAll('.pcta-form-wrap .inq-tab').forEach(function (t) {
-          t.classList.remove('inq-tab--active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        this.classList.add('inq-tab--active');
-        this.setAttribute('aria-selected', 'true');
-        var d       = PCTA_TAB_DATA[this.dataset.pctaTab];
-        var title   = document.getElementById('pctaInqTitle');
-        var btn     = document.getElementById('pctaSubmitBtn');
-        var panel   = document.getElementById('pctaInquiry');
-        if (title) title.textContent = d.title;
-        if (btn && btn.textContent.indexOf('…') === -1) btn.textContent = d.btn;
-        if (panel) panel.classList.toggle('inquiry--reserve', this.dataset.pctaTab === 'reserve');
-      });
-    });
+
   });
   </script>
 </body>
