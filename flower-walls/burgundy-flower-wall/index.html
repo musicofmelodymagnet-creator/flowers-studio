@@ -332,113 +332,109 @@
 
     /* ── Price display ────────────────────────────────────────── */
     .pv2-price-display {
-      display: flex;
-      align-items: baseline;
-      gap: 9px;
-      padding: 4px 0 0;
-    }
-    .pv2-price-from {
-      font: 400 13px/1 var(--font-sans);
-      color: var(--ink-soft);
+      padding: 12px 0 0;
     }
     .pv2-price-val {
-      font: 700 26px/1 var(--font-serif);
-      color: var(--ink-mauve);
-      letter-spacing: -0.02em;
+      display: block;
+      font: 700 52px/1 var(--font-serif);
+      color: var(--brand);
+      letter-spacing: -0.03em;
       transition: opacity 150ms ease;
     }
 
-    /* ── Task 1: Expandable CTA section ─────────────────────────── */
+    /* ── Expandable CTA card ─────────────────────────────────── */
     .pcta-section {
       width: 100%;
       max-width: 1072px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 0 24px;
     }
-    .pcta-btn-wrap {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      overflow: hidden;
-      max-height: 100px;
-      transition: max-height 240ms cubic-bezier(0.4, 0, 1, 1), opacity 180ms ease;
-    }
-    .pcta-btn-gone {
-      max-height: 0 !important;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .pcta-open-btn {
+    .pcta-card {
       width: 100%;
       max-width: 576px;
-      padding: 18px 44px;
-      font-size: 15px;
-      letter-spacing: 0.09em;
-      background: var(--brand);
-      color: rgba(255,255,255,0.97);
-      box-shadow: 0 4px 22px rgba(168,120,208,0.38);
-    }
-    .pcta-open-btn:hover {
-      background: var(--brand-deep);
-      color: #fff;
-      box-shadow: 0 6px 28px rgba(142,95,182,0.48);
-      transform: translateY(-3px);
-    }
-    .pcta-open-btn:active {
-      background: var(--brand);
-      transform: scale(0.97) translateY(0);
-    }
-    .pcta-form-wrap {
-      width: 100%;
-      max-height: 0;
+      background: var(--surface);
+      border-radius: 20px;
+      box-shadow: var(--elev-md);
+      position: relative;
       overflow: hidden;
-      opacity: 0;
+    }
+    .pcta-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.82);
+      -webkit-mask-image:
+        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
+      mask-composite: intersect;
       pointer-events: none;
-      transition:
-        max-height 700ms cubic-bezier(0.22, 1, 0.36, 1),
-        opacity    400ms cubic-bezier(0.22, 1, 0.36, 1) 80ms;
+      z-index: 1;
     }
-    .pcta-form-wrap.open {
-      max-height: 2800px;
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .pcta-form-inner {
-      padding-top: 36px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
+    .pcta-card-hd {
       width: 100%;
-    }
-    .pcta-collapse-row {
       display: flex;
-      justify-content: center;
-      padding: 28px 0 0;
-    }
-    .pcta-collapse-btn {
-      display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 11px 24px;
+      justify-content: center;
+      gap: 14px;
+      padding: 22px 28px;
       background: none;
       border: none;
       cursor: pointer;
-      font: 500 14px/1 var(--font-sans);
-      color: var(--ink-muted);
-      border-radius: var(--r-pill);
-      box-shadow: var(--elev-sm);
-      transition: color 200ms, box-shadow 220ms, transform 220ms var(--ease);
-    }
-    .pcta-collapse-btn:hover {
+      font: 600 13px/1 var(--font-sans);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--ink-mauve);
-      box-shadow: var(--elev-hover);
-      transform: translateY(-2px);
+      transition: color 200ms, background 200ms;
     }
-    .pcta-collapse-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .pcta-card-hd:hover { color: var(--brand); background: rgba(168,120,208,0.05); }
+    .pcta-card-hd-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--brand);
+      flex-shrink: 0;
+      transition: background 260ms, transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .pcta-card.open .pcta-card-hd-icon {
+      transform: rotate(180deg);
+      background: var(--brand-deep, var(--brand));
+    }
+    .pcta-card-hd-icon svg { width: 13px; height: 13px; }
+    /* grid-template-rows trick: butter-smooth height animation, no max-height hack */
+    .pcta-form-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition:
+        grid-template-rows 560ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity            360ms cubic-bezier(0.22, 1, 0.36, 1) 60ms;
+    }
+    .pcta-form-wrap.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+    .pcta-form-inner {
+      overflow: hidden;
+      min-height: 0;
+      border-top: 1px solid rgba(168,120,208,0.14);
+    }
+    /* neutralise cc-inquiry-wrap card styling — pcta-card is the container */
+    .pcta-card .cc-inquiry-wrap {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
     @media (max-width: 768px) {
-      .pcta-form-inner { padding-top: 24px; }
+      .pcta-section { padding: 0 16px; }
     }
   </style>
 </head>
@@ -686,11 +682,9 @@
                   </div>
                   <p class="size-desc" id="pv2SizeDesc">Our most requested size. Created for grand entrances, large wedding parties, and group photography. Delivers maximum visual impact.</p>
                   <div class="pv2-price-display" id="pv2PriceDisplay">
-                    <span class="pv2-price-from">Starting at</span>
                     <span class="pv2-price-val" id="pv2PriceVal">$690</span>
                   </div>
                 </div>
-                <button type="button" class="neo-btn product-cta">Check availability for your date</button>
               </div>
             </div>
           </div>
@@ -722,9 +716,6 @@
                   <p class="size-desc" id="pv2DensityDesc">85% bloom coverage — lush and natural, with organic depth and shadow throughout the composition.</p>
                 </div>
               </div>
-              <div class="pv2-info-right">
-                <button type="button" class="neo-btn product-cta">Check availability for your date</button>
-              </div>
             </div>
           </div>
 
@@ -746,9 +737,6 @@
                   <div class="pv2-spec-row"><span class="pv2-spec-label">Height Adjustment</span><span class="pv2-spec-value">±8 inches — levels on uneven ground</span></div>
                 </div>
               </div>
-              <div class="pv2-info-right">
-                <button type="button" class="neo-btn product-cta">Check availability for your date</button>
-              </div>
             </div>
           </div>
 
@@ -762,18 +750,20 @@
            EXPANDABLE CTA — Check availability for your date
            ============================================================ -->
       <div class="pcta-section" id="pctaSection">
+        <div class="pcta-card" id="pctaCard">
 
-        <!-- Collapsed state: centred button only -->
-        <div class="pcta-btn-wrap" id="pctaBtnWrap">
-          <button type="button" class="neo-btn pcta-open-btn" id="pctaOpenBtn"
+          <button type="button" class="pcta-card-hd" id="pctaOpenBtn"
                   aria-expanded="false" aria-controls="pctaFormWrap">
             Check availability for your date
+            <span class="pcta-card-hd-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </span>
           </button>
-        </div>
 
-        <!-- Expanded state: full inquiry form -->
-        <div class="pcta-form-wrap" id="pctaFormWrap" aria-hidden="true">
-          <div class="pcta-form-inner">
+          <div class="pcta-form-wrap" id="pctaFormWrap" aria-hidden="true">
+            <div class="pcta-form-inner">
 
             <div class="cc-inquiry-wrap" style="max-width:576px;width:100%">
               <div class="inq-tabs" role="tablist">
@@ -873,19 +863,11 @@
               </section>
             </div>
 
-            <!-- Collapse button -->
-            <div class="pcta-collapse-row">
-              <button type="button" class="pcta-collapse-btn" id="pctaCollapseBtn" aria-label="Collapse inquiry form">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="18 15 12 9 6 15"/>
-                </svg>
-                Collapse
-              </button>
+
             </div>
-
           </div>
-        </div>
 
+        </div>
       </div>
       <!-- /pcta-section -->
 
@@ -1391,54 +1373,36 @@
 
     // ── Expandable CTA ────────────────────────────────────────────
     (function () {
-      var pctaOpenBtn     = document.getElementById('pctaOpenBtn');
-      var pctaBtnWrap     = document.getElementById('pctaBtnWrap');
-      var pctaFormWrap    = document.getElementById('pctaFormWrap');
-      var pctaCollapseBtn = document.getElementById('pctaCollapseBtn');
+      var pctaOpenBtn  = document.getElementById('pctaOpenBtn');
+      var pctaCard     = document.getElementById('pctaCard');
+      var pctaFormWrap = document.getElementById('pctaFormWrap');
 
       function pctaOpen() {
-        // Button and form animate simultaneously — button collapses, form grows
-        pctaBtnWrap.classList.add('pcta-btn-gone');
+        pctaCard.classList.add('open');
         pctaFormWrap.classList.add('open');
         pctaFormWrap.setAttribute('aria-hidden', 'false');
         pctaOpenBtn.setAttribute('aria-expanded', 'true');
-        // Remove from layout after collapse animation finishes (no visual difference at that point)
-        setTimeout(function () { pctaBtnWrap.style.display = 'none'; }, 240);
       }
 
       function pctaClose() {
+        pctaCard.classList.remove('open');
         pctaFormWrap.classList.remove('open');
         pctaFormWrap.setAttribute('aria-hidden', 'true');
         pctaOpenBtn.setAttribute('aria-expanded', 'false');
-        setTimeout(function () {
-          pctaBtnWrap.style.display = '';
-          // Two rAF frames to ensure display change is painted before removing class
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              pctaBtnWrap.classList.remove('pcta-btn-gone');
-            });
-          });
-        }, 440);
       }
 
-      pctaOpenBtn.addEventListener('click', pctaOpen);
-      pctaCollapseBtn.addEventListener('click', pctaClose);
+      pctaOpenBtn.addEventListener('click', function () {
+        if (pctaCard.classList.contains('open')) pctaClose(); else pctaOpen();
+      });
 
-      // All in-page product-cta buttons (in tabs) scroll to and open the form
       document.querySelectorAll('.product-cta').forEach(function (el) {
         el.addEventListener('click', function (e) {
           e.preventDefault();
-          if (pctaFormWrap.classList.contains('open')) {
-            // Form already open — just scroll to it
+          if (!pctaCard.classList.contains('open')) pctaOpen();
+          setTimeout(function () {
             var sec = document.getElementById('pctaSection');
             if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } else {
-            pctaOpen();
-            setTimeout(function () {
-              var sec = document.getElementById('pctaSection');
-              if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 120);
-          }
+          }, 80);
         });
       });
     })();
