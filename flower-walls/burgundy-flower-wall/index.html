@@ -162,6 +162,28 @@
     .pfaq-item.open {
       box-shadow: var(--elev-hover), inset 3px 0 0 var(--brand);
     }
+    .pfaq-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      border: 1.5px solid rgba(255,255,255,0.82);
+      -webkit-mask-image:
+        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        linear-gradient(to bottom, black 0px, black 19px, transparent 30px),
+        linear-gradient(to right,  black 0%, black 78%, transparent 93%);
+      mask-composite: intersect;
+      pointer-events: none;
+    }
+    .pfaq-item.open::after {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 78%, transparent 93%);
+      -webkit-mask-composite: add;
+      mask-image: linear-gradient(to right, transparent 0%, black 6%, black 78%, transparent 93%);
+      mask-composite: add;
+    }
     .pfaq-q {
       width: 100%;
       display: flex;
