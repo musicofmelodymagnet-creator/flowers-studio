@@ -7,6 +7,8 @@ Redirect 301 /flower-wall-tips/real-touch-vs-silk-flower-wall/ https://florinsky
     RewriteEngine On
     RewriteCond %{HTTP_HOST} ^www\.florinsky\.ca [NC]
     RewriteRule ^(.*)$ https://florinsky.ca/$1 [R=301,L]
+    # ── /flower-walls/* → served from flower-wall-guide/flower-walls/* ────────
+    RewriteRule ^flower-walls/(.*)$ flower-wall-guide/flower-walls/$1 [L]
 </IfModule>
 
 # ── Block access to sensitive files (all directories, not just root) ──────────
