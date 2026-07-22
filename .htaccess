@@ -54,6 +54,12 @@ Options -Indexes
     H2Push off
 </IfModule>
 
+# ── HTML pages: no proxy/CDN caching (always serve fresh) ────────────────────
+<FilesMatch "\.(html|htm)$">
+    Header always set Cache-Control "no-cache, must-revalidate"
+    Header always set Pragma "no-cache"
+</FilesMatch>
+
 # ── Browser caching for static assets ─────────────────────────────────────────
 <IfModule mod_expires.c>
     ExpiresActive On
