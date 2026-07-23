@@ -3950,10 +3950,10 @@ body {
   min-height: 100svh;
   /* Pull hero to viewport top (negates page-stack padding-top: 80px) */
   margin-top: -80px;
-  /* Text group starts at 3/7 of viewport height */
-  padding-top: calc(3 * 100svh / 7);
-  padding-bottom: 80px;
-  justify-content: flex-start;
+  /* Push content below nav pill: 14px padding + 60px pill + ~22px gap */
+  padding-top: 96px;
+  padding-bottom: 48px;
+  justify-content: space-between;
   /* Full-bleed: 100vw centered by flex align-items:center on page-stack */
   width: 100vw;
 }
@@ -4006,10 +4006,17 @@ body {
 
 
 .hero--videobg .hero-wordmark,
-.hero--videobg .hero-phrases,
-.hero--videobg .hero-copy {
+.hero--videobg .hero-bottom-group {
   position: relative;
   z-index: 2;
+}
+
+.hero-bottom-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
 }
 
 .hero--videobg .tagline-rule            { background: rgba(255,255,255,0.60); width: 52px; }
