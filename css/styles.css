@@ -3950,10 +3950,10 @@ body {
   min-height: 100svh;
   /* Pull hero to viewport top (negates page-stack padding-top: 80px) */
   margin-top: -80px;
-  /* Push content below nav pill: 14px padding + 60px pill + ~22px gap */
-  padding-top: 96px;
+  /* Text group starts at 3/7 of viewport height */
+  padding-top: calc(3 * 100svh / 7);
   padding-bottom: 80px;
-  justify-content: space-between;
+  justify-content: flex-start;
   /* Full-bleed: 100vw centered by flex align-items:center on page-stack */
   width: 100vw;
 }
@@ -3996,7 +3996,6 @@ body {
 }
 
 .hero--videobg .hero-yt-overlay {
-  z-index: 2;
   background: linear-gradient(
     to bottom,
     rgba(8, 4, 14, 0.22) 0%,
@@ -4005,17 +4004,6 @@ body {
   );
 }
 
-/* Poster covers YouTube's black loading background; fades out once video plays */
-.hero-yt-poster {
-  position: absolute;
-  inset: 0;
-  background: url('https://img.youtube.com/vi/uMQIQjANzXw/maxresdefault.jpg') center / cover no-repeat;
-  z-index: 1;
-  animation: hero-poster-fade 1.2s ease-out 3.5s forwards;
-}
-@keyframes hero-poster-fade {
-  to { opacity: 0; }
-}
 
 .hero--videobg .hero-wordmark,
 .hero--videobg .hero-phrases,
