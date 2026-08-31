@@ -241,7 +241,8 @@ body {
 }
 
 .hero-wordmark .eyebrow {
-  font-size: 13.5px; /* 15px × 0.9 */
+  font-size: 13.5px;
+  font-weight: 700;
 }
 
 .tagline-rule {
@@ -1934,7 +1935,7 @@ body {
 
 .mobile-burger {
   border: none;
-  background: transparent;
+  background: var(--surface);
   width: 44px;
   height: 44px;
   border-radius: var(--r-pill);
@@ -2085,15 +2086,15 @@ body {
      With margin -20px on each side: width = (screen-40) - (-20) - (-20) = screen.
      align-self:auto inherits stretch from parent. width:auto lets flex determine the size. */
   .hero-phrases {
-    height: clamp(70px, 16.5vw, 132px);
+    height: clamp(80px, 20vw, 140px);
     margin-top: 0;
-    align-self: auto;
-    width: auto;
+    width: 100%;
     max-width: none;
-    margin-left: -20px;
-    margin-right: -20px;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;
   }
-  .hero-phrase  { font-size: clamp(20px, 6.2vw, 32px); padding: 0 20px; line-height: 1.35; }
+  .hero-phrase  { font-size: clamp(18px, 5.4vw, 28px); padding: 0 20px; line-height: 1.35; }
 
   /* Section titles */
   .section-title h2 { font-size: 38px; }
