@@ -771,99 +771,7 @@
           <div class="pcta-form-wrap" id="pctaFormWrap" aria-hidden="true">
             <div class="pcta-form-inner">
 
-            <div class="cc-inquiry-wrap" style="max-width:576px;width:100%">
-              <section class="inquiry" id="pctaInquiry" aria-label="Inquiry form">
-                <div class="inquiry-header">
-                  <h2 id="pctaInqTitle">Send an Inquiry</h2>
-                </div>
-                <form class="form-body" id="pctaForm" novalidate>
-                  <div class="form-row">
-                    <div class="form-field">
-                      <label for="pcta-name">Name<span class="form-req">*</span></label>
-                      <input id="pcta-name" class="form-input" type="text" autocomplete="given-name" />
-                    </div>
-                    <div class="form-field form-field--extended">
-                      <label for="pcta-lastname">Last Name<span class="form-req">*</span></label>
-                      <input id="pcta-lastname" class="form-input" type="text" autocomplete="family-name" />
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-field">
-                      <label for="pcta-email">Email<span class="form-req">*</span></label>
-                      <input id="pcta-email" class="form-input" type="email" autocomplete="email" />
-                    </div>
-                    <div class="form-field form-field--extended">
-                      <label for="pcta-phone">Phone<span class="form-req">*</span></label>
-                      <input id="pcta-phone" class="form-input" type="tel" autocomplete="tel" />
-                    </div>
-                  </div>
-                  <div class="form-field">
-                    <div class="form-date-header">
-                      <label for="pcta-date">Event Date<span class="form-req">*</span></label>
-                      <label class="form-date-unsure" for="pcta-date-unsure">
-                        <input type="checkbox" id="pcta-date-unsure" />
-                        <span>Not sure yet</span>
-                      </label>
-                    </div>
-                    <div class="form-date-wrap" id="pctaDateWrap">
-                      <input id="pcta-date" class="form-input" type="text" placeholder="mm/dd/yyyy" />
-                      <span class="form-date-icon" id="pctaDateIcon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
-                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                          <line x1="16" y1="2" x2="16" y2="6"/>
-                          <line x1="8" y1="2" x2="8" y2="6"/>
-                          <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="form-field form-field--extended">
-                    <label for="pcta-location">Event Location<span class="form-req">*</span></label>
-                    <input id="pcta-location" class="form-input" type="text" placeholder="Venue name and address" />
-                  </div>
-                  <div class="form-row form-row--extended">
-                    <div class="form-field">
-                      <label for="pcta-event-type">Type of Event<span class="form-req">*</span></label>
-                      <select id="pcta-event-type" class="form-select">
-                        <option value="" disabled selected></option>
-                        <option value="Wedding">Wedding</option>
-                        <option value="Bridal Shower">Bridal Shower</option>
-                        <option value="Baby Shower">Baby Shower</option>
-                        <option value="Birthday Party">Birthday Party</option>
-                        <option value="Corporate Event">Corporate Event</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                    <div class="form-field">
-                      <label for="pcta-wall-color">Wall Color<span class="form-req">*</span></label>
-                      <select id="pcta-wall-color" class="form-select">
-                        <option value="" disabled selected></option>
-                        <option value="White">White</option>
-                        <option value="Burgundy" selected>Burgundy</option>
-                        <option value="Pink">Pink</option>
-                        <option value="Green">Green</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-field">
-                    <label for="pcta-message">Message<span class="form-req">*</span></label>
-                    <textarea id="pcta-message" class="form-textarea" rows="4" placeholder="Tell us about your event"></textarea>
-                  </div>
-                  <!-- HoneyPot: hidden from users, bots fill it → rejected server-side -->
-                  <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
-                    <label for="pcta-hp">Website</label>
-                    <input type="text" id="pcta-hp" name="website" tabindex="-1" autocomplete="off" />
-                  </div>
-                  <div class="form-submit">
-                    <button type="submit" class="neo-btn neo-btn--solid" id="pctaSubmitBtn">Send Inquiry</button>
-                    <p class="form-privacy-note">We'll only use your information to respond to your request.</p>
-                    <p class="form-consent" id="pctaConsent">
-                      By submitting this inquiry, you confirm that you have read and agree to our&nbsp;<a href="../../privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
-                    </p>
-                  </div>
-                </form>
-              </section>
-            </div>
+            <div id="inquiry-root" data-wall="Burgundy"></div>
 
 
             </div>
@@ -1409,70 +1317,6 @@
       });
     })();
 
-    // ── PCTA form submission ──────────────────────────────────────
-    (function () {
-      var form      = document.getElementById('pctaForm');
-      var submitBtn = document.getElementById('pctaSubmitBtn');
-      if (!form) return;
-
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        var name      = document.getElementById('pcta-name').value.trim();
-        var lastName  = (document.getElementById('pcta-lastname') || {}).value?.trim() || '';
-        var email     = document.getElementById('pcta-email').value.trim();
-        var phone     = (document.getElementById('pcta-phone') || {}).value?.trim() || '';
-        var date      = (document.getElementById('pcta-date') || {}).value?.trim() || '';
-        var location  = (document.getElementById('pcta-location') || {}).value?.trim() || '';
-        var eventType = (document.getElementById('pcta-event-type') || {}).value || '';
-        var wallColor = (document.getElementById('pcta-wall-color') || {}).value || '';
-        var message   = document.getElementById('pcta-message').value.trim();
-        var hp        = document.getElementById('pcta-hp').value;
-
-        if (hp) return;
-
-        submitBtn.textContent   = 'Sending…';
-        submitBtn.disabled      = true;
-        submitBtn.style.opacity = '0.7';
-
-        var recaptchaToken = '';
-        try {
-          recaptchaToken = await new Promise(function (resolve) {
-            var timer = setTimeout(function () { resolve(''); }, 3000);
-            if (typeof grecaptcha === 'undefined') { clearTimeout(timer); resolve(''); return; }
-            grecaptcha.enterprise.ready(async function () {
-              try {
-                var t = await grecaptcha.enterprise.execute('6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY', { action: 'submit' });
-                clearTimeout(timer); resolve(t);
-              } catch (err) { clearTimeout(timer); resolve(''); }
-            });
-          });
-        } catch (err) { recaptchaToken = ''; }
-
-        try {
-          var res  = await fetch('../../api/contact.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, lastName, email, phone, date, location, eventType, wallColor, message, recaptchaToken, hp })
-          });
-          var data = await res.json();
-          if (data.success) {
-            submitBtn.textContent = 'Sent ✓';
-            var note = document.createElement('p');
-            note.style.cssText = 'margin-top:16px;font-size:14px;color:var(--ink-soft);text-align:center;line-height:1.6';
-            note.textContent = data.message;
-            form.appendChild(note);
-          } else {
-            submitBtn.textContent   = 'Try again';
-            submitBtn.disabled      = false;
-            submitBtn.style.opacity = '1';
-          }
-        } catch (err) {
-          submitBtn.textContent   = 'Try again';
-          submitBtn.disabled      = false;
-          submitBtn.style.opacity = '1';
-        }
-      });
-    })();
 
     // ── FAQ accordion ─────────────────────────────────────────────
     (function () {
@@ -1551,28 +1395,18 @@
     .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
     .cw-quick                     { background: #F8F4F2 !important; }
   </style>
-  <script src="../../js/fl-calendar.js"></script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Date picker for inline CTA form
-    if (window.FlCalendar) FlCalendar.init('pcta-date', 'pctaDateWrap', 'pctaDateIcon');
-
-    // "Not sure yet" checkbox
-    var pctaDateUnsure = document.getElementById('pcta-date-unsure');
-    if (pctaDateUnsure) {
-      pctaDateUnsure.addEventListener('change', function () {
-        var wrap = document.getElementById('pctaDateWrap');
-        if (this.checked) {
-          document.getElementById('pcta-date').value = '';
-          wrap.classList.add('form-date-wrap--disabled');
-        } else {
-          wrap.classList.remove('form-date-wrap--disabled');
-        }
-      });
-    }
-
-
-  });
-  </script>
+  <script src="/js/fl-calendar.js"></script>
+<script src="/js/inquiry-form.js"></script>
+<script>
+(function () {
+  fetch('/assets/includes/inquiry-form.html')
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      var root = document.getElementById('inquiry-root');
+      if (root) { root.innerHTML = html; initInquiryForm(); }
+    })
+    .catch(function () {});
+})();
+</script>
 </body>
 </html>
