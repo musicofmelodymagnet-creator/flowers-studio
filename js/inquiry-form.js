@@ -42,7 +42,7 @@ function initInquiryForm() {
       title:   'Send an Inquiry',
       btn:     'Send Inquiry',
       desc:    'We’ll review your request and contact you to confirm availability and go over your event details.<span class="inq-tab-desc-note">Perfect if you need pricing, availability, or have any questions.</span>',
-      consent: 'By submitting this inquiry, you confirm that you have read and agree to our <a href="/privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
+      consent: 'By submitting this request, you agree to our <a href="/privacy-policy.html" class="form-consent-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.'
     },
     reserve: {
       title:   'Reserve Your Wall',
