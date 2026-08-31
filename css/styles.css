@@ -908,6 +908,10 @@ body {
 /* ================================================================
    INQUIRY FORM — narrow wrapper (Contacts page + Home page)
    ================================================================ */
+#inquiry-root {
+  width: 100%;
+  max-width: 576px;
+}
 .cc-inquiry-wrap {
   width: 100%;
   max-width: 576px;
