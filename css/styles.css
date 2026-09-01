@@ -1145,6 +1145,8 @@ body {
 
 .footer-link:hover { opacity: 1; }
 
+.footer-link.active { opacity: 1; color: var(--brand-soft); }
+
 .footer-instagram {
   display: flex;
   align-items: center;
