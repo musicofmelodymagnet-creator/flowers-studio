@@ -4038,6 +4038,7 @@ body {
 
 .hero--videobg .tagline-rule            { background: rgba(255,255,255,0.60); width: 52px; }
 .hero--videobg .hero-wordmark .eyebrow  { color: rgba(255,255,255,0.96); opacity: 1; letter-spacing: 0.45em; }
+.hero--videobg .hero-wordmark .wordmark { color: #fff; }
 .hero--videobg .hero-copy p             { color: rgba(255,255,255,0.72); }
 .hero--videobg .hero-phrase             { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
 
