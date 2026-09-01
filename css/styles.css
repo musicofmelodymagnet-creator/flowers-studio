@@ -3868,9 +3868,11 @@ body {
 .inq-tab:first-child { border-top-left-radius: var(--r-panel); }
 .inq-tab:last-child  { border-top-right-radius: var(--r-panel); }
 
-/* Tab 2 inactive — exact panel color so lifted bottom matches */
+/* Tab 2 inactive — exact panel color; pre-set shadow at zero offset so hover
+   only animates Y-offset (avoids opacity interpolation from none → color) */
 .inq-tab[data-tab="reserve"] {
   background: #c4b6b5;
+  box-shadow: 0 0 0 0 #c4b6b5;
 }
 
 .inq-tab + .inq-tab {
