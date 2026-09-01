@@ -194,7 +194,7 @@
       '<div class="cw-hdr">' +
         '<div class="cw-hdr-ava-wrap">' +
           '<div class="cw-hdr-avatar">' +
-            '<img class="cw-hdr-img" src="assets/ava-chat.jpg" alt="Olivia">' +
+            '<img class="cw-hdr-img" src="/assets/ava-chat.jpg" alt="Olivia">' +
           '</div>' +
           '<span class="cw-hdr-dot" id="cwAvaDot"></span>' +
         '</div>' +
@@ -234,7 +234,7 @@
     var row = document.createElement('div');
     row.className = 'cw-msg cw-msg--' + type;
     if (type === 'mgr') {
-      row.innerHTML = '<div class="cw-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
+      row.innerHTML = '<div class="cw-msg-ava"><img src="/assets/ava-chat.jpg" alt="Olivia"></div>' +
         '<div class="cw-msg-bubble">' + fmtBot(text) + '<span class="cw-msg-time">' + getTime() + '</span></div>';
     } else {
       row.innerHTML = '<div class="cw-msg-bubble">' + escHtml(text) + '<span class="cw-msg-time">' + getTime() + '</span></div>';
@@ -247,7 +247,7 @@
     if (document.getElementById(TYPING)) return;
     var t = document.createElement('div');
     t.className = 'cw-typing'; t.id = TYPING;
-    t.innerHTML = '<div class="cw-msg-ava"><img src="assets/ava-chat.jpg" alt="Olivia"></div>' +
+    t.innerHTML = '<div class="cw-msg-ava"><img src="/assets/ava-chat.jpg" alt="Olivia"></div>' +
       '<div class="cw-typing-bubble"><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span><span class="cw-typing-dot"></span></div>';
     msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
   }
@@ -313,12 +313,19 @@
     if (cw) cw.classList.remove('cw-btn-hidden');
   }
 
-  /* ── Wire widget trigger button ─────────────────────────────────── */
-  var widgetBtn = document.querySelector('.contact-widget-btn');
-  if (widgetBtn) {
-    widgetBtn.onclick = function (e) {
-      e.preventDefault();
-      isOpen ? closePopup() : openPopup();
-    };
-  }
+  /* ── Wire widget trigger button ─────────────────────────────────────
+     Exposed globally because the button markup is fetch-loaded into the
+     page after this script runs (see assets/includes/chat-widget-btn.html) —
+     the loader calls this once the button exists in the DOM.
+     ─────────────────────────────────────────────────────────────────── */
+  window.initChatWidgetBtn = function () {
+    var widgetBtn = document.querySelector('.contact-widget-btn');
+    if (widgetBtn) {
+      widgetBtn.onclick = function (e) {
+        e.preventDefault();
+        isOpen ? closePopup() : openPopup();
+      };
+    }
+  };
+  window.initChatWidgetBtn();
 })();

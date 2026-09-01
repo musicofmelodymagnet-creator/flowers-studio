@@ -359,23 +359,19 @@
     })();
   </script>
 
-  <!-- ── Floating contact widget ──────────────────────────────── -->
-  <div class="contact-widget">
-    <button class="contact-widget-btn" onclick="window.location.href='../index.html#contact';" aria-label="Chat with Olivia">
-      <div class="contact-widget-ava-wrap">
-        <div class="contact-widget-avatar">
-          <img src="../assets/ava-chat.jpg" alt="Olivia">
-        </div>
-        <span class="contact-widget-dot"></span>
-      </div>
-      <div class="contact-widget-text">
-        <span class="contact-widget-title">Olivia</span>
-        <span class="contact-widget-online">● online</span>
-      </div>
-    </button>
-  </div>
-
-  <script src="../js/chat-widget.js?v=6"></script>
+  <div id="chat-widget-root"></div>
+  <script src="/js/chat-widget.js?v=7"></script>
+<script>
+(function () {
+  fetch('/assets/includes/chat-widget-btn.html')
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      var root = document.getElementById('chat-widget-root');
+      if (root) { root.outerHTML = html; if (window.initChatWidgetBtn) window.initChatWidgetBtn(); }
+    })
+    .catch(function () {});
+})();
+</script>
   <style>
     .cw-msg--user .cw-msg-bubble { background: #EDEAE8 !important; color: #2a2020 !important; box-shadow: -4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22) !important; }
     .cw-msg--user .cw-msg-time   { color: #9e8e8e !important; }
