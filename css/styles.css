@@ -1120,7 +1120,7 @@ body {
 .footer-wordmark {
   font: 400 28px/1.5 var(--font-display);
   letter-spacing: 0.05em;
-  color: var(--on-dark);
+  color: #a07bcb;
 }
 
 .footer-copy {
