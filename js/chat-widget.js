@@ -138,7 +138,7 @@
     '.cw-popup{position:fixed;bottom:104px;right:32px;width:345px;z-index:298;opacity:0;pointer-events:none;transform:translateY(14px) scale(.97);transition:opacity 220ms ease-out,transform 220ms ease-out;}',
     '.cw-popup.cw-open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1);}',
 
-    '.cw-chat{border-radius:22px;overflow:hidden;box-shadow:-12px -12px 24px rgba(255,255,255,.72),12px 12px 24px rgba(112,96,110,.30);display:flex;flex-direction:column;height:430px;background:#F9F4F0;}',
+    '.cw-chat{border-radius:22px;overflow:hidden;box-shadow:-12px -12px 24px rgba(255,255,255,.72),12px 12px 24px rgba(112,96,110,.30);display:flex;flex-direction:column;height:430px;background:#EADCDB;}',
 
     '.cw-hdr{background:#685b5b;padding:12px 14px;display:flex;align-items:center;gap:11px;flex-shrink:0;}',
     '.cw-hdr-ava-wrap{position:relative;flex-shrink:0;}',
