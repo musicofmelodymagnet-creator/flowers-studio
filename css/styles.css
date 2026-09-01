@@ -920,6 +920,11 @@ body {
   align-items: stretch;
   border-radius: var(--r-panel);
   box-shadow: 0 8px 24px -8px rgba(0,0,0,0.15);
+  background: var(--surface-form);
+  transition: background 300ms cubic-bezier(0.22,1,0.36,1);
+}
+.cc-inquiry-wrap:has(.inquiry--reserve) {
+  background: #c4b6b5;
 }
 .cc-inquiry-wrap > .inq-tabs {
   width: 100%;
@@ -3854,8 +3859,9 @@ body {
   outline: none;
   white-space: nowrap;
   position: relative;
-  /* lift: instant; lower: 1 s delay after mouse leaves */
-  transition: background 220ms ease, color 220ms ease,
+  z-index: 0;
+  /* match form panel easing so tab+panel finish transition simultaneously */
+  transition: background 300ms cubic-bezier(0.22,1,0.36,1), color 220ms ease,
               transform 300ms ease-in-out 1000ms,
               box-shadow 300ms ease-in-out 1000ms;
 }
