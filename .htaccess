@@ -10,6 +10,8 @@ Redirect 301 /flower-walls/midnight-bloom-burgundy/ https://florinsky.ca/flower-
     RewriteEngine On
     RewriteCond %{HTTP_HOST} ^www\.florinsky\.ca [NC]
     RewriteRule ^(.*)$ https://florinsky.ca/$1 [R=301,L]
+    # ── IndexNow key file: served from css/ but must appear at site root ──────
+    RewriteRule ^0f12b8ab36dd46148440857cd2ed1ae0\.txt$ css/0f12b8ab36dd46148440857cd2ed1ae0.txt [L]
     # ── /flower-walls/* → served from flower-wall-guide/flower-walls/* ────────
     RewriteRule ^flower-walls/(.*)$ flower-wall-guide/flower-walls/$1 [L]
 </IfModule>
