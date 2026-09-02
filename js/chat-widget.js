@@ -88,9 +88,10 @@
           histSave();
           this._pub({ type: 'user', content: text });
 
-          var t0   = now();
-          var self = this;
-          var typingTimer = setTimeout(function () { self._pub({ type: 'typing-on' }); }, 2000);
+          var t0        = now();
+          var self      = this;
+          var replyGap  = 3000 + Math.random() * 1000; // 3–4s before Olivia starts responding
+          var typingTimer = setTimeout(function () { self._pub({ type: 'typing-on' }); }, replyGap);
 
           var replies = [];
           try {
@@ -108,7 +109,7 @@
 
           clearTimeout(typingTimer);
           var elapsed = now() - t0;
-          var waitMs  = Math.max(0, 2000 - elapsed);
+          var waitMs  = Math.max(0, replyGap - elapsed);
 
           function publishNext(parts, idx) {
             if (idx >= parts.length) { self.isSending = false; return; }
@@ -191,8 +192,8 @@
 
     '.cw-typing{display:flex;align-items:flex-end;gap:8px;animation:cw-in 240ms ease-out;}',
     '.cw-typing-bubble{background:#F9F4F0;position:relative;box-shadow:-5px -5px 12px rgba(255,255,255,.72),5px 5px 12px rgba(112,96,110,.30);border-radius:14px;border-bottom-left-radius:4px;padding:10px 14px;display:flex;gap:4px;align-items:center;}',
-    '.cw-typing-bubble::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,93% 0,16px 1.8px,0 16px);pointer-events:none;}',
-    '.cw-typing-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 max(50%,64px),1.8px 16px,16px 0);pointer-events:none;}',
+    '.cw-typing-bubble::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,calc(100% - 10px) 0,10px 1.8px,0 10px);pointer-events:none;}',
+    '.cw-typing-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 calc(100% - 3px),1.8px 10px,10px 0);pointer-events:none;}',
     '.cw-typing-dot{width:5px;height:5px;border-radius:50%;background:#9e8e8e;animation:cw-dot 1.2s ease-in-out infinite;}',
     '.cw-typing-dot:nth-child(2){animation-delay:.2s;}.cw-typing-dot:nth-child(3){animation-delay:.4s;}',
 
