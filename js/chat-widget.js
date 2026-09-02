@@ -31,6 +31,21 @@
         _greetScheduled: false,
         _subs:           [],
 
+        /* Opening lines — one is picked at random each time a greeting fires */
+        GREETINGS: [
+          "Hi, welcome. Let me know if I can help with anything.",
+          "Hi. Thanks for stopping by. What can I help you with?",
+          "Hi there. Feel free to ask if you have any questions.",
+          "Hi. Looking for something specific? I can help you find the right option.",
+          "Hi there. If you have any questions about our flower walls, just let me know.",
+          "Hi. Welcome to FLORINSKY. How can I help?",
+          "Hi there. Planning an event? I can help with any questions you might have.",
+          "Hi there. Happy to answer any questions about our rentals.",
+          "Hi. If you're planning an event and have a question, I'm here.",
+          "Hi. Feel free to ask me anything about our flower wall rentals.",
+          "Hi! Thanks for visiting. I'm happy to help if you have any questions."
+        ],
+
         sub:  function (fn) { this._subs.push(fn); },
         _pub: function (ev) { this._subs.forEach(function (fn) { try { fn(ev); } catch (e) {} }); },
 
@@ -40,11 +55,13 @@
           return (now() - t) >= TTL;
         },
 
-        /* Send a greeting message (skips if greeted recently or already scheduled) */
+        /* Send a greeting message (skips if greeted recently or already scheduled).
+           msg may be a single string or an array — an array picks one entry at random. */
         greet: function (msg, delayMs) {
           if (this._greetScheduled) return;
           this._greetScheduled = true;
           if (!this.shouldGreet()) return;
+          if (Array.isArray(msg)) msg = msg[Math.floor(Math.random() * msg.length)];
           lsSet(ACT_KEY, now()); // mark immediately to prevent re-entry
           var self = this;
           var d       = (delayMs == null) ? 1500 : delayMs;
@@ -165,17 +182,17 @@
     '.cw-msg-bubble{max-width:80%;padding:9px 12px;border-radius:14px;font:400 13px/1.5 var(--font-sans,"Inter",sans-serif);word-break:break-word;}',
     '.cw-msg--mgr .cw-msg-bubble{background:#F9F4F0;position:relative;box-shadow:-5px -5px 12px rgba(255,255,255,.72),5px 5px 12px rgba(112,96,110,.30);color:#2a2020;border-bottom-left-radius:4px;}',
     '.cw-msg--mgr .cw-msg-bubble::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,93% 0,16px 1.8px,0 16px);pointer-events:none;}',
-    '.cw-msg--mgr .cw-msg-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 40%,1.8px 16px,16px 0);pointer-events:none;}',
+    '.cw-msg--mgr .cw-msg-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 max(50%,64px),1.8px 16px,16px 0);pointer-events:none;}',
     '.cw-msg--user .cw-msg-bubble{background:#edeae8!important;position:relative;box-shadow:-4px -4px 10px rgba(255,255,255,.68),4px 4px 10px rgba(112,96,110,.22);color:#2a2020;border-bottom-right-radius:4px;}',
     '.cw-msg--user .cw-msg-bubble::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,93% 0,16px 1.8px,0 16px);pointer-events:none;}',
-    '.cw-msg--user .cw-msg-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 40%,1.8px 16px,16px 0);pointer-events:none;}',
+    '.cw-msg--user .cw-msg-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 max(50%,64px),1.8px 16px,16px 0);pointer-events:none;}',
     '.cw-msg-time{display:block;font:400 10px/1 var(--font-sans,"Inter",sans-serif);margin-top:4px;}',
     '.cw-msg--mgr .cw-msg-time{color:#9e8e8e;}.cw-msg--user .cw-msg-time{color:#9e8e8e;text-align:right;}',
 
     '.cw-typing{display:flex;align-items:flex-end;gap:8px;animation:cw-in 240ms ease-out;}',
     '.cw-typing-bubble{background:#F9F4F0;position:relative;box-shadow:-5px -5px 12px rgba(255,255,255,.72),5px 5px 12px rgba(112,96,110,.30);border-radius:14px;border-bottom-left-radius:4px;padding:10px 14px;display:flex;gap:4px;align-items:center;}',
     '.cw-typing-bubble::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,93% 0,16px 1.8px,0 16px);pointer-events:none;}',
-    '.cw-typing-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 40%,1.8px 16px,16px 0);pointer-events:none;}',
+    '.cw-typing-bubble::before{content:"";position:absolute;inset:0;border-radius:inherit;border:1.8px solid rgba(255,255,255,.82);clip-path:polygon(0 0,0 max(50%,64px),1.8px 16px,16px 0);pointer-events:none;}',
     '.cw-typing-dot{width:5px;height:5px;border-radius:50%;background:#9e8e8e;animation:cw-dot 1.2s ease-in-out infinite;}',
     '.cw-typing-dot:nth-child(2){animation-delay:.2s;}.cw-typing-dot:nth-child(3){animation-delay:.4s;}',
 
@@ -305,11 +322,8 @@
       msgs.scrollTop = msgs.scrollHeight;
     }
 
-    // Greet (only if ≥5 hours since last activity)
-    window._FLChat.greet(
-      "Hi! Thanks for visiting. I'm happy to help if you have any questions.",
-      1000
-    );
+    // Greet (only if ≥5 hours since last activity) — random opening line
+    window._FLChat.greet(window._FLChat.GREETINGS, 1000);
   }
 
   function closePopup() {
