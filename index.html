@@ -341,11 +341,11 @@
         <div class="hero-yt-wrap">
           <video
             class="hero-bg-video"
-            autoplay
+            id="heroBgVideo"
             muted
             loop
             playsinline
-            preload="auto"
+            preload="metadata"
             poster="assets/hero-bg-poster.jpg"
             aria-hidden="true"
           >
@@ -354,6 +354,12 @@
           </video>
           <div class="hero-yt-overlay" aria-hidden="true"></div>
         </div>
+        <script>
+          window.addEventListener('load', function () {
+            var v = document.getElementById('heroBgVideo');
+            if (v) v.play().catch(function () {});
+          });
+        </script>
 
         <div class="hero-bottom-group">
           <!-- Rotating editorial phrases -->
