@@ -41,7 +41,7 @@ Redirect 301 /flower-walls/midnight-bloom-burgundy/ https://florinsky.ca/flower-
     # Content Security Policy
     # Allows: self, inline styles (needed for neumorphic design), Google Fonts,
     # Google Analytics, reCAPTCHA, YouTube nocookie embeds, self-hosted media.
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self'; frame-src https://www.youtube-nocookie.com https://www.google.com; connect-src 'self' https://www.google-analytics.com https://www.google.com https://api.resend.com https://api.anthropic.com; object-src 'none'; base-uri 'self';"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self'; frame-src https://www.google.com; connect-src 'self' https://www.google-analytics.com https://www.google.com https://api.resend.com https://api.anthropic.com; object-src 'none'; base-uri 'self';"
 
     # Remove Apache version from headers
     Header always unset X-Powered-By
@@ -70,12 +70,21 @@ Options -Indexes
     ExpiresByType image/webp          "access plus 30 days"
     ExpiresByType image/gif           "access plus 30 days"
     ExpiresByType image/svg+xml       "access plus 30 days"
-    ExpiresByType video/mp4           "access plus 7 days"
-    ExpiresByType video/webm          "access plus 7 days"
-    ExpiresByType text/css            "access plus 7 days"
-    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType video/mp4           "access plus 30 days"
+    ExpiresByType video/webm          "access plus 30 days"
+    # CSS/JS are always loaded with a "?v=N" cache-busting query string, so a
+    # long lifetime here is safe: bumping the version, not the header, is what
+    # forces a fresh fetch after an edit.
+    ExpiresByType text/css            "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType font/woff2          "access plus 365 days"
     ExpiresByType font/woff           "access plus 365 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
 </IfModule>
 
 # ── PHP error display off (belt-and-suspenders alongside ini_set in PHP) ──────

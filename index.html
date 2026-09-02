@@ -27,8 +27,9 @@
   <meta name="msvalidate.01" content="REPLACE_WITH_BING_VERIFICATION_KEY" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=53" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="css/styles.css?v=54" />
 
   <style>
     /* ── Reviews carousel ──────────────────────────────────────── */
@@ -276,7 +277,6 @@
     ]
   }
   </script>
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY" async defer></script>
 </head>
 <body>
 
@@ -339,14 +339,18 @@
         </div>
 
         <div class="hero-yt-wrap">
-          <iframe
-            class="hero-yt-frame"
-            src="https://www.youtube-nocookie.com/embed/uMQIQjANzXw?autoplay=1&loop=1&playlist=uMQIQjANzXw&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            title="FLORINSKY flower wall rental video"
+          <video
+            class="hero-bg-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            poster="assets/hero-bg-poster.jpg"
             aria-hidden="true"
-          ></iframe>
+          >
+            <source src="assets/hero-bg.mp4" type="video/mp4" />
+          </video>
           <div class="hero-yt-overlay" aria-hidden="true"></div>
         </div>
 
@@ -1493,8 +1497,8 @@
     .catch(function () {});
 })();
 </script>
-<script src="/js/fl-calendar.js"></script>
-<script src="/js/inquiry-form.js"></script>
+<script src="/js/fl-calendar.js?v=1"></script>
+<script src="/js/inquiry-form.js?v=1"></script>
 <script>
 (function () {
   fetch('/assets/includes/inquiry-form.html')
@@ -1512,7 +1516,7 @@
   .cw-typing-bubble             { border: 1px solid rgba(255,255,255,.80) !important; }
   .cw-quick                     { background: #F8F4F2 !important; }
 </style>
-<script src="/js/footer.js"></script>
+<script src="/js/footer.js?v=1"></script>
 <script>
 (function () {
   fetch('/assets/includes/footer.html')

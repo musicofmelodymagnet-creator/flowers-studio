@@ -3959,9 +3959,7 @@ body {
 
 
 /* ================================================================
-   HERO — FULL-BLEED VIDEO BACKGROUND (test variant)
-   Revert: remove class "hero--videobg" from <header> in index.html,
-   restore <div class="hero-plate"> wrapper, delete this CSS block.
+   HERO — FULL-BLEED VIDEO BACKGROUND
    ================================================================ */
 .hero--videobg {
   position: relative;

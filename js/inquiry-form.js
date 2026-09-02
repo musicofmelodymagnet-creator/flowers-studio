@@ -7,6 +7,20 @@ function initInquiryForm() {
   var submitBtn = document.getElementById('submitBtn');
   if (!form || !submitBtn) return;
 
+  /* ── reCAPTCHA: load only once the visitor actually touches the form.
+     Most page visits never submit it, so this keeps that JS off the
+     critical path; the load has the whole time-to-fill-form to finish
+     before submit needs the token. ── */
+  function loadRecaptcha() {
+    if (window.grecaptcha || document.getElementById('recaptcha-enterprise-js')) return;
+    var s = document.createElement('script');
+    s.id  = 'recaptcha-enterprise-js';
+    s.async = true;
+    s.src = 'https://www.google.com/recaptcha/enterprise.js?render=6Lf9vD0tAAAAB3fST62rTS4cMwmPL-Lg-BeasUY';
+    document.head.appendChild(s);
+  }
+  form.addEventListener('focusin', loadRecaptcha, { once: true });
+
   /* ── Calendar ── */
   if (window.FlCalendar) FlCalendar.init('field-date', 'fieldDateWrap', 'fieldDateIcon');
 
