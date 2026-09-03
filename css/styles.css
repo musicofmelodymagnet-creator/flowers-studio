@@ -3374,3 +3374,63 @@ width: 100%;
 .hero--videobg .hero-wordmark .wordmark { color: #fff; }
 .hero--videobg .hero-copy p { color: rgba(255,255,255,0.72); }
 .hero--videobg .hero-phrase { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+
+/* ── Mobile hero: video stops short of full screen height, static copy
+     sits below it on the plain site background instead of overlaid ── */
+@media (max-width: 768px) {
+  .hero--videobg {
+    min-height: 0;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-bottom: 40px;
+  }
+  .hero--videobg .hero-yt-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: var(--hero-mobile-video-h, 60svh);
+  }
+  .hero--videobg .hero-wordmark {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+  }
+  .hero--videobg .hero-phrases {
+    /* top + height are refined inline by JS once each phrase's fitted
+       font-size is known (see the hero-phrases script in index.html) —
+       this top is just a close static estimate so that correction is a
+       small nudge instead of a jump from an unpositioned default */
+    position: absolute;
+    top: calc(var(--hero-mobile-video-h, 60svh) - 118px);
+    left: 0;
+    right: 0;
+    z-index: 2;
+  }
+  .hero--videobg .hero-bottom-group {
+    position: static;
+    margin-top: var(--hero-mobile-video-h, 60svh);
+  }
+  .hero--videobg .hero-copy {
+    padding: 28px 8px 0;
+  }
+  .hero--videobg .hero-copy p { color: var(--ink-soft); }
+
+  /* Fallback box height before JS measures/sizes it (see above) */
+  .hero-phrases { height: clamp(96px, 26vw, 172px); }
+}
+
+/* ── Mobile: chat widget stays out of the way on the hero, slides in
+     once the visitor scrolls to the second screen ── */
+@media (max-width: 768px) {
+  .contact-widget.cw-scroll-managed {
+    transform: translateX(150%);
+    transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .contact-widget.cw-scroll-managed.cw-visible {
+    transform: translateX(0);
+  }
+}

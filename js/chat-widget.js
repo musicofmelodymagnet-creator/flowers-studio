@@ -347,6 +347,39 @@
         isOpen ? closePopup() : openPopup();
       };
     }
+
+    /* ── Mobile-only: keep the widget out of the way on the hero,
+       slide it in once the visitor scrolls past it (fewer details on
+       the first screen), slide it back out on the way up. Only pages
+       with a full-bleed video hero (the homepage) opt into this —
+       everywhere else the widget stays visible as always. ─────────── */
+    var cw   = document.querySelector('.contact-widget');
+    var hero = document.querySelector('.hero--videobg');
+    if (cw && hero) {
+      var mq        = window.matchMedia('(max-width: 768px)');
+      var scheduled = false;
+
+      function applyWidgetVisibility() {
+        scheduled = false;
+        if (!mq.matches) {
+          cw.classList.remove('cw-scroll-managed', 'cw-visible');
+          return;
+        }
+        cw.classList.add('cw-scroll-managed');
+        var pastHero = hero.getBoundingClientRect().bottom < window.innerHeight * 0.55;
+        cw.classList.toggle('cw-visible', pastHero);
+      }
+
+      function onScrollOrResize() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(applyWidgetVisibility);
+      }
+
+      applyWidgetVisibility();
+      window.addEventListener('scroll', onScrollOrResize, { passive: true });
+      window.addEventListener('resize', onScrollOrResize);
+    }
   };
   window.initChatWidgetBtn();
 })();
