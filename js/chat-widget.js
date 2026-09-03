@@ -171,7 +171,7 @@
     '.cw-online-line{display:flex;align-items:center;gap:5px;}',
     '.cw-status-dot{width:10px;height:10px;border-radius:50%;background:#4caf50;box-shadow:0 0 5px #4caf50;flex-shrink:0;opacity:0;transition:opacity 400ms ease;animation:cw-pulse 2.2s ease-in-out infinite;}',
     '.cw-status-dot.cw-dot-on{opacity:1;}',
-    '.cw-close{background:none;border:none;color:rgba(255,255,255,.65);font-size:15px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;width:26px;height:26px;flex-shrink:0;transition:background 150ms,color 150ms;}',
+    '.cw-close{background:none;border:none;color:rgba(255,255,255,.65);font-size:30px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;width:52px;height:52px;flex-shrink:0;transition:background 150ms,color 150ms;}',
     '.cw-close:hover{background:rgba(255,255,255,.15);color:#fff;}',
 
     '.cw-msgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;}',
@@ -301,13 +301,49 @@
 
   /* ── Open / close ───────────────────────────────────────────────── */
   var isOpen = false;
+  var chatEl = popup.querySelector('.cw-chat');
+  var kbMQ   = window.matchMedia('(max-width: 768px)');
+
+  /* Mobile: the on-screen keyboard shrinks window.visualViewport (not the
+     layout viewport a plain "fixed" position is anchored to), so a chat
+     box docked to the bottom gets half-covered once the input is focused
+     and the keyboard slides up. While open on mobile, re-anchor the popup
+     to sit just above the *visible* viewport top so the whole chat stays
+     visible with the keyboard below it, instead of being cut in half. */
+  function repositionPopupForViewport() {
+    if (!isOpen || !kbMQ.matches || !window.visualViewport) {
+      popup.style.top = '';
+      popup.style.bottom = '';
+      popup.style.left = '';
+      popup.style.right = '';
+      popup.style.width = '';
+      if (chatEl) chatEl.style.height = '';
+      return;
+    }
+    var vv     = window.visualViewport;
+    var margin = 10;
+    popup.style.left   = margin + 'px';
+    popup.style.right  = margin + 'px';
+    popup.style.width  = 'auto';
+    popup.style.bottom = 'auto';
+    popup.style.top    = Math.round(vv.offsetTop + margin) + 'px';
+    if (chatEl) chatEl.style.height = Math.min(430, Math.round(vv.height - margin * 2)) + 'px';
+  }
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', repositionPopupForViewport);
+    window.visualViewport.addEventListener('scroll', repositionPopupForViewport);
+  }
 
   function openPopup() {
     isOpen = true;
     popup.classList.add('cw-open');
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.add('cw-btn-hidden');
+    repositionPopupForViewport();
     input.focus();
+    // The keyboard opens (and visualViewport shrinks) asynchronously after
+    // focus — nudge the position again once it's had time to animate in.
+    setTimeout(repositionPopupForViewport, 350);
 
     // Activate online dots
     setTimeout(function () {
@@ -332,6 +368,7 @@
     popup.classList.remove('cw-open');
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.remove('cw-btn-hidden');
+    repositionPopupForViewport();
   }
 
   /* ── Wire widget trigger button ─────────────────────────────────────
