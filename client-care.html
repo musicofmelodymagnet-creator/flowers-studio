@@ -811,7 +811,7 @@
             </svg>
           </div>
           <h3>Give Us a Call</h3>
-          <a href="tel:+14160000000" class="cc-card-value">+1 (416) 000-0000</a>
+          <a class="cc-card-value" id="ccPhoneLink" rel="nofollow" aria-label="Call FLORINSKY Atelier">Call us</a>
           <p class="cc-card-note">Mon – Sun · 9:00 AM – 9:00 PM</p>
         </div>
 
@@ -1062,6 +1062,18 @@
       if (root) { root.outerHTML = html; initFooter(); }
     })
     .catch(function () {});
+})();
+</script>
+<script>
+(function () {
+  // Phone number is assembled here rather than written in the HTML source,
+  // so plain-text scrapers that harvest numbers for spam calls never see it —
+  // only a browser that actually runs this script does.
+  var el = document.getElementById('ccPhoneLink');
+  if (!el) return;
+  var digits = ['8','9','0','0','3','4','2','5','0','9'].reverse().join('');
+  el.textContent = '+1 (' + digits.slice(0, 3) + ') ' + digits.slice(3, 6) + '-' + digits.slice(6);
+  el.href = 'tel:+1' + digits;
 })();
 </script>
 </body>
