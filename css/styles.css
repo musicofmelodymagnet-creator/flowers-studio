@@ -1691,10 +1691,10 @@ white-space: nowrap;
 @media (max-width: 768px) {
 html, body { overflow-x: hidden; max-width: 100%; }
 .site-nav { display: none; }
-.mobile-top { display: flex; justify-content: center; }
+.mobile-top { display: flex; justify-content: center; padding-right: 76px; }
 .mobile-burger { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
 .mobile-nav-overlay { display: flex; }
-.mobile-wordmark { font-size: 35px; font-weight: 500; }
+.mobile-wordmark { font-size: clamp(32px, 11vw, 42px); font-weight: 500; }
 .site-shell { padding-top: 64px; }
 .page-stack { padding: 0 20px 48px; gap: 48px; }
 .hero { gap: 0; padding: 8px 0 72px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }

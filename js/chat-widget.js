@@ -154,14 +154,19 @@
     '@keyframes cw-pop-in{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}',
 
     '.cw-popup{position:fixed;bottom:104px;right:32px;width:345px;z-index:298;opacity:0;pointer-events:none;transform:translateY(14px) scale(.97);transition:opacity 220ms ease-out,transform 220ms ease-out;}',
-    /* On mobile the popup can be re-anchored near the very top of the
-       screen (see repositionPopupForViewport) to clear the keyboard —
-       that overlaps the sticky top nav (z-index:300), so the open chat
-       needs to render above it, not underneath. */
-    '@media (max-width:768px){.cw-popup.cw-open{z-index:301;}}',
+    /* Mobile: anchor near the top of the screen at a fixed spot instead
+       of docking to the bottom, so the keyboard (which opens from the
+       bottom) never covers it — and give the box a height in "dvh"
+       (dynamic viewport height, i.e. it already accounts for the
+       keyboard) instead of a fixed px, so it's correctly sized for
+       both keyboard-open and keyboard-closed without any JS involved.
+       This also sits above the sticky top nav (z-index:300), which the
+       "near the top" placement would otherwise overlap. */
+    '@media (max-width:768px){.cw-popup.cw-open{top:10px;left:10px;right:10px;bottom:auto;width:auto;z-index:301;}}',
     '.cw-popup.cw-open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1);}',
 
     '.cw-chat{border-radius:22px;overflow:hidden;box-shadow:-12px -12px 24px rgba(255,255,255,.72),12px 12px 24px rgba(112,96,110,.30);display:flex;flex-direction:column;height:430px;background:#dbcfd2;}',
+    '@media (max-width:768px){.cw-popup.cw-open .cw-chat{height:min(430px, calc(100dvh - 20px));}}',
 
     '.cw-hdr{background:#685b5b;padding:12px 70px 12px 14px;display:flex;align-items:center;gap:11px;flex-shrink:0;position:relative;}',
     '.cw-hdr-ava-wrap{position:relative;flex-shrink:0;}',
@@ -311,42 +316,16 @@
 
   /* ── Open / close ───────────────────────────────────────────────── */
   var isOpen = false;
-  var chatEl = popup.querySelector('.cw-chat');
   var kbMQ   = window.matchMedia('(max-width: 768px)');
 
-  /* Mobile: the on-screen keyboard shrinks window.visualViewport (not the
-     layout viewport a plain "fixed" position is anchored to), so a chat
-     box docked to the bottom gets half-covered once the input is focused
-     and the keyboard slides up. While open on mobile, re-anchor the popup
-     to sit just above the *visible* viewport top so the whole chat stays
-     visible with the keyboard below it, instead of being cut in half. */
-  function repositionPopupForViewport() {
-    if (!isOpen || !kbMQ.matches || !window.visualViewport) {
-      popup.style.top = '';
-      popup.style.bottom = '';
-      popup.style.left = '';
-      popup.style.right = '';
-      popup.style.width = '';
-      if (chatEl) chatEl.style.height = '';
-      return;
-    }
-    var vv     = window.visualViewport;
-    var margin = 10;
-    popup.style.left   = margin + 'px';
-    popup.style.right  = margin + 'px';
-    popup.style.width  = 'auto';
-    popup.style.bottom = 'auto';
-    popup.style.top    = Math.round(vv.offsetTop + margin) + 'px';
-    if (chatEl) chatEl.style.height = Math.min(430, Math.round(vv.height - margin * 2)) + 'px';
-  }
-  if (window.visualViewport) {
-    // Only 'resize' (a real height change from the keyboard opening/
-    // closing) — NOT 'scroll'. visualViewport also fires 'scroll' during
-    // iOS's elastic overscroll bounce, and re-anchoring the popup to that
-    // transient offset on every tick is what made the whole chat visibly
-    // drift down while swiping.
-    window.visualViewport.addEventListener('resize', repositionPopupForViewport);
-  }
+  /* Mobile keyboard positioning is handled entirely in CSS (see the
+     .cw-popup.cw-open / .cw-chat rules above, using the dvh unit) instead
+     of a JS visualViewport listener recalculating on every keyboard
+     animation tick — that produced a visible double-jump (chat jumps to
+     one size, then again to the final size, in both directions) because
+     each intermediate resize event mid-animation got its own reposition.
+     A pure CSS unit is driven by the browser's own compositor in step
+     with the keyboard animation, so nothing here needs to react to it. */
 
   /* Mobile: with the chat open, prevent the page underneath from
      scrolling. Plain "overflow:hidden" on body doesn't reliably stop
@@ -380,12 +359,22 @@
   /* Belt-and-suspenders against iOS's elastic overscroll: position:fixed
      stops body from scrolling, but a drag gesture on the page behind the
      chat can still rubber-band the whole visual viewport (which is what
-     nudged the popup's own position — see repositionPopupForViewport
-     above). Block touchmove everywhere EXCEPT inside the popup itself, so
-     the message list keeps scrolling normally and the input/header keep
-     their native touch behavior. */
+     nudged the popup's own position in an earlier version of this fix).
+     Block touchmove everywhere EXCEPT a genuine scroll gesture inside the
+     message list (i.e. only when it actually has overflow to scroll) —
+     otherwise, with an empty/short conversation, dragging over the
+     (non-scrolling) message list was moving the whole chat window
+     instead of doing nothing. */
+  function touchIsMsgsScroll(target) {
+    var el = target;
+    while (el && el !== document.body) {
+      if (el === msgs) return msgs.scrollHeight > msgs.clientHeight;
+      el = el.parentNode;
+    }
+    return false;
+  }
   document.addEventListener('touchmove', function (e) {
-    if (scrollLocked && !popup.contains(e.target)) e.preventDefault();
+    if (scrollLocked && !touchIsMsgsScroll(e.target)) e.preventDefault();
   }, { passive: false });
 
   function openPopup() {
@@ -394,11 +383,7 @@
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.add('cw-btn-hidden');
     lockBodyScroll();
-    repositionPopupForViewport();
     input.focus();
-    // The keyboard opens (and visualViewport shrinks) asynchronously after
-    // focus — nudge the position again once it's had time to animate in.
-    setTimeout(repositionPopupForViewport, 350);
 
     // Activate online dots
     setTimeout(function () {
@@ -424,7 +409,6 @@
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.remove('cw-btn-hidden');
     unlockBodyScroll();
-    repositionPopupForViewport();
   }
 
   /* ── Wire widget trigger button ─────────────────────────────────────
