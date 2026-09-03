@@ -3390,7 +3390,7 @@ width: 100%;
     left: 0;
     right: 0;
     bottom: auto;
-    height: var(--hero-mobile-video-h, 80svh);
+    height: var(--hero-mobile-video-h, 85svh);
   }
   .hero--videobg .hero-wordmark {
     position: absolute;
@@ -3414,13 +3414,21 @@ width: 100%;
        not — subtract it back out so the group starts right at the
        video's real bottom edge instead of 72px further down. */
     position: static;
-    margin-top: calc(var(--hero-mobile-video-h, 80svh) - 72px);
+    margin-top: calc(var(--hero-mobile-video-h, 85svh) - 72px);
     padding-top: 6px;
   }
   .hero--videobg .hero-copy {
     padding: 18px 8px 0;
   }
   .hero--videobg .hero-copy p { color: var(--ink-soft); }
+
+  /* Phrases now sit on the plain site background, not over the video —
+     swap the video-overlay white/shadow styling for a plain graphite
+     readable on the light background. */
+  .hero--videobg .hero-phrase {
+    color: #3a3a3c;
+    text-shadow: none;
+  }
 
   /* Fallback box height before JS measures/sizes it (see above) */
   .hero-phrases { height: clamp(96px, 26vw, 172px); }
