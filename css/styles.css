@@ -3390,7 +3390,7 @@ width: 100%;
     left: 0;
     right: 0;
     bottom: auto;
-    height: var(--hero-mobile-video-h, 60svh);
+    height: var(--hero-mobile-video-h, 80svh);
   }
   .hero--videobg .hero-wordmark {
     position: absolute;
@@ -3400,22 +3400,25 @@ width: 100%;
     z-index: 2;
   }
   .hero--videobg .hero-phrases {
-    /* top + height are refined inline by JS once each phrase's fitted
-       font-size is known (see the hero-phrases script in index.html) —
-       this top is just a close static estimate so that correction is a
-       small nudge instead of a jump from an unpositioned default */
-    position: absolute;
-    top: calc(var(--hero-mobile-video-h, 60svh) - 118px);
-    left: 0;
-    right: 0;
+    /* In normal flow now (not absolute): it sits right below the video,
+       on the plain site background, inside the reserved bottom strip.
+       Height is refined inline by JS once each phrase's fitted font-size
+       is known (see the hero-phrases script in index.html); the CSS
+       fallback height below covers the brief gap until that runs. */
+    position: relative;
     z-index: 2;
   }
   .hero--videobg .hero-bottom-group {
+    /* Header itself has padding-top:72px (room for the fixed nav) that
+       the video's absolute box ignores but this static-flow group does
+       not — subtract it back out so the group starts right at the
+       video's real bottom edge instead of 72px further down. */
     position: static;
-    margin-top: var(--hero-mobile-video-h, 60svh);
+    margin-top: calc(var(--hero-mobile-video-h, 80svh) - 72px);
+    padding-top: 6px;
   }
   .hero--videobg .hero-copy {
-    padding: 28px 8px 0;
+    padding: 18px 8px 0;
   }
   .hero--videobg .hero-copy p { color: var(--ink-soft); }
 
