@@ -181,7 +181,7 @@
     '.cw-online-line{display:flex;align-items:center;gap:5px;}',
     '.cw-status-dot{width:10px;height:10px;border-radius:50%;background:#4caf50;box-shadow:0 0 5px #4caf50;flex-shrink:0;opacity:0;transition:opacity 400ms ease;animation:cw-pulse 2.2s ease-in-out infinite;}',
     '.cw-status-dot.cw-dot-on{opacity:1;}',
-    '.cw-close{position:absolute;top:8px;right:8px;background:none;border:none;color:rgba(255,255,255,.65);font-size:30px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;width:52px;height:52px;flex-shrink:0;transition:background 150ms,color 150ms;}',
+    '.cw-close{position:absolute;top:3px;right:3px;background:none;border:none;color:rgba(255,255,255,.65);font-size:30px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;width:52px;height:52px;flex-shrink:0;transition:background 150ms,color 150ms;}',
     '.cw-close:hover{background:rgba(255,255,255,.15);color:#fff;}',
 
     '.cw-msgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;}',
@@ -376,6 +376,19 @@
   document.addEventListener('touchmove', function (e) {
     if (scrollLocked && !touchIsMsgsScroll(e.target)) e.preventDefault();
   }, { passive: false });
+
+  /* iOS Safari's own "scroll focused input into view" behavior moves the
+     page's scroll position even though body is pinned with position:fixed
+     above — that's a separate mechanism from body's own scrolling, so the
+     scroll lock alone doesn't stop it. It barely shows on the very first
+     focus (the popup already opens right at the top of the screen, so
+     there's nothing to scroll into view), but a second manual tap into
+     the input after the keyboard was dismissed re-triggers it and drags
+     the whole fixed popup up with it. Snap the page back to 0 whenever
+     that happens while the chat is open. */
+  window.addEventListener('scroll', function () {
+    if (scrollLocked && (window.scrollY || window.pageYOffset)) window.scrollTo(0, 0);
+  }, { passive: true });
 
   function openPopup() {
     isOpen = true;

@@ -1076,7 +1076,6 @@ width: 14px;
 height: 14px;
 border-radius: 50%;
 background: #4caf50;
-box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.92);
 pointer-events: none;
 animation: widget-dot-pulse 2.2s ease-in-out infinite;
 }
@@ -1099,14 +1098,14 @@ letter-spacing: 0.02em;
 0%, 100% { transform: translateY(0px); }
 50% { transform: translateY(-6px); }
 }
-/* Same pulse rhythm as the open dialog's online dot (cw-ava-pulse in
-   js/chat-widget.js), layered on top of this dot's own static ring.
-   Bigger/more opaque than the open-dialog version on purpose — this one
-   sits on the busy lilac gradient button instead of a plain dark header,
-   so it needs more contrast to actually read as pulsing. */
+/* Same pulsing green ring as the open dialog's online dot (cw-ava-pulse
+   in js/chat-widget.js) — no static ring around the dot itself, just the
+   expanding transparent wave. Bigger spread than the open-dialog version
+   on purpose — this one sits on the busy lilac gradient button instead
+   of a plain dark header, so it needs more reach to read as pulsing. */
 @keyframes widget-dot-pulse {
-0%, 100% { box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.92), 0 0 0 0 rgba(76, 175, 80, 0.9); transform: scale(1); }
-50%       { box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.92), 0 0 0 6px rgba(76, 175, 80, 0); transform: scale(1.15); }
+0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+50%       { box-shadow: 0 0 0 7px rgba(76, 175, 80, 0); }
 }
 .footer-locations {
 flex-basis: 100%;
@@ -1605,7 +1604,7 @@ text-decoration: none;
 }
 .mobile-burger {
 border: none;
-background: var(--surface);
+background: var(--bg);
 width: 44px;
 height: 44px;
 border-radius: var(--r-pill);
@@ -1691,10 +1690,17 @@ white-space: nowrap;
 @media (max-width: 768px) {
 html, body { overflow-x: hidden; max-width: 100%; }
 .site-nav { display: none; }
-.mobile-top { display: flex; justify-content: center; padding-right: 76px; }
+.mobile-top { display: flex; }
 .mobile-burger { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
 .mobile-nav-overlay { display: flex; }
-.mobile-wordmark { font-size: clamp(32px, 11vw, 42px); font-weight: 500; }
+.mobile-wordmark {
+font-size: clamp(26px, 8.5vw, 40px);
+font-weight: 500;
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+}
 .site-shell { padding-top: 64px; }
 .page-stack { padding: 0 20px 48px; gap: 48px; }
 .hero { gap: 0; padding: 8px 0 72px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }
