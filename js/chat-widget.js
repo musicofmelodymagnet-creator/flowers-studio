@@ -154,11 +154,16 @@
     '@keyframes cw-pop-in{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}',
 
     '.cw-popup{position:fixed;bottom:104px;right:32px;width:345px;z-index:298;opacity:0;pointer-events:none;transform:translateY(14px) scale(.97);transition:opacity 220ms ease-out,transform 220ms ease-out;}',
+    /* On mobile the popup can be re-anchored near the very top of the
+       screen (see repositionPopupForViewport) to clear the keyboard —
+       that overlaps the sticky top nav (z-index:300), so the open chat
+       needs to render above it, not underneath. */
+    '@media (max-width:768px){.cw-popup.cw-open{z-index:301;}}',
     '.cw-popup.cw-open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1);}',
 
     '.cw-chat{border-radius:22px;overflow:hidden;box-shadow:-12px -12px 24px rgba(255,255,255,.72),12px 12px 24px rgba(112,96,110,.30);display:flex;flex-direction:column;height:430px;background:#dbcfd2;}',
 
-    '.cw-hdr{background:#685b5b;padding:12px 14px;display:flex;align-items:center;gap:11px;flex-shrink:0;}',
+    '.cw-hdr{background:#685b5b;padding:12px 70px 12px 14px;display:flex;align-items:center;gap:11px;flex-shrink:0;position:relative;}',
     '.cw-hdr-ava-wrap{position:relative;flex-shrink:0;}',
     '.cw-hdr-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;}',
     '.cw-hdr-img{width:100%;height:100%;object-fit:cover;display:block;}',
@@ -171,7 +176,7 @@
     '.cw-online-line{display:flex;align-items:center;gap:5px;}',
     '.cw-status-dot{width:10px;height:10px;border-radius:50%;background:#4caf50;box-shadow:0 0 5px #4caf50;flex-shrink:0;opacity:0;transition:opacity 400ms ease;animation:cw-pulse 2.2s ease-in-out infinite;}',
     '.cw-status-dot.cw-dot-on{opacity:1;}',
-    '.cw-close{background:none;border:none;color:rgba(255,255,255,.65);font-size:30px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;width:52px;height:52px;flex-shrink:0;transition:background 150ms,color 150ms;}',
+    '.cw-close{position:absolute;top:8px;right:8px;background:none;border:none;color:rgba(255,255,255,.65);font-size:30px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;width:52px;height:52px;flex-shrink:0;transition:background 150ms,color 150ms;}',
     '.cw-close:hover{background:rgba(255,255,255,.15);color:#fff;}',
 
     '.cw-msgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;}',
@@ -334,11 +339,39 @@
     window.visualViewport.addEventListener('scroll', repositionPopupForViewport);
   }
 
+  /* Mobile: with the chat open, prevent the page underneath from
+     scrolling. Plain "overflow:hidden" on body doesn't reliably stop
+     touch-scroll/rubber-banding on iOS Safari, so pin body in place with
+     position:fixed at its current scroll offset and restore it on close. */
+  var scrollLocked = false;
+  var scrollLockY  = 0;
+  function lockBodyScroll() {
+    if (scrollLocked || !kbMQ.matches) return;
+    scrollLocked  = true;
+    scrollLockY   = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top      = -scrollLockY + 'px';
+    document.body.style.left     = '0';
+    document.body.style.right    = '0';
+    document.body.style.width    = '100%';
+  }
+  function unlockBodyScroll() {
+    if (!scrollLocked) return;
+    scrollLocked = false;
+    document.body.style.position = '';
+    document.body.style.top      = '';
+    document.body.style.left     = '';
+    document.body.style.right    = '';
+    document.body.style.width    = '';
+    window.scrollTo(0, scrollLockY);
+  }
+
   function openPopup() {
     isOpen = true;
     popup.classList.add('cw-open');
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.add('cw-btn-hidden');
+    lockBodyScroll();
     repositionPopupForViewport();
     input.focus();
     // The keyboard opens (and visualViewport shrinks) asynchronously after
@@ -368,6 +401,7 @@
     popup.classList.remove('cw-open');
     var cw = document.querySelector('.contact-widget');
     if (cw) cw.classList.remove('cw-btn-hidden');
+    unlockBodyScroll();
     repositionPopupForViewport();
   }
 
