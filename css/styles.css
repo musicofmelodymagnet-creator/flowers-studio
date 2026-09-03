@@ -1076,7 +1076,7 @@ width: 14px;
 height: 14px;
 border-radius: 50%;
 background: #4caf50;
-box-shadow: 0 0 0 2.9px rgba(204, 168, 228, 0.7);
+box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.92);
 pointer-events: none;
 animation: widget-dot-pulse 2.2s ease-in-out infinite;
 }
@@ -1100,10 +1100,13 @@ letter-spacing: 0.02em;
 50% { transform: translateY(-6px); }
 }
 /* Same pulse rhythm as the open dialog's online dot (cw-ava-pulse in
-   js/chat-widget.js), layered on top of this dot's own static ring */
+   js/chat-widget.js), layered on top of this dot's own static ring.
+   Bigger/more opaque than the open-dialog version on purpose — this one
+   sits on the busy lilac gradient button instead of a plain dark header,
+   so it needs more contrast to actually read as pulsing. */
 @keyframes widget-dot-pulse {
-0%, 100% { box-shadow: 0 0 0 2.9px rgba(204, 168, 228, 0.7), 0 0 0 0 rgba(76, 175, 80, 0.55); }
-50%       { box-shadow: 0 0 0 2.9px rgba(204, 168, 228, 0.7), 0 0 0 4px rgba(76, 175, 80, 0); }
+0%, 100% { box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.92), 0 0 0 0 rgba(76, 175, 80, 0.9); transform: scale(1); }
+50%       { box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.92), 0 0 0 6px rgba(76, 175, 80, 0); transform: scale(1.15); }
 }
 .footer-locations {
 flex-basis: 100%;
@@ -1691,7 +1694,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .mobile-top { display: flex; justify-content: center; }
 .mobile-burger { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
 .mobile-nav-overlay { display: flex; }
-.mobile-wordmark { font-size: 35px; }
+.mobile-wordmark { font-size: 35px; font-weight: 500; }
 .site-shell { padding-top: 64px; }
 .page-stack { padding: 0 20px 48px; gap: 48px; }
 .hero { gap: 0; padding: 8px 0 72px; min-height: calc(100dvh - 64px); justify-content: space-between; align-items: stretch; }

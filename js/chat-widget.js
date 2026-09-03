@@ -204,7 +204,12 @@
 
     '.cw-input-row{padding:10px 12px 13px;display:flex;gap:8px;align-items:center;flex-shrink:0;background:#685b5b;border-top:1px solid rgba(168,120,208,.12);}',
     '.cw-input-wrap{--cw-grad:conic-gradient(from var(--cw-rot) at 50% 50%,#ff3355 0deg,#ff7700 42deg,#ffdd00 84deg,#33cc55 126deg,#00bbff 168deg,#3366ff 210deg,#9933ff 252deg,#ff33cc 294deg,#ff3355 360deg);animation:cw-spin 9s infinite linear;flex:1;position:relative;border-radius:20px;display:flex;align-items:center;border:1.5px solid transparent;background:linear-gradient(#F9F4F0,#F9F4F0) padding-box,var(--cw-grad) border-box;min-width:0;height:38px;}',
-    '.cw-input{flex:1;height:100%;border-radius:20px;border:none;background:transparent;padding:0 14px;font:400 13px/1 var(--font-sans,"Inter",sans-serif);color:#2a2020;outline:none;}',
+    /* 16px, not the visually-matching 13px used elsewhere in the widget —
+       iOS Safari auto-zooms the whole page on focusing any input under
+       16px, and un-zooming inconsistently on keyboard hide/show is what
+       left the page zoomed in with its edges cut off after the keyboard
+       was toggled a second time. */
+    '.cw-input{flex:1;height:100%;border-radius:20px;border:none;background:transparent;padding:0 14px;font:400 16px/1 var(--font-sans,"Inter",sans-serif);color:#2a2020;outline:none;}',
     '.cw-input::placeholder{color:#9e8e8e;}',
     '.cw-send{width:38px;height:38px;border-radius:50%;border:none;background:linear-gradient(135deg,#cca8e4 0%,#A878D0 100%);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;box-shadow:0 3px 10px rgba(168,120,208,.35);transition:transform 150ms,box-shadow 150ms;}',
     '.cw-send:hover{transform:scale(1.07);box-shadow:0 5px 18px rgba(168,120,208,.55);}',
@@ -335,8 +340,12 @@
     if (chatEl) chatEl.style.height = Math.min(430, Math.round(vv.height - margin * 2)) + 'px';
   }
   if (window.visualViewport) {
+    // Only 'resize' (a real height change from the keyboard opening/
+    // closing) — NOT 'scroll'. visualViewport also fires 'scroll' during
+    // iOS's elastic overscroll bounce, and re-anchoring the popup to that
+    // transient offset on every tick is what made the whole chat visibly
+    // drift down while swiping.
     window.visualViewport.addEventListener('resize', repositionPopupForViewport);
-    window.visualViewport.addEventListener('scroll', repositionPopupForViewport);
   }
 
   /* Mobile: with the chat open, prevent the page underneath from
@@ -349,22 +358,35 @@
     if (scrollLocked || !kbMQ.matches) return;
     scrollLocked  = true;
     scrollLockY   = window.scrollY || window.pageYOffset || 0;
-    document.body.style.position = 'fixed';
-    document.body.style.top      = -scrollLockY + 'px';
-    document.body.style.left     = '0';
-    document.body.style.right    = '0';
-    document.body.style.width    = '100%';
+    document.body.style.position         = 'fixed';
+    document.body.style.top              = -scrollLockY + 'px';
+    document.body.style.left             = '0';
+    document.body.style.right            = '0';
+    document.body.style.width            = '100%';
+    document.body.style.overscrollBehavior = 'none';
   }
   function unlockBodyScroll() {
     if (!scrollLocked) return;
     scrollLocked = false;
-    document.body.style.position = '';
-    document.body.style.top      = '';
-    document.body.style.left     = '';
-    document.body.style.right    = '';
-    document.body.style.width    = '';
+    document.body.style.position         = '';
+    document.body.style.top              = '';
+    document.body.style.left             = '';
+    document.body.style.right            = '';
+    document.body.style.width            = '';
+    document.body.style.overscrollBehavior = '';
     window.scrollTo(0, scrollLockY);
   }
+
+  /* Belt-and-suspenders against iOS's elastic overscroll: position:fixed
+     stops body from scrolling, but a drag gesture on the page behind the
+     chat can still rubber-band the whole visual viewport (which is what
+     nudged the popup's own position — see repositionPopupForViewport
+     above). Block touchmove everywhere EXCEPT inside the popup itself, so
+     the message list keeps scrolling normally and the input/header keep
+     their native touch behavior. */
+  document.addEventListener('touchmove', function (e) {
+    if (scrollLocked && !popup.contains(e.target)) e.preventDefault();
+  }, { passive: false });
 
   function openPopup() {
     isOpen = true;
