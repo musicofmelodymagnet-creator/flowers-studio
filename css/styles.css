@@ -1695,7 +1695,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .mobile-nav-overlay { display: flex; }
 .mobile-wordmark {
 font-size: clamp(26px, 8.5vw, 40px);
-font-weight: 500;
+font-weight: 600;
 position: absolute;
 left: 50%;
 top: 50%;
