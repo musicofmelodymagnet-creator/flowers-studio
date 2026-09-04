@@ -220,30 +220,7 @@
   })();
 
   // ── FAQ accordion ─────────────────────────────────────────────
-  (function () {
-    function pfaqToggle(item) {
-      var btn   = item.querySelector('.pfaq-q');
-      var panel = item.querySelector('.pfaq-a');
-      var inner = item.querySelector('.pfaq-a-inner');
-      var isOpen = item.classList.contains('open');
-      document.querySelectorAll('.pfaq-item.open').forEach(function (o) {
-        o.classList.remove('open');
-        o.querySelector('.pfaq-q').setAttribute('aria-expanded', 'false');
-        o.querySelector('.pfaq-a').style.maxHeight = '0';
-      });
-      if (!isOpen) {
-        item.classList.add('open');
-        item.classList.add('read');
-        btn.setAttribute('aria-expanded', 'true');
-        panel.style.maxHeight = inner.scrollHeight + 'px';
-      }
-    }
-    document.querySelectorAll('.pfaq-item').forEach(function (item) {
-      item.querySelector('.pfaq-q').addEventListener('click', function () {
-        pfaqToggle(item);
-      });
-    });
-  })();
+  initAccordion('.pfaq-item');
 
   // ── Size help popup ───────────────────────────────────────────
   const pv2SizeHelp  = document.getElementById('pv2SizeHelp');

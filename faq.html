@@ -788,41 +788,8 @@
   })();
   </script>
 
-  <script>
-    // ── Accordion ───────────────────────────────────────────────
-    function toggleItem(item) {
-      var btn   = item.querySelector('.faq-q');
-      var panel = item.querySelector('.faq-a');
-      var inner = item.querySelector('.faq-a-inner');
-      var isOpen = item.classList.contains('open');
-
-      // Close all
-      document.querySelectorAll('.faq-item.open').forEach(function (o) {
-        o.classList.remove('open');
-        o.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-        o.querySelector('.faq-a').style.maxHeight = '0';
-      });
-
-      // Open if was closed
-      if (!isOpen) {
-        item.classList.add('open');
-        item.classList.add('read');
-        btn.setAttribute('aria-expanded', 'true');
-        panel.style.maxHeight = inner.scrollHeight + 'px';
-      }
-    }
-
-    document.querySelectorAll('.faq-item').forEach(function (item) {
-      // Click on question button
-      item.querySelector('.faq-q').addEventListener('click', function () {
-        toggleItem(item);
-      });
-      // Click on answer area also toggles
-      item.querySelector('.faq-a').addEventListener('click', function () {
-        toggleItem(item);
-      });
-    });
-  </script>
+  <script src="/js/accordion.js?v=1"></script>
+  <script>initAccordion('.faq-item', { closeOnPanelClick: true });</script>
 
   <div id="chat-widget-root"></div>
 
