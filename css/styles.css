@@ -2978,6 +2978,11 @@ margin: 0;
 .pv2-thumbs-lighting-row { flex-direction: column; align-items: flex-start; gap: 10px; }
 .pv2-rainbow-tip { display: none; }
 .pv2-content-tabs { flex-wrap: wrap; }
+/* On narrow screens the caption text collides with the native <video>
+   controls bar and the Intro/Speed Build subtabs, which already sit
+   right on top of it — the subtab label alone is enough context here. */
+.pv2-vid-caption { display: none; }
+.pv2-video-subtabs { bottom: 44px; }
 }
 .pv2-content-tabs {
 position: absolute;
