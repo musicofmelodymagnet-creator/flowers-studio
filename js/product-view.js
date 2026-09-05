@@ -161,6 +161,35 @@
   const PV2_SIZES  = window.PV2_SIZES  || {};
   const PV2_PRICES = window.PV2_PRICES || {};
   const pv2SizeDescEl = document.getElementById('pv2SizeDesc');
+
+  // Sliding "frame" that glides between size buttons instead of each
+  // button's own highlight snapping on/off independently.
+  const pv2SizeOptionsEl = document.getElementById('pv2SizeOptions');
+  let pv2SizeSlider = null;
+  function movePv2SizeSlider(btn, animate) {
+    if (!pv2SizeSlider || !btn) return;
+    if (!animate) pv2SizeSlider.style.transition = 'none';
+    pv2SizeSlider.style.width = btn.offsetWidth + 'px';
+    pv2SizeSlider.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+    if (!animate) {
+      pv2SizeSlider.offsetWidth; // reflow, then restore the CSS transition
+      pv2SizeSlider.style.transition = '';
+    }
+  }
+  if (pv2SizeOptionsEl) {
+    pv2SizeSlider = document.createElement('span');
+    pv2SizeSlider.className = 'size-slider';
+    pv2SizeOptionsEl.insertBefore(pv2SizeSlider, pv2SizeOptionsEl.firstChild);
+    pv2SizeOptionsEl.classList.add('has-size-slider');
+    const resyncPv2SizeSlider = () => movePv2SizeSlider(pv2SizeOptionsEl.querySelector('.size-btn.active'), false);
+    resyncPv2SizeSlider();
+    // The main stylesheet loads via a non-blocking preload swap, so this
+    // script can run before it's applied — re-measure once everything
+    // (styles, fonts, images) has actually finished loading.
+    window.addEventListener('load', resyncPv2SizeSlider);
+    window.addEventListener('resize', resyncPv2SizeSlider, { passive: true });
+  }
+
   document.querySelectorAll('#pv2SizeOptions .size-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#pv2SizeOptions .size-btn').forEach(b => {
@@ -169,6 +198,7 @@
       });
       btn.classList.add('active');
       btn.setAttribute('aria-pressed', 'true');
+      movePv2SizeSlider(btn, true);
       pv2SizeDescEl.style.opacity = '0';
       const priceEl = document.getElementById('pv2PriceVal');
       if (priceEl) priceEl.style.opacity = '0';
