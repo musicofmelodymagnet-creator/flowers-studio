@@ -1553,6 +1553,9 @@ filter: blur(8px);
 pointer-events: none;
 will-change: opacity, transform, filter;
 }
+@media (min-width: 769px) {
+.hero-phrase { font-weight: 800; }
+}
 .hero-phrase.ph-enter {
 transition:
 opacity 1900ms cubic-bezier(0.22, 1, 0.36, 1),
