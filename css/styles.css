@@ -372,6 +372,13 @@ gap: 56px;
 width: 100%;
 max-width: 1072px;
 }
+.collections-lead {
+font: 400 18px/1.7 var(--font-sans);
+color: var(--ink-soft);
+text-align: center;
+max-width: 768px;
+margin: 0 auto;
+}
 .collections-grid {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
@@ -424,7 +431,7 @@ object-fit: cover;
 }
 .collection-caption {
 position: absolute;
-inset: auto -30px 0 -30px;
+inset: auto -30px -6px -30px;
 padding: 18px 52px;
 background: rgba(249, 244, 240, 0.45);
 backdrop-filter: blur(10px);
@@ -1554,7 +1561,8 @@ pointer-events: none;
 will-change: opacity, transform, filter;
 }
 @media (min-width: 769px) {
-.hero-phrase { font-weight: 800; }
+.hero-phrase { font-weight: 800; font-size: clamp(37px, 6.6vw, 74px); }
+.hero-phrases { height: clamp(93px, 16vw, 180px); }
 }
 .hero-phrase.ph-enter {
 transition:
@@ -1718,6 +1726,7 @@ font-size: 36px;
 line-height: 1.2;
 }
 .hero-copy p { font-size: 16px; max-width: 100%; }
+.collections-lead { font-size: 16px; }
 .hero-ctas {
 flex-direction: column;
 align-items: stretch;
@@ -1823,6 +1832,7 @@ gap: 52px;
 .wordmark { font-size: 36px; }
 .hero-copy h1 { font-size: 30px; }
 .hero-copy p { font-size: 15px; }
+.collections-lead { font-size: 15px; }
 .hero-ctas { max-width: 100%; }
 .section-title h2 { font-size: 30px; }
 .section-title { gap: 14px; }
