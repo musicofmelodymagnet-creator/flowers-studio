@@ -88,19 +88,21 @@
   });
 
   // ── Lighting toggle ───────────────────────────────────────────
-  document.querySelectorAll('.pv2-light-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const isOutdoor = btn.dataset.pv2light === 'outdoor';
-      const newSet = isOutdoor ? pv2Outdoor : pv2Indoor;
-      if (newSet.length === 0) return;
-      document.querySelectorAll('.pv2-light-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      pv2Set = newSet;
-      pv2TRow.style.opacity = isOutdoor ? '0.35' : '';
-      pv2TRow.style.pointerEvents = isOutdoor ? 'none' : '';
-      pv2GoTo(0);
-    });
-  });
+  // Disabled 2026-09-07 per client request (markup commented out in each
+  // product page too) — kept here for possible reactivation later.
+  // document.querySelectorAll('.pv2-light-btn').forEach(btn => {
+  //   btn.addEventListener('click', () => {
+  //     const isOutdoor = btn.dataset.pv2light === 'outdoor';
+  //     const newSet = isOutdoor ? pv2Outdoor : pv2Indoor;
+  //     if (newSet.length === 0) return;
+  //     document.querySelectorAll('.pv2-light-btn').forEach(b => b.classList.remove('active'));
+  //     btn.classList.add('active');
+  //     pv2Set = newSet;
+  //     pv2TRow.style.opacity = isOutdoor ? '0.35' : '';
+  //     pv2TRow.style.pointerEvents = isOutdoor ? 'none' : '';
+  //     pv2GoTo(0);
+  //   });
+  // });
 
   // ── Colour palette ────────────────────────────────────────────
   const pv2PaletteBtn   = document.getElementById('pv2PaletteBtn');
@@ -213,41 +215,14 @@
     });
   });
 
-  // ── Expandable CTA ────────────────────────────────────────────
-  (function () {
-    var pctaOpenBtn  = document.getElementById('pctaOpenBtn');
-    var pctaCard     = document.getElementById('pctaCard');
-    var pctaFormWrap = document.getElementById('pctaFormWrap');
-
-    function pctaOpen() {
-      pctaCard.classList.add('open');
-      pctaFormWrap.classList.add('open');
-      pctaFormWrap.setAttribute('aria-hidden', 'false');
-      pctaOpenBtn.setAttribute('aria-expanded', 'true');
-    }
-
-    function pctaClose() {
-      pctaCard.classList.remove('open');
-      pctaFormWrap.classList.remove('open');
-      pctaFormWrap.setAttribute('aria-hidden', 'true');
-      pctaOpenBtn.setAttribute('aria-expanded', 'false');
-    }
-
-    pctaOpenBtn.addEventListener('click', function () {
-      if (pctaCard.classList.contains('open')) pctaClose(); else pctaOpen();
+  // ── CTA buttons scroll to the contact form ─────────────────────
+  document.querySelectorAll('.product-cta').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var sec = document.getElementById('pctaSection');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-
-    document.querySelectorAll('.product-cta').forEach(function (el) {
-      el.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (!pctaCard.classList.contains('open')) pctaOpen();
-        setTimeout(function () {
-          var sec = document.getElementById('pctaSection');
-          if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 80);
-      });
-    });
-  })();
+  });
 
   // ── FAQ accordion ─────────────────────────────────────────────
   initAccordion('.pfaq-item');
