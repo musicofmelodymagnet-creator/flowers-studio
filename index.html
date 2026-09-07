@@ -263,7 +263,7 @@
           "bestRating": "5"
         },
         "sameAs": [
-          "REPLACE_WITH_INSTAGRAM_URL",
+          "https://www.instagram.com/florinskyflowers/",
           "REPLACE_WITH_FACEBOOK_URL",
           "REPLACE_WITH_GOOGLE_BUSINESS_URL"
         ]
@@ -1009,35 +1009,63 @@
       // nowrap can't wrap, so scrollWidth always reflects the true width.
       const measurer = document.createElement('span');
       measurer.className = 'hero-phrase';
-      measurer.style.cssText = 'position:fixed;top:-9999px;left:0;display:inline-block;' +
+      // .hero-phrase sets `inset: 0` (top/right/bottom/left all 0); with
+      // position:fixed and width left auto, leaving right/bottom at that
+      // inherited 0 forces this measurer's box to stretch to fill the
+      // viewport instead of shrinking to its text, silently capping
+      // scrollWidth at the viewport width for any line shorter than that.
+      // Resetting right/bottom to auto here restores true shrink-to-fit.
+      measurer.style.cssText = 'position:fixed;top:-9999px;left:0;right:auto;bottom:auto;display:inline-block;' +
         'white-space:nowrap;padding:0;margin:0;opacity:1;' +
         'transform:none;filter:none;visibility:hidden;pointer-events:none;';
       document.body.appendChild(measurer);
 
       const LINE_HEIGHT = 1.35;
 
-      // Desktop keeps its font-size purely CSS-driven (the clamp() in
-      // .hero-phrase), but the shared box still needs a real measured
-      // height: some phrases wrap to more lines than others at a given
-      // viewport width, and a hand-picked CSS height guess falls out of
-      // sync the moment the clamp()'d font-size changes. Measuring the
-      // actual rendered height of every phrase (real wrapping, real
-      // width) and sizing the box to the tallest one avoids clipping/
-      // overlap with the copy below regardless of phrase or viewport.
+      // Desktop keeps its font-size CSS-driven (the clamp() in
+      // .hero-phrase) as the default — but a phrase's pre-split first
+      // "line" is only balanced by character count, not measured pixel
+      // width, so at the larger desktop clamp it can occasionally be too
+      // wide for the box and wrap a second time on its own, turning a
+      // 2-line phrase into 3. Shrink just that phrase's font enough to
+      // keep each of its (already intended) lines on one row — every
+      // other phrase that already fits keeps the full CSS size. The
+      // shared box then still needs a real measured height, since
+      // phrases can end up at different line counts/sizes: measuring
+      // the actual rendered height of every phrase and sizing the box
+      // to the tallest one avoids clipping/overlap with the copy below
+      // regardless of phrase or viewport.
       function fitPhrasesDesktop() {
         els.forEach(el => { el.style.fontSize = ''; });
-        const boxWidth = wrap.clientWidth;
-        const measurer2 = document.createElement('div');
-        measurer2.className = 'hero-phrase';
-        measurer2.style.cssText = 'position:fixed;top:-9999px;left:0;right:auto;bottom:auto;' +
+        const boxWidth  = wrap.clientWidth;
+        const SIDE_PAD  = 24; // matches .hero-phrase's own left/right padding
+        const availWidth = (boxWidth - SIDE_PAD * 2) * 0.985; // small safety margin
+        const baseFontPx = parseFloat(getComputedStyle(els[0]).fontSize);
+
+        const heightMeasurer = document.createElement('div');
+        heightMeasurer.className = 'hero-phrase';
+        heightMeasurer.style.cssText = 'position:fixed;top:-9999px;left:0;right:auto;bottom:auto;' +
           'visibility:hidden;pointer-events:none;width:' + boxWidth + 'px;';
-        document.body.appendChild(measurer2);
+        document.body.appendChild(heightMeasurer);
+
         let tallest = 0;
         els.forEach(el => {
-          measurer2.innerHTML = el.innerHTML;
-          tallest = Math.max(tallest, measurer2.scrollHeight);
+          const lineTexts = el.innerHTML.split('<br>');
+          measurer.style.fontSize = baseFontPx + 'px';
+          let naturalWidth = 1;
+          lineTexts.forEach(line => {
+            measurer.innerHTML = line;
+            naturalWidth = Math.max(naturalWidth, measurer.scrollWidth);
+          });
+          if (naturalWidth > availWidth) {
+            el.style.fontSize = (baseFontPx * (availWidth / naturalWidth)).toFixed(1) + 'px';
+          }
+
+          heightMeasurer.style.fontSize = getComputedStyle(el).fontSize;
+          heightMeasurer.innerHTML = el.innerHTML;
+          tallest = Math.max(tallest, heightMeasurer.scrollHeight);
         });
-        measurer2.remove();
+        heightMeasurer.remove();
         wrap.style.height = Math.ceil(tallest) + 'px';
       }
 
