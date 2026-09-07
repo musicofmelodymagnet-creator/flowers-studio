@@ -3504,7 +3504,7 @@ width: 100%;
   background: var(--bg);
   border-radius: var(--r-card);
   box-shadow: var(--elev-lg);
-  padding: 7px;
+  padding: 10px;
 }
 .gmap-inset {
   position: relative;
