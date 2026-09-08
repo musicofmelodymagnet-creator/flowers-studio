@@ -65,6 +65,7 @@
     if (!video || !icon) return;
     clearTimeout(pv2IconTimers.get(wrap));
     if (video.paused) {
+      video.muted = false; // a real click is a user gesture, safe to play with sound
       video.play().catch(() => {});
       icon.innerHTML = PV2_ICON_PLAY;
       icon.classList.add('show');
@@ -75,6 +76,28 @@
       icon.classList.add('show');
     }
   }
+
+  // ── Video progress bar + elapsed/total time ─────────────────────
+  function pv2FormatTime(s) {
+    s = Math.max(0, Math.floor(s || 0));
+    const m = Math.floor(s / 60);
+    const sec = String(s % 60).padStart(2, '0');
+    return m + ':' + sec;
+  }
+  document.querySelectorAll('.pv2-video-wrap').forEach(wrap => {
+    const video = wrap.querySelector('video');
+    const fill  = wrap.querySelector('.pv2-video-progress-fill');
+    const timeEl = wrap.querySelector('.pv2-video-time');
+    if (!video || !fill || !timeEl) return;
+    const update = () => {
+      const dur = video.duration || 0;
+      fill.style.width = (dur ? (video.currentTime / dur) * 100 : 0) + '%';
+      timeEl.textContent = pv2FormatTime(video.currentTime) + ' / ' + pv2FormatTime(dur);
+    };
+    video.addEventListener('timeupdate', update);
+    video.addEventListener('loadedmetadata', update);
+    update();
+  });
 
   // The first slide autoplays 3s after load, if it's a video and the
   // visitor hasn't already navigated away from it.
