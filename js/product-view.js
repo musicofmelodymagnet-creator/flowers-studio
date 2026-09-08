@@ -6,90 +6,95 @@
 // ════════════════════════════════════════════════════════════
 (function () {
 
-  // ── Top tabs (Photos / Video) ────────────────────────────────
-  document.querySelectorAll('.pv2-topbar-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.pv2tab;
-      document.querySelectorAll('.pv2-topbar-tab').forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      const isPhoto = target === 'photos';
-      document.getElementById('pv2-pane-photos').classList.toggle('active', isPhoto);
-      document.getElementById('pv2-pane-video').classList.toggle('active', !isPhoto);
-      if (isPhoto) document.getElementById('pv2MainVideo').pause();
-      document.getElementById('pv2Counter').classList.toggle('hidden', !isPhoto);
-      document.getElementById('pv2Prev').style.display = isPhoto ? '' : 'none';
-      document.getElementById('pv2Next').style.display = isPhoto ? '' : 'none';
-      const lb = document.getElementById('pv2LightingBar');
-      lb.style.opacity = isPhoto ? '' : '0.45';
-      lb.style.pointerEvents = isPhoto ? '' : 'none';
-      const tr = document.getElementById('pv2ThumbsRow');
-      tr.style.opacity = isPhoto ? '' : '0.35';
-      tr.style.pointerEvents = isPhoto ? '' : 'none';
-      if (!isPhoto && pv2PalettePanel.classList.contains('open')) pv2TogglePalette(true);
-    });
-  });
-
-  // ── Video sub-tabs (Intro / Speed Build) ───────────────────────
-  document.querySelectorAll('.pv2-vsub').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.classList.contains('active')) return;
-      document.querySelectorAll('.pv2-vsub').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const video = document.getElementById('pv2MainVideo');
-      video.pause();
-      video.src = btn.dataset.src;
-      video.load();
-      document.getElementById('pv2VidCaption').textContent = btn.dataset.caption;
-    });
-  });
-
-  // ── Carousel ─────────────────────────────────────────────────
-  const pv2AllImgs   = Array.from(document.querySelectorAll('.pv2-img'));
-  const pv2Thumbs    = Array.from(document.querySelectorAll('.pv2-thumb'));
-  const pv2CounterEl = document.getElementById('pv2Counter');
-  const pv2TRow      = document.getElementById('pv2ThumbsRow');
-  const pv2Indoor    = pv2AllImgs.filter(i => i.dataset.pv2set === 'indoor');
-  const pv2Outdoor   = pv2AllImgs.filter(i => i.dataset.pv2set === 'outdoor');
-  let pv2Set = pv2Indoor;
+  // ── Media carousel (video slides first, then photos) ───────────
+  const pv2Stage      = document.getElementById('pv2Stage');
+  const pv2Slides     = Array.from(pv2Stage.children);
+  const pv2Thumbs     = Array.from(document.querySelectorAll('.pv2-thumb'));
+  const pv2CounterEl  = document.getElementById('pv2Counter');
+  const pv2TRow       = document.getElementById('pv2ThumbsRow');
+  // kept for the disabled lighting toggle below (photo slides only)
+  const pv2Indoor     = pv2Slides.filter(s => s.dataset.pv2set === 'indoor');
+  const pv2Outdoor    = pv2Slides.filter(s => s.dataset.pv2set === 'outdoor');
   let pv2Idx = 0;
 
+  function pv2PauseSlide(slide) {
+    const video = slide && slide.querySelector('video');
+    if (video && !video.paused) video.pause();
+  }
+
   function pv2GoTo(idx) {
-    if (idx < 0) idx = pv2Set.length - 1;
-    if (idx >= pv2Set.length) idx = 0;
+    if (idx < 0) idx = pv2Slides.length - 1;
+    if (idx >= pv2Slides.length) idx = 0;
+    if (idx === pv2Idx) return;
+    pv2PauseSlide(pv2Slides[pv2Idx]);
     pv2Idx = idx;
-    pv2AllImgs.forEach(i => i.classList.remove('active'));
-    pv2Set[pv2Idx].classList.add('active');
-    if (pv2Set === pv2Indoor) {
-      pv2Thumbs.forEach((th, i) => th.classList.toggle('active', i === pv2Idx));
-    }
-    pv2CounterEl.textContent = (pv2Idx + 1) + ' / ' + pv2Set.length;
+    pv2Slides.forEach(s => s.classList.remove('active'));
+    pv2Slides[pv2Idx].classList.add('active');
+    pv2Thumbs.forEach((th, i) => th.classList.toggle('active', i === pv2Idx));
+    pv2CounterEl.textContent = (pv2Idx + 1) + ' / ' + pv2Slides.length;
   }
 
   document.getElementById('pv2Prev').addEventListener('click', () => pv2GoTo(pv2Idx - 1));
   document.getElementById('pv2Next').addEventListener('click', () => pv2GoTo(pv2Idx + 1));
-  pv2Thumbs.forEach((th, i) => th.addEventListener('click', () => {
-    if (pv2Set === pv2Indoor) pv2GoTo(i);
-  }));
+  pv2Thumbs.forEach((th, i) => th.addEventListener('click', () => pv2GoTo(i)));
 
   let pv2TouchX = 0;
-  const pv2PhotoPane = document.getElementById('pv2-pane-photos');
-  pv2PhotoPane.addEventListener('touchstart', e => { pv2TouchX = e.changedTouches[0].screenX; }, { passive: true });
-  pv2PhotoPane.addEventListener('touchend', e => {
+  pv2Stage.addEventListener('touchstart', e => { pv2TouchX = e.changedTouches[0].screenX; }, { passive: true });
+  pv2Stage.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].screenX - pv2TouchX;
     if (Math.abs(dx) > 40) pv2GoTo(pv2Idx + (dx < 0 ? 1 : -1));
   }, { passive: true });
-  pv2PhotoPane.addEventListener('click', e => {
-    const rect = pv2PhotoPane.getBoundingClientRect();
+  pv2Stage.addEventListener('click', e => {
+    const active = pv2Slides[pv2Idx];
+    if (active && active.classList.contains('pv2-video-wrap')) {
+      pv2ToggleVideoPlay(active);
+      return;
+    }
+    const rect = pv2Stage.getBoundingClientRect();
     pv2GoTo(e.clientX < rect.left + rect.width / 2 ? pv2Idx - 1 : pv2Idx + 1);
   });
 
+  // ── Video tap-to-pause overlay ──────────────────────────────────
+  const PV2_ICON_PLAY  = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+  const PV2_ICON_PAUSE = '<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+  const pv2IconTimers  = new WeakMap();
+
+  function pv2ToggleVideoPlay(wrap) {
+    const video = wrap.querySelector('video');
+    const icon  = wrap.querySelector('.pv2-video-toggle-icon');
+    if (!video || !icon) return;
+    clearTimeout(pv2IconTimers.get(wrap));
+    if (video.paused) {
+      video.play().catch(() => {});
+      icon.innerHTML = PV2_ICON_PLAY;
+      icon.classList.add('show');
+      pv2IconTimers.set(wrap, setTimeout(() => icon.classList.remove('show'), 1000));
+    } else {
+      video.pause();
+      icon.innerHTML = PV2_ICON_PAUSE;
+      icon.classList.add('show');
+    }
+  }
+
+  // The first slide autoplays 3s after load, if it's a video and the
+  // visitor hasn't already navigated away from it.
+  setTimeout(() => {
+    const first = pv2Slides[0];
+    if (first && pv2Idx === 0 && first.classList.contains('pv2-video-wrap')) {
+      const video = first.querySelector('video');
+      if (video && video.paused) {
+        video.muted = true;
+        video.play().catch(() => {});
+      }
+    }
+  }, 3000);
+
   // ── Lighting toggle ───────────────────────────────────────────
   // Disabled 2026-09-07 per client request (markup commented out in each
-  // product page too) — kept here for possible reactivation later.
+  // product page too) — kept here for possible reactivation later. Note:
+  // navigation now runs over the unified pv2Slides array (videos + photos
+  // together), not a swappable pv2Set — reactivating this would need
+  // pv2GoTo/pv2Idx adapted to filter within pv2Slides instead.
   // document.querySelectorAll('.pv2-light-btn').forEach(btn => {
   //   btn.addEventListener('click', () => {
   //     const isOutdoor = btn.dataset.pv2light === 'outdoor';
@@ -97,10 +102,8 @@
   //     if (newSet.length === 0) return;
   //     document.querySelectorAll('.pv2-light-btn').forEach(b => b.classList.remove('active'));
   //     btn.classList.add('active');
-  //     pv2Set = newSet;
   //     pv2TRow.style.opacity = isOutdoor ? '0.35' : '';
   //     pv2TRow.style.pointerEvents = isOutdoor ? 'none' : '';
-  //     pv2GoTo(0);
   //   });
   // });
 

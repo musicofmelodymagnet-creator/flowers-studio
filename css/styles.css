@@ -2419,40 +2419,6 @@ color: var(--ink-mauve);
 letter-spacing: -0.01em;
 margin: 8px 0 0;
 }
-.pv2-topbar-tabs {
-display: flex;
-gap: 2px;
-background: var(--surface);
-border-radius: 16px;
-padding: 5px;
-box-shadow: var(--nm-inset);
-align-self: flex-end;
-margin-bottom: 2px;
-}
-.pv2-topbar-tab {
-display: flex;
-align-items: center;
-gap: 7px;
-padding: 9px 20px;
-border-radius: 11px;
-font: 600 13px/1 var(--font-sans);
-letter-spacing: 0.01em;
-color: var(--ink-muted);
-background: transparent;
-border: 2px solid transparent;
-cursor: pointer;
-box-shadow: none;
-transition: all 200ms ease;
-white-space: nowrap;
-}
-.pv2-topbar-tab svg { width: 14px; height: 14px; stroke-width: 1.75; flex-shrink: 0; }
-.pv2-topbar-tab:hover { color: var(--ink-soft); background: rgba(249,244,240,0.65); }
-.pv2-topbar-tab.active {
-background: #f8f4f1;
-color: var(--ink-mauve);
-border-color: var(--brand);
-box-shadow: var(--elev-sm);
-}
 .pv2-media-zone {
 position: relative;
 width: 100%;
@@ -2463,12 +2429,42 @@ background: var(--surface);
 box-shadow: var(--elev-md);
 user-select: none;
 }
-.pv2-pane {
-display: none;
+@media (min-width: 769px) {
+.pv2-media-zone { aspect-ratio: 6 / 5; }
+}
+.pv2-stage {
 position: absolute;
 inset: 0;
 }
-.pv2-pane.active { display: block; }
+.pv2-video-wrap {
+position: absolute;
+inset: 0;
+opacity: 0;
+cursor: pointer;
+transition: opacity 420ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pv2-video-wrap.active { opacity: 1; z-index: 1; }
+.pv2-video-toggle-icon {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0.85);
+width: 84px;
+height: 84px;
+border-radius: 50%;
+background: rgba(45, 38, 38, 0.50);
+backdrop-filter: blur(6px);
+-webkit-backdrop-filter: blur(6px);
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+pointer-events: none;
+transition: opacity 260ms ease, transform 260ms ease;
+z-index: 5;
+}
+.pv2-video-toggle-icon.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.pv2-video-toggle-icon svg { width: 32px; height: 32px; fill: rgba(255,255,255,0.92); }
 .pv2-img {
 position: absolute;
 inset: 0;
@@ -2482,14 +2478,7 @@ cursor: pointer;
 user-select: none;
 -webkit-user-drag: none;
 }
-.pv2-img.active { opacity: 1; }
-.pv2-pane video {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center top;
-display: block;
-}
+.pv2-img.active { opacity: 1; z-index: 1; }
 .pv2-vid-caption {
 position: absolute;
 bottom: 0;
@@ -2724,38 +2713,6 @@ box-shadow: 0 1px 6px rgba(45,38,38,0.12);
 pointer-events: none;
 }
 .pv2-counter.hidden { display: none; }
-.pv2-video-subtabs {
-position: absolute;
-bottom: 20px;
-left: 50%;
-transform: translateX(-50%);
-z-index: 6;
-display: flex;
-gap: 3px;
-background: rgba(45, 38, 38, 0.52);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-border-radius: 14px;
-padding: 4px;
-}
-.pv2-vsub {
-padding: 8px 16px;
-border-radius: 10px;
-font: 600 11px/1 var(--font-sans);
-letter-spacing: 0.05em;
-text-transform: uppercase;
-color: rgba(255,255,255,0.65);
-background: transparent;
-border: none;
-cursor: pointer;
-transition: all 180ms ease;
-white-space: nowrap;
-}
-.pv2-vsub:hover { color: rgba(255,255,255,0.90); }
-.pv2-vsub.active {
-background: rgba(255,255,255,0.18);
-color: #fff;
-}
 .pv2-video {
 width: 100%;
 height: 100%;
@@ -2901,6 +2858,29 @@ transition: opacity 180ms ease, border-color 180ms ease;
 }
 .pv2-thumb.active { opacity: 1; border-color: var(--brand); }
 .pv2-thumb:hover { opacity: 0.80; }
+.pv2-thumb--video {
+position: relative;
+overflow: hidden;
+padding: 0;
+}
+.pv2-thumb--video img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center top;
+display: block;
+}
+.pv2-thumb-play {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 18px;
+height: 18px;
+fill: rgba(255,255,255,0.95);
+filter: drop-shadow(0 1px 3px rgba(0,0,0,0.55));
+pointer-events: none;
+}
 .pv2-info-strip {
 padding-top: 4px;
 }
@@ -3024,11 +3004,6 @@ margin: 0;
 .pv2-thumbs-lighting-row { flex-direction: column; align-items: flex-start; gap: 10px; }
 .pv2-rainbow-tip { display: none; }
 .pv2-content-tabs { flex-wrap: wrap; }
-/* On narrow screens the caption text collides with the native <video>
-   controls bar and the Intro/Speed Build subtabs, which already sit
-   right on top of it — the subtab label alone is enough context here. */
-.pv2-vid-caption { display: none; }
-.pv2-video-subtabs { bottom: 44px; }
 }
 .pv2-content-tabs {
 position: absolute;
