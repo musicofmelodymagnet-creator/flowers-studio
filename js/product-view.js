@@ -22,6 +22,16 @@
     if (video && !video.paused) video.pause();
   }
 
+  function pv2ScrollThumbIntoView(idx) {
+    if (!pv2TRow) return;
+    if (idx === 0) {
+      pv2TRow.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+    const thumb = pv2Thumbs[idx];
+    if (thumb) thumb.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+  }
+
   function pv2GoTo(idx) {
     if (idx < 0) idx = pv2Slides.length - 1;
     if (idx >= pv2Slides.length) idx = 0;
@@ -32,6 +42,7 @@
     pv2Slides[pv2Idx].classList.add('active');
     pv2Thumbs.forEach((th, i) => th.classList.toggle('active', i === pv2Idx));
     pv2CounterEl.textContent = (pv2Idx + 1) + ' / ' + pv2Slides.length;
+    pv2ScrollThumbIntoView(pv2Idx);
   }
 
   document.getElementById('pv2Prev').addEventListener('click', () => pv2GoTo(pv2Idx - 1));
@@ -86,9 +97,10 @@
   }
   document.querySelectorAll('.pv2-video-wrap').forEach(wrap => {
     const video = wrap.querySelector('video');
+    const bar   = wrap.querySelector('.pv2-video-progress');
     const fill  = wrap.querySelector('.pv2-video-progress-fill');
     const timeEl = wrap.querySelector('.pv2-video-time');
-    if (!video || !fill || !timeEl) return;
+    if (!video || !bar || !fill || !timeEl) return;
     const update = () => {
       const dur = video.duration || 0;
       fill.style.width = (dur ? (video.currentTime / dur) * 100 : 0) + '%';
@@ -97,6 +109,28 @@
     video.addEventListener('timeupdate', update);
     video.addEventListener('loadedmetadata', update);
     update();
+
+    // YouTube-style scrub bar: click/drag anywhere on the track to seek.
+    let dragging = false;
+    const seekFromEvent = e => {
+      const rect = bar.getBoundingClientRect();
+      const pct = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      if (video.duration) video.currentTime = pct * video.duration;
+    };
+    bar.addEventListener('pointerdown', e => {
+      dragging = true;
+      bar.classList.add('dragging');
+      bar.setPointerCapture(e.pointerId);
+      seekFromEvent(e);
+      e.stopPropagation();
+    });
+    bar.addEventListener('pointermove', e => { if (dragging) seekFromEvent(e); });
+    bar.addEventListener('pointerup', e => {
+      dragging = false;
+      bar.classList.remove('dragging');
+      bar.releasePointerCapture(e.pointerId);
+    });
+    bar.addEventListener('click', e => e.stopPropagation());
   });
 
   // The first slide autoplays 3s after load, if it's a video and the
