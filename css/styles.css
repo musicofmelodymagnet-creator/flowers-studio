@@ -2432,7 +2432,7 @@ overflow: hidden;
 background: var(--surface);
 box-shadow: var(--elev-md);
 user-select: none;
-touch-action: manipulation;
+touch-action: pan-y;
 }
 .site-shell--product { max-width: 1400px; }
 @media (min-width: 769px) {
@@ -3096,7 +3096,8 @@ margin: 0;
 .pv2-tip { display: none; }
 .pv2-thumbs-lighting-row { flex-direction: column; align-items: flex-start; gap: 10px; }
 .pv2-rainbow-tip { display: none; }
-.pv2-content-tabs { flex-wrap: wrap; }
+.pv2-content-tabs { flex-wrap: nowrap; gap: 2px; padding: 3px; }
+.pv2-ctab { padding: 8px 10px; font-size: 11.5px; }
 }
 .pv2-content-tabs {
 position: absolute;
