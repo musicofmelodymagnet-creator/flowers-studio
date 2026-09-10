@@ -1,3 +1,31 @@
+/* ── GA4 lead event (pure, DOM-free — safe to unit test) ─────────────────────
+   Builds the exact, PII-free param set for the generate_lead event. Only
+   ever called from the submit handler's server-confirmed-success branch. */
+function buildGenerateLeadPayload(pathname) {
+  return {
+    form_name: 'inquiry_form',
+    form_location: pathname,
+    method: 'contact_form'
+  };
+}
+
+/* Wraps a send function so it fires at most once per created guard, no
+   matter how many times the returned function is called (double click,
+   a re-entrant handler call, a re-rendered thank-you message, etc.).
+   `sendFn` must return true/truthy only if it actually handed the event to
+   gtag — the guard only latches (fired = true) after that success, so a
+   failed attempt (e.g. gtag unavailable) never permanently blocks a later,
+   genuinely successful one. */
+function createLeadEventGuard(sendFn) {
+  var fired = false;
+  return function fireGenerateLeadOnce(pathname) {
+    if (fired) return false;
+    var sent = !!sendFn('generate_lead', buildGenerateLeadPayload(pathname));
+    if (sent) fired = true;
+    return sent;
+  };
+}
+
 /* ── Shared inquiry form initialiser ─────────────────────────────────────────
    Called after the form HTML is fetched and injected into #inquiry-root.
    Handles: calendar, "not sure yet" checkbox, tabs, submit (with wallColor fix).
@@ -6,6 +34,14 @@ function initInquiryForm() {
   var form      = document.getElementById('inquiryForm');
   var submitBtn = document.getElementById('submitBtn');
   if (!form || !submitBtn) return;
+
+  /* One generate_lead per successfully-submitted form instance, no matter
+     how many times the submit handler itself ends up running. */
+  var fireGenerateLead = createLeadEventGuard(function (name, params) {
+    if (typeof gtag !== 'function') return false;
+    gtag('event', name, params);
+    return true;
+  });
 
   /* ── reCAPTCHA: load only once the visitor actually touches the form.
      Most page visits never submit it, so this keeps that JS off the
@@ -132,6 +168,10 @@ function initInquiryForm() {
         note.style.cssText = 'margin-top:16px;font-size:14px;color:var(--ink-soft);text-align:center;line-height:1.6';
         note.textContent = data.message;
         form.appendChild(note);
+        // Server confirmed the lead was actually saved/sent — this is the
+        // one and only place generate_lead fires. No user-entered field
+        // values are included, only static/technical params.
+        fireGenerateLead(window.location.pathname);
       } else {
         submitBtn.textContent   = 'Try again';
         submitBtn.disabled      = false;
@@ -143,4 +183,10 @@ function initInquiryForm() {
       submitBtn.style.opacity = '1';
     }
   });
+}
+
+/* Node-only export for the test suite (test/inquiry-form.test.mjs). `module`
+   does not exist in the browser, so this is a no-op there. */
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { buildGenerateLeadPayload: buildGenerateLeadPayload, createLeadEventGuard: createLeadEventGuard, initInquiryForm: initInquiryForm };
 }

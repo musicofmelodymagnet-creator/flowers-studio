@@ -1,0 +1,12 @@
+{
+  "name": "florinsky-site-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Dev-only test tooling for the static florinsky.ca site. Not a build step — the deployed site is plain HTML/CSS/JS with no bundler.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  }
+}
