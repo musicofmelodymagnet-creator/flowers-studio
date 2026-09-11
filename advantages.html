@@ -554,7 +554,18 @@
     document.querySelectorAll('.adv-card').forEach(card => {
       card.addEventListener('click', () => {
         const btn = card.querySelector('.adv-toggle');
-        (btn.classList.contains('open') ? closeCard : openCard)(card);
+        // Mirror the open/closed state into the address bar (no history
+        // entry, no scroll) so a manually-expanded card's shareable link
+        // is sitting right there in the URL bar to copy.
+        if (btn.classList.contains('open')) {
+          closeCard(card);
+          if (card.id && location.hash === '#' + card.id) {
+            history.replaceState(null, '', location.pathname + location.search);
+          }
+        } else {
+          openCard(card);
+          if (card.id) history.replaceState(null, '', '#' + card.id);
+        }
       });
     });
 
