@@ -82,9 +82,37 @@
       .adv-page-hero h1 { font-size: 28px; }
       .adv-page-hero p { font-size: 15px; }
     }
+
+    /* Deep-link highlight — briefly flashed on the USP card a direct
+       #id link points to, so it's obvious which one was shared. */
+    .adv-card.deep-link-highlight {
+      animation: adv-deep-link-flash 2.2s ease-out;
+    }
+    @keyframes adv-deep-link-flash {
+      0%   { box-shadow: var(--glow-accent); }
+      70%  { box-shadow: var(--glow-accent); }
+      100% { box-shadow: var(--elev-md); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .adv-card.deep-link-highlight { animation: none; }
+    }
   </style>
 </head>
 <body>
+
+  <script>
+    // Deep-link to a single USP card (#<card-id>): capture the target
+    // now and strip the hash from the URL immediately, before the
+    // browser's own instant jump-to-anchor can fire. That native jump
+    // (which can re-fire more than once as images/fonts finish loading)
+    // is what makes a self-computed centred/offset scroll position
+    // unreliable — removing the hash removes the browser's reason to
+    // do it at all, so our later script has sole control of scrolling.
+    window.__advDeepLinkId = location.hash ? decodeURIComponent(location.hash.slice(1)) : null;
+    if (window.__advDeepLinkId) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  </script>
 
   <!-- ============================================================
        SITE NAVIGATION (shared — see assets/includes/site-nav.html)
@@ -113,7 +141,7 @@
         <div class="adv-list">
 
           <!-- Advantage 1 -->
-          <article class="adv-card adv-card--hl-both">
+          <article class="adv-card adv-card--hl-both" id="money-back-guarantee">
             <div class="adv-img-wrap">
               <img src="assets/adv/8-adv.webp"
                    alt="FLORINSKY contract guarantee — triple refund if delivery fails" />
@@ -159,7 +187,7 @@
 
 
           <!-- Advantage 2 -->
-          <article class="adv-card">
+          <article class="adv-card" id="real-touch-realism">
             <div class="adv-img-wrap">
               <img src="assets/adv/1-adv.webp"
                    alt="Premium Real Touch flower wall — lifelike petals up close" />
@@ -202,7 +230,7 @@
 
 
           <!-- Advantage 3 -->
-          <article class="adv-card">
+          <article class="adv-card" id="exclusive-design">
             <div class="adv-img-wrap">
               <img src="assets/adv/2-adv.webp"
                    alt="Exclusive one-of-a-kind flower wall design — unique to Canada" />
@@ -245,7 +273,7 @@
 
 
           <!-- Advantage 4 -->
-          <article class="adv-card">
+          <article class="adv-card" id="3d-preview">
             <div class="adv-img-wrap">
               <img src="assets/adv/3-adv.webp"
                    alt="3D preview of flower wall — see exact colors before your event" />
@@ -289,7 +317,7 @@
 
 
           <!-- Advantage 5 -->
-          <article class="adv-card">
+          <article class="adv-card" id="semi-circular-walls">
             <div class="adv-img-wrap">
               <img src="assets/adv/5-adv.webp"
                    alt="Semi-circular flower wall creating a dimensional photo space" />
@@ -332,7 +360,7 @@
 
 
           <!-- Advantage 6 -->
-          <article class="adv-card">
+          <article class="adv-card" id="large-group-size">
             <div class="adv-img-wrap">
               <img src="assets/adv/4-adv.webp"
                    alt="Large group photo against an 11x8 ft flower wall backdrop" />
@@ -375,7 +403,7 @@
 
 
           <!-- Advantage 7 -->
-          <article class="adv-card">
+          <article class="adv-card" id="uneven-terrain-setup">
             <div class="adv-img-wrap">
               <img src="assets/adv/6-adv.webp"
                    alt="Flower wall installed on a sloped outdoor venue" />
@@ -418,7 +446,7 @@
 
 
           <!-- Advantage 8 -->
-          <article class="adv-card">
+          <article class="adv-card" id="reinforced-stability">
             <div class="adv-img-wrap">
               <img src="assets/adv/7-adv.webp"
                    alt="Stable flower wall structure with reinforced support legs" />
@@ -497,30 +525,115 @@
     // ── Advantages expand / collapse ──────────────────────────
     // Closing uses scrollHeight as the animation start point so the
     // transition begins immediately — no "dead zone" from 800→actual.
+    function openCard(card) {
+      const btn    = card.querySelector('.adv-toggle');
+      const target = document.getElementById(btn.dataset.target);
+      if (btn.classList.contains('open')) return;
+      target.classList.add('open');
+      target.style.maxHeight = target.scrollHeight + 'px';
+      btn.classList.add('open');
+      card.classList.add('card-open');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.querySelector('.adv-toggle-label').textContent = 'Read Less';
+    }
+
+    function closeCard(card) {
+      const btn    = card.querySelector('.adv-toggle');
+      const target = document.getElementById(btn.dataset.target);
+      if (!btn.classList.contains('open')) return;
+      target.style.maxHeight = target.scrollHeight + 'px';
+      target.offsetHeight;               // force reflow
+      target.style.maxHeight = '28px';   // transition starts NOW from real height
+      target.classList.remove('open');
+      btn.classList.remove('open');
+      card.classList.remove('card-open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.querySelector('.adv-toggle-label').textContent = 'Read More';
+    }
+
     document.querySelectorAll('.adv-card').forEach(card => {
       card.addEventListener('click', () => {
-        const btn    = card.querySelector('.adv-toggle');
-        const target = document.getElementById(btn.dataset.target);
-        const isOpen = btn.classList.contains('open');
-
-        if (isOpen) {
-          // Snap inline max-height to actual content height
-          target.style.maxHeight = target.scrollHeight + 'px';
-          target.offsetHeight;               // force reflow
-          target.style.maxHeight = '28px';   // transition starts NOW from real height
-          target.classList.remove('open');
-        } else {
-          target.classList.add('open');
-          target.style.maxHeight = target.scrollHeight + 'px';
-        }
-
-        btn.classList.toggle('open', !isOpen);
-        card.classList.toggle('card-open', !isOpen);
-        btn.setAttribute('aria-expanded', String(!isOpen));
-        btn.querySelector('.adv-toggle-label').textContent = isOpen ? 'Read More' : 'Read Less';
+        const btn = card.querySelector('.adv-toggle');
+        (btn.classList.contains('open') ? closeCard : openCard)(card);
       });
     });
 
+    // ── Deep link to a single USP: /advantages.html#<card-id> ──
+    // Opens that card's full text and centers it in the viewport, so a
+    // shared link (chat, email, ad) lands the visitor exactly on the
+    // one advantage being referenced, already expanded. The matching
+    // hash was already captured into window.__advDeepLinkId and
+    // stripped from the URL by the inline script at the top of <body>,
+    // so the browser never performs its own native jump-to-anchor —
+    // this function has sole, uncontested control of scroll position.
+    function goToAdvantage(id, restoreHash) {
+      if (!id) return;
+      var card = document.getElementById(id);
+      if (!card || !card.classList.contains('adv-card')) return;
+
+      function centerAndHighlight() {
+        // Centre the card in the viewport when it's shorter than the
+        // screen (the common case); when the fully-expanded card is
+        // taller than the screen (long text on a small phone), centring
+        // its midpoint would scroll the heading off the top, so instead
+        // align its top just below the fixed nav bar.
+        var rect      = card.getBoundingClientRect();
+        var viewportH = window.innerHeight;
+        var targetY   = rect.height <= viewportH
+          ? window.scrollY + rect.top - (viewportH - rect.height) / 2
+          : window.scrollY + rect.top - 96;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+
+        card.classList.remove('deep-link-highlight');
+        void card.offsetWidth; // restart animation if the hash is visited twice
+        card.classList.add('deep-link-highlight');
+
+        // Put the hash back in the address bar now that we're done —
+        // this doesn't itself trigger a native scroll, so it's safe.
+        if (restoreHash) history.replaceState(null, '', '#' + id);
+      }
+
+      var btn = card.querySelector('.adv-toggle');
+      if (btn.classList.contains('open')) {
+        // Already expanded (e.g. hashchange fired again) — no growth
+        // transition to wait for, center immediately.
+        centerAndHighlight();
+        return;
+      }
+
+      // openCard() starts a 700ms max-height transition (see .adv-long
+      // in styles.css) — the card is still its short, collapsed height
+      // the instant this returns, so measuring now would centre on the
+      // WRONG (pre-growth) box. Wait for that transition to finish
+      // (transitionend, with a timeout fallback) before centering.
+      var longEl = document.getElementById(btn.dataset.target);
+      var done = false;
+      function onDone(e) {
+        if (e && e.propertyName !== 'max-height') return;
+        if (done) return;
+        done = true;
+        longEl.removeEventListener('transitionend', onDone);
+        centerAndHighlight();
+      }
+      longEl.addEventListener('transitionend', onDone);
+      setTimeout(onDone, 750); // fallback if transitionend doesn't fire
+
+      openCard(card);
+    }
+
+    if (window.__advDeepLinkId) {
+      // The webfont (Plus Jakarta Sans) loads asynchronously and can
+      // still be mid-swap here, reflowing paragraph line breaks (and
+      // therefore card height) right after we've already measured and
+      // scrolled. document.fonts.ready waits for that swap to finish
+      // first, so the measurement below is based on final metrics.
+      var start = function () { goToAdvantage(window.__advDeepLinkId, true); };
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+      else start();
+    }
+    window.addEventListener('hashchange', function () {
+      goToAdvantage(decodeURIComponent(location.hash.slice(1)), false);
+    });
   </script>
 
   <div id="chat-widget-root"></div>
