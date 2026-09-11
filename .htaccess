@@ -19,6 +19,8 @@ Redirect 301 /product.html https://florinsky.ca/flower-walls/white-flower-wall/
     RewriteRule ^flower-walls/(.*)$ flower-wall-guide/flower-walls/$1 [L]
     # ── /locations/flower-wall-rental-toronto/* → served from flower-wall-guide/locations/flower-wall-rental-toronto/* ──
     RewriteRule ^locations/flower-wall-rental-toronto/(.*)$ flower-wall-guide/locations/flower-wall-rental-toronto/$1 [L]
+    # ── /events/wedding-flower-wall-rental/* → served from flower-wall-guide/events/wedding-flower-wall-rental/* ──
+    RewriteRule ^events/wedding-flower-wall-rental/(.*)$ flower-wall-guide/events/wedding-flower-wall-rental/$1 [L]
 </IfModule>
 
 # ── Block access to sensitive files (all directories, not just root) ──────────
