@@ -53,6 +53,28 @@
        guide.css's shared 16:9 .article-hero-img — the 4-photo colour
        collage keeps the default 16:9. */
     .article-hero-img.article-photo-wide { aspect-ratio: 16 / 5; }
+
+    /* Toronto venue-planning map embed (Venue & Flower Wall Planning Map) */
+    .toronto-venue-map__embed {
+      width: 100%;
+      height: 620px;
+      margin: 24px 0;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .toronto-venue-map__embed iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .toronto-venue-map__note {
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      .toronto-venue-map__embed {
+        height: 520px;
+      }
+    }
   </style>
 
   <!-- BreadcrumbList JSON-LD -->
@@ -225,6 +247,31 @@
   height="900"
   loading="lazy"
 />
+
+<section class="toronto-venue-map">
+  <h2>Toronto Event Venue &amp; Flower Wall Planning Map</h2>
+
+  <p>
+    Explore 20 notable Toronto event venues for weddings, corporate events
+    and private celebrations. Select a venue to see planning considerations,
+    recurring guest feedback themes and practical details to check when
+    arranging a flower wall setup.
+  </p>
+
+  <div class="toronto-venue-map__embed">
+    <iframe
+      src="https://www.google.com/maps/d/u/8/embed?mid=1WWnqseDOoEEnJC0gcFWjeXzvm81EqWE&ehbc=2E312F"
+      title="Toronto event venues and flower wall planning map by FLORINSKY"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <p class="toronto-venue-map__note">
+    Venue policies, access arrangements and parking conditions can change.
+    Confirm current requirements directly with the venue before your event.
+  </p>
+</section>
 
 <h2>Four Toronto Venues to Consider When Planning Your Backdrop</h2>
 
