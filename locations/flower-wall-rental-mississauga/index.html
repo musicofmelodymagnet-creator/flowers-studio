@@ -62,37 +62,26 @@
       margin: -8px 0 12px;
     }
 
-    /* Mississauga venue-planning map section (pending real Google My Maps
-       links — see MAP EMBED PENDING placeholder below). */
-    .mississauga-venue-map__embed {
+    /* City venue-planning map embed (Google My Maps) — shared class name
+       so future city pages (Toronto, Mississauga, ...) reuse the same CSS. */
+    .city-venue-map__embed {
       width: 100%;
-      min-height: 420px;
+      height: 620px;
       margin: 24px 0;
+      overflow: hidden;
       border-radius: 12px;
-      border: 2px dashed var(--brand-soft);
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 32px;
     }
-    .mississauga-venue-map__embed iframe {
+    .city-venue-map__embed iframe {
       width: 100%;
       height: 100%;
       border: 0;
     }
-    .mississauga-venue-map__placeholder-text {
-      font: 500 15px/1.6 var(--font-sans);
-      color: var(--ink-mauve);
-      max-width: 46ch;
-    }
-    .mississauga-venue-map__note {
+    .city-venue-map__note {
       font-size: 0.9rem;
     }
     @media (max-width: 768px) {
-      .mississauga-venue-map__embed {
-        min-height: 320px;
+      .city-venue-map__embed {
+        height: 520px;
       }
     }
   </style>
@@ -267,33 +256,25 @@
 
 <p>Airport-area traffic and active construction may also affect access. Current directions should be checked shortly before the event instead of relying only on instructions received several months earlier.</p>
 
-<section class="mississauga-venue-map">
-  <h2>Mississauga Event Venue &amp; Flower Wall Planning Map</h2>
+<section class="city-venue-map">
+  <h2>Mississauga Event Venue and Flower Wall Planning Map</h2>
 
-  <p>Use the map to compare 20 event venues across Mississauga and identify which part of the city the delivery and installation plan needs to cover.</p>
+  <p>Use the map to compare 20 event venues across Mississauga and identify which part of the city the delivery and installation plan needs to cover. Select a venue to review planning considerations, guest feedback themes and details worth confirming before arranging a flower wall setup.</p>
 
-  <!--
-    MAP EMBED PENDING: two Google My Maps links are needed before publish —
-    (1) the embeddable iframe src URL, (2) the public "view map" URL for the
-    text link below. Do not fabricate either URL. Once both are supplied,
-    replace this placeholder <div> with:
-      <iframe src="<EMBED_URL>" title="Mississauga event venues and flower
-      wall planning map" loading="lazy" allowfullscreen
-      referrerpolicy="no-referrer-when-downgrade"></iframe>
-    and turn the placeholder link line into a real
-    <a href="<PUBLIC_MAP_URL>" target="_blank" rel="noopener noreferrer">
-    Open the full Mississauga venue planning map</a>.
-  -->
-  <div class="mississauga-venue-map__embed">
-    <p class="mississauga-venue-map__placeholder-text">
-      Map embed pending — waiting on the Google My Maps embed URL and public
-      map URL (20 Mississauga venues) before this page can be published.
-    </p>
+  <div class="city-venue-map__embed">
+    <iframe
+      src="https://www.google.com/maps/d/u/8/embed?mid=1ruRwssrj9iBsCwfNKEjc3jFLswivflo&ehbc=2E312F"
+      title="Mississauga event venues and flower wall planning map by FLORINSKY"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
   </div>
 
-  <p class="mississauga-venue-map__note">Open the full Mississauga venue planning map — pending public map URL.</p>
+  <p>
+    <a href="https://www.google.com/maps/d/u/8/edit?mid=1ruRwssrj9iBsCwfNKEjc3jFLswivflo&usp=sharing" target="_blank" rel="noopener">Open the full Mississauga venue planning map</a>
+  </p>
 
-  <p>This map is provided as a planning resource for clients considering event venues in Mississauga. Inclusion does not indicate a partnership with the venue or that FLORINSKY has completed an installation there. Venue policies, access requirements, capacities and availability can change, so confirm all details directly with the venue before booking.</p>
+  <p class="city-venue-map__note">This map is a planning resource. Inclusion does not indicate a partnership with the venue or that FLORINSKY has completed an installation there. Venue policies, access requirements, capacities and availability can change, so confirm current details directly with the venue before booking.</p>
 
   <!-- Recheck and update the C Banquets and BraeBen closure notice after February 28, 2027. -->
   <p>Temporary venue update, checked September 14, 2026: The City of Mississauga states that C Banquets and BraeBen Golf Course are scheduled to close for renovations from December 21, 2026, through February 28, 2027. If your event falls near these dates, confirm current availability directly with the venue.</p>
