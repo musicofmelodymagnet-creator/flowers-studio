@@ -43,11 +43,44 @@
     pv2Thumbs.forEach((th, i) => th.classList.toggle('active', i === pv2Idx));
     pv2CounterEl.textContent = (pv2Idx + 1) + ' / ' + pv2Slides.length;
     pv2ScrollThumbIntoView(pv2Idx);
+    pv2SyncVenues();
   }
 
   document.getElementById('pv2Prev').addEventListener('click', () => pv2GoTo(pv2Idx - 1));
   document.getElementById('pv2Next').addEventListener('click', () => pv2GoTo(pv2Idx + 1));
   pv2Thumbs.forEach((th, i) => th.addEventListener('click', () => pv2GoTo(i)));
+
+  // ── Venue emblems (optional — no-op on pages without .pv2-venue) ────
+  const pv2VenueBtns  = Array.from(document.querySelectorAll('.pv2-venue'));
+  const pv2LocCaption = document.getElementById('pv2LocCaption');
+  const pv2LocSlideIdx = {};
+  pv2Slides.forEach((s, i) => { if (s.dataset.pv2loc) pv2LocSlideIdx[s.dataset.pv2loc] = i; });
+
+  function pv2SyncVenues() {
+    if (!pv2VenueBtns.length) return;
+    const loc = pv2Slides[pv2Idx] && pv2Slides[pv2Idx].dataset.pv2loc;
+    let activeLabel = '';
+    pv2VenueBtns.forEach(btn => {
+      const isActive = !!loc && btn.dataset.pv2loc === loc;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+      if (isActive) {
+        const labelEl = btn.querySelector('.pv2-venue-label');
+        activeLabel = labelEl ? labelEl.textContent : '';
+      }
+    });
+    if (pv2LocCaption) {
+      pv2LocCaption.textContent = activeLabel;
+      pv2LocCaption.classList.toggle('show', !!loc);
+    }
+  }
+
+  pv2VenueBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const loc = btn.dataset.pv2loc;
+      if (loc in pv2LocSlideIdx) pv2GoTo(pv2LocSlideIdx[loc]);
+    });
+  });
 
   let pv2TouchX = 0;
   pv2Stage.addEventListener('touchstart', e => { pv2TouchX = e.changedTouches[0].screenX; }, { passive: true });
