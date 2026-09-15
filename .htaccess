@@ -21,6 +21,9 @@ Redirect 301 /product.html https://florinsky.ca/flower-walls/white-flower-wall/
     RewriteRule ^locations/flower-wall-rental-toronto/(.*)$ flower-wall-guide/locations/flower-wall-rental-toronto/$1 [L]
     # ── /events/wedding-flower-wall-rental/* → served from flower-wall-guide/events/wedding-flower-wall-rental/* ──
     RewriteRule ^events/wedding-flower-wall-rental/(.*)$ flower-wall-guide/events/wedding-flower-wall-rental/$1 [L]
+    # ── Canonicalize Mississauga page: /index.html and no-slash → pretty URL (301) ──
+    RewriteRule ^locations/flower-wall-rental-mississauga/index\.html$ https://florinsky.ca/locations/flower-wall-rental-mississauga/ [R=301,L]
+    RewriteRule ^locations/flower-wall-rental-mississauga$ https://florinsky.ca/locations/flower-wall-rental-mississauga/ [R=301,L]
     # ── /locations/flower-wall-rental-mississauga/* → served from flower-wall-guide/locations/flower-wall-rental-mississauga/* ──
     RewriteRule ^locations/flower-wall-rental-mississauga/(.*)$ flower-wall-guide/locations/flower-wall-rental-mississauga/$1 [L]
 </IfModule>
