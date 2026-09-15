@@ -247,15 +247,20 @@
 <section class="city-venue-map">
   <h2>Brampton Event Venue &amp; Flower Wall Planning Map</h2>
 
-  <p>The interactive FLORINSKY Brampton venue map will bring together approximately 20 local event properties, including banquet halls, hotel spaces, heritage venues, golf clubs and cultural facilities.</p>
+  <p>The interactive FLORINSKY Brampton venue map brings together local event properties, including banquet halls, hotel spaces, heritage venues, golf clubs and cultural facilities.</p>
 
   <p>Use it as a planning resource rather than a ranking. The purpose is to understand where different venue types are located and what practical considerations may be worth checking before arranging a flower wall.</p>
 
-  <!-- BRAMPTON GOOGLE MY MAPS IFRAME TO BE PROVIDED BY OWNER -->
+  <div class="city-venue-map__embed">
+    <iframe
+      src="https://www.google.com/maps/d/u/8/embed?mid=13J6MlemnZBYCjMaaS7AeIXHtNbjmN2E&ehbc=2E312F"
+      title="Brampton event venues and flower wall planning map by FLORINSKY"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-  <p class="city-venue-map__note">The venues included on the map are independent businesses and facilities. Inclusion does not indicate a partnership with FLORINSKY or mean that FLORINSKY has previously completed an installation there.</p>
-
-  <p class="city-venue-map__note">Venue policies can change, so requirements for a specific event should always be confirmed directly with the venue.</p>
+  <p class="city-venue-map__note">The venues included on the map are independent businesses and facilities. Inclusion does not indicate a partnership with FLORINSKY or mean that FLORINSKY has previously completed an installation there. Venue policies can change, so requirements for a specific event should always be confirmed directly with the venue.</p>
 </section>
 
 <h2>Build the Setup Route Before Event Day</h2>
@@ -506,7 +511,7 @@
   <script src="/js/site-nav.js?v=1"></script>
   <script>
   (function () {
-    fetch('/assets/includes/site-nav.html')
+    fetch('/assets/includes/site-nav.html?v=1')
       .then(function (r) { return r.text(); })
       .then(function (html) {
         var root = document.getElementById('site-nav-root');
@@ -521,7 +526,7 @@
 <script src="/js/inquiry-form.js?v=2"></script>
 <script>
 (function () {
-  fetch('/assets/includes/inquiry-form.html')
+  fetch('/assets/includes/inquiry-form.html?v=1')
     .then(function (r) { return r.text(); })
     .then(function (html) {
       var root = document.getElementById('inquiry-root');
@@ -534,7 +539,7 @@
   <script src="/js/chat-widget.js?v=22"></script>
 <script>
 (function () {
-  fetch('/assets/includes/chat-widget-btn.html')
+  fetch('/assets/includes/chat-widget-btn.html?v=1')
     .then(function (r) { return r.text(); })
     .then(function (html) {
       var root = document.getElementById('chat-widget-root');
@@ -552,7 +557,7 @@
 <script src="/js/footer.js?v=1"></script>
 <script>
 (function () {
-  fetch('/assets/includes/footer.html')
+  fetch('/assets/includes/footer.html?v=1')
     .then(function (r) { return r.text(); })
     .then(function (html) {
       var root = document.getElementById('footer-root');
