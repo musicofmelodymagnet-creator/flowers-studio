@@ -531,7 +531,7 @@
   <script src="/js/site-nav.js?v=1"></script>
   <script>
   (function () {
-    fetch('/assets/includes/site-nav.html')
+    fetch('/assets/includes/site-nav.html?v=1')
       .then(function (r) { return r.text(); })
       .then(function (html) {
         var root = document.getElementById('site-nav-root');
@@ -546,7 +546,7 @@
 <script src="/js/inquiry-form.js?v=2"></script>
 <script>
 (function () {
-  fetch('/assets/includes/inquiry-form.html')
+  fetch('/assets/includes/inquiry-form.html?v=1')
     .then(function (r) { return r.text(); })
     .then(function (html) {
       var root = document.getElementById('inquiry-root');
@@ -559,7 +559,7 @@
   <script src="/js/chat-widget.js?v=22"></script>
 <script>
 (function () {
-  fetch('/assets/includes/chat-widget-btn.html')
+  fetch('/assets/includes/chat-widget-btn.html?v=1')
     .then(function (r) { return r.text(); })
     .then(function (html) {
       var root = document.getElementById('chat-widget-root');
@@ -577,7 +577,7 @@
 <script src="/js/footer.js?v=1"></script>
 <script>
 (function () {
-  fetch('/assets/includes/footer.html')
+  fetch('/assets/includes/footer.html?v=1')
     .then(function (r) { return r.text(); })
     .then(function (html) {
       var root = document.getElementById('footer-root');
