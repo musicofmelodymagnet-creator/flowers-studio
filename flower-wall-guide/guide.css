@@ -164,21 +164,21 @@ border: 0;
 display: block;
 }
 /* ── Compact linked flower-wall photos, paired with in-text colour
-     mentions/links. Deliberately half the width of .article-hero-img
-     (2-up grid inside the same column) so they read as a small
-     companion visual, not a second hero or a standalone gallery. Each
-     image keeps its own native aspect ratio (no shared crop box). ── */
+     mentions/links. 4-up row (quarter the width of .article-hero-img)
+     so they read as small icon-style thumbnails, not a second hero or
+     a standalone gallery. Each image keeps its own native aspect
+     ratio (no shared crop box). ── */
 .article-wall-links {
 display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 16px;
+grid-template-columns: repeat(4, 1fr);
+gap: 10px;
 margin: 4px 0 32px;
 }
 .article-wall-link {
 display: block;
-border-radius: var(--r-card);
+border-radius: 16px;
 overflow: hidden;
-box-shadow: var(--elev-md);
+box-shadow: var(--elev-sm);
 transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 .article-wall-link:hover,
@@ -192,7 +192,8 @@ width: 100%;
 height: auto;
 }
 @media (max-width: 480px) {
-.article-wall-links { gap: 10px; }
+.article-wall-links { gap: 8px; }
+.article-wall-link { border-radius: 12px; }
 }
 .article-header {
 margin-bottom: 32px;
