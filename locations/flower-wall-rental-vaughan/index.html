@@ -71,21 +71,6 @@
     .city-venue-map__note {
       font-size: 0.9rem;
     }
-    /* Pending state: shown until the Vaughan Google My Maps embed URL is provided. */
-    .city-venue-map__embed--pending {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface);
-      box-shadow: var(--nm-inset);
-    }
-    .city-venue-map__pending-note {
-      margin: 0;
-      padding: 0 24px;
-      text-align: center;
-      font: 500 15px/1.5 var(--font-sans);
-      color: var(--ink-muted);
-    }
     @media (max-width: 768px) {
       .city-venue-map__embed {
         height: 520px;
@@ -289,20 +274,13 @@
 
   <p>It is not a ranking and inclusion does not indicate that FLORINSKY has previously completed an installation at a particular property.</p>
 
-  <!-- Map pending — replace this placeholder block with the Google My Maps
-       embed once the public map has been created, e.g.:
   <div class="city-venue-map__embed">
     <iframe
-      src="[GOOGLE MY MAPS EMBED URL]"
+      src="https://www.google.com/maps/d/u/8/embed?mid=1LMkRoE9fBnCKnA-YhLYGL8nA31FrQdk&amp;ehbc=2E312F"
       title="Vaughan event venues and flower wall planning map by FLORINSKY"
       loading="lazy"
       allowfullscreen>
     </iframe>
-  </div>
-  <p><a href="[GOOGLE MY MAPS PUBLIC VIEW URL]" target="_blank" rel="noopener noreferrer">Open the full Vaughan venue planning map</a></p>
-  -->
-  <div class="city-venue-map__embed city-venue-map__embed--pending">
-    <p class="city-venue-map__pending-note">Interactive Vaughan venue map coming soon.</p>
   </div>
 
   <p>Use the map to identify the venue location, understand the type of property and review practical details worth confirming before arranging a flower wall setup.</p>
