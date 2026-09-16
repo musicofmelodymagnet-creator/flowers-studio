@@ -431,9 +431,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 26px;
+      gap: 42px; /* clears the risen label (28.8px lift) with room to spare */
       position: relative;
-      margin-bottom: -62px; /* -46px overlap + the pv2-wrap flex gap (16px) it eats into */
+      margin-bottom: -54.4px; /* -38.4px overlap (60% of the 64px circle) + the pv2-wrap flex gap (16px) it eats into */
     }
     .pv2-venues-title {
       display: flex;
@@ -487,8 +487,8 @@
       transition: box-shadow 280ms var(--ease), border-color 280ms var(--ease), transform 280ms var(--ease), color 280ms var(--ease);
     }
     .pv2-venue-photo svg {
-      width: 44%;
-      height: 44%;
+      width: 58%;
+      height: 58%;
       flex-shrink: 0;
     }
     .pv2-venue-photo::after {
@@ -525,7 +525,7 @@
     }
     .pv2-venue.active {
       z-index: 3;
-      transform: translateY(-46px);
+      transform: translateY(-28.8px); /* rises to reveal 85% of the circle, not fully flush */
     }
     .pv2-venue.active .pv2-venue-photo {
       border-color: var(--brand);
@@ -559,17 +559,19 @@
     }
     .pv2-loc-plate.show { opacity: 1; transform: translateY(0); }
     @media (max-width: 768px) {
-      .pv2-venues { margin-bottom: -52px; gap: 18px; }
+      .pv2-venues { margin-bottom: -46px; gap: 33px; }
       .pv2-venue-row { gap: 10px; }
       .pv2-venue-photo { width: 50px; height: 50px; }
       .pv2-venue-label { font-size: 9.5px; }
-      .pv2-venue.active { transform: translateY(-36px); }
+      .pv2-venue.active { transform: translateY(-22.5px); }
       .pv2-venues-title { max-width: 320px; gap: 12px; }
       .pv2-venues-label { font-size: 16px; }
     }
     @media (max-width: 420px) {
+      .pv2-venues { margin-bottom: -42.4px; }
       .pv2-venue-row { gap: 6px; }
       .pv2-venue-photo { width: 44px; height: 44px; }
+      .pv2-venue.active { transform: translateY(-19.8px); }
     }
   </style>
 </head>
