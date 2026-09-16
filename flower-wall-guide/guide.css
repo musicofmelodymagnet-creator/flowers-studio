@@ -25,7 +25,8 @@ max-width: 1080px;
 margin: 0 auto;
 padding: 0 24px 80px;
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
+justify-content: center;
 gap: 28px;
 }
 .tips-card {
