@@ -104,7 +104,7 @@ transition: gap 200ms;
 .tips-card-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 .tips-breadcrumb {
 width: 100%;
-max-width: 760px;
+max-width: 900px;
 margin: 0 auto;
 padding: 20px 24px 0;
 display: flex;
@@ -130,7 +130,7 @@ font-weight: 500;
 }
 .article-wrap {
 width: 100%;
-max-width: 760px;
+max-width: 900px;
 margin: 0 auto;
 padding: 0 24px;
 }
@@ -160,7 +160,59 @@ color: var(--ink-muted);
 .article-body {
 font: 400 16px/1.78 var(--font-sans);
 color: var(--ink);
-max-width: 720px;
+max-width: 900px;
+}
+/* ── Pull-quote: breaks out wider than the 900px article column,
+     clamped so it never overflows the page-stack's own edges
+     (same slack/bleed formula as .pv2-media-zone's desktop bleed). ── */
+.article-pullquote {
+--aq-pad: 64px;
+--aq-shell: min(100vw, 1280px);
+--aq-slack: max(0px, calc((var(--aq-shell) - 2 * var(--aq-pad) - 900px) / 2));
+--aq-bleed: min(110px, var(--aq-slack));
+width: calc(100% + 2 * var(--aq-bleed));
+margin: 48px calc(-1 * var(--aq-bleed));
+padding: 40px 56px 40px 76px;
+background: var(--surface);
+border-radius: var(--r-card);
+box-shadow: var(--elev-sm);
+position: relative;
+border: none;
+}
+.article-pullquote::before {
+content: '\201C';
+position: absolute;
+top: 8px;
+left: 26px;
+font: 700 64px/1 var(--font-display);
+color: var(--brand-soft);
+opacity: 0.6;
+pointer-events: none;
+}
+.article-pullquote p {
+font: italic 500 25px/1.48 var(--font-display);
+color: var(--ink-mauve);
+margin: 0;
+text-wrap: balance;
+position: relative;
+z-index: 1;
+}
+@media (max-width: 1024px) {
+.article-pullquote { --aq-pad: 40px; }
+}
+@media (max-width: 768px) {
+.article-pullquote {
+--aq-pad: 20px;
+padding: 32px 28px 32px 46px;
+margin: 36px calc(-1 * var(--aq-bleed));
+}
+.article-pullquote p { font-size: 20px; }
+.article-pullquote::before { font-size: 46px; top: 4px; left: 14px; }
+}
+@media (max-width: 480px) {
+.article-pullquote { --aq-pad: 16px; padding: 26px 20px 26px 38px; }
+.article-pullquote p { font-size: 17.5px; }
+.article-pullquote::before { font-size: 38px; left: 10px; }
 }
 .article-body h2 {
 font: 700 26px/1.25 var(--font-display);
@@ -213,7 +265,7 @@ color: var(--ink-soft);
 .article-body tr:last-child td { border-bottom: none; }
 .ac-carousel-section {
 width: 100%;
-max-width: 760px;
+max-width: 900px;
 margin: 78px auto 0;
 }
 .ac-section-title {
@@ -339,7 +391,7 @@ z-index: 2;
 .ac-arrow--next { right: 4px; }
 .tips-cta {
 width: 100%;
-max-width: 760px;
+max-width: 900px;
 margin: 60px auto 0;
 padding: 0 24px 80px;
 }
@@ -371,7 +423,7 @@ max-width: 380px;
 }
 .fwg-walls {
 width: 100%;
-max-width: 760px;
+max-width: 900px;
 margin: 78px auto 0;
 }
 .fwg-walls-title {
