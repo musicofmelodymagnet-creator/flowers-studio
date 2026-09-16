@@ -75,10 +75,10 @@ describe('createLeadEventGuard (pure)', async () => {
   });
 
   test('payload contains only the three approved technical params — no PII', () => {
-    const payload = buildGenerateLeadPayload('/flower-walls/burgundy-flower-wall/');
+    const payload = buildGenerateLeadPayload('/flower-walls/burgundy-flower-wall-rental/');
     assert.deepEqual(Object.keys(payload).sort(), ['form_location', 'form_name', 'method']);
     assert.equal(payload.method, 'contact_form');
-    assert.equal(payload.form_location, '/flower-walls/burgundy-flower-wall/');
+    assert.equal(payload.form_location, '/flower-walls/burgundy-flower-wall-rental/');
     assert.equal(typeof payload.form_name, 'string');
     assert.ok(payload.form_name.length > 0);
   });

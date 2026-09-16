@@ -395,7 +395,7 @@ export const PAGES = {
     ],
     "localAtomics": []
   },
-  "flower-walls/burgundy-flower-wall/index.html": {
+  "flower-walls/burgundy-flower-wall-rental/index.html": {
     "chatWidget": true,
     "stylesCss": [
       "*, *::before, *::after",
@@ -524,7 +524,7 @@ export const PAGES = {
     ],
     "localAtomics": []
   },
-  "flower-walls/green-flower-wall/index.html": {
+  "flower-walls/green-flower-wall-rental/index.html": {
     "chatWidget": true,
     "stylesCss": [
       "*, *::before, *::after",
@@ -653,7 +653,7 @@ export const PAGES = {
     ],
     "localAtomics": []
   },
-  "flower-walls/pink-flower-wall/index.html": {
+  "flower-walls/pink-flower-wall-rental/index.html": {
     "chatWidget": true,
     "stylesCss": [
       "*, *::before, *::after",
@@ -781,7 +781,7 @@ export const PAGES = {
     ],
     "localAtomics": []
   },
-  "flower-walls/white-flower-wall/index.html": {
+  "flower-walls/white-flower-wall-rental/index.html": {
     "chatWidget": true,
     "stylesCss": [
       "*, *::before, *::after",
