@@ -226,18 +226,19 @@
   //   });
   // });
 
-  // ── Colour palette ────────────────────────────────────────────
+  // ── Colour palette (optional — no-op on pages without the popover) ──
   const pv2PaletteBtn   = document.getElementById('pv2PaletteBtn');
   const pv2PalettePanel = document.getElementById('pv2PalettePanel');
 
   function pv2TogglePalette(forceClose) {
+    if (!pv2PaletteBtn || !pv2PalettePanel) return;
     const isOpen = pv2PalettePanel.classList.contains('open') || forceClose;
     pv2PalettePanel.classList.toggle('open', !isOpen);
     pv2PaletteBtn.classList.toggle('active', !isOpen);
     pv2PaletteBtn.setAttribute('aria-expanded', String(!isOpen));
     pv2PalettePanel.setAttribute('aria-hidden', String(isOpen));
   }
-  pv2PaletteBtn.addEventListener('click', () => pv2TogglePalette(false));
+  if (pv2PaletteBtn) pv2PaletteBtn.addEventListener('click', () => pv2TogglePalette(false));
 
   // ── Content tabs ──────────────────────────────────────────────
   document.querySelectorAll('.pv2-ctab').forEach(tab => {
