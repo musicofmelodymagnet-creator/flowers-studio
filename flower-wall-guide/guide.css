@@ -104,7 +104,7 @@ transition: gap 200ms;
 .tips-card-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 .tips-breadcrumb {
 width: 100%;
-max-width: 900px;
+max-width: 850px;
 margin: 0 auto;
 padding: 20px 24px 0;
 display: flex;
@@ -130,7 +130,7 @@ font-weight: 500;
 }
 .article-wrap {
 width: 100%;
-max-width: 900px;
+max-width: 850px;
 margin: 0 auto;
 padding: 0 24px;
 }
@@ -158,17 +158,23 @@ font: 400 12.5px/1 var(--font-sans);
 color: var(--ink-muted);
 }
 .article-body {
-font: 400 16px/1.78 var(--font-sans);
+/* Fluid body copy: 16px on small phones up to 18px on wide desktop,
+   scaling continuously with viewport width instead of jumping at
+   breakpoints. Kept to a narrow 2px range — legibility research
+   (NN/g, Baymard) shows body text doesn't need to grow much once
+   it's already in the 16-18px comfort band; line length (this
+   column's own max-width) does the real adaptive work. */
+font: 400 clamp(16px, 15.3px + 0.19vw, 18px) / 1.78 var(--font-sans);
 color: var(--ink);
-max-width: 900px;
+max-width: 850px;
 }
-/* ── Pull-quote: breaks out wider than the 900px article column,
+/* ── Pull-quote: breaks out wider than the 850px article column,
      clamped so it never overflows the page-stack's own edges
      (same slack/bleed formula as .pv2-media-zone's desktop bleed). ── */
 .article-pullquote {
 --aq-pad: 64px;
 --aq-shell: min(100vw, 1280px);
---aq-slack: max(0px, calc((var(--aq-shell) - 2 * var(--aq-pad) - 900px) / 2));
+--aq-slack: max(0px, calc((var(--aq-shell) - 2 * var(--aq-pad) - 850px) / 2));
 --aq-bleed: min(110px, var(--aq-slack));
 width: calc(100% + 2 * var(--aq-bleed));
 margin: 48px calc(-1 * var(--aq-bleed));
@@ -265,7 +271,7 @@ color: var(--ink-soft);
 .article-body tr:last-child td { border-bottom: none; }
 .ac-carousel-section {
 width: 100%;
-max-width: 900px;
+max-width: 850px;
 margin: 78px auto 0;
 }
 .ac-section-title {
@@ -391,7 +397,7 @@ z-index: 2;
 .ac-arrow--next { right: 4px; }
 .tips-cta {
 width: 100%;
-max-width: 900px;
+max-width: 850px;
 margin: 60px auto 0;
 padding: 0 24px 80px;
 }
@@ -423,7 +429,7 @@ max-width: 380px;
 }
 .fwg-walls {
 width: 100%;
-max-width: 900px;
+max-width: 850px;
 margin: 78px auto 0;
 }
 .fwg-walls-title {
@@ -526,7 +532,6 @@ padding: 28px 24px;
 }
 @media (max-width: 480px) {
 .tips-hero h1 { font-size: 28px; }
-.article-body { font-size: 15px; }
 .article-body table { font-size: 13px; }
 .article-body th,
 .article-body td { padding: 8px 10px; }
