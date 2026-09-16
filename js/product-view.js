@@ -82,6 +82,35 @@
     });
   });
 
+  // ── Random sheen sweep across the venue emblems, one at a time,
+  //    in a shuffled order, every 4–8s (recipe matches .about-avatar-wrap's sheen-run). ──
+  if (pv2VenueBtns.length) {
+    let pv2SheenOrder = [];
+    const pv2ShuffleSheenOrder = () => {
+      pv2SheenOrder = pv2VenueBtns.map((_, i) => i);
+      for (let i = pv2SheenOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pv2SheenOrder[i], pv2SheenOrder[j]] = [pv2SheenOrder[j], pv2SheenOrder[i]];
+      }
+    };
+    const pv2ScheduleSheen = () => {
+      const delay = 4000 + Math.random() * 4000;
+      setTimeout(() => {
+        if (!pv2SheenOrder.length) pv2ShuffleSheenOrder();
+        const btn = pv2VenueBtns[pv2SheenOrder.pop()];
+        const photo = btn && btn.querySelector('.pv2-venue-photo');
+        if (photo) {
+          photo.classList.remove('pv2-sheen');
+          void photo.offsetWidth;
+          photo.classList.add('pv2-sheen');
+          setTimeout(() => photo.classList.remove('pv2-sheen'), 1700);
+        }
+        pv2ScheduleSheen();
+      }, delay);
+    };
+    pv2ScheduleSheen();
+  }
+
   let pv2TouchX = 0;
   pv2Stage.addEventListener('touchstart', e => { pv2TouchX = e.changedTouches[0].screenX; }, { passive: true });
   pv2Stage.addEventListener('touchend', e => {
