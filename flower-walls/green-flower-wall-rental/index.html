@@ -603,7 +603,7 @@
     .trust-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--frame); flex-shrink: 0; }
     @media (max-width: 700px) { .trust-sep { display: none; } .trust-strip { padding: 18px 20px; } }
 
-    /* ── Venue picker: tab container above a 16:9 photo ── */
+    /* ── Venue picker: individual neumorphic icon tiles above a 16:9 photo ── */
     .venue-picker-stack {
       display: flex;
       flex-direction: column;
@@ -615,34 +615,37 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 6px;
-      padding: 6px;
-      border-radius: var(--r-pill);
-      background: var(--surface);
+      gap: 14px;
+      padding: 20px 24px;
+      border-radius: 28px;
+      background: var(--bg);
       box-shadow: var(--elev-sm);
     }
     .venue-tab {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
-      padding: 9px 20px 9px 9px;
-      border-radius: var(--r-pill);
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      min-width: 82px;
+      border-radius: 18px;
       border: none;
-      background: transparent;
-      box-shadow: inset 0 0 0 1.5px transparent;
+      background: var(--surface);
+      box-shadow: var(--elev-sm);
       cursor: pointer;
-      transition: background 220ms var(--ease), box-shadow 220ms var(--ease);
+      transition: box-shadow 220ms var(--ease), transform 220ms var(--ease), background 220ms var(--ease);
     }
-    .venue-tab:hover { background: rgba(168,120,208,0.06); }
-    .venue-tab img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      object-fit: cover;
+    .venue-tab:hover { box-shadow: var(--elev-hover); transform: translateY(-2px); }
+    .venue-tab svg {
+      width: 26px;
+      height: 26px;
+      color: var(--ink-muted);
       flex-shrink: 0;
+      transition: color 220ms var(--ease);
     }
     .venue-tab span {
-      font: 600 14px/1 var(--font-sans);
+      font: 600 12.5px/1 var(--font-sans);
       color: var(--ink-muted);
       letter-spacing: 0.01em;
       transition: color 220ms var(--ease);
@@ -650,8 +653,10 @@
     }
     .venue-tab.active {
       background: var(--ivory);
-      box-shadow: inset 0 0 0 1.5px var(--brand-soft);
+      box-shadow: var(--elev-sm), inset 0 0 0 1.5px var(--brand-soft);
+      transform: translateY(-1px);
     }
+    .venue-tab.active svg,
     .venue-tab.active span { color: var(--brand-deep); }
     .venue-picker-media {
       position: relative;
@@ -665,7 +670,7 @@
     .venue-picker-media img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
       transition: opacity 220ms ease;
     }
@@ -678,18 +683,11 @@
       transition: opacity 220ms ease;
     }
     .story-heading .story-purpose { margin-top: 8px; }
-    @media (max-width: 700px) {
-      .venue-picker-tabs {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: auto;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-      .venue-tab { padding: 8px 16px 8px 8px; flex-shrink: 0; }
-      .venue-tab img { width: 28px; height: 28px; }
-      .venue-tab span { font-size: 12.5px; }
+    @media (max-width: 480px) {
+      .venue-picker-tabs { gap: 10px; padding: 14px 16px; border-radius: 24px; }
+      .venue-tab { min-width: 66px; padding: 10px 12px; border-radius: 15px; }
+      .venue-tab svg { width: 22px; height: 22px; }
+      .venue-tab span { font-size: 11px; }
     }
 
     /* ── Section shells: shared eyebrow-free heading pattern ────── */
@@ -1280,31 +1278,31 @@
         </div>
         <div class="venue-picker-stack">
           <div class="venue-picker-tabs" role="tablist" aria-label="Choose a venue setting">
-            <button class="venue-tab active" type="button" role="tab" aria-selected="true" data-venue-key="ballroom" data-venue-img="green-wall-venue-ballroom.webp" data-venue-alt="Green &amp; Blush English Garden flower wall as a ballroom reception backdrop">
-              <img src="green-wall-venue-ballroom-thumb.webp" alt="" aria-hidden="true" />
-              <span>Ballroom</span>
-            </button>
-            <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="garden" data-venue-img="green-wall-venue-garden.webp" data-venue-alt="Green &amp; Blush English Garden flower wall set up outdoors in a garden">
-              <img src="green-wall-venue-garden-thumb.webp" alt="" aria-hidden="true" />
+            <button class="venue-tab active" type="button" role="tab" aria-selected="true" data-venue-key="garden" data-venue-img="green-wall-venue-garden.webp" data-venue-alt="Green &amp; Blush English Garden flower wall set up outdoors in a garden">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M12 12a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z"/><path d="M12 12a3 3 0 1 0-6 0 3 3 0 0 0 6 0Z"/><path d="M12 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><path d="M12 15.5V21"/></svg>
               <span>Garden</span>
             </button>
+            <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="ballroom" data-venue-img="green-wall-venue-ballroom.webp" data-venue-alt="Green &amp; Blush English Garden flower wall as a ballroom reception backdrop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5v2"/><path d="M6.5 6h11"/><path d="M7.5 6c0 2.8 2 5 4.5 5s4.5-2.2 4.5-5"/><path d="M9.5 11v2.5M12 11v3.5M14.5 11v2.5"/><path d="M12 17c-1.8 0-2.8.9-2.8.9s1 .9 2.8.9 2.8-.9 2.8-.9-1-.9-2.8-.9Z"/></svg>
+              <span>Ballroom</span>
+            </button>
             <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="corporate" data-venue-img="green-wall-venue-corporate.webp" data-venue-alt="Green &amp; Blush English Garden flower wall at a corporate event">
-              <img src="green-wall-venue-corporate-thumb.webp" alt="" aria-hidden="true" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="8" width="17" height="11" rx="2"/><path d="M8.5 8V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/><path d="M3.5 13h17"/></svg>
               <span>Corporate</span>
             </button>
             <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="courtyard" data-venue-img="green-wall-venue-courtyard.webp" data-venue-alt="Green &amp; Blush English Garden flower wall in a courtyard setting">
-              <img src="green-wall-venue-courtyard-thumb.webp" alt="" aria-hidden="true" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V11a7 7 0 0 1 14 0v9"/><path d="M5 20h14"/><path d="M8 20v-6M16 20v-6"/></svg>
               <span>Courtyard</span>
             </button>
             <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="studio" data-venue-img="green-wall-venue-studio.webp" data-venue-alt="Green &amp; Blush English Garden flower wall in a photo studio">
-              <img src="green-wall-venue-studio-thumb.webp" alt="" aria-hidden="true" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.2"/></svg>
               <span>Studio</span>
             </button>
           </div>
           <div class="venue-picker-media">
-            <img id="venuePickerImg" src="green-wall-venue-ballroom.webp" alt="Green &amp; Blush English Garden flower wall as a ballroom reception backdrop" />
+            <img id="venuePickerImg" src="green-wall-venue-garden.webp" alt="Green &amp; Blush English Garden flower wall set up outdoors in a garden" />
           </div>
-          <p class="venue-picker-copy" id="venuePickerCopy">Full-length drapery and low ballroom lighting let the sage-and-blush palette glow instead of flatten. Positioned behind the head table or sweetheart chairs, it turns a rented banquet hall into one clear photo focal point. Round centerpieces and gold chiavari chairs pick up its tones instead of competing with them.</p>
+          <p class="venue-picker-copy" id="venuePickerCopy">Outdoors, natural daylight brings out the true depth of the ivory hydrangea and peach garden roses. Set against real greenery, the wall reads as an extension of the landscape rather than a separate backdrop. It holds its shape and color through a full afternoon ceremony, sun or shade.</p>
         </div>
       </section>
 
