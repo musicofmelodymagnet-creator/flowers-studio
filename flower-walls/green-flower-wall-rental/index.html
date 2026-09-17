@@ -459,7 +459,8 @@
       margin-left: 0 !important;
       margin-right: 0 !important;
     }
-    .hero2-media .pv2-media-zone { aspect-ratio: 4 / 3.1; box-shadow: var(--elev-md); }
+    .hero2-media .pv2-media-zone { aspect-ratio: 3 / 2; box-shadow: var(--elev-md); }
+    .hero2-media .pv2-thumb { border-width: 2px; }
     .hero2-info {
       display: flex;
       flex-direction: column;
@@ -550,8 +551,32 @@
     }
     @media (max-width: 900px) {
       .hero2-grid { grid-template-columns: 1fr; gap: 28px; }
-      .hero2-media .pv2-media-zone { aspect-ratio: 15 / 10; }
+      .hero2-media .pv2-media-zone { aspect-ratio: 3 / 2; }
     }
+
+    /* ── Expand-to-fullscreen icon on the hero photo ──────────────── */
+    .pv2-expand-btn {
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      z-index: 7;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(249,244,240,0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-mauve);
+      box-shadow: 0 1px 6px rgba(45,38,38,0.12);
+      transition: background 180ms ease, transform 180ms ease;
+    }
+    .pv2-expand-btn:hover { background: rgba(249,244,240,0.96); transform: scale(1.07); }
+    .pv2-expand-btn svg { width: 16px; height: 16px; }
 
     /* ── Trust strip ─────────────────────────────────────────────── */
     .trust-strip {
@@ -862,25 +887,76 @@
       gap: 48px;
       align-items: center;
     }
-    .video-proof-media { position: relative; border-radius: var(--r-card); overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--elev-md); background: #000; }
-    .video-proof-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .video-mute-btn {
+    .video-proof-media { position: relative; border-radius: var(--r-card); overflow: hidden; aspect-ratio: 3/2; box-shadow: var(--elev-md); background: #000; }
+    .video-proof-media video { width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer; }
+
+    /* ── Custom video controls: play/pause, seek bar, time, fullscreen ── */
+    .video-controls-bar {
       position: absolute;
-      right: 14px;
-      bottom: 14px;
-      width: 38px;
-      height: 38px;
+      left: 0; right: 0; bottom: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 30px 14px 12px;
+      background: linear-gradient(to top, rgba(20,14,14,0.66) 0%, rgba(20,14,14,0.30) 55%, transparent 100%);
+      opacity: 0;
+      transition: opacity 220ms ease;
+    }
+    .video-proof-media:hover .video-controls-bar,
+    .video-proof-media:focus-within .video-controls-bar,
+    .video-proof-media.controls-visible .video-controls-bar {
+      opacity: 1;
+    }
+    @media (hover: none) {
+      .video-controls-bar { opacity: 1; background: linear-gradient(to top, rgba(20,14,14,0.58) 0%, transparent 100%); }
+    }
+    .video-ctrl-btn {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: rgba(45,38,38,0.55);
-      backdrop-filter: blur(6px);
       border: none;
+      background: rgba(255,255,255,0.18);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      transition: background 160ms ease;
     }
-    .video-mute-btn svg { width: 17px; height: 17px; }
+    .video-ctrl-btn:hover { background: rgba(255,255,255,0.32); }
+    .video-ctrl-btn svg { width: 15px; height: 15px; }
+    .video-progress {
+      flex: 1;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .video-progress-track {
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.28);
+      position: relative;
+    }
+    .video-progress-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0%;
+      border-radius: 2px;
+      background: #fff;
+    }
+    .video-time {
+      flex-shrink: 0;
+      font: 500 11px/1 var(--font-sans);
+      color: rgba(255,255,255,0.92);
+      letter-spacing: 0.01em;
+      font-variant-numeric: tabular-nums;
+      min-width: 76px;
+      text-align: right;
+    }
     .video-proof-content h2 {
       font: 600 30px/1.2 var(--font-display);
       color: var(--ink-mauve);
@@ -1022,8 +1098,8 @@
            HERO TITLE — full width, one line, above both columns
            ============================================================ -->
       <div class="hero2-title-row">
-        <p class="hero2-eyebrow">Real Touch Collection</p>
         <h1 class="hero2-fulltitle">Green &amp; Blush — English Garden Real Touch Flower Wall</h1>
+        <p class="hero2-eyebrow">Real Touch Collection</p>
       </div>
 
       <!-- ============================================================
@@ -1063,6 +1139,11 @@
 
             <!-- Counter -->
             <div class="pv2-counter" id="pv2Counter">1 / 12</div>
+
+            <!-- Expand to full screen -->
+            <button class="pv2-expand-btn" id="pv2ExpandBtn" aria-label="View full screen, swipe through all photos">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+            </button>
 
           </div>
           </div>
@@ -1310,9 +1391,22 @@
             <video id="proofVideo1" autoplay muted loop playsinline preload="metadata" poster="english-garden-1.jpg?v=3">
               <source src="english-garden-intro.mp4?v=1" type="video/mp4" />
             </video>
-            <button class="video-mute-btn" data-video-toggle="proofVideo1" aria-label="Toggle sound">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"/><path d="M16 8a5 5 0 0 1 0 8" /><line x1="19" y1="5" x2="19" y2="19" stroke-opacity="0"/></svg>
-            </button>
+            <div class="video-controls-bar">
+              <button class="video-ctrl-btn" data-video-play aria-label="Play or pause video">
+                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              </button>
+              <div class="video-progress" data-video-progress>
+                <div class="video-progress-track"><div class="video-progress-fill"></div></div>
+              </div>
+              <span class="video-time" data-video-time>0:00 / 0:00</span>
+              <button class="video-ctrl-btn" data-video-toggle aria-label="Toggle sound">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"/><path d="M16 8a5 5 0 0 1 0 8" /><line x1="19" y1="5" x2="19" y2="19" stroke-opacity="0"/></svg>
+              </button>
+              <button class="video-ctrl-btn" data-video-fullscreen aria-label="View full screen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              </button>
+            </div>
           </div>
           <div class="video-proof-content">
             <h2>Made to Look Real — Even Up Close</h2>
@@ -1413,9 +1507,22 @@
             <video id="proofVideo2" autoplay muted loop playsinline preload="metadata" poster="english-garden-1.jpg?v=3">
               <source src="english-garden-speed.mp4?v=1" type="video/mp4" />
             </video>
-            <button class="video-mute-btn" data-video-toggle="proofVideo2" aria-label="Toggle sound">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"/><path d="M16 8a5 5 0 0 1 0 8" /></svg>
-            </button>
+            <div class="video-controls-bar">
+              <button class="video-ctrl-btn" data-video-play aria-label="Play or pause video">
+                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+              </button>
+              <div class="video-progress" data-video-progress>
+                <div class="video-progress-track"><div class="video-progress-fill"></div></div>
+              </div>
+              <span class="video-time" data-video-time>0:00 / 0:00</span>
+              <button class="video-ctrl-btn" data-video-toggle aria-label="Toggle sound">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 9 8 9 12 5 12 19 8 15 4 15 4 9"/><path d="M16 8a5 5 0 0 1 0 8" /></svg>
+              </button>
+              <button class="video-ctrl-btn" data-video-fullscreen aria-label="View full screen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              </button>
+            </div>
           </div>
           <div class="video-proof-content">
             <h2>We Handle the Setup</h2>
@@ -1743,14 +1850,81 @@
       });
     });
 
-    // ── Proof video sound toggles ──
-    document.querySelectorAll('[data-video-toggle]').forEach(function (btn) {
-      var video = document.getElementById(btn.dataset.videoToggle);
+    // ── Custom video controls: play/pause, seek bar, duration, fullscreen ──
+    function fmtVideoTime(s) {
+      if (!isFinite(s) || isNaN(s) || s < 0) return '0:00';
+      var m = Math.floor(s / 60);
+      var sec = Math.floor(s % 60);
+      return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+    document.querySelectorAll('.video-proof-media').forEach(function (box) {
+      var video = box.querySelector('video');
       if (!video) return;
-      btn.addEventListener('click', function () {
-        video.muted = !video.muted;
-        btn.style.opacity = video.muted ? '1' : '0.6';
+
+      var muteBtn = box.querySelector('[data-video-toggle]');
+      var playBtn = box.querySelector('[data-video-play]');
+      var iconPlay = playBtn ? playBtn.querySelector('.icon-play') : null;
+      var iconPause = playBtn ? playBtn.querySelector('.icon-pause') : null;
+      var fsBtn = box.querySelector('[data-video-fullscreen]');
+      var progress = box.querySelector('[data-video-progress]');
+      var progressFill = progress ? progress.querySelector('.video-progress-fill') : null;
+      var timeLabel = box.querySelector('[data-video-time]');
+
+      function syncPlayIcon() {
+        if (!iconPlay || !iconPause) return;
+        iconPlay.style.display = video.paused ? '' : 'none';
+        iconPause.style.display = video.paused ? 'none' : '';
+      }
+      video.addEventListener('play', syncPlayIcon);
+      video.addEventListener('pause', syncPlayIcon);
+      syncPlayIcon();
+
+      if (playBtn) {
+        playBtn.addEventListener('click', function () {
+          if (video.paused) video.play(); else video.pause();
+        });
+      }
+      video.addEventListener('click', function () {
+        if (video.paused) video.play(); else video.pause();
       });
+
+      if (muteBtn) {
+        muteBtn.addEventListener('click', function () {
+          video.muted = !video.muted;
+          muteBtn.style.opacity = video.muted ? '1' : '0.6';
+        });
+      }
+
+      function updateProgress() {
+        if (!progressFill || !video.duration) return;
+        var pct = (video.currentTime / video.duration) * 100;
+        progressFill.style.width = pct + '%';
+        if (timeLabel) timeLabel.textContent = fmtVideoTime(video.currentTime) + ' / ' + fmtVideoTime(video.duration);
+      }
+      video.addEventListener('timeupdate', updateProgress);
+      video.addEventListener('loadedmetadata', updateProgress);
+
+      if (progress) {
+        function seekFromEvent(clientX) {
+          if (!video.duration) return;
+          var rect = progress.getBoundingClientRect();
+          var pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+          video.currentTime = pct * video.duration;
+          updateProgress();
+        }
+        progress.addEventListener('click', function (e) { seekFromEvent(e.clientX); });
+        progress.addEventListener('touchstart', function (e) {
+          if (e.touches && e.touches[0]) seekFromEvent(e.touches[0].clientX);
+        }, { passive: true });
+      }
+
+      if (fsBtn) {
+        fsBtn.addEventListener('click', function () {
+          if (video.requestFullscreen) video.requestFullscreen();
+          else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+          else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+        });
+      }
     });
 
     // ── Gallery lightbox (12 close-up photos) ──
@@ -1805,6 +1979,29 @@
       if (e.key === 'ArrowLeft') lbShow(lbIdx - 1);
       if (e.key === 'ArrowRight') lbShow(lbIdx + 1);
     });
+
+    // Swipe through photos on touch devices
+    var lbTouchStartX = null;
+    lb.addEventListener('touchstart', function (e) {
+      lbTouchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      if (lbTouchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - lbTouchStartX;
+      if (Math.abs(dx) > 40) { dx > 0 ? lbShow(lbIdx - 1) : lbShow(lbIdx + 1); }
+      lbTouchStartX = null;
+    }, { passive: true });
+
+    // ── Expand the hero photo to full screen, starting on the photo in view ──
+    var pv2ExpandBtn = document.getElementById('pv2ExpandBtn');
+    var pv2Stage = document.getElementById('pv2Stage');
+    if (pv2ExpandBtn && pv2Stage) {
+      pv2ExpandBtn.addEventListener('click', function () {
+        var imgs = Array.from(pv2Stage.querySelectorAll('.pv2-img'));
+        var activeIdx = imgs.findIndex(function (img) { return img.classList.contains('active'); });
+        lbOpen(activeIdx >= 0 ? activeIdx : 0);
+      });
+    }
   })();
   </script>
 
