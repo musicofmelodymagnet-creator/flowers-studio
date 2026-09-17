@@ -603,18 +603,62 @@
     .trust-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--frame); flex-shrink: 0; }
     @media (max-width: 700px) { .trust-sep { display: none; } .trust-strip { padding: 18px 20px; } }
 
-    /* ── Venue picker: relocated out of the hero into its own section ── */
-    .venue-picker-layout {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 32px;
-      align-items: stretch;
+    /* ── Venue picker: tab container above a 16:9 photo ── */
+    .venue-picker-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
     }
+    .venue-picker-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px;
+      border-radius: var(--r-pill);
+      background: var(--surface);
+      box-shadow: var(--elev-sm);
+    }
+    .venue-tab {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 20px 9px 9px;
+      border-radius: var(--r-pill);
+      border: none;
+      background: transparent;
+      box-shadow: inset 0 0 0 1.5px transparent;
+      cursor: pointer;
+      transition: background 220ms var(--ease), box-shadow 220ms var(--ease);
+    }
+    .venue-tab:hover { background: rgba(168,120,208,0.06); }
+    .venue-tab img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .venue-tab span {
+      font: 600 14px/1 var(--font-sans);
+      color: var(--ink-muted);
+      letter-spacing: 0.01em;
+      transition: color 220ms var(--ease);
+      white-space: nowrap;
+    }
+    .venue-tab.active {
+      background: var(--ivory);
+      box-shadow: inset 0 0 0 1.5px var(--brand-soft);
+    }
+    .venue-tab.active span { color: var(--brand-deep); }
     .venue-picker-media {
       position: relative;
+      width: 100%;
       border-radius: var(--r-card);
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 9;
       box-shadow: var(--elev-md);
       background: var(--surface);
     }
@@ -625,55 +669,27 @@
       display: block;
       transition: opacity 220ms ease;
     }
-    .venue-picker-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      justify-content: center;
-    }
-    .venue-picker-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 10px;
-      border-radius: 16px;
-      border: none;
-      background: transparent;
-      box-shadow: inset 0 0 0 1.5px transparent;
-      cursor: pointer;
-      text-align: left;
-      transition: background 220ms var(--ease), box-shadow 220ms var(--ease);
-    }
-    .venue-picker-item:hover { background: rgba(168,120,208,0.06); }
-    .venue-picker-item img {
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-    .venue-picker-item span {
-      font: 600 14px/1 var(--font-sans);
+    .venue-picker-copy {
+      max-width: 68ch;
+      text-align: center;
+      font: 400 15.5px/1.7 var(--font-sans);
       color: var(--ink-muted);
-      letter-spacing: 0.01em;
-      transition: color 220ms var(--ease);
+      margin: 0;
+      transition: opacity 220ms ease;
     }
-    .venue-picker-item.active {
-      background: var(--ivory);
-      box-shadow: inset 0 0 0 1.5px var(--brand-soft);
-    }
-    .venue-picker-item.active span { color: var(--brand-deep); }
-    @media (max-width: 800px) {
-      .venue-picker-layout { grid-template-columns: 1fr; }
-      .venue-picker-list {
-        flex-direction: row;
+    .story-heading .story-purpose { margin-top: 8px; }
+    @media (max-width: 700px) {
+      .venue-picker-tabs {
+        width: 100%;
+        max-width: 100%;
         overflow-x: auto;
-        gap: 10px;
-        padding-bottom: 4px;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
       }
-      .venue-picker-item { flex-direction: column; gap: 8px; flex-shrink: 0; padding: 8px; }
-      .venue-picker-item img { width: 56px; height: 56px; }
-      .venue-picker-item span { font-size: 11px; white-space: nowrap; }
+      .venue-tab { padding: 8px 16px 8px 8px; flex-shrink: 0; }
+      .venue-tab img { width: 28px; height: 28px; }
+      .venue-tab span { font-size: 12.5px; }
     }
 
     /* ── Section shells: shared eyebrow-free heading pattern ────── */
@@ -1260,33 +1276,35 @@
         <div class="story-heading">
           <h2>See It in Different Settings</h2>
           <p>Ballroom, garden, corporate, courtyard or studio — the same wall, styled for any venue.</p>
+          <p class="story-purpose">We built this picker so you can judge fit before you book, not just admire one hero shot. Tap a setting below to see the exact same Green &amp; Blush wall photographed in that space.</p>
         </div>
-        <div class="venue-picker-layout">
-          <div class="venue-picker-media">
-            <img id="venuePickerImg" src="green-wall-venue-ballroom.webp" alt="Green &amp; Blush English Garden flower wall as a ballroom reception backdrop" />
-          </div>
-          <div class="venue-picker-list" role="group" aria-label="Choose a venue setting">
-            <button class="venue-picker-item active" type="button" data-venue-img="green-wall-venue-ballroom.webp" data-venue-alt="Green &amp; Blush English Garden flower wall as a ballroom reception backdrop">
+        <div class="venue-picker-stack">
+          <div class="venue-picker-tabs" role="tablist" aria-label="Choose a venue setting">
+            <button class="venue-tab active" type="button" role="tab" aria-selected="true" data-venue-key="ballroom" data-venue-img="green-wall-venue-ballroom.webp" data-venue-alt="Green &amp; Blush English Garden flower wall as a ballroom reception backdrop">
               <img src="green-wall-venue-ballroom-thumb.webp" alt="" aria-hidden="true" />
               <span>Ballroom</span>
             </button>
-            <button class="venue-picker-item" type="button" data-venue-img="green-wall-venue-garden.webp" data-venue-alt="Green &amp; Blush English Garden flower wall set up outdoors in a garden">
+            <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="garden" data-venue-img="green-wall-venue-garden.webp" data-venue-alt="Green &amp; Blush English Garden flower wall set up outdoors in a garden">
               <img src="green-wall-venue-garden-thumb.webp" alt="" aria-hidden="true" />
               <span>Garden</span>
             </button>
-            <button class="venue-picker-item" type="button" data-venue-img="green-wall-venue-corporate.webp" data-venue-alt="Green &amp; Blush English Garden flower wall at a corporate event">
+            <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="corporate" data-venue-img="green-wall-venue-corporate.webp" data-venue-alt="Green &amp; Blush English Garden flower wall at a corporate event">
               <img src="green-wall-venue-corporate-thumb.webp" alt="" aria-hidden="true" />
               <span>Corporate</span>
             </button>
-            <button class="venue-picker-item" type="button" data-venue-img="green-wall-venue-courtyard.webp" data-venue-alt="Green &amp; Blush English Garden flower wall in a courtyard setting">
+            <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="courtyard" data-venue-img="green-wall-venue-courtyard.webp" data-venue-alt="Green &amp; Blush English Garden flower wall in a courtyard setting">
               <img src="green-wall-venue-courtyard-thumb.webp" alt="" aria-hidden="true" />
               <span>Courtyard</span>
             </button>
-            <button class="venue-picker-item" type="button" data-venue-img="green-wall-venue-studio.webp" data-venue-alt="Green &amp; Blush English Garden flower wall in a photo studio">
+            <button class="venue-tab" type="button" role="tab" aria-selected="false" data-venue-key="studio" data-venue-img="green-wall-venue-studio.webp" data-venue-alt="Green &amp; Blush English Garden flower wall in a photo studio">
               <img src="green-wall-venue-studio-thumb.webp" alt="" aria-hidden="true" />
               <span>Studio</span>
             </button>
           </div>
+          <div class="venue-picker-media">
+            <img id="venuePickerImg" src="green-wall-venue-ballroom.webp" alt="Green &amp; Blush English Garden flower wall as a ballroom reception backdrop" />
+          </div>
+          <p class="venue-picker-copy" id="venuePickerCopy">Full-length drapery and low ballroom lighting let the sage-and-blush palette glow instead of flatten. Positioned behind the head table or sweetheart chairs, it turns a rented banquet hall into one clear photo focal point. Round centerpieces and gold chiavari chairs pick up its tones instead of competing with them.</p>
         </div>
       </section>
 
@@ -1801,19 +1819,34 @@
        this prototype page — not part of the shared product-view.js. -->
   <script>
   (function () {
-    // ── Venue picker: self-contained photo swap, decoupled from the
-    //    hero carousel so the result shows in the same section ──
+    // ── Venue picker: self-contained photo + copy swap, decoupled from
+    //    the hero carousel so the result shows in the same section ──
+    var VENUE_COPY = {
+      ballroom: 'Full-length drapery and low ballroom lighting let the sage-and-blush palette glow instead of flatten. Positioned behind the head table or sweetheart chairs, it turns a rented banquet hall into one clear photo focal point. Round centerpieces and gold chiavari chairs pick up its tones instead of competing with them.',
+      garden: 'Outdoors, natural daylight brings out the true depth of the ivory hydrangea and peach garden roses. Set against real greenery, the wall reads as an extension of the landscape rather than a separate backdrop. It holds its shape and color through a full afternoon ceremony, sun or shade.',
+      corporate: 'A single flower wall replaces a plain step-and-repeat banner for product launches, holiday parties and headshot stations. Its sage-and-blush tone sits comfortably next to most company palettes without a custom reprint. Guests use it for headshots and social photos long after the event itself ends.',
+      courtyard: 'Framed by stone, brick or a covered walkway, the wall becomes the anchor of an otherwise plain outdoor corridor. Its footprint is small enough to fit tight courtyard dimensions without blocking guest flow. Uplighting after sunset keeps the same soft color story visible into the evening.',
+      studio: 'Against a clean studio backdrop, every rose and hydrangea head stays in sharp focus with no distracting background. It is the setting photographers reach for on catalogue shots, engagement sessions and brand content. A single softbox is enough to match the lighting shown here.'
+    };
     var venuePickerImg = document.getElementById('venuePickerImg');
-    document.querySelectorAll('.venue-picker-item').forEach(function (btn) {
+    var venuePickerCopy = document.getElementById('venuePickerCopy');
+    document.querySelectorAll('.venue-tab').forEach(function (btn) {
       btn.addEventListener('click', function () {
         if (btn.classList.contains('active')) return;
-        document.querySelectorAll('.venue-picker-item').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('.venue-tab').forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
         venuePickerImg.style.opacity = '0';
+        venuePickerCopy.style.opacity = '0';
         setTimeout(function () {
           venuePickerImg.src = btn.dataset.venueImg;
           venuePickerImg.alt = btn.dataset.venueAlt;
+          venuePickerCopy.textContent = VENUE_COPY[btn.dataset.venueKey] || '';
           venuePickerImg.style.opacity = '1';
+          venuePickerCopy.style.opacity = '1';
         }, 200);
       });
     });
