@@ -59,7 +59,7 @@
 
   <url>
     <loc>https://florinsky.ca/client-care.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -80,7 +80,7 @@
 
   <url>
     <loc>https://florinsky.ca/locations.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -123,6 +123,13 @@
   <url>
     <loc>https://florinsky.ca/locations/flower-wall-rental-markham/</loc>
     <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://florinsky.ca/locations/flower-wall-rental-richmond-hill/</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
