@@ -518,7 +518,7 @@
       background: rgba(74,53,64,0.16);
     }
     .hero2-size-block #pv2SizeOptions .size-btn.active:not(:last-child)::after,
-    .hero2-size-block #pv2SizeOptions .size-btn.active + .size-btn::after {
+    .hero2-size-block #pv2SizeOptions .size-btn:has(+ .size-btn.active)::after {
       background: transparent;
     }
     .hero2-size-mini-badge {
@@ -557,8 +557,8 @@
     /* ── Expand-to-fullscreen icon on the hero photo ──────────────── */
     .pv2-expand-btn {
       position: absolute;
-      top: 16px;
-      left: 18px;
+      bottom: 16px;
+      right: 18px;
       z-index: 7;
       width: 34px;
       height: 34px;
@@ -627,9 +627,13 @@
       background: var(--surface-rose);
       box-shadow: 0 2px 8px rgba(45,38,38,0.18);
       cursor: pointer;
+      transition: box-shadow 1500ms var(--ease), transform 1500ms var(--ease), background 220ms var(--ease);
+    }
+    .venue-tab:hover {
+      box-shadow: 0 3px 10px rgba(45,38,38,0.24);
+      transform: translateY(-1px);
       transition: box-shadow 220ms var(--ease), transform 220ms var(--ease), background 220ms var(--ease);
     }
-    .venue-tab:hover { box-shadow: 0 3px 10px rgba(45,38,38,0.24); transform: translateY(-1px); }
     .venue-tab:focus-visible {
       outline: 2px solid rgba(110,93,89,0.6);
       outline-offset: 4px;
