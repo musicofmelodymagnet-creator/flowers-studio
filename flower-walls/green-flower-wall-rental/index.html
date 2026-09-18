@@ -611,8 +611,7 @@
       gap: 24px;
       width: 100%;
     }
-    .venue-selector-wrap {
-      --selector-page-bg: #EFE7E5;
+    .venue-picker-tabs {
       --selector-panel-bg: #CDBCB8;
       --selector-panel-bg-2: #DED0CC;
       --selector-button-bg: #F3EBE8;
@@ -623,18 +622,10 @@
       --selector-highlight: rgba(255,255,255,.85);
       --selector-shadow: rgba(90,68,63,.30);
       display: flex;
-      justify-content: center;
-      width: 100%;
-      padding: 24px 16px;
-      border-radius: 40px;
-      background: var(--selector-page-bg);
-    }
-    .venue-picker-tabs {
-      display: flex;
       flex-wrap: nowrap;
       align-items: center;
       justify-content: flex-start;
-      gap: 18px;
+      gap: 16px;
       max-width: 100%;
       padding: 14px 16px;
       border-radius: 32px;
@@ -650,31 +641,34 @@
     .venue-tab {
       position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 82px;
-      height: 82px;
+      gap: 8px;
+      width: 96px;
+      height: 104px;
+      padding: 14px 8px 12px;
       flex: 0 0 auto;
-      border: 1px solid rgba(255,255,255,0.55);
-      border-radius: 22px;
+      border: none;
+      border-radius: 20px;
       background: linear-gradient(145deg, var(--selector-button-bg) 0%, var(--selector-button-bg-2) 100%);
       box-shadow:
-        -3px -3px 7px var(--selector-highlight),
-        5px 6px 12px var(--selector-shadow);
+        -2px -2px 4px var(--selector-highlight),
+        3px 3px 6px var(--selector-shadow);
       cursor: pointer;
       transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
     }
     .venue-tab:hover {
       transform: translateY(-2px);
       box-shadow:
-        -4px -4px 9px rgba(255,255,255,0.92),
-        7px 9px 15px rgba(90,68,63,0.34);
+        -2px -2px 5px rgba(255,255,255,0.92),
+        4px 5px 8px rgba(90,68,63,0.34);
     }
     .venue-tab:active {
       transform: translateY(0) scale(0.98);
       box-shadow:
-        inset 3px 3px 6px rgba(90,68,63,0.28),
-        inset -3px -3px 6px rgba(255,255,255,0.65);
+        inset 2px 2px 3px rgba(90,68,63,0.28),
+        inset -2px -2px 3px rgba(255,255,255,0.65);
     }
     .venue-tab:focus-visible {
       outline: 2px solid rgba(110,93,89,0.6);
@@ -684,35 +678,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      height: 100%;
       color: var(--selector-icon);
       flex-shrink: 0;
       transition: color 180ms ease;
     }
     .venue-tab svg {
-      width: 31px;
-      height: 31px;
+      width: 27px;
+      height: 27px;
       flex-shrink: 0;
     }
     .venue-tab > span:not(.venue-tab-icon) {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
+      font: 600 11.5px/1.25 var(--font-sans);
+      color: var(--selector-icon);
+      letter-spacing: 0.01em;
       white-space: nowrap;
-      border: 0;
+      transition: color 180ms ease;
     }
     .venue-tab.active {
       background: var(--selector-button-active-bg);
       box-shadow:
-        inset 3px 3px 7px rgba(84,64,59,0.26),
-        inset -3px -3px 7px rgba(255,255,255,0.62);
+        inset 2px 2px 4px rgba(84,64,59,0.26),
+        inset -2px -2px 4px rgba(255,255,255,0.62);
     }
     .venue-tab.active .venue-tab-icon { color: var(--selector-icon-active); }
+    .venue-tab.active > span:not(.venue-tab-icon) { color: var(--selector-icon-active); }
     .venue-picker-media {
       position: relative;
       width: 100%;
@@ -739,10 +728,10 @@
     }
     .story-heading .story-purpose { margin-top: 8px; }
     @media (max-width: 480px) {
-      .venue-selector-wrap { padding: 12px 10px; border-radius: 30px; }
-      .venue-picker-tabs { padding: 9px 10px; gap: 9px; border-radius: 23px; }
-      .venue-tab { width: 60px; height: 60px; border-radius: 17px; }
-      .venue-tab svg { width: 24px; height: 24px; }
+      .venue-picker-tabs { padding: 9px 10px; gap: 8px; border-radius: 23px; }
+      .venue-tab { width: 74px; height: 84px; padding: 10px 6px 8px; gap: 5px; border-radius: 16px; }
+      .venue-tab svg { width: 22px; height: 22px; }
+      .venue-tab > span:not(.venue-tab-icon) { font-size: 9.5px; }
     }
 
     /* ── Section shells: shared eyebrow-free heading pattern ────── */
@@ -1332,7 +1321,6 @@
           <p class="story-purpose">We built this picker so you can judge fit before you book, not just admire one hero shot. Tap a setting below to see the exact same Green &amp; Blush wall photographed in that space.</p>
         </div>
         <div class="venue-picker-stack">
-          <div class="venue-selector-wrap">
           <div class="venue-picker-tabs" role="tablist" aria-label="Choose a venue setting">
             <button class="venue-tab active" type="button" role="tab" aria-selected="true" data-venue-key="garden" data-venue-img="green-wall-venue-garden.webp?v=2" data-venue-alt="Green &amp; Blush English Garden flower wall set up outdoors in a garden">
               <span class="venue-tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.4" r="2"/><circle cx="15.6" cy="10.7" r="2"/><circle cx="14.2" cy="14.7" r="2"/><circle cx="9.8" cy="14.7" r="2"/><circle cx="8.4" cy="10.7" r="2"/><circle cx="12" cy="11.3" r="1.3" fill="currentColor" stroke="none"/><path d="M12 16.3V21"/></svg></span>
@@ -1354,7 +1342,6 @@
               <span class="venue-tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.2"/></svg></span>
               <span>Studio</span>
             </button>
-          </div>
           </div>
           <div class="venue-picker-media">
             <img id="venuePickerImg" src="green-wall-venue-garden.webp?v=2" alt="Green &amp; Blush English Garden flower wall set up outdoors in a garden" />
