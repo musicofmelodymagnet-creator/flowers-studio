@@ -57,6 +57,11 @@ Redirect 301 /flower-walls/burgundy-flower-wall/ https://florinsky.ca/flower-wal
     RewriteRule ^locations/flower-wall-rental-richmond-hill$ https://florinsky.ca/locations/flower-wall-rental-richmond-hill/ [R=301,L]
     # ── /locations/flower-wall-rental-richmond-hill/* → served from flower-wall-guide/locations/flower-wall-rental-richmond-hill/* ──
     RewriteRule ^locations/flower-wall-rental-richmond-hill/(.*)$ flower-wall-guide/locations/flower-wall-rental-richmond-hill/$1 [L]
+    # ── Canonicalize Oakville page: /index.html and no-slash → pretty URL (301) ──
+    RewriteRule ^locations/flower-wall-rental-oakville/index\.html$ https://florinsky.ca/locations/flower-wall-rental-oakville/ [R=301,L]
+    RewriteRule ^locations/flower-wall-rental-oakville$ https://florinsky.ca/locations/flower-wall-rental-oakville/ [R=301,L]
+    # ── /locations/flower-wall-rental-oakville/* → served from flower-wall-guide/locations/flower-wall-rental-oakville/* ──
+    RewriteRule ^locations/flower-wall-rental-oakville/(.*)$ flower-wall-guide/locations/flower-wall-rental-oakville/$1 [L]
 </IfModule>
 
 # ── Block access to sensitive files (all directories, not just root) ──────────
