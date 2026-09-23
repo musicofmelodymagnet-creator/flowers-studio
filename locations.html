@@ -607,10 +607,10 @@
                 <circle class="pin-core" cx="431" cy="140" r="5"/>
                 <text class="pin-label pin-label--t3" x="442" y="144">Aurora</text>
               </g>
-              <g class="city-pin city-pin--t3" data-name="Pickering" data-region="East GTA">
-                <circle class="pin-aura" cx="638" cy="238" r="18"/>
-                <circle class="pin-core" cx="638" cy="238" r="5"/>
-                <text class="pin-label pin-label--t3" x="638" y="227" text-anchor="middle">Pickering</text>
+              <g class="city-pin city-pin--t2" data-name="Pickering" data-region="East GTA">
+                <circle class="pin-aura" cx="638" cy="238" r="20"/>
+                <circle class="pin-core" cx="638" cy="238" r="6.5"/>
+                <text class="pin-label pin-label--t2" x="638" y="227" text-anchor="middle">Pickering</text>
               </g>
               <g class="city-pin city-pin--t3" data-name="Ajax" data-region="East GTA">
                 <circle class="pin-aura" cx="678" cy="229" r="18"/>
@@ -790,7 +790,7 @@
             <span class="loc-region-dir">East</span>
             <h3 class="loc-region-name">Durham Region</h3>
             <ul class="loc-region-cities">
-              <li>Pickering</li>
+              <li><a href="/locations/flower-wall-rental-pickering/">Pickering</a></li>
               <li>Ajax</li>
               <li>Whitby</li>
               <li>Oshawa</li>
@@ -884,7 +884,7 @@
 <script src="/js/footer.js?v=1"></script>
 <script>
 (function () {
-  fetch('/assets/includes/footer.html?v=7')
+  fetch('/assets/includes/footer.html?v=8')
     .then(function (r) { return r.text(); })
     .then(function (html) {
       var root = document.getElementById('footer-root');
