@@ -98,9 +98,9 @@ Redirect 301 /flower-walls/burgundy-flower-wall/ https://florinsky.ca/flower-wal
 
     # Content Security Policy
     # Allows: self, inline styles (needed for neumorphic design), Google Fonts,
-    # Google Analytics, Microsoft Clarity, reCAPTCHA, YouTube nocookie embeds,
-    # self-hosted media.
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://www.clarity.ms https://scripts.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self'; frame-src https://www.google.com https://www.youtube-nocookie.com; connect-src 'self' https://www.google-analytics.com https://www.google.com https://api.resend.com https://api.anthropic.com https://www.clarity.ms https://*.clarity.ms; object-src 'none'; base-uri 'self';"
+    # Google Analytics, Microsoft Clarity, Ahrefs Web Analytics, reCAPTCHA,
+    # YouTube nocookie embeds, self-hosted media.
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://www.clarity.ms https://scripts.clarity.ms https://analytics.ahrefs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; media-src 'self'; frame-src https://www.google.com https://www.youtube-nocookie.com; connect-src 'self' https://www.google-analytics.com https://www.google.com https://api.resend.com https://api.anthropic.com https://www.clarity.ms https://*.clarity.ms https://analytics.ahrefs.com; object-src 'none'; base-uri 'self';"
 
     # Remove Apache version from headers
     Header always unset X-Powered-By
