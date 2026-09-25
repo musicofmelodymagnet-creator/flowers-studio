@@ -1,31 +1,34 @@
-# ── Section rename: /flower-wall-tips/ → /flower-wall-guide/ (301 SEO redirect) ─
-Redirect 301 /flower-wall-tips/ https://florinsky.ca/flower-wall-guide/
-Redirect 301 /flower-wall-tips/real-touch-vs-silk-flower-wall/ https://florinsky.ca/flower-wall-guide/real-touch-vs-silk-flower-wall/
-
-# ── Renamed product URL: midnight-bloom-burgundy → burgundy-flower-wall-rental ──
-Redirect 301 /flower-walls/midnight-bloom-burgundy/ https://florinsky.ca/flower-walls/burgundy-flower-wall-rental/
-
-# ── Retired orphan page: old standalone product.html → its real, live equivalent ─
-Redirect 301 /product.html https://florinsky.ca/flower-walls/white-flower-wall-rental/
-
-# ── SEO migration 2026-09-16: add "rental" commercial modifier to product slugs ──
-Redirect 301 /flower-walls/green-flower-wall/ https://florinsky.ca/flower-walls/green-flower-wall-rental/
-Redirect 301 /flower-walls/pink-flower-wall/ https://florinsky.ca/flower-walls/pink-flower-wall-rental/
-Redirect 301 /flower-walls/white-flower-wall/ https://florinsky.ca/flower-walls/white-flower-wall-rental/
-Redirect 301 /flower-walls/burgundy-flower-wall/ https://florinsky.ca/flower-walls/burgundy-flower-wall-rental/
-
-# ── www → non-www canonical redirect ─────────────────────────────────────────
+# ── Legacy path redirects + www → non-www: collapsed into a single 301 hop ────
+# All legacy-slug rules below run BEFORE the www-strip rule and always target
+# the absolute https://florinsky.ca/... URL, so a request on www (or with a
+# missing trailing slash) reaches its final destination in one redirect
+# instead of two (old mod_alias `Redirect` directives only matched the exact
+# host they were requested on, so a www hit had to bounce through non-www
+# first before the legacy-slug rule could apply).
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # ── Section rename: /flower-wall-tips/ → /flower-wall-guide/ ──────────────
+    RewriteRule ^flower-wall-tips/real-touch-vs-silk-flower-wall/?$ https://florinsky.ca/flower-wall-guide/real-touch-vs-silk-flower-wall/ [R=301,L]
+    RewriteRule ^flower-wall-tips/?$ https://florinsky.ca/flower-wall-guide/ [R=301,L]
+
+    # ── Renamed product URL: midnight-bloom-burgundy → burgundy-flower-wall-rental ──
+    RewriteRule ^flower-walls/midnight-bloom-burgundy/?$ https://florinsky.ca/flower-walls/burgundy-flower-wall-rental/ [R=301,L]
+
+    # ── Retired orphan page: old standalone product.html → its real, live equivalent ─
+    RewriteRule ^product\.html$ https://florinsky.ca/flower-walls/white-flower-wall-rental/ [R=301,L]
+
+    # ── SEO migration 2026-09-16: add "rental" commercial modifier to product slugs ──
+    RewriteRule ^flower-walls/green-flower-wall/?$ https://florinsky.ca/flower-walls/green-flower-wall-rental/ [R=301,L]
+    RewriteRule ^flower-walls/pink-flower-wall/?$ https://florinsky.ca/flower-walls/pink-flower-wall-rental/ [R=301,L]
+    RewriteRule ^flower-walls/white-flower-wall/?$ https://florinsky.ca/flower-walls/white-flower-wall-rental/ [R=301,L]
+    RewriteRule ^flower-walls/burgundy-flower-wall/?$ https://florinsky.ca/flower-walls/burgundy-flower-wall-rental/ [R=301,L]
+
+    # ── www → non-www canonical redirect ───────────────────────────────────────
     RewriteCond %{HTTP_HOST} ^www\.florinsky\.ca [NC]
     RewriteRule ^(.*)$ https://florinsky.ca/$1 [R=301,L]
     # ── IndexNow key file: served from css/ but must appear at site root ──────
     RewriteRule ^0f12b8ab36dd46148440857cd2ed1ae0\.txt$ css/0f12b8ab36dd46148440857cd2ed1ae0.txt [L]
-    # ── SEO migration 2026-09-16: no-trailing-slash OLD product URLs (exact match only) ──
-    RewriteRule ^flower-walls/green-flower-wall$ https://florinsky.ca/flower-walls/green-flower-wall-rental/ [R=301,L]
-    RewriteRule ^flower-walls/pink-flower-wall$ https://florinsky.ca/flower-walls/pink-flower-wall-rental/ [R=301,L]
-    RewriteRule ^flower-walls/white-flower-wall$ https://florinsky.ca/flower-walls/white-flower-wall-rental/ [R=301,L]
-    RewriteRule ^flower-walls/burgundy-flower-wall$ https://florinsky.ca/flower-walls/burgundy-flower-wall-rental/ [R=301,L]
     # ── /flower-walls/* → served from flower-wall-guide/flower-walls/* ────────
     RewriteRule ^flower-walls/(.*)$ flower-wall-guide/flower-walls/$1 [L]
     # ── /locations/flower-wall-rental-toronto/* → served from flower-wall-guide/locations/flower-wall-rental-toronto/* ──
