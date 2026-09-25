@@ -1,37 +1,46 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: GPTBot
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 User-agent: Bingbot
 Allow: /
 Disallow: /api/
+Disallow: /assets/includes/
 
 Sitemap: https://florinsky.ca/sitemap.xml
